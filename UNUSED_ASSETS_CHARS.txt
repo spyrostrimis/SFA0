@@ -1,0 +1,1641 @@
+==============================================================================
+chars/SFZ_Adon   (sprite refs: 324, sound refs: 34)
+   chars/SFZ_Adon/SFZ_Adon.sff  (1.22 MB, 363 sprites)  -> 22 unused, 0.08 MB
+        group 122       1/  2       3.6 KB : 1
+        group 3055      1/  4       0.3 KB : 3
+        group 5011      4/  4      15.1 KB *WHOLE GROUP* : 0,10,20,30
+        group 5031      4/  6      16.2 KB : 10,20,30,50
+        group 5040      1/  4       4.1 KB : 21
+        group 5041      2/  3       6.9 KB : 0,10
+        group 5061      2/  2       8.1 KB *WHOLE GROUP* : 0,10
+        group 5070      3/  3      12.5 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       8.2 KB *WHOLE GROUP* : 0-1
+        group 5950      2/  2       8.4 KB *WHOLE GROUP* : 0-1
+   chars/SFZ_Adon/SFZ_Adon.snd  (0.62 MB, 39 sounds)  -> 9 unused, 0.23 MB
+        S5300,0           78.4 KB
+        S3500,0           50.0 KB
+        S11,0           32.4 KB
+        S9000,0           18.5 KB
+        S1,7           12.3 KB
+        S1,2           11.1 KB
+        S1,1            8.5 KB
+        S1,4            7.5 KB
+        S1,0            7.1 KB
+==============================================================================
+chars/SFZ_Akuma   (sprite refs: 956, sound refs: 38)
+   chars/SFZ_Akuma/SFZ_Akuma.sff  (1.90 MB, 717 sprites)  -> 39 unused, 0.07 MB
+        group 188       1/  2       1.9 KB : 1
+        group 199       1/ 34       2.4 KB : 11
+        group 320       1/  2       4.4 KB : 1
+        group 1000      1/  5       3.6 KB : 4
+        group 1001     12/ 12      14.6 KB *WHOLE GROUP* : 0-11
+        group 1111      5/  5       4.3 KB *WHOLE GROUP* : 0-4
+        group 1112      5/  5       3.6 KB *WHOLE GROUP* : 0-4
+        group 3300      8/  8      16.2 KB *WHOLE GROUP* : 0-7
+        group 5070      3/  3       9.7 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       5.8 KB *WHOLE GROUP* : 0-1
+   chars/SFZ_Akuma/SFZ_Akuma.snd  (1.43 MB, 43 sounds)  -> 10 unused, 0.42 MB
+        S2000,3          113.7 KB
+        S11,0           51.5 KB
+        S4000,0           49.1 KB
+        S6000,1           42.8 KB
+        S1900,0           40.1 KB
+        S200,5           32.5 KB
+        S160,0           30.2 KB
+        S180,1           22.2 KB
+        S200,4           21.7 KB
+        S200,6           14.6 KB
+==============================================================================
+chars/SFZ_AkumaS   (sprite refs: 730, sound refs: 37)
+   chars/SFZ_AkumaS/SFZ_Akuma.sff  (2.10 MB, 791 sprites)  -> 40 unused, 0.09 MB
+        group 188       1/  2       1.9 KB : 1
+        group 193       3/ 16       3.4 KB : 13-15
+        group 199       1/ 36       2.4 KB : 11
+        group 320       1/  2       4.4 KB : 1
+        group 1111      5/  5       4.3 KB *WHOLE GROUP* : 0-4
+        group 1112      5/  5       3.6 KB *WHOLE GROUP* : 0-4
+        group 2001      1/ 24       5.8 KB : 14
+        group 3010      4/  8       6.7 KB : 2-3,6-7
+        group 3100      3/  4       9.9 KB : 0-2
+        group 3200      8/  8      29.8 KB *WHOLE GROUP* : 0-7
+        group 3300      3/  8       6.0 KB : 5-7
+        group 5070      3/  3       9.7 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       5.8 KB *WHOLE GROUP* : 0-1
+   chars/SFZ_AkumaS/SFZ_Akuma.snd  (2.89 MB, 40 sounds)  -> 9 unused, 1.93 MB
+        S194,3         1537.7 KB
+        S2000,3          113.7 KB
+        S11,0           51.5 KB
+        S4000,0           49.1 KB
+        S6000,1           42.8 KB
+        S2000,1           40.6 KB
+        S1900,0           40.1 KB
+        S160,0           30.2 KB
+        S180,1           22.2 KB
+==============================================================================
+chars/SFZ_Balrog   (sprite refs: 310, sound refs: 26)
+   chars/SFZ_Balrog/Mike.sff  (0.98 MB, 376 sprites)  -> 22 unused, 0.08 MB
+        group 101       1/  6       3.3 KB : 3
+        group 152       1/  3       3.8 KB : 2
+        group 194       2/ 12       0.9 KB : 16,21
+        group 1900      4/  7      11.6 KB : 3-6
+        group 3200      1/  1       3.4 KB *WHOLE GROUP* : 4
+        group 5070      3/  3       8.3 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       5.8 KB *WHOLE GROUP* : 0-1
+        group 7000      7/ 20      39.1 KB : 13-17,19-20
+        group 9001      1/  1       0.8 KB *WHOLE GROUP* : 10
+   chars/SFZ_Balrog/SFZ_Boxer.sff  (0.94 MB, 354 sprites)  -> 14 unused, 0.04 MB
+        group 101       1/  6       3.3 KB : 3
+        group 152       1/  3       3.8 KB : 2
+        group 194       2/ 12       0.9 KB : 16,21
+        group 1900      4/  7      11.6 KB : 3-6
+        group 3200      1/  1       3.4 KB *WHOLE GROUP* : 4
+        group 5070      3/  3       8.3 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       5.8 KB *WHOLE GROUP* : 0-1
+   chars/SFZ_Balrog/SFZ_Boxer.snd  (0.39 MB, 30 sounds)  -> 10 unused, 0.16 MB
+        S810,0           78.7 KB
+        S11,0           22.2 KB
+        S160,0           15.6 KB
+        S205,2            8.5 KB
+        S5000,2            8.1 KB
+        S800,1            7.8 KB
+        S205,1            7.2 KB
+        S205,0            6.1 KB
+        S5000,1            4.7 KB
+        S5000,0            3.6 KB
+==============================================================================
+chars/SFZ_Birdie   (sprite refs: 382, sound refs: 39)
+   chars/SFZ_Birdie/SFZ_Birdie.sff  (1.31 MB, 389 sprites)  -> 17 unused, 0.07 MB
+        group 183       4/ 12      16.4 KB : 12-15
+        group 221       1/  1       2.8 KB *WHOLE GROUP* : 6
+        group 430       1/  3       3.6 KB : 2
+        group 1100      3/  9      13.1 KB : 2,8-9
+        group 1200      1/  8       2.8 KB : 7
+        group 5040      1/  4       3.1 KB : 21
+        group 5070      3/  3      12.1 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       8.3 KB *WHOLE GROUP* : 0-1
+        group 7000      1/  1       4.3 KB *WHOLE GROUP* : 11
+   chars/SFZ_Birdie/SFZ_Birdie.snd  (0.95 MB, 42 sounds)  -> 15 unused, 0.37 MB
+        S2,6          144.4 KB
+        S3000,1           56.0 KB
+        S11,0           30.0 KB
+        S160,0           24.9 KB
+        S2600,0           20.7 KB
+        S220,2           16.3 KB
+        S0,2           15.6 KB
+        S0,1           11.4 KB
+        S220,1           10.9 KB
+        S220,0            9.3 KB
+        S210,2            8.5 KB
+        S210,1            7.2 KB
+        S210,0            6.1 KB
+        S230,0            4.5 KB
+        S240,0            3.9 KB
+==============================================================================
+chars/SFZ_Bison   (sprite refs: 622, sound refs: 34)
+   chars/SFZ_Bison/SFZ_Bison.sff  (1.72 MB, 563 sprites)  -> 4 unused, 0.01 MB
+        group 5070      3/  3      10.8 KB *WHOLE GROUP* : 0,10,20
+        group 5160      1/  2       3.2 KB : 10
+   chars/SFZ_Bison/SFZ_Bison.snd  (0.65 MB, 43 sounds)  -> 14 unused, 0.21 MB
+        S12,3           33.1 KB
+        S11,0           30.1 KB
+        S3,1           23.2 KB
+        S10,10          21.0 KB
+        S5,0           16.6 KB
+        S12,4           13.3 KB
+        S2,2           12.2 KB
+        S2,6           12.2 KB
+        S2,7           12.2 KB
+        S2,1            8.9 KB
+        S2,5            8.9 KB
+        S10,5            7.9 KB
+        S2,0            7.8 KB
+        S2,4            7.8 KB
+==============================================================================
+chars/SFZ_Blanka   (sprite refs: 531, sound refs: 36)
+   chars/SFZ_Blanka/SFZ_Blanka.sff  (2.15 MB, 588 sprites)  -> 27 unused, 0.14 MB
+        group 101       6/  6      28.6 KB *WHOLE GROUP* : 0-5
+        group 194       2/  9      23.6 KB : 7-8
+        group 225       3/  3      15.8 KB *WHOLE GROUP* : 0-2
+        group 235       2/  2      10.8 KB *WHOLE GROUP* : 0-1
+        group 2100      2/  2       8.1 KB *WHOLE GROUP* : 0-1
+        group 3201      1/  3       4.6 KB : 2
+        group 3202      1/  3       5.4 KB : 2
+        group 5001      3/  4      16.8 KB : 10,20,30
+        group 5070      3/  3      14.9 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2      11.0 KB *WHOLE GROUP* : 0-1
+        group 5120      1/  6       4.0 KB : 6
+        group 9001      1/  1       0.7 KB *WHOLE GROUP* : 10
+   chars/SFZ_Blanka/SFZ_Blanka.snd  (0.71 MB, 42 sounds)  -> 11 unused, 0.15 MB
+        S11,0           32.0 KB
+        S1,4           27.7 KB
+        S1,7           23.7 KB
+        S3,2           14.6 KB
+        S3,1           10.3 KB
+        S3,4            8.9 KB
+        S3,3            8.7 KB
+        S4,0            6.8 KB
+        S0,13           5.0 KB
+        S2,1            4.5 KB
+        S2,0            3.7 KB
+==============================================================================
+chars/SFZ_Cammy   (sprite refs: 456, sound refs: 31)
+   chars/SFZ_Cammy/SFZ_Cammy.sff  (1.23 MB, 471 sprites)  -> 22 unused, 0.06 MB
+        group 120       1/  3       3.0 KB : 1
+        group 122       1/  3       2.6 KB : 1
+        group 193       1/  1       2.8 KB *WHOLE GROUP* : 0
+        group 210       1/  5       3.2 KB : 5
+        group 216       1/  1       3.7 KB *WHOLE GROUP* : 0
+        group 1600      1/  1       3.3 KB *WHOLE GROUP* : 0
+        group 1610      1/  1       2.7 KB *WHOLE GROUP* : 0
+        group 2000      1/  1       3.5 KB *WHOLE GROUP* : 0
+        group 5030      1/  6       3.4 KB : 0
+        group 5070      3/  3       9.1 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       5.4 KB *WHOLE GROUP* : 0-1
+        group 5200      1/  7       3.0 KB : 0
+        group 5510      1/  1       2.9 KB *WHOLE GROUP* : 0
+        group 5555      4/  4      10.4 KB *WHOLE GROUP* : 0-3
+        group 9020      2/  2       5.8 KB *WHOLE GROUP* : 0-1
+   chars/SFZ_Cammy/SFZ_Cammy.snd  (0.94 MB, 50 sounds)  -> 28 unused, 0.63 MB
+        S2,6          276.7 KB
+        S3100,1           56.0 KB
+        S200,13          37.0 KB
+        S11,0           32.7 KB
+        S0,13          24.9 KB
+        S100,41          20.7 KB
+        S200,16          20.3 KB
+        S200,15          19.0 KB
+        S200,14          18.4 KB
+        S100,3           14.6 KB
+        S100,7           11.6 KB
+        S100,6           11.5 KB
+        S100,2           10.7 KB
+        S100,8           10.1 KB
+        S100,5            8.2 KB
+        S100,1            7.7 KB
+        S100,4            7.1 KB
+        S100,0            6.6 KB
+        S0,10100        5.1 KB
+        S0,102          5.1 KB
+        S0,100          4.9 KB
+        S100,20           4.7 KB
+        S100,13           4.6 KB
+        S100,30           3.6 KB
+        S100,12           3.4 KB
+        S0,15           3.4 KB
+        S100,11           2.9 KB
+        S100,10           2.5 KB
+==============================================================================
+chars/SFZ_Charlie   (sprite refs: 339, sound refs: 26)
+   chars/SFZ_Charlie/SFZ_Charlie.sff  (1.02 MB, 357 sprites)  -> 20 unused, 0.07 MB
+        group 0         1/  5       3.7 KB : 4
+        group 1         6/  6      21.7 KB *WHOLE GROUP* : 0-5
+        group 122       1/  2       3.2 KB : 0
+        group 196       4/  4      15.1 KB *WHOLE GROUP* : 0-3
+        group 225       1/  4       3.7 KB : 3
+        group 3100      2/  2       8.7 KB *WHOLE GROUP* : 0-1
+        group 5070      3/  3      10.0 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       6.4 KB *WHOLE GROUP* : 0-1
+   chars/SFZ_Charlie/SFZ_Charlie.snd  (2.04 MB, 41 sounds)  -> 18 unused, 1.54 MB
+        S2,6         1154.5 KB
+        S3500,0          112.1 KB
+        S160,0           49.7 KB
+        S100,41          41.4 KB
+        S11,0           23.9 KB
+        S160,1           22.7 KB
+        S100,3           21.6 KB
+        S100,8           20.2 KB
+        S5000,2           18.1 KB
+        S100,1           15.3 KB
+        S5000,1           13.5 KB
+        S100,20           9.4 KB
+        S100,13           9.2 KB
+        S5000,0            8.3 KB
+        S100,30           7.2 KB
+        S100,12           6.8 KB
+        S100,11           5.8 KB
+        S100,10           4.9 KB
+==============================================================================
+chars/SFZ_ChunLi-X   (sprite refs: 526, sound refs: 35)
+   chars/SFZ_ChunLi-X/SFZ_ChunLi-X.sff  (1.28 MB, 558 sprites)  -> 46 unused, 0.12 MB
+        group 170       2/  5       5.8 KB : 1-2
+        group 182       1/ 11       2.9 KB : 0
+        group 193       1/ 11       2.8 KB : 10
+        group 196       5/  7      15.3 KB : 0-2,4,6
+        group 197       9/  9      25.6 KB *WHOLE GROUP* : 3-11
+        group 1150      8/  8      21.0 KB *WHOLE GROUP* : 0-7
+        group 1400      1/ 10       2.6 KB : 6
+        group 2900      4/  4       7.0 KB *WHOLE GROUP* : 0-3
+        group 3500      1/  1       2.4 KB *WHOLE GROUP* : 0
+        group 5070      3/  3       7.7 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       5.2 KB *WHOLE GROUP* : 0-1
+        group 5900      8/  9      19.1 KB : 0-5,7-8
+        group 9001      1/  1       0.8 KB *WHOLE GROUP* : 20
+   chars/SFZ_ChunLi-X/X-ISM/X-ISM.sff  (1.33 MB, 568 sprites)  -> 46 unused, 0.12 MB
+        group 170       2/  5       5.8 KB : 1-2
+        group 182       1/ 11       2.9 KB : 0
+        group 193       1/ 11       2.8 KB : 10
+        group 196       5/  7      15.3 KB : 0-2,4,6
+        group 197       9/  9      25.6 KB *WHOLE GROUP* : 3-11
+        group 1150      8/  8      21.0 KB *WHOLE GROUP* : 0-7
+        group 1400      1/ 10       2.6 KB : 6
+        group 2900      4/  4       7.0 KB *WHOLE GROUP* : 0-3
+        group 3500      1/  1       2.4 KB *WHOLE GROUP* : 0
+        group 5070      3/  3       7.7 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       5.2 KB *WHOLE GROUP* : 0-1
+        group 5900      8/  9      19.1 KB : 0-5,7-8
+        group 9001      1/  1       0.8 KB *WHOLE GROUP* : 20
+   chars/SFZ_ChunLi-X/SFZ_ChunLi.snd  (1.14 MB, 42 sounds)  -> 14 unused, 0.70 MB
+        S2,6          482.8 KB
+        S3000,1           56.0 KB
+        S160,0           24.9 KB
+        S11,0           23.4 KB
+        S1000,3           23.3 KB
+        S2600,0           20.7 KB
+        S220,3           14.6 KB
+        S220,1           10.9 KB
+        S130,0            9.4 KB
+        S220,0            9.3 KB
+        S210,2            8.5 KB
+        S210,0            6.1 KB
+        S52,0            5.4 KB
+        S240,0            3.9 KB
+==============================================================================
+chars/SFZ_ChunLi-Z   (sprite refs: 526, sound refs: 36)
+   chars/SFZ_ChunLi-Z/Z-ISM/Z-ISM.sff  (1.33 MB, 570 sprites)  -> 46 unused, 0.12 MB
+        group 170       2/  5       6.4 KB : 1-2
+        group 182       1/ 11       3.2 KB : 0
+        group 193       1/ 11       3.0 KB : 10
+        group 196       5/  7      16.1 KB : 0-2,4,6
+        group 197       9/  9      28.3 KB *WHOLE GROUP* : 3-11
+        group 1150      8/  8      20.6 KB *WHOLE GROUP* : 0-7
+        group 1400      1/ 10       2.7 KB : 6
+        group 2900      4/  4       7.0 KB *WHOLE GROUP* : 0-3
+        group 3500      1/  1       2.3 KB *WHOLE GROUP* : 0
+        group 5070      3/  3       8.0 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       5.3 KB *WHOLE GROUP* : 0-1
+        group 5950      8/  9      19.3 KB : 0-5,7-8
+        group 9001      1/  1       0.8 KB *WHOLE GROUP* : 10
+   chars/SFZ_ChunLi-Z/SFZ_ChunLi.snd  (0.65 MB, 41 sounds)  -> 12 unused, 0.21 MB
+        S3000,1           56.0 KB
+        S160,0           24.9 KB
+        S11,0           23.4 KB
+        S1000,3           23.3 KB
+        S2600,0           20.7 KB
+        S220,3           14.6 KB
+        S220,1           10.9 KB
+        S130,0            9.4 KB
+        S220,0            9.3 KB
+        S210,2            8.5 KB
+        S210,0            6.1 KB
+        S52,0            5.4 KB
+==============================================================================
+chars/SFZ_Cody-X   (sprite refs: 576, sound refs: 40)
+   chars/SFZ_Cody-X/SFZ_Cody_X.sff  (2.32 MB, 678 sprites)  -> 78 unused, 0.30 MB
+        group 100       6/  6      21.4 KB *WHOLE GROUP* : 0-5
+        group 170       4/  5      16.2 KB : 1-4
+        group 182       1/ 12       4.4 KB : 5
+        group 205       1/  1       4.2 KB *WHOLE GROUP* : 0
+        group 700       2/  3       6.9 KB : 1-2
+        group 710       4/  5      14.6 KB : 0-3
+        group 730       2/  2       9.2 KB *WHOLE GROUP* : 0-1
+        group 1350      1/  6       1.1 KB : 5
+        group 3201     14/ 14      46.8 KB *WHOLE GROUP* : 0-13
+        group 5011      3/  3      12.2 KB *WHOLE GROUP* : 0,10,20
+        group 5070      2/  3       7.8 KB : 0,20
+        group 5170      1/  1       4.6 KB *WHOLE GROUP* : 0
+        group 5910      3/  3      15.4 KB *WHOLE GROUP* : 0-2
+        group 5920      3/  3      14.6 KB *WHOLE GROUP* : 0-2
+        group 5930      2/  2       9.9 KB *WHOLE GROUP* : 0-1
+        group 8000      9/ 11      36.5 KB : 11-19
+        group 10040     1/  6       3.8 KB : 4
+        group 10100     6/  6      22.0 KB *WHOLE GROUP* : 0-5
+        group 10170     4/  4      16.5 KB *WHOLE GROUP* : 0-3
+        group 10182     1/  3       3.9 KB : 2
+        group 10190     1/  3       3.1 KB : 5
+        group 10700     1/  3       3.5 KB : 1
+        group 10710     4/  5      15.0 KB : 0-3
+        group 10730     1/  1       4.7 KB *WHOLE GROUP* : 0
+        group 10900     1/  1       4.2 KB *WHOLE GROUP* : 0
+   chars/SFZ_Cody-X/SFZ_Cody.snd  (0.98 MB, 38 sounds)  -> 5 unused, 0.14 MB
+        S11,0           38.5 KB
+        S175,0           33.9 KB
+        S155,0           31.2 KB
+        S3000,1           26.3 KB
+        S220,3           14.6 KB
+==============================================================================
+chars/SFZ_Cody-Z   (sprite refs: 573, sound refs: 40)
+   chars/SFZ_Cody-Z/SFZ_Cody.sff  (1.77 MB, 661 sprites)  -> 56 unused, 0.16 MB
+        group 100       6/  6      17.9 KB *WHOLE GROUP* : 0-5
+        group 182       1/ 12       3.5 KB : 5
+        group 183       2/  5       6.7 KB : 0,4
+        group 184       1/  6       3.1 KB : 0
+        group 185       3/  6      10.1 KB : 1-2,5
+        group 192       4/  4      14.2 KB *WHOLE GROUP* : 0-3
+        group 200       1/  4       3.3 KB : 3
+        group 400       1/  4       2.8 KB : 3
+        group 760       2/  2       5.5 KB *WHOLE GROUP* : 0-1
+        group 761       2/  2       4.9 KB *WHOLE GROUP* : 0-1
+        group 1350      1/  6       1.1 KB : 5
+        group 5070      3/  3       8.1 KB *WHOLE GROUP* : 0,10,20
+        group 8000      9/ 11      38.7 KB : 11-19
+        group 10100     6/  6      18.3 KB *WHOLE GROUP* : 0-5
+        group 10190     1/  3       2.2 KB : 5
+        group 10760     2/  2       5.6 KB *WHOLE GROUP* : 0-1
+        group 10761     2/  2       5.0 KB *WHOLE GROUP* : 0-1
+        group 11900     5/  5       1.5 KB *WHOLE GROUP* : 3-7
+        group 12500     4/  4      10.2 KB *WHOLE GROUP* : 0-3
+   chars/SFZ_Cody-Z/SFZ_Cody.snd  (0.98 MB, 38 sounds)  -> 5 unused, 0.14 MB
+        S11,0           38.5 KB
+        S175,0           33.9 KB
+        S155,0           31.2 KB
+        S3000,1           26.3 KB
+        S220,3           14.6 KB
+==============================================================================
+chars/SFZ_D-Sakura   (sprite refs: 665, sound refs: 36)
+   chars/SFZ_D-Sakura/SFZ_D-Sakura.sff  (2.75 MB, 771 sprites)  -> 69 unused, 0.12 MB
+        group 11        1/  5       1.8 KB : 4
+        group 47        2/  3       3.7 KB : 1-2
+        group 100       1/  6       1.9 KB : 5
+        group 185       1/ 14       2.4 KB : 13
+        group 193       2/ 19       3.9 KB : 9-10
+        group 194       6/  6      12.3 KB *WHOLE GROUP* : 0-5
+        group 195       2/  8       4.5 KB : 6-7
+        group 198       4/  4      11.4 KB *WHOLE GROUP* : 0-3
+        group 1501      1/  1       0.9 KB *WHOLE GROUP* : 3
+        group 2500      4/  4       5.3 KB *WHOLE GROUP* : 0-3
+        group 2600      1/  3       2.4 KB : 2
+        group 5030      3/  9       6.5 KB : 0,31,51
+        group 5070      3/  3       6.3 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       4.3 KB *WHOLE GROUP* : 0-1
+        group 5900      9/  9      16.8 KB *WHOLE GROUP* : 0-8
+        group 8620     10/ 10      22.4 KB *WHOLE GROUP* : 0-9
+        group 8630      3/  3       6.7 KB *WHOLE GROUP* : 0-2
+        group 8640      1/  1       2.2 KB *WHOLE GROUP* : 0
+        group 8950     10/ 10       2.5 KB *WHOLE GROUP* : 0-9
+        group 9001      1/  1       1.0 KB *WHOLE GROUP* : 10
+        group 9090      2/  2       4.4 KB *WHOLE GROUP* : 0-1
+   chars/SFZ_D-Sakura/SFZ_D-Sakura.snd  (0.95 MB, 62 sounds)  -> 33 unused, 0.56 MB
+        S2,6          144.4 KB
+        S3300,0           56.0 KB
+        S0,3           33.3 KB
+        S100,41          20.7 KB
+        S500,2           20.3 KB
+        S0,6           19.9 KB
+        S11,0           18.9 KB
+        S500,1           18.9 KB
+        S10,8           18.1 KB
+        S100,31          16.7 KB
+        S20,6           16.3 KB
+        S0,4           14.7 KB
+        S100,3           14.6 KB
+        S20,7           14.6 KB
+        S5000,30          12.8 KB
+        S500,6           12.8 KB
+        S500,3           12.7 KB
+        S100,2           10.7 KB
+        S100,8           10.1 KB
+        S100,50           9.7 KB
+        S100,5            8.2 KB
+        S100,15           7.7 KB
+        S100,1            7.7 KB
+        S100,4            7.1 KB
+        S100,0            6.6 KB
+        S100,20           4.7 KB
+        S100,13           4.6 KB
+        S0,5            4.3 KB
+        S100,14           4.0 KB
+        S100,30           3.6 KB
+        S100,12           3.4 KB
+        S100,11           2.9 KB
+        S100,10           2.5 KB
+==============================================================================
+chars/SFZ_DJ   (sprite refs: 338, sound refs: 38)
+   chars/SFZ_DJ/SFZ_DJ.sff  (1.01 MB, 378 sprites)  -> 21 unused, 0.06 MB
+        group 0         1/  8       3.5 KB : 1
+        group 4         1/  1       5.8 KB *WHOLE GROUP* : 0
+        group 152       1/  3       5.9 KB : 2
+        group 182       5/  5      15.4 KB *WHOLE GROUP* : 0-4
+        group 188       5/  5      16.3 KB *WHOLE GROUP* : 0-4
+        group 1000      1/ 16       0.7 KB : 10
+        group 5070      3/  3       7.5 KB *WHOLE GROUP* : 0,10,20
+        group 5080      1/  2       2.3 KB : 1
+        group 5200      3/  3       7.4 KB *WHOLE GROUP* : 0-2
+   chars/SFZ_DJ/SFZ_DJ.snd  (3.91 MB, 57 sounds)  -> 23 unused, 1.25 MB
+        S20,2          441.2 KB
+        S3,2          212.5 KB
+        S11,0          147.5 KB
+        S20,1          101.5 KB
+        S3,3           38.8 KB
+        S3,0           38.0 KB
+        S3,5           34.6 KB
+        S3,4           33.5 KB
+        S3,6           31.1 KB
+        S2,7           23.8 KB
+        S4,1           23.0 KB
+        S2,3           16.9 KB
+        S2,2           14.2 KB
+        S2,6           13.9 KB
+        S2,4           12.9 KB
+        S2,5           12.7 KB
+        S2,1           10.8 KB
+        S2,0            9.0 KB
+        S1,2            6.9 KB
+        S1,1            6.8 KB
+        S4,0            5.9 KB
+        S1,0            5.7 KB
+        S0,2            4.0 KB
+==============================================================================
+chars/SFZ_Dan   (sprite refs: 426, sound refs: 38)
+   chars/SFZ_Dan/SFZ_Dan.sff  (1.14 MB, 493 sprites)  -> 35 unused, 0.12 MB
+        group 186       2/  2       7.9 KB *WHOLE GROUP* : 0-1
+        group 187       2/  6       7.8 KB : 2-3
+        group 211       1/  1       3.0 KB *WHOLE GROUP* : 1
+        group 221       4/  6      13.7 KB : 0-3
+        group 231       1/  1       3.3 KB *WHOLE GROUP* : 2
+        group 1110      6/  6      20.4 KB *WHOLE GROUP* : 0-5
+        group 1700      8/  8      24.1 KB *WHOLE GROUP* : 0-7
+        group 3600      3/  6       9.6 KB : 0-2
+        group 5030      1/  6       3.5 KB : 0
+        group 5070      3/  3       9.1 KB *WHOLE GROUP* : 0,10,20
+        group 5080      4/  4      13.1 KB *WHOLE GROUP* : 0-1,20-21
+   chars/SFZ_Dan/SFZ_Dan.snd  (1.21 MB, 51 sounds)  -> 17 unused, 0.34 MB
+        S11,0           50.4 KB
+        S100,41          41.4 KB
+        S100,8           29.1 KB
+        S160,0           26.9 KB
+        S1810,0           25.3 KB
+        S11,1           25.2 KB
+        S100,6           22.9 KB
+        S100,3           21.6 KB
+        S100,5           16.4 KB
+        S100,1           15.3 KB
+        S100,4           14.1 KB
+        S100,0           13.1 KB
+        S100,20           9.4 KB
+        S100,13           9.2 KB
+        S100,12           6.8 KB
+        S100,11           5.8 KB
+        S100,10           4.9 KB
+==============================================================================
+chars/SFZ_Dhalsim   (sprite refs: 572, sound refs: 34)
+   chars/SFZ_Dhalsim/SFZ_Dhalsim.sff  (1.90 MB, 663 sprites)  -> 67 unused, 0.19 MB
+        group 6         1/  3       3.3 KB : 2
+        group 101       3/  4      12.7 KB : 0,2-3
+        group 195       5/  6      21.2 KB : 0,2-5
+        group 236       1/  1       4.1 KB *WHOLE GROUP* : 3
+        group 1010      3/  8       1.4 KB : 5-7
+        group 1011      3/  8       1.0 KB : 5-7
+        group 2910     10/ 10      15.9 KB *WHOLE GROUP* : 0-9
+        group 3000      1/  8       4.2 KB : 5
+        group 3050      6/  8       3.0 KB : 0,3-7
+        group 3051      7/  8       5.4 KB : 0-2,4-7
+        group 3052      1/  8       0.5 KB : 7
+        group 3070     16/ 16      75.7 KB *WHOLE GROUP* : 0-15
+        group 5052      4/  4      15.5 KB *WHOLE GROUP* : 0-3
+        group 5070      3/  3      10.5 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       9.1 KB *WHOLE GROUP* : 0-1
+        group 7000      1/  5       8.0 KB : 14
+   chars/SFZ_Dhalsim/SFZ_Dhalsim.snd  (1.47 MB, 47 sounds)  -> 18 unused, 0.46 MB
+        S3500,1          112.1 KB
+        S160,0           49.7 KB
+        S11,0           43.6 KB
+        S2600,0           41.4 KB
+        S160,1           30.6 KB
+        S450,0           30.2 KB
+        S3200,0           28.3 KB
+        S220,2           16.3 KB
+        S190,2           15.2 KB
+        S3200,1           15.1 KB
+        S220,3           14.6 KB
+        S810,0           14.2 KB
+        S220,1           10.9 KB
+        S52,0           10.8 KB
+        S220,0            9.3 KB
+        S210,2            8.5 KB
+        S210,1            7.2 KB
+        S210,0            6.1 KB
+==============================================================================
+chars/SFZ_E-Ryu   (sprite refs: 398, sound refs: 32)
+   chars/SFZ_E-Ryu/SFZ_E-Ryu.sff  (0.92 MB, 443 sprites)  -> 23 unused, 0.04 MB
+        group 41        1/  7       2.6 KB : 6
+        group 185       7/  7       1.9 KB *WHOLE GROUP* : 0-6
+        group 1500      2/  8       4.7 KB : 5-6
+        group 2500      4/  4       5.9 KB *WHOLE GROUP* : 0-3
+        group 3000      1/  8       0.7 KB : 8
+        group 5001      1/  4       2.5 KB : 30
+        group 5030      1/  6       2.6 KB : 30
+        group 5070      3/  3       7.0 KB *WHOLE GROUP* : 0,10,20
+        group 5080      3/  3       7.6 KB *WHOLE GROUP* : 0-2
+   chars/SFZ_E-Ryu/SFZ_E-Ryu.snd  (0.52 MB, 41 sounds)  -> 17 unused, 0.17 MB
+        S11,0           29.1 KB
+        S100,3           14.6 KB
+        S100,40          14.5 KB
+        S100,7           11.6 KB
+        S100,6           11.5 KB
+        S160,0           11.0 KB
+        S100,2           10.7 KB
+        S100,8           10.1 KB
+        S10,1            9.4 KB
+        S100,5            8.2 KB
+        S100,1            7.7 KB
+        S100,4            7.1 KB
+        S100,0            6.6 KB
+        S100,13           4.6 KB
+        S100,14           4.0 KB
+        S100,11           2.9 KB
+        S100,10           2.5 KB
+==============================================================================
+chars/SFZ_Eagle   (sprite refs: 525, sound refs: 36)
+   chars/SFZ_Eagle/SFZ_Eagle.sff  (1.72 MB, 718 sprites)  -> 191 unused, 0.30 MB
+        group 0         3/ 12       9.5 KB : 1,4,7
+        group 41        1/ 10       3.3 KB : 1
+        group 100       6/  6      15.1 KB *WHOLE GROUP* : 0-5
+        group 103       8/  8      20.4 KB *WHOLE GROUP* : 0-7
+        group 104       3/  3       8.6 KB *WHOLE GROUP* : 0-2
+        group 220       3/ 10       9.4 KB : 1,5,7
+        group 221       1/  8       3.2 KB : 4
+        group 240       2/  9       6.3 KB : 2,6
+        group 410       1/  3       3.1 KB : 1
+        group 420       1/ 10       2.2 KB : 5
+        group 440       1/  9       3.1 KB : 2
+        group 801       3/ 22       9.6 KB : 1,4,17
+        group 1020      2/ 11       6.1 KB : 7,10
+        group 1200      2/ 31       5.5 KB : 17,25
+        group 4000      6/  6       5.5 KB *WHOLE GROUP* : 0-5
+        group 4001      6/  6       9.0 KB *WHOLE GROUP* : 0-5
+        group 4002      6/  6      11.0 KB *WHOLE GROUP* : 0-5
+        group 4003      6/  6       8.0 KB *WHOLE GROUP* : 0-5
+        group 4004      5/  5       2.5 KB *WHOLE GROUP* : 0-4
+        group 4005      6/  6       4.2 KB *WHOLE GROUP* : 0-5
+        group 4006      9/  9       7.4 KB *WHOLE GROUP* : 0-8
+        group 4007      5/  5       8.3 KB *WHOLE GROUP* : 0-4
+        group 4008      8/  8      10.6 KB *WHOLE GROUP* : 0-7
+        group 4009      4/  4       6.9 KB *WHOLE GROUP* : 0-3
+        group 4010     12/ 12      44.1 KB *WHOLE GROUP* : 0-11
+        group 4100     10/ 10       4.2 KB *WHOLE GROUP* : 0-9
+        group 4101     10/ 10       5.5 KB *WHOLE GROUP* : 0-9
+        group 4200     11/ 11       6.8 KB *WHOLE GROUP* : 0-10
+        group 4300     35/ 35      23.7 KB *WHOLE GROUP* : 0-34
+        group 5030      4/  9       8.5 KB : 20,60,70,80
+        group 5043      3/  3       6.2 KB *WHOLE GROUP* : 0-2
+        group 5060      1/  2       3.6 KB : 0
+        group 5070      3/  3       7.1 KB *WHOLE GROUP* : 0,10,20
+        group 5074      2/  2       5.3 KB *WHOLE GROUP* : 0-1
+        group 5301      2/  4       6.5 KB : 0-1
+   chars/SFZ_Eagle/SF_Eagle.sff  (1.99 MB, 626 sprites)  -> 55 unused, 0.19 MB
+        group 0         3/ 12      12.5 KB : 1,4,7
+        group 41        1/ 10       4.1 KB : 1
+        group 100       6/  6      18.5 KB *WHOLE GROUP* : 0-5
+        group 103       9/  9      27.9 KB *WHOLE GROUP* : 0-7,10
+        group 104       3/  3      10.4 KB *WHOLE GROUP* : 0-2
+        group 220       3/ 10      11.6 KB : 1,5,7
+        group 221       1/  8       3.9 KB : 4
+        group 240       2/  9       7.6 KB : 2,6
+        group 410       1/  3       3.8 KB : 1
+        group 420       2/ 11       6.0 KB : 5,10
+        group 440       1/  9       3.8 KB : 2
+        group 800       1/  6       3.9 KB : 10
+        group 801       3/ 22      11.7 KB : 1,4,17
+        group 1010      2/ 13       7.3 KB : 11-12
+        group 1020      1/ 10       4.0 KB : 7
+        group 1200      2/ 32       6.2 KB : 17,25
+        group 1300      1/ 14       3.5 KB : 13
+        group 5040      3/  6       6.4 KB : 11-13
+        group 5060      1/  2       4.7 KB : 0
+        group 5070      3/  3       8.8 KB *WHOLE GROUP* : 0,10,20
+        group 5301      6/  8      21.7 KB : 0-1,4-7
+   chars/SFZ_Eagle/SFZ_Eagle.snd  (1.19 MB, 43 sounds)  -> 10 unused, 0.33 MB
+        S11,0          137.4 KB
+        S1100,0           32.8 KB
+        S3100,0           30.5 KB
+        S2600,0           27.0 KB
+        S3100,1           24.5 KB
+        S3,7           24.3 KB
+        S2,1           19.9 KB
+        S2,4           11.5 KB
+        S4,1           11.4 KB
+        S2,3            8.8 KB
+==============================================================================
+chars/SFZ_FeiLong   (sprite refs: 428, sound refs: 26)
+   chars/SFZ_FeiLong/SFZ_FeiLong.sff  (0.98 MB, 475 sprites)  -> 17 unused, 0.04 MB
+        group 105       3/  5       7.4 KB : 0-2
+        group 220       2/ 16       2.6 KB : 20-21
+        group 251       1/  1       2.2 KB *WHOLE GROUP* : 3
+        group 610       1/  5       1.6 KB : 4
+        group 1301      1/  1       2.5 KB *WHOLE GROUP* : 9
+        group 2600      1/  2       2.6 KB : 1
+        group 5040      1/  4       2.0 KB : 9
+        group 5070      3/  3       7.6 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       4.0 KB *WHOLE GROUP* : 0-1
+        group 9001      1/  1       0.8 KB *WHOLE GROUP* : 101
+        group 9002      1/  5       5.2 KB : 4
+   chars/SFZ_FeiLong/SFZ_FeiLong.snd  (2.67 MB, 48 sounds)  -> 25 unused, 1.34 MB
+        S20,2          441.2 KB
+        S3,2          212.5 KB
+        S11,0          134.1 KB
+        S20,1          101.5 KB
+        S5000,4           65.5 KB
+        S3,3           38.8 KB
+        S3,1           37.9 KB
+        S3,5           34.6 KB
+        S3,4           33.5 KB
+        S3,6           31.1 KB
+        S6,0           30.9 KB
+        S2,7           23.8 KB
+        S0,1           23.0 KB
+        S4,1           23.0 KB
+        S2,8           14.3 KB
+        S2,2           14.2 KB
+        S1,3           13.7 KB
+        S2,4           12.9 KB
+        S2,5           12.7 KB
+        S2,1           10.8 KB
+        S1,2            6.9 KB
+        S1,1            6.8 KB
+        S4,0            5.9 KB
+        S1,0            5.7 KB
+        S0,2            4.0 KB
+==============================================================================
+chars/SFZ_Gen-X   (sprite refs: 730, sound refs: 27)
+   chars/SFZ_Gen-X/SFZ_Gen.sff  (4.13 MB, 776 sprites)  -> 17 unused, 0.03 MB
+        group 6         1/  4       2.0 KB : 3
+        group 8         1/  4       2.2 KB : 3
+        group 181       1/  7       2.1 KB : 6
+        group 235       1/  4       2.4 KB : 3
+        group 300       1/  1       1.9 KB *WHOLE GROUP* : 0
+        group 2601      1/  1       4.9 KB *WHOLE GROUP* : 0
+        group 5070      3/  3       6.4 KB *WHOLE GROUP* : 0,10,20
+        group 8500      4/ 10       3.5 KB : 6-9
+        group 8501      3/ 11       1.3 KB : 8-10
+        group 9001      1/  1       0.6 KB *WHOLE GROUP* : 10
+   chars/SFZ_Gen-X/SFZ_Gen.snd  (1.28 MB, 34 sounds)  -> 13 unused, 0.68 MB
+        S2,6          288.7 KB
+        S3100,1          112.1 KB
+        S160,0           49.7 KB
+        S11,0           49.6 KB
+        S220,2           32.5 KB
+        S220,3           31.5 KB
+        S130,0           22.2 KB
+        S220,1           21.7 KB
+        S220,0           18.6 KB
+        S210,1           14.3 KB
+        S5000,3           13.6 KB
+        S210,0           12.1 KB
+        S230,0            9.0 KB
+==============================================================================
+chars/SFZ_Gen-Z   (sprite refs: 730, sound refs: 27)
+   chars/SFZ_Gen-Z/SFZ_Gen.sff  (4.13 MB, 775 sprites)  -> 17 unused, 0.03 MB
+        group 6         1/  4       2.0 KB : 3
+        group 8         1/  4       2.2 KB : 3
+        group 181       1/  7       2.1 KB : 6
+        group 235       1/  4       2.4 KB : 3
+        group 300       1/  1       1.9 KB *WHOLE GROUP* : 0
+        group 2601      1/  1       4.9 KB *WHOLE GROUP* : 0
+        group 5070      3/  3       6.4 KB *WHOLE GROUP* : 0,10,20
+        group 8500      4/ 10       3.5 KB : 6-9
+        group 8501      3/ 11       1.3 KB : 8-10
+        group 9001      1/  1       0.6 KB *WHOLE GROUP* : 10
+   chars/SFZ_Gen-Z/SFZ_Gen.snd  (1.28 MB, 34 sounds)  -> 13 unused, 0.68 MB
+        S2,6          288.7 KB
+        S3100,1          112.1 KB
+        S160,0           49.7 KB
+        S11,0           49.6 KB
+        S220,2           32.5 KB
+        S220,3           31.5 KB
+        S130,0           22.2 KB
+        S220,1           21.7 KB
+        S220,0           18.6 KB
+        S210,1           14.3 KB
+        S5000,3           13.6 KB
+        S210,0           12.1 KB
+        S230,0            9.0 KB
+==============================================================================
+chars/SFZ_Guile   (sprite refs: 444, sound refs: 27)
+   chars/SFZ_Guile/SFZ_Guile.sff  (1.51 MB, 492 sprites)  -> 54 unused, 0.20 MB
+        group 43        1/  1       2.7 KB *WHOLE GROUP* : 0
+        group 105       1/  5       3.6 KB : 1
+        group 106       4/  6      15.0 KB : 2-5
+        group 150       2/  5       7.7 KB : 10-11
+        group 151       3/  6       9.8 KB : 10-12
+        group 152       1/  3       3.9 KB : 10
+        group 225       1/  6       3.8 KB : 5
+        group 245       1/  7       3.8 KB : 6
+        group 310       1/  9       3.9 KB : 8
+        group 850       1/  6       3.8 KB : 5
+        group 1100      2/ 13       6.8 KB : 11-12
+        group 1200      4/  7      13.6 KB : 0-3
+        group 1220      5/  7      17.2 KB : 0-1,4-6
+        group 3200      8/  8      29.7 KB *WHOLE GROUP* : 0-7
+        group 3210      5/  5      18.3 KB *WHOLE GROUP* : 0-4
+        group 5020      1/  4       3.1 KB : 30
+        group 5052      4/  4      16.4 KB *WHOLE GROUP* : 0,10,20,30
+        group 5070      3/  3      11.2 KB *WHOLE GROUP* : 0,10,20
+        group 5900      5/  5      19.9 KB *WHOLE GROUP* : 0-4
+        group 7000      1/  5       8.4 KB : 1512
+   chars/SFZ_Guile/SFZ_Guile.snd  (2.44 MB, 43 sounds)  -> 22 unused, 1.71 MB
+        S2,6         1154.5 KB
+        S3000,1          112.1 KB
+        S180,5           59.8 KB
+        S160,0           49.7 KB
+        S180,6           48.0 KB
+        S11,0           46.9 KB
+        S2600,0           41.4 KB
+        S130,0           33.3 KB
+        S170,0           33.3 KB
+        S5000,2           20.0 KB
+        S220,2           16.3 KB
+        S220,3           14.6 KB
+        S5000,1           12.7 KB
+        S5000,0           11.5 KB
+        S220,1           10.9 KB
+        S220,0            9.3 KB
+        S210,3            6.9 KB
+        S210,2            6.9 KB
+        S210,1            6.8 KB
+        S210,0            5.7 KB
+        S230,0            4.5 KB
+        S240,0            3.9 KB
+==============================================================================
+chars/SFZ_Guy   (sprite refs: 412, sound refs: 28)
+   chars/SFZ_Guy/SFZ_Guy.sff  (0.87 MB, 422 sprites)  -> 32 unused, 0.08 MB
+        group 100       1/  4       2.7 KB : 3
+        group 122       1/  2       2.3 KB : 1
+        group 246       1/  1       2.2 KB *WHOLE GROUP* : 0
+        group 300       1/  7       2.6 KB : 5
+        group 800       1/  5       2.7 KB : 4
+        group 1300      1/  1       2.8 KB *WHOLE GROUP* : 0
+        group 1500      1/  1       2.7 KB *WHOLE GROUP* : 0
+        group 1505     18/ 18      47.0 KB *WHOLE GROUP* : 0-17
+        group 1510      1/  1       2.6 KB *WHOLE GROUP* : 0
+        group 5030      1/  6       2.6 KB : 0
+        group 5070      3/  3       6.4 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       4.3 KB *WHOLE GROUP* : 0-1
+   chars/SFZ_Guy/SFZ_Guy.snd  (0.57 MB, 44 sounds)  -> 20 unused, 0.25 MB
+        S3100,0           56.0 KB
+        S160,0           24.9 KB
+        S11,0           22.9 KB
+        S500,30          20.7 KB
+        S500,19          13.4 KB
+        S5000,3           11.9 KB
+        S500,7           11.6 KB
+        S500,6           11.5 KB
+        S500,3           10.8 KB
+        S500,2           10.7 KB
+        S500,5            8.2 KB
+        S500,1            7.7 KB
+        S500,4            7.1 KB
+        S500,0            6.6 KB
+        S500,20           4.7 KB
+        S500,13           4.6 KB
+        S400,40           4.0 KB
+        S500,12           3.4 KB
+        S500,11           2.9 KB
+        S500,10           2.5 KB
+==============================================================================
+chars/SFZ_Honda   (sprite refs: 287, sound refs: 22)
+   chars/SFZ_Honda/SFZ_Honda.sff  (0.96 MB, 325 sprites)  -> 11 unused, 0.04 MB
+        group 1400      2/  2       5.9 KB *WHOLE GROUP* : 0-1
+        group 2500      4/  4       9.8 KB *WHOLE GROUP* : 0-3
+        group 5070      3/  3      10.2 KB *WHOLE GROUP* : 0,10,20
+        group 5200      1/  7       3.1 KB : 0
+        group 7000      1/  4       6.1 KB : 10
+   chars/SFZ_Honda/SFZ_Honda.SND  (1.34 MB, 43 sounds)  -> 22 unused, 0.48 MB
+        S11,0           56.9 KB
+        S182,0           46.5 KB
+        S5555,1           40.3 KB
+        S9000,0           36.0 KB
+        S5555,2           35.7 KB
+        S2,2           33.7 KB
+        S1,7           24.5 KB
+        S3,2           23.6 KB
+        S1,3           23.1 KB
+        S2,1           19.6 KB
+        S1,1           16.9 KB
+        S1,5           16.7 KB
+        S3,1           15.8 KB
+        S1,4           14.9 KB
+        S3,0           14.7 KB
+        S1,0           14.3 KB
+        S2,0           12.2 KB
+        S0,3            9.3 KB
+        S0,2            7.9 KB
+        S800,0            7.6 KB
+        S0,1            6.5 KB
+        S0,0            4.6 KB
+==============================================================================
+chars/SFZ_Juli   (sprite refs: 574, sound refs: 24)
+   chars/SFZ_Juli/juli.sff  (1.78 MB, 608 sprites)  -> 30 unused, 0.04 MB
+        group 122       1/  1       1.8 KB *WHOLE GROUP* : 0
+        group 152       1/  3       1.7 KB : 2
+        group 402       2/  5       3.4 KB : 0,3
+        group 665       1/  5       0.2 KB : 4
+        group 820       2/  7       3.6 KB : 0,3
+        group 1200      3/  3       4.5 KB *WHOLE GROUP* : 0,2-3
+        group 1300      3/  6       6.5 KB : 1,4-5
+        group 5030      1/  5       1.8 KB : 10
+        group 5051      1/  7       2.3 KB : 0
+        group 5060      1/  2       1.9 KB : 10
+        group 5070      1/  3       1.4 KB : 10
+        group 5080      2/  2       3.4 KB *WHOLE GROUP* : 0-1
+        group 5200      1/  7       1.9 KB : 0
+        group 7110      2/  2       0.6 KB *WHOLE GROUP* : 0-1
+        group 7400      1/  1       0.4 KB *WHOLE GROUP* : 0
+        group 7402      1/  1       0.3 KB *WHOLE GROUP* : 0
+        group 12200     4/ 12       6.8 KB : 1,3,5,7
+        group 19053     2/ 34       0.8 KB : 26-27
+   chars/SFZ_Juli/juli_CPU.sff  (1.79 MB, 606 sprites)  -> 38 unused, 0.05 MB
+        group 122       1/  1       1.7 KB *WHOLE GROUP* : 0
+        group 152       1/  3       1.7 KB : 2
+        group 202       1/  5       1.9 KB : 4
+        group 402       2/  5       3.2 KB : 0,3
+        group 665       1/  5       0.2 KB : 4
+        group 820       2/  7       3.4 KB : 0,3
+        group 1000      1/  7       2.0 KB : 41
+        group 1200      3/  3       4.2 KB *WHOLE GROUP* : 0,2-3
+        group 1300      2/  6       4.2 KB : 4-5
+        group 5030      1/  5       1.7 KB : 10
+        group 5031      1/  6       1.9 KB : 50
+        group 5041      2/  3       2.7 KB : 0,10
+        group 5042      2/  3       2.7 KB : 0,10
+        group 5051      1/  7       2.3 KB : 0
+        group 5060      1/  2       1.8 KB : 10
+        group 5070      2/  3       3.4 KB : 0,10
+        group 5080      2/  2       3.3 KB *WHOLE GROUP* : 0-1
+        group 5200      1/  7       1.9 KB : 0
+        group 7110      2/  2       0.6 KB *WHOLE GROUP* : 0-1
+        group 7400      1/  1       0.4 KB *WHOLE GROUP* : 0
+        group 7402      1/  1       0.3 KB *WHOLE GROUP* : 0
+        group 12200     4/ 12       6.3 KB : 1,3,5,7
+        group 19053     3/ 34       1.1 KB : 17,26-27
+   chars/SFZ_Juli/juli.snd  (1.52 MB, 41 sounds)  -> 23 unused, 0.79 MB
+        S4,2          104.1 KB
+        S2,1           96.4 KB
+        S3,1           79.1 KB
+        S2,2           73.9 KB
+        S2,4           59.4 KB
+        S2,3           56.4 KB
+        S5,3           34.8 KB
+        S7,3           28.3 KB
+        S6,6           28.2 KB
+        S7,2           22.4 KB
+        S7,6           22.4 KB
+        S6,4           21.0 KB
+        S6,2           20.7 KB
+        S7,7           19.5 KB
+        S2,5           19.3 KB
+        S7,5           19.0 KB
+        S11,0           17.6 KB
+        S7,4           16.2 KB
+        S7,1           14.2 KB
+        S6,3           13.6 KB
+        S8,2            8.5 KB
+        S6,5            7.8 KB
+        S8,1            7.2 KB
+==============================================================================
+chars/SFZ_Juni   (sprite refs: 872, sound refs: 28)
+   chars/SFZ_Juni/Juni.sff  (6.72 MB, 927 sprites)  -> 47 unused, 0.09 MB
+        group 152       1/  3       2.2 KB : 2
+        group 2320      4/  4       6.4 KB *WHOLE GROUP* : 0-3
+        group 2700     12/ 16      18.9 KB : 0-11
+        group 2710     12/ 12      18.3 KB *WHOLE GROUP* : 0-11
+        group 5001      3/  3       7.3 KB *WHOLE GROUP* : 0,10,20
+        group 5021      1/  3       2.1 KB : 10
+        group 5030      2/  6       4.7 KB : 20,50
+        group 5060      2/  2       5.5 KB *WHOLE GROUP* : 0,10
+        group 5062      1/  3       2.7 KB : 1
+        group 5070      2/  3       4.5 KB : 0,20
+        group 5080      2/  2       4.2 KB *WHOLE GROUP* : 0-1
+        group 5200      1/  7       2.4 KB : 0
+        group 10320     1/  7       1.9 KB : 6
+        group 10600     1/  8       2.2 KB : 2
+        group 11000     2/  8       4.5 KB : 0,3
+   chars/SFZ_Juni/Juni_CPU.sff  (6.63 MB, 929 sprites)  -> 43 unused, 0.08 MB
+        group 2320      4/  4       6.4 KB *WHOLE GROUP* : 0-3
+        group 2700     12/ 16      18.9 KB : 0-11
+        group 2710     12/ 12      18.3 KB *WHOLE GROUP* : 0-11
+        group 5021      1/  3       1.9 KB : 10
+        group 5030      2/  6       4.4 KB : 20,50
+        group 5060      2/  2       5.1 KB *WHOLE GROUP* : 0,10
+        group 5062      1/  3       2.7 KB : 1
+        group 5070      2/  3       4.3 KB : 0,20
+        group 5080      2/  2       4.0 KB *WHOLE GROUP* : 0-1
+        group 5200      1/  7       2.4 KB : 0
+        group 10320     1/  7       1.9 KB : 6
+        group 10600     1/  8       2.2 KB : 2
+        group 11000     2/  8       4.5 KB : 0,3
+   chars/SFZ_Juni/end/juniend.sff  (0.46 MB, 23 sprites)  -> 0 unused, 0.00 MB
+   chars/SFZ_Juni/Juni.snd  (0.48 MB, 31 sounds)  -> 7 unused, 0.13 MB
+        S2000,0           35.2 KB
+        S1000,0           24.3 KB
+        S11,0           17.6 KB
+        S200,5           16.2 KB
+        S200,6           13.7 KB
+        S200,4           10.9 KB
+        S200,3            9.5 KB
+==============================================================================
+chars/SFZ_Karin   (sprite refs: 506, sound refs: 35)
+   chars/SFZ_Karin/SFZ_Karin.sff  (1.62 MB, 575 sprites)  -> 38 unused, 0.12 MB
+        group 0         1/  9       3.2 KB : 8
+        group 106       2/  2       5.9 KB *WHOLE GROUP* : 0-1
+        group 181       1/  5       3.2 KB : 4
+        group 182       1/  8       3.0 KB : 10
+        group 900       1/  7       3.1 KB : 6
+        group 1200      1/ 13       2.8 KB : 12
+        group 2000      6/  6      21.5 KB *WHOLE GROUP* : 0-2,10-12
+        group 3000      8/ 14      24.1 KB : 3-6,10-13
+        group 5030      1/  7       3.1 KB : 21
+        group 5040      1/  5       2.0 KB : 22
+        group 5070      3/  3       8.0 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       5.0 KB *WHOLE GROUP* : 0-1
+        group 5200      2/  2       5.7 KB *WHOLE GROUP* : 0-1
+        group 5900      5/  5      13.8 KB *WHOLE GROUP* : 0-4
+        group 7000      1/  1       4.5 KB *WHOLE GROUP* : 10
+        group 9900      2/  2       6.6 KB *WHOLE GROUP* : 0-1
+   chars/SFZ_Karin/SFZ_Karin.snd  (1.05 MB, 53 sounds)  -> 21 unused, 0.47 MB
+        S194,0           70.0 KB
+        S3200,1           56.0 KB
+        S183,1           42.6 KB
+        S183,0           33.8 KB
+        S11,0           26.1 KB
+        S160,1           24.9 KB
+        S2600,0           20.7 KB
+        S2000,1           19.4 KB
+        S186,0           18.9 KB
+        S1600,4           17.8 KB
+        S2000,0           16.5 KB
+        S220,2           16.3 KB
+        S220,3           15.8 KB
+        S1600,1           15.1 KB
+        S1600,2           15.1 KB
+        S1600,0           14.1 KB
+        S1600,3           12.0 KB
+        S160,0           11.5 KB
+        S52,0           10.8 KB
+        S220,0            9.3 KB
+        S230,0            4.5 KB
+==============================================================================
+chars/SFZ_Kbee   (sprite refs: 470, sound refs: 45)
+   chars/SFZ_Kbee/SFZ_Kbee.sff  (1.48 MB, 520 sprites)  -> 35 unused, 0.10 MB
+        group 122       1/  3       2.8 KB : 2
+        group 152       1/  3       2.6 KB : 2
+        group 186       5/ 12      14.7 KB : 2,6-8,12
+        group 309       1/  1       3.4 KB *WHOLE GROUP* : 0
+        group 441       2/  2       5.1 KB *WHOLE GROUP* : 1-2
+        group 1600      2/  9      11.3 KB : 0,7
+        group 1610      1/  1       2.7 KB *WHOLE GROUP* : 0
+        group 2400      9/ 13      13.3 KB : 11-19
+        group 5030      1/  6       3.4 KB : 0
+        group 5070      2/  3       6.2 KB : 0,20
+        group 5071      2/  3       6.7 KB : 0,10
+        group 5080      2/  2       5.6 KB *WHOLE GROUP* : 0-1
+        group 5200      1/  7       3.2 KB : 0
+        group 5500      1/  4       2.0 KB : 3
+        group 5510      3/  3       8.3 KB *WHOLE GROUP* : 0,10,20
+        group 7000      1/  3       5.9 KB : 1000
+   chars/SFZ_Kbee/SFZ_Kbee.snd  (0.80 MB, 53 sounds)  -> 19 unused, 0.30 MB
+        S2,6          144.4 KB
+        S0,13          24.9 KB
+        S100,41          20.7 KB
+        S100,3           14.6 KB
+        S100,7           11.6 KB
+        S100,6           11.5 KB
+        S100,2           10.7 KB
+        S100,5            8.2 KB
+        S100,1            7.7 KB
+        S100,4            7.1 KB
+        S100,0            6.6 KB
+        S0,101          5.1 KB
+        S0,102          5.1 KB
+        S0,100          4.9 KB
+        S100,20           4.7 KB
+        S100,13           4.6 KB
+        S100,30           3.6 KB
+        S0,15           3.4 KB
+        S100,11           2.9 KB
+==============================================================================
+chars/SFZ_Ken   (sprite refs: 468, sound refs: 41)
+   chars/SFZ_Ken/SFZ_Ken.sff  (1.12 MB, 548 sprites)  -> 34 unused, 0.06 MB
+        group 1         1/  7       2.8 KB : 0
+        group 42        1/  7       2.5 KB : 0
+        group 183       1/  4       2.0 KB : 1
+        group 810       3/  4       7.5 KB : 1-3
+        group 1001      1/  1       2.4 KB *WHOLE GROUP* : 0
+        group 1010      4/  4       3.2 KB *WHOLE GROUP* : 0-3
+        group 1021      3/ 12       3.0 KB : 0-1,4
+        group 1022      2/ 12       2.0 KB : 6,9
+        group 1890      9/  9       7.7 KB *WHOLE GROUP* : 0-8
+        group 5030      1/  6       2.7 KB : 0
+        group 5070      3/  3       7.3 KB *WHOLE GROUP* : 0,10,20
+        group 5080      3/  3       6.9 KB *WHOLE GROUP* : 0-2
+        group 5550      1/  1       2.3 KB *WHOLE GROUP* : 0
+        group 7000      1/  4      11.8 KB : 111
+   chars/SFZ_Ken/SFZ_Ken.snd  (0.63 MB, 40 sounds)  -> 3 unused, 0.09 MB
+        S2000,3           53.8 KB
+        S11,0           22.9 KB
+        S5000,3           12.7 KB
+==============================================================================
+chars/SFZ_Mika   (sprite refs: 577, sound refs: 33)
+   chars/SFZ_Mika/SFZ_Mika.sff  (2.32 MB, 636 sprites)  -> 54 unused, 0.22 MB
+        group 181       5/ 77      25.0 KB : 142,146-147,150-151
+        group 193       3/  3      12.2 KB *WHOLE GROUP* : 0-2
+        group 655       1/  6       4.5 KB : 5
+        group 1311      1/  1       3.8 KB *WHOLE GROUP* : 10
+        group 1800      3/  3      13.8 KB *WHOLE GROUP* : 0-2
+        group 1810      4/  4      15.5 KB *WHOLE GROUP* : 0-3
+        group 1900      3/  3      10.3 KB *WHOLE GROUP* : 0-2
+        group 2610      1/  1       3.6 KB *WHOLE GROUP* : 0
+        group 3370      1/  5       3.8 KB : 1
+        group 3500      1/ 10       4.0 KB : 0
+        group 3900      9/  9      35.7 KB *WHOLE GROUP* : 0-8
+        group 5030      1/  6       4.2 KB : 0
+        group 5040      1/  4       2.9 KB : 11
+        group 5080      2/  2       7.0 KB *WHOLE GROUP* : 0-1
+        group 5300      4/  8      18.2 KB : 4-7
+        group 5550      4/  6      12.9 KB : 2-3,10-11
+        group 7000      9/ 12      41.0 KB : 21-29
+        group 9001      1/  1       0.8 KB *WHOLE GROUP* : 10
+   chars/SFZ_Mika/SFZ_Mika.snd  (1.07 MB, 60 sounds)  -> 27 unused, 0.52 MB
+        S50,5          110.0 KB
+        S40,5           37.9 KB
+        S40,4           36.1 KB
+        S50,0           33.8 KB
+        S40,6           32.9 KB
+        S100,19          28.5 KB
+        S50,2           22.9 KB
+        S100,6           21.0 KB
+        S100,17          20.4 KB
+        S50,3           19.0 KB
+        S40,7           16.8 KB
+        S10,3           13.5 KB
+        S1,12          12.3 KB
+        S40,3           11.6 KB
+        S2,1           11.6 KB
+        S40,2           11.2 KB
+        S100,14          11.1 KB
+        S1,1           10.4 KB
+        S1,11           8.6 KB
+        S40,1            8.5 KB
+        S1,10           7.8 KB
+        S10,2            7.5 KB
+        S100,10           7.0 KB
+        S10,0            7.0 KB
+        S0,0            4.9 KB
+        S6,0            4.6 KB
+        S50,4            0.0 KB
+==============================================================================
+chars/SFZ_Mike   (sprite refs: 320, sound refs: 26)
+   chars/SFZ_Mike/SFZ_Mike.sff  (0.93 MB, 361 sprites)  -> 17 unused, 0.04 MB
+        group 101       1/  6       3.1 KB : 3
+        group 152       1/  3       3.8 KB : 2
+        group 194       2/ 12       0.9 KB : 16,21
+        group 1300      1/  3       3.1 KB : 3
+        group 1900      4/  7      11.4 KB : 3-6
+        group 3200      1/  1       3.5 KB *WHOLE GROUP* : 4
+        group 5011      1/  4       2.8 KB : 30
+        group 5042      1/  3       2.5 KB : 10
+        group 5070      3/  3       8.1 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       5.7 KB *WHOLE GROUP* : 0-1
+   chars/SFZ_Mike/SFZ_Boxer.snd  (0.39 MB, 30 sounds)  -> 10 unused, 0.16 MB
+        S810,0           78.7 KB
+        S11,0           22.2 KB
+        S160,0           15.6 KB
+        S205,2            8.5 KB
+        S5000,2            8.1 KB
+        S800,1            7.8 KB
+        S205,1            7.2 KB
+        S205,0            6.1 KB
+        S5000,1            4.7 KB
+        S5000,0            3.6 KB
+==============================================================================
+chars/SFZ_N-Bison   (sprite refs: 623, sound refs: 36)
+   chars/SFZ_N-Bison/SFZ_BisonII.sff  (1.69 MB, 576 sprites)  -> 8 unused, 0.02 MB
+        group 194       1/ 21       3.8 KB : 0
+        group 2000      1/ 28       3.9 KB : 101
+        group 5011      1/  4       2.7 KB : 30
+        group 5070      3/  3       9.9 KB *WHOLE GROUP* : 0,10,20
+        group 5160      1/  2       3.0 KB : 10
+        group 9001      1/  1       0.8 KB *WHOLE GROUP* : 10
+   chars/SFZ_N-Bison/SFZ_BisonII.snd  (0.70 MB, 44 sounds)  -> 12 unused, 0.19 MB
+        S12,3           33.1 KB
+        S11,0           30.1 KB
+        S3,1           23.2 KB
+        S10,10          21.0 KB
+        S12,4           13.3 KB
+        S2,2           12.2 KB
+        S2,6           12.2 KB
+        S2,7           12.2 KB
+        S2,1            8.9 KB
+        S2,5            8.9 KB
+        S2,0            7.8 KB
+        S2,4            7.8 KB
+==============================================================================
+chars/SFZ_R-Charlie   (sprite refs: 332, sound refs: 25)
+   chars/SFZ_R-Charlie/SFZ_Charlie.sff  (0.95 MB, 347 sprites)  -> 17 unused, 0.06 MB
+        group 0         1/  5       3.7 KB : 4
+        group 1         1/  6       3.6 KB : 4
+        group 122       1/  2       3.2 KB : 0
+        group 186       2/  5       6.1 KB : 3-4
+        group 196       4/  4      15.1 KB *WHOLE GROUP* : 0-3
+        group 225       1/  4       3.7 KB : 3
+        group 3100      2/  2       8.7 KB *WHOLE GROUP* : 0-1
+        group 5070      3/  3      10.0 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       6.4 KB *WHOLE GROUP* : 0-1
+   chars/SFZ_R-Charlie/SFZ_Charlie.snd  (2.04 MB, 41 sounds)  -> 19 unused, 1.57 MB
+        S2,6         1154.5 KB
+        S3500,0          112.1 KB
+        S160,0           49.7 KB
+        S100,41          41.4 KB
+        S11,0           23.9 KB
+        S100,7           23.1 KB
+        S160,1           22.7 KB
+        S100,3           21.6 KB
+        S100,8           20.2 KB
+        S5000,2           18.1 KB
+        S100,1           15.3 KB
+        S5000,1           13.5 KB
+        S100,20           9.4 KB
+        S100,13           9.2 KB
+        S5000,0            8.3 KB
+        S100,30           7.2 KB
+        S100,12           6.8 KB
+        S100,11           5.8 KB
+        S100,10           4.9 KB
+==============================================================================
+chars/SFZ_Rolento   (sprite refs: 620, sound refs: 42)
+   chars/SFZ_Rolento/SFZ_Rolento.sff  (1.60 MB, 697 sprites)  -> 45 unused, 0.11 MB
+        group 101       6/  6      17.8 KB *WHOLE GROUP* : 0-5
+        group 152       1/  3       3.2 KB : 9
+        group 184      10/ 10      16.8 KB *WHOLE GROUP* : 0-4,10-14
+        group 300       3/  3       9.0 KB *WHOLE GROUP* : 0-2
+        group 2601      2/  2       5.6 KB *WHOLE GROUP* : 0-1
+        group 2602      2/  2       5.5 KB *WHOLE GROUP* : 0-1
+        group 3052      1/  1       3.0 KB *WHOLE GROUP* : 0
+        group 3060      6/ 45       7.6 KB : 34,36,38,40,42,44
+        group 3095      1/  9       1.4 KB : 8
+        group 3150      1/ 26       0.2 KB : 29
+        group 5052      5/  5      14.0 KB *WHOLE GROUP* : 0-3,10
+        group 5070      3/  3       8.7 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       6.5 KB *WHOLE GROUP* : 0-1
+        group 5900      2/ 22       5.8 KB : 20-21
+   chars/SFZ_Rolento/SFZ_Rolento.snd  (1.69 MB, 60 sounds)  -> 20 unused, 0.58 MB
+        S2,51         112.1 KB
+        S2,50          81.9 KB
+        S0,19          58.6 KB
+        S11,0           52.6 KB
+        S1,18          34.1 KB
+        S1,16          24.4 KB
+        S6,6           23.7 KB
+        S10,2           20.8 KB
+        S6,2           20.2 KB
+        S0,22          17.3 KB
+        S6,5           16.0 KB
+        S10,0           14.9 KB
+        S6,4           14.7 KB
+        S0,100         14.5 KB
+        S6,1           13.9 KB
+        S10,1           13.4 KB
+        S0,4           12.9 KB
+        S0,3           11.4 KB
+        S6,0           10.3 KB
+        S0,14           8.6 KB
+==============================================================================
+chars/SFZ_Rose   (sprite refs: 1538, sound refs: 40)
+   chars/SFZ_Rose/SFZ_Rose.sff  (1.96 MB, 1357 sprites)  -> 41 unused, 0.06 MB
+        group 186       1/ 21       0.8 KB : 0
+        group 188       9/  9       7.2 KB *WHOLE GROUP* : 0-8
+        group 192       3/ 21       0.8 KB : 30-32
+        group 215       1/  5       3.2 KB : 4
+        group 810       2/ 10       4.8 KB : 1,9
+        group 905       3/  3       0.8 KB *WHOLE GROUP* : 0-2
+        group 1211      3/  3       8.4 KB *WHOLE GROUP* : 1-3
+        group 5001      1/  4       3.0 KB : 0
+        group 5030      1/  6       2.7 KB : 30
+        group 5070      2/  3       4.4 KB : 10,20
+        group 5071      3/  3       7.1 KB *WHOLE GROUP* : 0,10,20
+        group 5500      1/  5       2.2 KB : 4
+        group 7000      1/ 21       5.1 KB : 22
+        group 15150     3/275       4.8 KB : 42-43,264
+        group 25150     7/275       8.4 KB : 42-43,151,153,155,157,264
+   chars/SFZ_Rose/SFZ_Rose.snd  (0.68 MB, 47 sounds)  -> 14 unused, 0.24 MB
+        S3000,1           56.0 KB
+        S160,0           24.9 KB
+        S2000,0           22.3 KB
+        S11,0           18.5 KB
+        S220,2           16.3 KB
+        S2000,2           15.0 KB
+        S220,3           14.6 KB
+        S2000,3           14.5 KB
+        S2000,1           13.7 KB
+        S220,1           10.9 KB
+        S220,0            9.3 KB
+        S210,2            8.5 KB
+        S210,1            7.2 KB
+        S210,0            6.1 KB
+==============================================================================
+chars/SFZ_Ryu   (sprite refs: 499, sound refs: 27)
+   chars/SFZ_Ryu/SFZ_Ryu.sff  (1.06 MB, 536 sprites)  -> 31 unused, 0.05 MB
+        group 41        1/  7       2.6 KB : 6
+        group 1023     11/ 12       9.1 KB : 1-11
+        group 1250      2/  4       3.0 KB : 5,7
+        group 2500      4/  4       5.9 KB *WHOLE GROUP* : 0-3
+        group 3000      1/  8       0.7 KB : 8
+        group 3120      5/  5       8.7 KB *WHOLE GROUP* : 0-4
+        group 5030      1/  6       2.7 KB : 0
+        group 5070      3/  3       7.0 KB *WHOLE GROUP* : 0,10,20
+        group 5080      3/  3       7.7 KB *WHOLE GROUP* : 0-2
+   chars/SFZ_Ryu/SFZ_Ryu.snd  (0.51 MB, 41 sounds)  -> 17 unused, 0.19 MB
+        S11,0           29.1 KB
+        S190,0           24.6 KB
+        S100,41          20.7 KB
+        S100,3           14.6 KB
+        S100,7           11.6 KB
+        S100,6           11.5 KB
+        S160,0           11.0 KB
+        S100,2           10.7 KB
+        S100,8           10.1 KB
+        S100,5            8.2 KB
+        S100,1            7.7 KB
+        S100,4            7.1 KB
+        S100,0            6.6 KB
+        S100,20           4.7 KB
+        S100,14           4.0 KB
+        S100,11           2.9 KB
+        S100,10           2.5 KB
+==============================================================================
+chars/SFZ_Sagat   (sprite refs: 348, sound refs: 26)
+   chars/SFZ_Sagat/SFZ_sagat.sff  (1.11 MB, 391 sprites)  -> 28 unused, 0.09 MB
+        group 101       6/  6      18.8 KB *WHOLE GROUP* : 0-5
+        group 192       6/  7      25.1 KB : 0-1,3-6
+        group 800       1/  6       3.8 KB : 5
+        group 900       1/  6       3.4 KB : 5
+        group 2900      4/  4       6.9 KB *WHOLE GROUP* : 0-3
+        group 5040      1/  4       2.6 KB : 21
+        group 5052      4/  4      15.1 KB *WHOLE GROUP* : 0-3
+        group 5070      2/  3       6.2 KB : 10,20
+        group 5080      2/  2       5.6 KB *WHOLE GROUP* : 0-1
+        group 5500      1/  3       2.8 KB : 2
+   chars/SFZ_Sagat/SFZ_sagat.snd  (0.89 MB, 39 sounds)  -> 16 unused, 0.29 MB
+        S160,0           49.7 KB
+        S2600,0           41.4 KB
+        S210,3           29.6 KB
+        S1000,3           28.4 KB
+        S200,2           20.9 KB
+        S130,0           19.8 KB
+        S11,0           18.7 KB
+        S220,2           16.3 KB
+        S220,3           14.6 KB
+        S220,1           10.9 KB
+        S220,0            9.3 KB
+        S210,2            8.5 KB
+        S210,1            7.2 KB
+        S210,0            6.1 KB
+        S230,0            4.5 KB
+        S240,0            3.9 KB
+==============================================================================
+chars/SFZ_Sakura   (sprite refs: 611, sound refs: 32)
+   chars/SFZ_Sakura/SFZ_Sakura.sff  (1.43 MB, 709 sprites)  -> 63 unused, 0.11 MB
+        group 11        1/  5       1.8 KB : 4
+        group 47        2/  3       3.7 KB : 1-2
+        group 100       1/  6       1.9 KB : 5
+        group 185       1/ 14       2.4 KB : 13
+        group 193       2/ 19       3.9 KB : 9-10
+        group 195       2/  8       4.5 KB : 6-7
+        group 198       4/  4      11.4 KB *WHOLE GROUP* : 0-3
+        group 810       1/ 13       2.0 KB : 0
+        group 2500      4/  4       5.3 KB *WHOLE GROUP* : 0-3
+        group 2600      1/  3       2.4 KB : 2
+        group 5030      3/  9       6.5 KB : 0,31,51
+        group 5070      3/  3       6.3 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       4.3 KB *WHOLE GROUP* : 0-1
+        group 5900      9/  9      16.8 KB *WHOLE GROUP* : 0-8
+        group 8620     10/ 10      22.4 KB *WHOLE GROUP* : 0-9
+        group 8630      3/  3       6.7 KB *WHOLE GROUP* : 0-2
+        group 8640      1/  1       2.2 KB *WHOLE GROUP* : 0
+        group 8950     10/ 10       2.5 KB *WHOLE GROUP* : 0-9
+        group 9001      1/  1       0.8 KB *WHOLE GROUP* : 10
+        group 9090      2/  2       4.4 KB *WHOLE GROUP* : 0-1
+   chars/SFZ_Sakura/SFZ_Sakura1.sff  (1.43 MB, 710 sprites)  -> 63 unused, 0.11 MB
+        group 11        1/  5       1.8 KB : 4
+        group 47        2/  3       3.7 KB : 1-2
+        group 100       1/  6       1.9 KB : 5
+        group 185       1/ 14       2.4 KB : 13
+        group 193       2/ 19       3.9 KB : 9-10
+        group 195       2/  8       4.5 KB : 6-7
+        group 198       4/  4      11.4 KB *WHOLE GROUP* : 0-3
+        group 810       1/ 13       2.0 KB : 0
+        group 2500      4/  4       5.3 KB *WHOLE GROUP* : 0-3
+        group 2600      1/  3       2.4 KB : 2
+        group 5030      3/  9       6.5 KB : 0,31,51
+        group 5070      3/  3       6.3 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       4.3 KB *WHOLE GROUP* : 0-1
+        group 5900      9/  9      16.8 KB *WHOLE GROUP* : 0-8
+        group 8620     10/ 10      22.4 KB *WHOLE GROUP* : 0-9
+        group 8630      3/  3       6.7 KB *WHOLE GROUP* : 0-2
+        group 8640      1/  1       2.2 KB *WHOLE GROUP* : 0
+        group 8950     10/ 10       2.5 KB *WHOLE GROUP* : 0-9
+        group 9001      1/  1       0.8 KB *WHOLE GROUP* : 10
+        group 9090      2/  2       4.4 KB *WHOLE GROUP* : 0-1
+   chars/SFZ_Sakura/SFZ_Sakura.snd  (0.92 MB, 62 sounds)  -> 33 unused, 0.54 MB
+        S2,6          144.4 KB
+        S3300,0           56.0 KB
+        S100,41          20.7 KB
+        S500,2           20.3 KB
+        S11,0           18.9 KB
+        S500,1           18.9 KB
+        S10,8           18.1 KB
+        S100,31          16.7 KB
+        S20,6           16.3 KB
+        S500,0           15.1 KB
+        S100,3           14.6 KB
+        S20,7           14.6 KB
+        S5000,30          12.8 KB
+        S500,6           12.8 KB
+        S500,3           12.7 KB
+        S100,7           11.6 KB
+        S100,6           11.5 KB
+        S100,2           10.7 KB
+        S100,8           10.1 KB
+        S40,8            9.7 KB
+        S100,5            8.2 KB
+        S100,15           7.7 KB
+        S100,1            7.7 KB
+        S500,4            7.6 KB
+        S100,4            7.1 KB
+        S100,0            6.6 KB
+        S100,20           4.7 KB
+        S100,13           4.6 KB
+        S100,14           4.0 KB
+        S100,30           3.6 KB
+        S100,12           3.4 KB
+        S100,11           2.9 KB
+        S100,10           2.5 KB
+==============================================================================
+chars/SFZ_Sodom-X   (sprite refs: 353, sound refs: 36)
+   chars/SFZ_Sodom-X/SFZ_Sodom_X.sff  (1.08 MB, 382 sprites)  -> 7 unused, 0.03 MB
+        group 100       1/  3       4.8 KB : 0
+        group 184       1/ 10       4.2 KB : 2
+        group 5070      3/  3      11.7 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       7.0 KB *WHOLE GROUP* : 0-1
+   chars/SFZ_Sodom-X/SFZ_Sodom.snd  (1.40 MB, 46 sounds)  -> 11 unused, 0.36 MB
+        S11,0           77.0 KB
+        S2000,0           67.3 KB
+        S4000,0           48.5 KB
+        S2000,2           45.6 KB
+        S5000,3           34.8 KB
+        S200,5           28.2 KB
+        S200,3           14.2 KB
+        S5300,1           13.1 KB
+        S200,0           10.8 KB
+        S0,0            9.2 KB
+        S800,0            7.8 KB
+==============================================================================
+chars/SFZ_Sodom-Z   (sprite refs: 347, sound refs: 36)
+   chars/SFZ_Sodom-Z/SFZ_Sodom_Z.sff  (1.11 MB, 386 sprites)  -> 19 unused, 0.05 MB
+        group 100       1/  3       4.8 KB : 0
+        group 184      10/ 10      13.9 KB *WHOLE GROUP* : 0-2,10-16
+        group 5032      1/  6       4.0 KB : 40
+        group 5042      1/  3       3.7 KB : 20
+        group 5070      3/  3      12.0 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       7.2 KB *WHOLE GROUP* : 0-1
+        group 7000      1/  3       1.7 KB : 10
+   chars/SFZ_Sodom-Z/SFZ_Sodom.snd  (1.40 MB, 46 sounds)  -> 11 unused, 0.36 MB
+        S11,0           77.0 KB
+        S2000,0           67.3 KB
+        S4000,0           48.5 KB
+        S2000,2           45.6 KB
+        S5000,3           34.8 KB
+        S200,5           28.2 KB
+        S200,3           14.2 KB
+        S200,2           14.1 KB
+        S200,0           10.8 KB
+        S0,0            9.2 KB
+        S800,0            7.8 KB
+==============================================================================
+chars/SFZ_T-Hawk   (sprite refs: 308, sound refs: 26)
+   chars/SFZ_T-Hawk/common/sprite.sff  (1.27 MB, 352 sprites)  -> 18 unused, 0.08 MB
+        group 20       12/ 24      50.4 KB : 20-31
+        group 211       1/  6       4.5 KB : 5
+        group 5030      1/ 13       5.2 KB : 1
+        group 5070      3/  6      14.8 KB : 0,10,20
+        group 5071      1/  3       5.1 KB : 10
+   chars/SFZ_T-Hawk/common/sound.snd  (2.21 MB, 50 sounds)  -> 30 unused, 1.24 MB
+        S5000,3          255.7 KB
+        S11,0          155.6 KB
+        S10,3          136.8 KB
+        S10,11          91.7 KB
+        S5000,4           62.5 KB
+        S20,2           55.2 KB
+        S2,9           51.9 KB
+        S20,1           50.8 KB
+        S10,2           50.1 KB
+        S3,3           38.8 KB
+        S3,6           31.1 KB
+        S3,2           26.6 KB
+        S4,1           23.0 KB
+        S3,0           19.0 KB
+        S3,1           19.0 KB
+        S3,5           17.3 KB
+        S2,3           16.9 KB
+        S3,4           16.8 KB
+        S2,8           14.3 KB
+        S2,2           14.2 KB
+        S2,6           13.9 KB
+        S2,4           12.9 KB
+        S2,5           12.7 KB
+        S2,7           11.9 KB
+        S2,1           10.8 KB
+        S1,2            6.9 KB
+        S1,1            6.8 KB
+        S4,0            5.9 KB
+        S1,0            5.7 KB
+        S2,0            4.5 KB
+==============================================================================
+chars/SFZ_U-Sagat   (sprite refs: 362, sound refs: 29)
+   chars/SFZ_U-Sagat/SFZ_U-Sagat.sff  (1.05 MB, 387 sprites)  -> 23 unused, 0.07 MB
+        group 101       6/  6      18.8 KB *WHOLE GROUP* : 0-5
+        group 800       1/  6       3.7 KB : 5
+        group 900       1/  6       3.3 KB : 5
+        group 2900      4/  4       6.9 KB *WHOLE GROUP* : 0-3
+        group 5040      1/  4       2.5 KB : 21
+        group 5052      4/  4      15.0 KB *WHOLE GROUP* : 0-3
+        group 5070      2/  3       6.2 KB : 10,20
+        group 5080      2/  2       5.6 KB *WHOLE GROUP* : 0-1
+        group 5500      1/  3       2.8 KB : 2
+        group 7000      1/  4       6.5 KB : 14
+   chars/SFZ_U-Sagat/SFZ_sagat.snd  (0.89 MB, 39 sounds)  -> 13 unused, 0.25 MB
+        S160,0           49.7 KB
+        S2600,0           41.4 KB
+        S210,3           29.6 KB
+        S200,2           20.9 KB
+        S1000,2           20.5 KB
+        S130,0           19.8 KB
+        S220,2           16.3 KB
+        S220,3           14.6 KB
+        S220,1           10.9 KB
+        S220,0            9.3 KB
+        S210,2            8.5 KB
+        S230,0            4.5 KB
+        S240,0            3.9 KB
+==============================================================================
+chars/SFZ_V-Ken   (sprite refs: 493, sound refs: 29)
+   chars/SFZ_V-Ken/SFZ_V-Ken.sff  (1.16 MB, 561 sprites)  -> 38 unused, 0.07 MB
+        group 42        1/  7       2.5 KB : 0
+        group 100       1/  3       1.9 KB : 2
+        group 256       2/  2       4.9 KB *WHOLE GROUP* : 0-1
+        group 810       3/  4       7.5 KB : 1-3
+        group 1001      1/  1       2.4 KB *WHOLE GROUP* : 0
+        group 1010      4/  4       3.2 KB *WHOLE GROUP* : 0-3
+        group 1020      8/  8       7.7 KB *WHOLE GROUP* : 0-7
+        group 1890      9/  9       7.7 KB *WHOLE GROUP* : 0-8
+        group 5030      1/  6       2.7 KB : 0
+        group 5070      3/  3       7.3 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  3       4.6 KB : 0-1
+        group 5550      1/  1       2.3 KB *WHOLE GROUP* : 0
+        group 9001      1/  1       1.0 KB *WHOLE GROUP* : 10
+        group 9003      1/  2      13.5 KB : 111
+   chars/SFZ_V-Ken/SFZ_V-Ken.snd  (0.62 MB, 41 sounds)  -> 16 unused, 0.24 MB
+        S2000,3           53.8 KB
+        S3000,1           27.8 KB
+        S4000,0           24.3 KB
+        S11,0           22.9 KB
+        S195,0           15.8 KB
+        S200,6           14.6 KB
+        S200,5           14.1 KB
+        S5000,3           12.7 KB
+        S3300,0           11.7 KB
+        S200,4           10.8 KB
+        S800,1            8.3 KB
+        S200,3            7.1 KB
+        S200,1            6.3 KB
+        S47,0            5.4 KB
+        S0,0            4.6 KB
+        S800,0            3.9 KB
+==============================================================================
+chars/SFZ_Vega   (sprite refs: 872, sound refs: 32)
+   chars/SFZ_Vega/SFZ_Vega.sff  (2.96 MB, 957 sprites)  -> 55 unused, 0.18 MB
+        group 102       6/  6      21.2 KB *WHOLE GROUP* : 0-5
+        group 122       1/  2       3.6 KB : 1
+        group 152       1/  3       4.2 KB : 2
+        group 193       1/ 14       4.5 KB : 11
+        group 890       6/  7      22.4 KB : 1-6
+        group 2400      1/  5       3.5 KB : 4
+        group 5072      2/  3       7.1 KB : 0,20
+        group 5080      2/  2       5.1 KB *WHOLE GROUP* : 0-1
+        group 10102     6/  6      18.8 KB *WHOLE GROUP* : 0-5
+        group 10122     1/  2       3.2 KB : 1
+        group 10152     1/  3       3.8 KB : 2
+        group 10193     1/ 12       4.0 KB : 11
+        group 10890     6/  7      20.8 KB : 1-6
+        group 12400     1/  5       3.3 KB : 4
+        group 15001     4/  4      12.8 KB *WHOLE GROUP* : 0,10,20,30
+        group 15002     1/  4       3.3 KB : 10
+        group 15011     2/  4       5.5 KB : 10,30
+        group 15030     1/  6       3.1 KB : 0
+        group 15031     2/  6       5.9 KB : 20,50
+        group 15041     1/  3       2.5 KB : 0
+        group 15042     1/  3       2.5 KB : 0
+        group 15070     1/  3       2.6 KB : 20
+        group 15071     2/  3       5.5 KB : 10,20
+        group 15072     2/  3       5.8 KB : 0,20
+        group 15080     2/  2       4.5 KB *WHOLE GROUP* : 0-1
+   chars/SFZ_Vega/SFZ_Vega_woclaw.sff  (1.36 MB, 452 sprites)  -> 31 unused, 0.10 MB
+        group 10102     6/  6      18.8 KB *WHOLE GROUP* : 0-5
+        group 10122     1/  2       3.2 KB : 1
+        group 10152     1/  3       3.8 KB : 2
+        group 10193     1/ 12       4.0 KB : 11
+        group 10890     6/  7      20.8 KB : 1-6
+        group 12400     1/  5       3.3 KB : 4
+        group 15001     4/  4      12.7 KB *WHOLE GROUP* : 0,10,20,30
+        group 15011     2/  4       5.4 KB : 10,30
+        group 15030     1/  6       3.1 KB : 0
+        group 15031     2/  6       5.8 KB : 20,50
+        group 15041     1/  3       2.5 KB : 0
+        group 15071     1/  3       3.0 KB : 10
+        group 15072     2/  3       5.7 KB : 0,20
+        group 15080     2/  2       4.5 KB *WHOLE GROUP* : 0-1
+   chars/SFZ_Vega/SFZ_Vega.snd  (1.36 MB, 46 sounds)  -> 15 unused, 0.56 MB
+        S2000,3          113.7 KB
+        S180,3           84.7 KB
+        S11,0           59.5 KB
+        S190,0           55.4 KB
+        S4000,0           49.1 KB
+        S180,2           35.2 KB
+        S200,5           32.5 KB
+        S500,7           24.2 KB
+        S200,4           21.7 KB
+        S200,3           18.6 KB
+        S1900,1           15.2 KB
+        S200,6           14.6 KB
+        S200,1           14.3 KB
+        S200,0           12.1 KB
+        S0,0            9.0 KB
+==============================================================================
+chars/SFZ_Zangief   (sprite refs: 472, sound refs: 27)
+   chars/SFZ_Zangief/sfz_Zangief.sff  (2.23 MB, 508 sprites)  -> 37 unused, 0.20 MB
+        group 122       1/  2       3.9 KB : 1
+        group 320       4/  4      21.6 KB *WHOLE GROUP* : 0-3
+        group 1500      8/ 10      47.5 KB : 0-7
+        group 1610      7/  7      38.3 KB *WHOLE GROUP* : 0-6
+        group 5040      1/  4       4.6 KB : 21
+        group 5070      3/  3      13.9 KB *WHOLE GROUP* : 0,10,20
+        group 5080      2/  2       9.9 KB *WHOLE GROUP* : 0-1
+        group 5900     11/ 11      62.1 KB *WHOLE GROUP* : 0-10
+   chars/SFZ_Zangief/sfz_Zangief.snd  (0.77 MB, 43 sounds)  -> 18 unused, 0.34 MB
+        S4400,0           54.6 KB
+        S180,3           39.5 KB
+        S600,3           39.5 KB
+        S11,0           26.2 KB
+        S180,4           25.4 KB
+        S4000,0           24.1 KB
+        S600,1           15.8 KB
+        S600,5           15.1 KB
+        S7000,0           13.7 KB
+        S600,2           13.7 KB
+        S200,6           13.7 KB
+        S600,6           13.2 KB
+        S200,4           10.9 KB
+        S200,3            9.5 KB
+        S200,2            8.5 KB
+        S200,1            7.2 KB
+        S600,4            7.1 KB
+        S200,0            5.9 KB

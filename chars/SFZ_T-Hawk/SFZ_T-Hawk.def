@@ -1,0 +1,48 @@
+; Definition file for T.Hawk
+;--------------------
+;[Player Information]
+;--------------------
+[Info]
+name = "T.Hawk"	
+displayname = "T.HAWK"	 
+mugenversion = 1.0
+author = "N64Mario"
+Pal.Defaults = 1,4
+localcoord = 384,224
+;--------------------
+;[Common Files] 
+;--------------------
+[Files]
+cmd	 = T-Hawk.cmd	
+cns	 = 384.cns	 
+stcommon = common1.cns
+st	 = 384.cns
+st2	 = thawk-s.cns	
+st3	 = thawk-h.cns	
+sprite	 = common/sprite.sff	
+anim	 = common/animation.air
+sound	 = common/sound.snd
+movelist = movelist.dat
+	
+;--------------------
+;[Palettes] (can have up to 12)
+;--------------------
+
+pal1   = palette/thawk.act
+pal2   = palette/thawk6.act
+pal3   = palette/thawk3.act
+pal4   = palette/thawk4.act 
+pal5   = palette/thawk5.act
+pal6   = palette/thawk2.act
+pal7   = palette/thawk7.act 
+pal8   = palette/thawk8.act
+pal9   = palette/thawk9.act
+pal10   = palette/thawk10.act
+pal11   = palette/thawk11.act
+pal12   = palette/thawk12.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_T-Hawk.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/T-Hawk.lua

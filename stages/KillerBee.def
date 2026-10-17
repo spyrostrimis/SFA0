@@ -1,0 +1,148 @@
+[Info]
+name = "Mykonos - Greece"
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -192
+boundright = 192
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz = 0
+botz = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 16,16,16
+yscale = .05
+
+[Music]
+bgmusic = Sound/Cammy.mp3
+bgmloopstart = 1713921
+bgmloopend = 4843956
+bgvolume = 0
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/KillerBee.sff
+;debugbg = 1
+
+[BG 0]; Fondo
+type = anim
+actionno = 0
+start = 0,224
+delta = 0.25,1
+
+[BG 1]; campanario
+type = normal
+spriteno = 1,0
+start = 0,224
+delta = .5,1
+mask = 1
+
+[BG 2]; Suelo
+type = anim
+actionno = 2
+start = 0,224
+delta = 1,1
+
+[BG 3];cuerdas
+type = anim
+actionno = 3
+start = -384,224
+delta = 1,1
+
+[BG 4]; ropa
+type = anim
+actionno = 4
+start = -384,224
+delta = 1,1
+
+[BG 5]; Flores
+type = normal
+spriteno = 5,0
+start = 0,224
+delta = 1,1
+mask = 1
+
+[Begin action 0]
+0,0, 0,0, 6
+0,1, 0,0, 6
+0,2, 0,0, 6
+0,3, 0,0, 6
+0,4, 0,0, 6
+0,5, 0,0, 6
+
+[Begin action 2]
+2,0, 0,0, 12
+2,1, 0,0, 12
+2,2, 0,0, 12
+2,3, 0,0, 12
+2,4, 0,0, 12
+2,5, 0,0, 12
+2,6, 0,0, 12
+2,7, 0,0, 12
+
+[Begin action 3]
+3,0, 0,0, 3
+3,1, 0,0, 3
+3,2, 0,0, 3
+
+[Begin action 4]
+4,0, 0,0, 4
+4,1, 0,0, 4
+4,2, 0,0, 4
+4,3, 0,0, 4
+
+;[BG 6];MI6 Delta Red Members
+;type  = anim
+;actionno = 6
+;start = 100,197
+;delta = 1, 1
+;mask = 1
+
+;[Begin Action 6]
+;6,0, 0,0, 6
+;6,1, 0,0, 6
+;6,2, 0,0, 12
+;6,3, 0,0, 6
+;6,4, 0,0, 6
+;6,5, 0,0, 12

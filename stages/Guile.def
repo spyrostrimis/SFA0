@@ -1,0 +1,953 @@
+; Stage Definition.
+
+[Info]
+name = "Nevada Ghost Valley, U.S.A."
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -220
+boundright = 220
+boundhigh = -229
+boundlow = 0
+verticalfollow = .1
+tension = 70
+
+[PlayerInfo]
+; Player 1
+p1startx = -70          
+p1starty = 0            
+p1startz = 0            
+p1facing = 1            
+; Player 2
+p2startx = 70
+p2starty = 0
+p2startz = 0
+p2facing = -1
+; Common
+leftbound  = -1000 
+rightbound =  1000 
+topbound  =  0     
+botbound  =  0     
+
+[Scaling]
+topz     = 0       
+botz     = 50      
+topscale = 1       
+botscale = 1.4    
+
+[Bound]
+screenleft = 15    
+screenright = 15   
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+xscale = 1.1
+yscale = 1.1    
+
+[Shadow]
+color = 19,46,16
+yscale = .05
+intensity = 40
+
+[Music]
+bgmusic = Sound/Guile.mp3
+bgmloopstart=548613
+bgmloopend= 3527530
+bgvolume = 0
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+;-------------------------------------
+
+; Main background definition
+[BGdef]
+spr = stages/Guile.sff      ;Filename of sprite data
+;debugbg = 1 ;Clear to magenta for layer 0
+
+; Individual layers
+[BG 0.0] ;Mountains
+type  = normal
+spriteno = 0,0
+start = 0, 0
+delta = .05, .45
+mask  = 0
+tile  = 1, 0
+velocity = -1
+
+[BG 0.1] ;Mountains Back
+type  = normal
+spriteno = 0,1
+start = 0, 0
+delta = .1, .45
+mask  = 1
+tile  = 1, 0
+velocity = -2
+
+[BG 0.2] ;Mountains Front
+type  = normal
+spriteno = 0,2
+start = 0, 0
+delta = .12, .45
+mask  = 1
+tile  = 1, 0
+velocity = -3
+
+[BG 0.3] ;Forest
+type  = normal
+spriteno = 0,3
+start = 0, 0
+delta = .1, .45
+mask  = 1,8
+tile  = 1, 0
+velocity = -4
+
+[BG 0.4] ;Bushes
+type  = normal
+spriteno = 0,4
+start = 0, 0
+delta = .2, .45
+mask  = 1
+tile  = 1, 0
+velocity = -5
+
+;---------------
+[BG Heli] ;Helicopter
+type  = anim
+id = 15
+actionno = 15
+start = 0, 0
+delta = .2,.55
+
+;---------------
+[BG 1.1] ;Tree
+type  = normal
+spriteno = 1,0
+start = 1000, 224
+delta = .2,.5
+mask  = 1
+tile  = 1, 0
+tilespacing = 3000,0
+velocity = -6
+
+[BG 1.2] ;Tree
+type  = normal
+spriteno = 1,0
+start = 1600
+mask  = 1
+tile  = 1, 0
+tilespacing = 3000,0
+positionlink = 1
+
+[BG 1.3] ;Tree
+type  = normal
+spriteno = 1,0
+start = 2150
+mask  = 1
+tile  = 1, 0
+tilespacing = 3000,0
+positionlink = 1
+
+[BG 1.3] ;Tree
+type  = normal
+spriteno = 1,0
+start = 2280, -30
+mask  = 1
+tile  = 1, 0
+tilespacing = 6000,0
+positionlink = 1
+
+;---------------
+[BG Rails Left] ;Bridge rails
+type  = normal
+id = 3
+spriteno = 3,0
+start = 120000,200 ;120150, 200
+delta = .5, .85
+mask = 1
+tile  = 1, 0
+tilespacing = 134862,0
+;velocity = -27,0
+
+[BG Rails Mid1] ;Bridge rails
+type  = normal
+id = 3
+spriteno = 3,1
+mask = 1
+tile  = 1, 0
+tilespacing = 134744,0
+positionlink = 1
+
+[BG Rails Mid2] ;Bridge rails
+type  = normal
+id = 3
+spriteno = 3,2
+mask = 1
+tile  = 1, 0
+tilespacing = 134744,0
+positionlink = 1
+
+[BG Rails Mid3] ;Bridge rails
+type  = normal
+id = 3
+spriteno = 3,3
+mask = 1
+tile  = 1, 0
+tilespacing = 134744,0
+positionlink = 1
+
+[BG Rails Mid4] ;Bridge rails
+type  = normal
+id = 3
+spriteno = 3,4
+mask = 1
+tile  = 1, 0
+tilespacing = 134744,0
+positionlink = 1
+
+[BG Rails Mid5] ;Bridge rails
+type  = normal
+id = 3
+spriteno = 3,5
+mask = 1
+tile  = 1, 0
+tilespacing = 134744,0
+positionlink = 1
+
+[BG Rails Mid6] ;Bridge rails
+type  = normal
+id = 3
+spriteno = 3,6
+mask = 1
+tile  = 1, 0
+tilespacing = 134744,0
+positionlink = 1
+
+[BG Rails Right] ;Bridge rails
+type  = normal
+id = 3
+spriteno = 3,7
+mask = 1
+tile  = 1, 0
+tilespacing = 134830,0
+positionlink = 1
+
+;---------------
+[BG Tunnel Left] ;Tunnel
+type = normal
+id = 16
+spriteno = 16,0
+start = 0, -19
+delta = .5, .85
+mask = 1
+
+[BG Tunnel Black] ;Tunnel
+type = normal
+id = 16
+spriteno = 16,1
+start = 233,0
+mask = 0
+tile = 31
+positionlink = 1
+
+[BG Tunnel Light 1] ;Tunnel
+type = normal
+id = 16
+spriteno = 16,2
+start = 330,0
+mask = 0
+positionlink = 1
+
+[BG Tunnel Light 2] ;Tunnel
+type = normal
+id = 16
+spriteno = 16,2
+start = 586,0
+mask = 0
+positionlink = 1
+
+[BG Tunnel Right] ;Tunnel
+type = anim
+id = 16
+actionno = 16
+start = 1023
+positionlink = 1
+[Begin Action 16] ;Reversed tunnel
+16,0, 0,0, -1, H
+
+;---------------
+[BG Tunnel Left] ;Tunnel2
+type = normal
+id = 17
+spriteno = 16,0
+start = 0, -19
+delta = .5, .85
+mask = 1
+
+[BG Tunnel Black] ;Tunnel2
+type = normal
+id = 17
+spriteno = 16,1
+start = 233,0
+mask = 0
+tile = 60
+positionlink = 1
+
+[BG Tunnel Light 1] ;Tunnel2
+type = normal
+id = 17
+spriteno = 16,2
+start = 330,0
+mask = 0
+positionlink = 1
+
+[BG Tunnel Light 2] ;Tunnel2
+type = normal
+id = 17
+spriteno = 16,2
+start = 586,0
+mask = 0
+positionlink = 1
+
+[BG Tunnel Light 3] ;Tunnel2
+type = normal
+id = 17
+spriteno = 16,2
+start = 842,0
+mask = 0
+positionlink = 1
+
+[BG Tunnel Light 4] ;Tunnel2
+type = normal
+id = 17
+spriteno = 16,2
+start = 1098,0
+mask = 0
+positionlink = 1
+
+[BG Tunnel Right] ;Tunnel2
+type = anim
+id = 17
+actionno = 16
+start = 1535
+positionlink = 1
+
+;-----------------
+[BG 2.A] ;Soldier0
+type  = anim
+id = 2
+actionno = 10
+start = 1286, 29
+delta = .5, .85
+;tile  = 1, 0
+;tilespacing = 5000,0
+;velocity = -1,0
+
+[BG 2.B] ;Soldier0
+type  = anim
+id = 2
+actionno = 10
+start = 1114,96 ;2430, 125
+;tile  = 1, 0
+;tilespacing = 5000,0
+positionlink = 1
+
+[BG 2.C] ;Soldier0
+type  = anim
+id = 2
+actionno = 10
+start = 3447, 141
+delta = .5, .85
+;tile  = 1, 0
+;tilespacing = 5000,0
+;velocity = -1,0
+
+[BG 2.D] ;Soldier1
+type  = anim
+id = 2
+actionno = 11
+start = 1240, 58
+delta = .5, .85
+;tile  = 1, 0
+;tilespacing = 5000,0
+;velocity = -1,0
+
+[BG 2.E] ;Soldier2
+type  = anim
+id = 2
+actionno = 12
+start = 2252, 58
+delta = .5, .85
+;tile  = 1, 0
+;tilespacing = 5000,0
+;velocity = -1,0
+
+[BG 2.F] ;Soldier3
+type  = anim
+id = 2
+actionno = 13
+start = 3251, 99
+delta = .5, .85
+;tile  = 1, 0
+;tilespacing = 5000,0
+;velocity = -1,0
+
+;-----------------
+[BG 2.1] ;Train
+type  = anim
+id = 1   ;Use ID 1 for first train, 2 for train and the people on it
+actionno = 0
+start = 150, 193
+delta = .5, .85
+;tile  = 1, 0
+;tilespacing = 5000,0
+;velocity = -1,0
+
+[BG 2.2] ;Train
+type  = anim
+id = 2
+actionno = 0
+start = 512,0
+;tile  = 1, 0
+;tilespacing = 5000,0
+positionlink = 1
+
+[BG 2.3] ;Train with people
+type  = anim
+id = 2
+actionno = 0
+start = 1024,0
+;tile  = 1, 0
+;tilespacing = 5000,0
+positionlink = 1
+
+[BG 2.4] ;Blue Train
+type  = anim
+id = 2
+actionno = 1
+start = 1541,0 ;1691, 193
+;tile  = 1, 0
+;tilespacing = 5000,0
+positionlink = 1
+
+[BG 2.5] ;Train with people
+type  = anim
+id = 2
+actionno = 0
+start = 1792,0 ;1942, 193
+;tile  = 1, 0
+;tilespacing = 5000,0
+positionlink = 1
+
+[BG 2.6] ;Train
+type  = anim
+id = 2
+actionno = 0
+start = 2304,0 ;2454, 193
+;tile  = 1, 0
+;tilespacing = 5000,0
+positionlink = 1
+
+[BG 2.7] ;Blue Train
+type  = anim
+id = 2
+actionno = 1
+start = 2821,0 ;2971, 193
+;tile  = 1, 0
+;tilespacing = 5000,0
+positionlink = 1
+
+[BG 2.8] ;Blue Train with guy
+type  = anim
+id = 2
+actionno = 1
+start = 3077,0 ;3227, 193
+;tile  = 1, 0
+;tilespacing = 5000,0
+positionlink = 1
+
+[BG 2.9] ;Blue Train
+type  = anim
+id = 2
+actionno = 1
+start = 3333,0 ;3483, 193
+;tile  = 1, 0
+;tilespacing = 5000,0
+positionlink = 1
+
+[BG 2.10] ;Train gun
+type  = anim
+id = 2
+actionno = 2
+start = 3575,0 ;3725, 193
+;tile  = 1, 0
+;tilespacing = 5000,0
+positionlink = 1
+
+;-----------------
+[BG 5] ;Floor
+type  = normal
+spriteno = 5,0
+start = 0, 239
+delta = 1, 1
+mask  = 1
+
+;-----------------
+[BG Snow (in foreground)] ;Snow
+type = normal
+id = 18
+spriteno = 18, 0
+layerno = 1
+start = 0,0
+delta = 0,0
+mask = 1
+tile = 56, 1
+Trans = add
+
+;-----------------
+[BG Snow (in foreground)] ;Snow
+type = normal
+id = 18
+spriteno = 18, 0
+layerno = 1
+start = 14900,0
+delta = 0,0
+mask = 1
+tile = 12, 1
+Trans = add
+
+;-----------------
+[BG Snow (in foreground)] ;Snow
+type = normal
+id = 18
+spriteno = 18, 0
+layerno = 1
+start = 18400,0
+delta = 0,0
+mask = 1
+tile = 54, 1
+Trans = add
+
+;-----------------
+[BG Snow (in foreground)] ;Snow
+type = normal
+id = 18
+spriteno = 18, 0
+layerno = 1
+start = 32700,0
+delta = 0,0
+mask = 1
+tile = 6, 1
+Trans = add
+
+;-----------------
+[BG Snow (in foreground)] ;Snow
+type = normal
+id = 18
+spriteno = 18, 0
+layerno = 1
+start = 35000,0
+delta = 0,0
+mask = 1
+tile = 3, 1
+Trans = add
+
+;-----------------
+[BG Signal (in forground)] ;Signal
+type  = normal
+id = 20
+spriteno = 10, 0
+layerno = 1
+start = 0, 239
+delta = 1.2, 1
+mask  = 1
+tile  = 1, 0
+tilespacing = 1050,0
+velocity = -15,0
+
+
+;========================================================
+;Control stuff
+
+;-----------------
+;Train controller
+[BGCtrlDef 2]
+looptime = 7000
+CtrlID = 1,2
+
+[BGCtrl 2.1] ;Reset background
+type = PosSet
+time = 0
+x = 0
+
+[BGCtrl 2.2]
+type = VelSet
+time = 0
+x = -1
+
+[BGCtrl 2.3] ;Stop the train
+type = VelSet
+time = 4000
+x = 0
+
+[BGCtrl 2.4]
+type = SinX
+time = 4000
+value = -10,240
+ctrlID = 1 ;Affect only first train (rest will follow)
+
+[BGCtrl 2.5] ;Start the train again
+type = VelSet
+time = 5200
+x = -1
+
+[BGCtrl 2.6]
+type = SinX
+time = 5200
+value = 0
+
+[BGCtrl 2.1] ;Reset background
+type = PosSet
+time = 6800
+x = 200
+
+;-----------------
+;Rails controller
+[BGCtrlDef 3]
+looptime = 7000
+CtrlID = 3
+
+[BGCtrl 3.1] ;Keep disabled until needed
+type = Enable
+time = 0,1199
+value = 0
+
+[BGCtrl 3.2] ;Keep disabled until needed
+type = PosSet
+time = 0,1199
+x = 0
+
+[BGCtrl 3.3] ;Keep disabled until needed
+type = VelSet
+time = 1200
+x = -27
+
+[BGCtrl 3.4] ;Bring on
+type = Enable
+time = 1200
+value = 1
+
+;-----------------
+;Tunnel1 controller
+[BGCtrlDef 16]
+looptime = 7000
+CtrlID = 16
+
+[BGCtrl 16.1] ;Start off disabled
+type = Enable
+time = 0,0, -1
+value = 0
+
+[BGCtrl 3.2] ;Move
+type = PosSet
+time = 5750
+x = 400
+
+[BGCtrl 3.3] ;Move
+type = VelSet
+time = 5750
+x = -20
+
+[BGCtrl 3.4] ;Bring on
+type = Enable
+time = 5750
+value = 1
+
+[BGCtrl 3.4] ;Done
+type = Enable
+time = 5900
+value = 1
+
+[BGCtrl 3.4] ;Done
+type = VelSet
+time = 5900
+x = 0
+
+;-----------------
+;Tunnel2 controller
+[BGCtrlDef 17]
+looptime = 7000
+CtrlID = 17
+
+[BGCtrl 17.1] ;Start off disabled
+type = Enable
+time = 0,0, -1
+value = 0
+
+[BGCtrl 17.2] ;Move
+type = PosSet
+time = 5850
+x = 400
+
+[BGCtrl 17.3] ;Move
+type = VelSet
+time = 5850
+x = -20
+
+[BGCtrl 17.4] ;Bring on
+type = Enable
+time = 5850
+value = 1
+
+[BGCtrl 17.4] ;Done
+type = Enable
+time = 6050
+value = 1
+
+[BGCtrl 17.4] ;Done
+type = VelSet
+time = 6050
+x = 0
+
+;-----------------
+; Signal controller
+[BGCtrlDef 20]
+looptime = 7000
+CtrlID = 20
+
+[BGCtrl 17.1] ;Disable
+type = Enable
+time = 5390
+value = 0
+
+[BGCtrl 17.1] ;Enable
+type = Enable
+time = 5990
+value = 1
+
+;-----------------
+;Snow controller
+[BGCtrlDef 18]
+looptime = 7000
+CtrlID = 18
+
+[BGCtrl 18.1] ;Start off disabled
+type = Enable
+time = 0,0, -1
+value = 0
+
+[BGCtrl 18.2] ;Position
+type = PosSet
+time = 6000
+x = 400
+y = 0
+
+[BGCtrl 18.3] ;Vel
+type = VelSet
+time = 6000
+x = -42 ;-48
+y = 0
+
+[BGCtrl 18.4] ;Enable
+type = Enable
+time = 6000
+value = 1
+
+[BGCtrl 18.4] ;Stop
+type = Enable
+time = 7000
+value = 0
+
+;-----------------
+;Helicopter controller
+[BGCtrlDef 15]
+looptime = 7000
+CtrlID = 15
+
+[BGCtrl 15.1] ;Start off disabled
+type = Enable
+time = 0,0, -1
+value = 0
+
+[BGCtrl 15.2] ;Start off screen
+type = PosSet
+time = 1600
+x = 400
+y = 80
+
+[BGCtrl 15.3]
+type = VelSet
+time = 1600
+x = -5.2
+
+[BGCtrl 15.4] ;Bring it on
+type = Enable
+time = 1600
+value = 1
+
+[BGCtrl 15.5] ;Move up left
+type = VelAdd
+time = 1600,1620
+x = -.05
+y = -.05
+
+[BGCtrl 15.6] ;Stop
+type = VelSet
+time = 1660
+x = 0
+y = 0
+
+[BGCtrl 15.6] ;Stop
+type = SinY
+time = 1660
+value = -8,60
+
+[BGCtrl 15.7] ;Stop sin
+type = SinY
+time = 1840
+value = 0
+
+[BGCtrl 15.8] ;Move up left
+type = VelAdd
+time = 1840,1960
+x = -.1
+y = -.05
+
+[BGCtrl 15.8] ;Stop
+type = VelSet
+time = 1960
+x = 0
+y = 0
+
+[BGCtrl 15.9] ;Disable
+type = Enable
+time = 1960
+value = 0
+
+;Helicopter (coming out again)
+
+[BGCtrl 15.2] ;Start off screen
+type = PosSet
+time = 6400
+x = 400
+y = 80
+
+[BGCtrl 15.3]
+type = VelSet
+time = 6400
+x = -5.2
+
+[BGCtrl 15.4] ;Bring it on
+type = Enable
+time = 6400
+value = 1
+
+[BGCtrl 15.5] ;Move up left
+type = VelAdd
+time = 6400,6420
+x = -.05
+y = -.05
+
+[BGCtrl 15.6] ;Stop
+type = VelSet
+time = 6460
+x = 0
+y = 0
+
+[BGCtrl 15.6] ;Stop
+type = SinY
+time = 6460
+value = -8,60
+
+[BGCtrl 15.7] ;Stop sin
+type = SinY
+time = 6640
+value = 0
+
+[BGCtrl 15.8] ;Move up left
+type = VelAdd
+time = 6640,6760
+x = -.1
+y = -.05
+
+[BGCtrl 15.8] ;Stop
+type = VelSet
+time = 6760
+x = 0
+y = 0
+
+[BGCtrl 15.9] ;Disable
+type = Enable
+time = 6860
+value = 0
+
+;========================================================
+;Anim stuff
+
+;-----------------
+;Train0
+[Begin Action 0]
+2,0, 0,0, 120
+2,0, 0,-1, 1
+2,0, 0,-2, 1
+2,0, 0,-1, 1
+
+;-----------------
+;Train1
+[Begin Action 1]
+2,1, 0,0, 120
+2,1, 0,-1, 1
+2,1, 0,-2, 1
+2,1, 0,-1, 1
+
+;-----------------
+;Train2
+[Begin Action 2]
+2,2, 0,0, 120
+2,2, 0,-1, 1
+2,2, 0,-2, 1
+2,2, 0,-1, 1
+
+;-----------------
+;Soldier0
+[Begin Action 10]
+4,0, 0,0, 120
+4,0, 0,-1, 1
+4,0, 0,-2, 1
+4,0, 0,-1, 1
+
+;-----------------
+;Soldier1
+[Begin Action 11]
+4,1, 0,0, 120
+4,1, 0,-1, 1
+4,1, 0,-2, 1
+4,1, 0,-1, 1
+
+;-----------------
+;Soldier2
+[Begin Action 12]
+4,2, 0,0, 120
+4,2, 0,-1, 1
+4,2, 0,-2, 1
+4,2, 0,-1, 1
+
+;-----------------
+;Soldier3
+[Begin Action 13]
+4,3, 0,0, 120
+4,3, 0,-1, 1
+4,3, 0,-2, 1
+4,3, 0,-1, 1
+
+;-----------------
+;Helicopter
+[Begin Action 15]
+15,0, 0,0, 1
+15,1, 0,0, 1
+15,2, 0,0, 1
+15,3, 0,0, 1

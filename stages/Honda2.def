@@ -1,0 +1,247 @@
+;Shower stage by Chok
+Web-site: http://mcreations.free.fr
+;E-Mail/MSN: iori371@hotmail.fr
+;Release date: 24/12/04
+;Update: 11/04/07
+
+[Info]
+name = "Sento - Japan"
+author = "chok"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -176
+boundright = 176
+boundhigh = -231
+boundlow = 0
+verticalfollow = .1
+floortension = 00
+tension = 60
+
+;---------------------------
+[PlayerInfo]
+;---Player 1---
+p1startx = -75          
+p1starty = 0            
+p1startz = 0            
+p1facing = 1            
+
+;---Player 2---
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+;---Common---
+leftbound = -1000 
+rightbound =  1000 
+topbound =  0     
+botbound =  0     
+
+[Scaling]
+topz = 0       
+botz = 50      
+topscale = 1       
+botscale = 1.2     
+
+[Bound]
+screenleft = 15    
+screenright = 15  
+
+;---------------------------
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 1
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 16,16,16
+yscale = .05
+
+[Music]
+bgmusic = sound/Honda2.mp3
+bgmloopstart = 419325
+bgmloopend = 4419332
+bgvolume = 0
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Honda2.sff
+;debugbg = 0
+
+;---------------------------------------------------------------------
+[BG 0]
+type = Normal
+spriteno = 0,0
+start = 0,-10
+delta = 1,1
+mask = 1
+
+[BG 1]
+type = Normal
+spriteno = 2,0
+start = 0,-10
+delta = 1,1
+mask = 1
+
+[BG 2]
+type = Normal
+spriteno = 0,1
+start = 0,-10
+delta = 1,1
+mask = 1
+
+[BG 3]
+type = Anim
+actionno = 0
+start = 0,-10
+delta = 1,1
+mask = 1
+
+[BG 4]
+type = Anim
+actionno = 1
+start = 0,-10
+delta = 1,1
+mask = 1
+
+[BG 5]
+type = Anim
+actionno = 2
+start = 0,-10
+delta = 1,1
+mask = 1
+
+[BG 6]
+type = Anim
+actionno = 3
+start = 0,-10
+delta = 1,1
+mask = 1
+
+[BG 7]
+type = Anim
+actionno = 4
+start = 0,-10
+delta = 1,1
+mask = 1
+
+[BG 8]
+type = Anim
+actionno = 5
+start = 0,-10
+delta = 1,1
+mask = 1
+
+[BG 9]
+type = Anim
+actionno = 6
+start = 0,-10
+delta = 1,1
+mask = 1
+
+;---------------------------------------------------------------------
+[Begin Action 0]
+1,0,0,0,8
+1,1,0,0,8
+1,2,0,0,8
+1,3,0,0,8
+1,4,0,0,8
+1,5,0,0,8
+1,6,0,0,8
+1,7,0,0,8
+
+[Begin Action 1]
+3,0,0,0,160
+3,1,0,0,16
+3,2,0,0,32
+3,1,0,0,16
+
+[Begin Action 2]
+4,0,0,0,240
+4,1,0,0,8
+4,0,0,0,160
+4,1,0,0,8
+4,0,0,0,160
+4,1,0,0,8
+4,2,0,0,8
+4,1,0,0,8
+4,2,0,0,8
+
+
+[Begin Action 3]
+5,0,0,0,56
+5,1,0,0,7
+5,0,0,0,7
+5,1,0,0,7
+5,2,0,0,7
+5,1,0,0,7
+5,2,0,0,7
+5,1,0,0,7
+5,2,0,0,7
+5,1,0,0,7
+5,2,0,0,7
+5,1,0,0,7
+5,2,0,0,7
+5,1,0,0,7
+
+[Begin Action 4]
+6,0,0,0,110
+6,1,0,0,8
+6,0,0,0,110
+6,1,0,0,8
+6,0,0,0,110
+6,1,0,0,6
+6,0,0,0,8
+6,1,0,0,6
+6,0,0,0,110
+6,1,0,0,5
+6,0,0,0,5
+6,1,0,0,5
+6,2,0,0,5
+6,3,0,0,6
+6,4,0,0,5
+6,0,0,0,5
+6,2,0,0,5
+6,3,0,0,6
+6,4,0,0,5
+6,0,0,0,5
+6,2,0,0,5
+6,3,0,0,6
+6,4,0,0,5
+
+[Begin Action 5]
+7,0,0,0,55
+7,1,0,0,7
+7,0,0,0,40
+7,1,0,0,7
+7,0,0,0,28
+7,1,0,0,7
+7,0,0,0,55
+7,1,0,0,7
+7,2,0,0,6
+7,3,0,0,7
+7,4,0,0,7
+7,5,0,0,6
+7,2,0,0,6
+7,3,0,0,7
+7,4,0,0,7
+7,5,0,0,6
+7,2,0,0,6
+7,3,0,0,7
+7,4,0,0,7
+7,5,0,0,6
+
+[Begin Action 6]
+8,0,0,0,3
+8,1,0,0,4
+8,2,0,0,3
+8,3,0,0,3
+8,4,0,0,4
+8,5,0,0,3

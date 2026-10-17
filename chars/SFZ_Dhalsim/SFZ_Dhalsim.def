@@ -1,0 +1,41 @@
+[Info]
+name = "Dhalsim"
+displayname = "DHALSIM"
+author = "Ehnyd"
+Localcoord=384,224
+mugenversion = 1.0
+Pal.Defaults = 1,4
+
+[Files]
+cmd     = SFZ_Dhalsim.cmd
+cns     = 01_Main.cns
+st      = 01_Main.cns
+st1     = 02_Attacks.cns
+st2     = 03_Specials.cns
+st3     = 04_SuperCombos.cns
+st4     = 05_SFZ.cns
+st5     = sari.cns
+stcommon = common1.cns
+sprite  = SFZ_Dhalsim.sff
+anim    = SFZ_Dhalsim.air
+sound   = SFZ_Dhalsim.snd
+movelist = movelist.dat
+
+pal1    = Pals/Z-ism1.act
+pal2    = Pals/X-ism1.act
+pal3    = Pals/V-ism1.act
+pal4    = Pals/Z-ism2.act
+pal5    = Pals/X-ism2.act
+pal6    = Pals/V-ism2.act
+pal7    = Pals/Z-ism4.act
+pal8    = Pals/X-ism4.act
+pal9    = Pals/V-ism4.act
+pal10    = Pals/Z-ism3.act
+pal11    = Pals/X-ism3.act
+pal12    = Pals/V-ism3.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_Dhalsim.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/Dhalsim.lua

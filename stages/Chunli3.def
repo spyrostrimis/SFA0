@@ -1,0 +1,96 @@
+[Info]
+name = "The Great Wall - China"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -160
+boundright = 160
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -70
+p1starty = 0
+p1startz = 0
+p1facing = 1
+
+p2startx = 70
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz     = 0
+botz     = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 1
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 26,54,51
+yscale = .05
+intensity = 25
+
+[BGdef]
+spr = stages/Chunli3.sff
+
+[Music]
+bgmusic = Sound/Chun2.mp3
+bgmloopstart = 37218
+bgmloopend =   3685543
+bgvolume = 0
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 361287
+
+[BG horizon]
+type = normal
+spriteno = 2,1
+start = 0,1
+delta = .55,1
+tile = 1, 0
+velocity = .175, 0
+
+[BG mountain]
+type = normal
+spriteno = 2,0
+start = 0,0
+delta = .60,1
+mask = 1
+yscale = .9
+
+[BG backwall]
+type = normal
+spriteno = 1,0
+start = 0,240
+delta = .8,1
+mask = 1
+;xscale = .6
+yscale = .6
+
+[BG wall]
+type = normal
+spriteno = 0,0
+start = 0,240
+delta = 1,1
+mask = 1

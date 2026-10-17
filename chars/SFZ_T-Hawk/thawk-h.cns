@@ -1,0 +1,2211 @@
+; T.Hawk's Hyper States
+;---------------------------------------------------------------------------
+; Super Hawk Summon
+[Statedef 2010]
+type = S
+movetype = I
+physics = S
+ctrl = 0
+anim = 2000
+velset = 0,0
+
+[State 2010, 0]
+type = PlaySnd
+trigger1 = AnimElem = 2
+value = 10, 12
+channel = 0
+
+[State 2010, SuperPause]
+type = SuperPause
+trigger1 = AnimElem = 2
+pos = 5, -120
+anim = 100
+time = 30
+movetime = 20
+sound = F20,0
+poweradd = -1000
+
+[State 2010, 5]
+type = Helper
+triggerall = Facing = 1
+trigger1 = AnimElem = 6
+helpertype = normal
+ignorehitpause = 1
+name = "Hawk"
+id = 8000
+facing = 1
+pos = -20,-60
+postype = Left
+stateno = 8006
+keyctrl = 0
+ownpal = 1
+size.ground.back = 10
+size.ground.front = 10
+size.air.back = 10
+size.air.front = 10
+
+[State 2010, 5]
+type = Helper
+triggerall = Facing = -1
+trigger1 = AnimElem = 6
+helpertype = normal
+ignorehitpause = 1
+name = "Hawk"
+id = 8000
+facing = -1
+pos = -20,-60
+postype = Right
+stateno = 8006
+keyctrl = 0
+ownpal = 1
+size.ground.back = 10
+size.ground.front = 10
+size.air.back = 10
+size.air.front = 10
+
+[State 2010, 5]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; Raging Typhoon W - Attempt
+[Statedef 3000]
+type    = S
+movetype= A
+physics = S
+juggle  = 0
+velset = 0,0
+ctrl = 0
+anim = 820
+
+[State 3000, NotHitBy]
+type = NotHitBy
+trigger1 = Time < 30
+value = SCA
+time = 1
+
+[State 3000, AfterImage]
+type = AfterImage
+trigger1 = AnimElem = 1
+time = 1
+
+[State 3000, AfterImageTime]
+type = AfterImageTime
+trigger1 = 1
+time = 2
+
+[State 3000, PlaySnd]
+type = PlaySnd
+trigger1 = Anim = 820
+trigger1 = AnimElem = 1
+value = 10, 5
+channel = 0
+
+[State 3000, SuperPause]
+type = SuperPause
+trigger1 = Anim = 820
+trigger1 = AnimElem = 1
+pos = 20, -115
+anim = 100
+time = 30
+movetime = 20
+sound = F20,0
+poweradd = -1000
+
+[State 3000, Width]
+type = Width
+trigger1 = 1
+value = 20,0
+
+[State 3000, SprPriority]
+type = SprPriority
+trigger1 = AnimElem = 6, < 0
+value = -1
+
+[State 3000, SprPriority]
+type = SprPriority
+trigger1 = AnimElem = 6, >= 0
+value = 1
+
+[State 3000, Arm]
+type = Helper
+trigger1 = AnimElem = 1
+helpertype = normal
+ignorehitpause = 1
+name = "Arm"
+id = 800
+facing = 1
+pos = 0,0
+postype = P1
+stateno = 801
+keyctrl = 0
+
+[State 3000, PlaySnd]
+type = PlaySnd
+trigger1 = Anim = 820
+trigger1 = AnimElem = 6
+value = 10, 0
+channel = 0
+
+[State 3000, 1]
+type = HitDef
+trigger1 = AnimElem = 2,19
+attr = S, HT
+hitflag = M-
+priority = 1, Miss
+sparkno = -1
+sprpriority = 1
+ground.velocity = -4,-6
+air.velocity = -4,-6
+p1facing = 1
+p2facing = 1
+p1stateno = 3001
+p2stateno = 804
+numhits = 0
+snap = 40,0
+fall = 1
+
+[State 3000, 2]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; Raging Typhoon Start
+[Statedef 3001]
+type    = S
+movetype= A
+physics = N
+juggle  = 0
+velset = 0,0
+ctrl = 0
+anim = 1000
+
+[State 3000, VarSet]
+type = VarSet
+trigger1 = Time = 0
+v = 1
+value = 0
+
+[State 3000, AfterImageTime]
+type = AfterImageTime
+trigger1 = 1
+time = 2
+
+[State 3000, NotHitBy]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+time = 1
+
+[State 3000, PlayerPush]
+type = PlayerPush
+trigger1 = 1
+value = 0
+
+[State 3000, ScreenBound]
+type = null ;ScreenBound
+trigger1 = 1
+value = 1
+movecamera = 0,0
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 1000
+trigger1 = AnimElem = 1
+pos = 40, 0
+
+[State 3000, PlaySnd]
+type = PlaySnd
+trigger1 = Anim = 1000
+trigger1 = AnimElem = 1
+value = 0, 2
+
+[State 3000, State]
+type = ChangeState
+trigger1 = Anim = 1000
+trigger1 = AnimTime = 0
+value = 3002
+
+;---------------------------------------------------------------------------
+; Raging Typhoon
+[Statedef 3002]
+type    = A
+movetype= A
+physics = N
+juggle  = 0
+velset = 0,0
+ctrl = 0
+anim = 3001
+
+[State 3000, AfterImageTime]
+type = AfterImageTime
+trigger1 = 1
+time = 2
+
+[State 3000, NotHitBy]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+time = 1
+
+[State 3000, PlayerPush]
+type = PlayerPush
+trigger1 = 1
+value = 0
+
+[State 3000, ScreenBound]
+type = null ;ScreenBound
+trigger1 = 1
+value = 1
+movecamera = 0,0
+
+[State 3000, Width]
+type = Width
+trigger1 = 1
+edge = 30,30
+
+[State 3000, TargetState]
+type = TargetState
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 1
+value = 3005
+
+[State 3000, 2]
+type = VelSet
+triggerall = Anim = 3001
+triggerall = AnimElem = 1
+trigger1 = Var(1) = 0
+x = 1
+y = -10
+
+[State 3000, 2]
+type = VelSet
+triggerall = Anim = 3001
+triggerall = AnimElem = 1
+trigger1 = Var(1) = 1
+x = -1
+y = -10
+
+[State 3000, 2]
+type = VelSet
+triggerall = Anim = 3001
+triggerall = AnimElem = 1
+trigger1 = Var(1) = 2
+x = 0
+y = -14
+
+[State 3000, 2]
+type = Veladd
+trigger1 = 1
+y = .4
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 1 >= 0
+pos = 30, -80
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 2 >= 0
+pos = -50, -90
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 3 >= 0
+pos = -80, -130
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 4 >= 0
+pos = -20, -165
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 5 >= 0
+pos = 60, -155
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 6 >= 0
+pos = 80, -100
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 6,3
+pos = 30, -80
+
+[State 3000, Anim]
+type = ChangeAnim
+trigger1 = Time > 40
+trigger1 = Anim = 3001
+trigger1 = Vel Y > 0
+value = 3002
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Time > 40
+trigger1 = Anim = 3001
+trigger1 = Vel Y > 0
+trigger2 = Anim = 3002
+trigger2 = AnimElem = 1, >= 0
+pos = -50, -160
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3002
+trigger1 = AnimElem = 2, >= 0
+pos = 0, -155
+
+[State 3000, 10]
+type = ChangeState
+triggerall = Time > 30
+trigger1 = Vel Y > 0
+trigger1 = Pos Y >= 5
+value = 3003
+
+;---------------------------------------------------------------------------
+; Raging Typhoon Land
+[Statedef 3003]
+type    = A
+movetype= A
+physics = N
+juggle  = 0
+velset = 0,0
+ctrl = 0
+anim = 1003
+
+[State 3000, VarSet]
+type = VarAdd
+trigger1 = Time = 0
+v = 1
+value = 1
+
+[State 3000, NotHitBy]
+type = NotHitBy
+trigger1 = Time < 20
+value = SCA
+time = 1
+
+[State 3000, PlayerPush]
+type = PlayerPush
+trigger1 = Time < 20
+value = 0
+
+[State 3000, ScreenBound]
+type = ScreenBound
+trigger1 = Time < 20
+value = 1
+movecamera = 0,0
+
+[State 3000, TargetState]
+type = TargetState
+trigger1 = Time = 0
+value = 3006
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 1003
+trigger1 = Time = 0
+pos = 60, -10
+
+[State 3000, TargetLifeAdd]
+type = TargetLifeAdd
+triggerall = Time = 0
+trigger1 = Var(1) = 1
+value = -70
+kill = 0
+
+[State 3000, TargetLifeAdd]
+type = TargetLifeAdd
+triggerall = Time = 0
+trigger1 = Var(1) = 2
+value = -150
+
+[State 3000, HitAdd]
+type = HitAdd
+trigger1 = Time = 0
+value = 1
+
+[State 3000, 1]
+type = PosSet
+trigger1 = Time = 0
+y = 10
+
+[State 3000, PlaySnd]
+type = PlaySnd
+triggerall = Time = 0
+trigger1 = Var(1) = 1
+value = 10, 8
+channel = 0
+
+[State 3000, PlaySnd]
+type = PlaySnd
+triggerall = Time = 0
+trigger1 = Var(1) = 2
+value = 10, 4
+channel = 0
+
+[State 3000, State]
+type = ChangeState
+triggerall = Time = 15
+trigger1 = Var(1) < 2
+value = 3002
+
+[State 3000, 6]
+type = ChangeAnim
+trigger1 = Time = 20
+value = 1010
+
+[State 3000, 1]
+type = VelSet
+trigger1 = Time = 20
+x = -2
+y = -7
+
+[State 3000, 1]
+type = VelAdd
+trigger1 = Time > 20
+y = .4
+
+[State 3000, 2]
+type = ChangeState
+trigger1 = Time > 30
+trigger1 = Vel Y > 0
+trigger1 = Pos Y >= 0
+value = 52
+
+; Raging Typhoon M - Attempt
+[Statedef 3010]
+type    = S
+movetype= A
+physics = S
+juggle  = 0
+velset = 0,0
+ctrl = 0
+anim = 820
+
+[State 3000, NotHitBy]
+type = NotHitBy
+trigger1 = Time < 30
+value = SCA
+time = 1
+
+[State 3000, AfterImage]
+type = AfterImage
+trigger1 = AnimElem = 1
+time = 1
+
+[State 3000, AfterImageTime]
+type = AfterImageTime
+trigger1 = 1
+time = 2
+
+[State 3000, PlaySnd]
+type = PlaySnd
+trigger1 = Anim = 820
+trigger1 = AnimElem = 1
+value = 10, 5
+channel = 0
+
+[State 3000, SuperPause]
+type = SuperPause
+trigger1 = Anim = 820
+trigger1 = AnimElem = 1
+pos = 20, -115
+anim = 101
+time = 30
+movetime = 20
+sound = F20,0
+poweradd = -2000
+
+[State 3000, Width]
+type = Width
+trigger1 = 1
+value = 20,0
+
+[State 3000, SprPriority]
+type = SprPriority
+trigger1 = AnimElem = 6, < 0
+value = -1
+
+[State 3000, SprPriority]
+type = SprPriority
+trigger1 = AnimElem = 6, >= 0
+value = 1
+
+[State 3000, Arm]
+type = Helper
+trigger1 = AnimElem = 1
+helpertype = normal
+ignorehitpause = 1
+name = "Arm"
+id = 800
+facing = 1
+pos = 0,0
+postype = P1
+stateno = 801
+keyctrl = 0
+
+[State 3000, PlaySnd]
+type = PlaySnd
+trigger1 = Anim = 820
+trigger1 = AnimElem = 6
+value = 10, 0
+channel = 0
+
+[State 3000, 1]
+type = HitDef
+trigger1 = AnimElem = 2,19
+attr = S, HT
+hitflag = M-
+priority = 1, Miss
+sparkno = -1
+sprpriority = 1
+ground.velocity = -4,-6
+air.velocity = -4,-6
+p1facing = 1
+p2facing = 1
+p1stateno = 3011
+p2stateno = 804
+numhits = 0
+snap = 40,0
+fall = 1
+
+[State 3000, 2]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; Raging Typhoon Start
+[Statedef 3011]
+type    = S
+movetype= A
+physics = N
+juggle  = 0
+velset = 0,0
+ctrl = 0
+anim = 1000
+
+[State 3000, VarSet]
+type = VarSet
+trigger1 = Time = 0
+v = 1
+value = 0
+
+[State 3000, AfterImageTime]
+type = AfterImageTime
+trigger1 = 1
+time = 2
+
+[State 3000, NotHitBy]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+time = 1
+
+[State 3000, PlayerPush]
+type = PlayerPush
+trigger1 = 1
+value = 0
+
+[State 3000, ScreenBound]
+type = null ;ScreenBound
+trigger1 = 1
+value = 1
+movecamera = 0,0
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 1000
+trigger1 = AnimElem = 1
+pos = 40, 0
+
+[State 3000, PlaySnd]
+type = PlaySnd
+trigger1 = Anim = 1000
+trigger1 = AnimElem = 1
+value = 0, 2
+
+[State 3000, State]
+type = ChangeState
+trigger1 = Anim = 1000
+trigger1 = AnimTime = 0
+value = 3012
+
+;---------------------------------------------------------------------------
+; Raging Typhoon
+[Statedef 3012]
+type    = A
+movetype= A
+physics = N
+juggle  = 0
+velset = 0,0
+ctrl = 0
+anim = 3001
+
+[State 3000, AfterImageTime]
+type = AfterImageTime
+trigger1 = 1
+time = 2
+
+[State 3000, NotHitBy]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+time = 1
+
+[State 3000, PlayerPush]
+type = PlayerPush
+trigger1 = 1
+value = 0
+
+[State 3000, ScreenBound]
+type = null ;ScreenBound
+trigger1 = 1
+value = 1
+movecamera = 0,0
+
+[State 3000, Width]
+type = Width
+trigger1 = 1
+edge = 30,30
+
+[State 3000, TargetState]
+type = TargetState
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 1
+value = 3005
+
+[State 3000, 2]
+type = VelSet
+triggerall = Anim = 3001
+triggerall = AnimElem = 1
+trigger1 = Var(1) = 0
+x = 1
+y = -10
+
+
+[State 3000, 2]
+type = VelSet
+triggerall = Anim = 3001
+triggerall = AnimElem = 1
+trigger1 = Var(1) = 1
+x = -1
+y = -12
+
+[State 3000, 2]
+type = VelSet
+triggerall = Anim = 3001
+triggerall = AnimElem = 1
+trigger1 = Var(1) = 2
+x = 0
+y = -14
+
+[State 3000, 2]
+type = Veladd
+trigger1 = 1
+y = .4
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 1 >= 0
+pos = 30, -80
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 2 >= 0
+pos = -50, -90
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 3 >= 0
+pos = -80, -130
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 4 >= 0
+pos = -20, -165
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 5 >= 0
+pos = 60, -155
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 6 >= 0
+pos = 80, -100
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 6,3
+pos = 30, -80
+
+[State 3000, Anim]
+type = ChangeAnim
+trigger1 = Time > 40
+trigger1 = Anim = 3001
+trigger1 = Vel Y > 0
+value = 3002
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Time > 40
+trigger1 = Anim = 3001
+trigger1 = Vel Y > 0
+trigger2 = Anim = 3002
+trigger2 = AnimElem = 1, >= 0
+pos = -50, -160
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3002
+trigger1 = AnimElem = 2, >= 0
+pos = 0, -155
+
+[State 3000, 10]
+type = ChangeState
+triggerall = Time > 30
+trigger1 = Vel Y > 0
+trigger1 = Pos Y >= 5
+value = 3013
+
+;---------------------------------------------------------------------------
+; Raging Typhoon Land
+[Statedef 3013]
+type    = A
+movetype= A
+physics = N
+juggle  = 0
+velset = 0,0
+ctrl = 0
+anim = 1003
+
+[State 3000, VarSet]
+type = VarAdd
+trigger1 = Time = 0
+v = 1
+value = 1
+
+[State 3000, NotHitBy]
+type = NotHitBy
+trigger1 = Time < 20
+value = SCA
+time = 1
+
+[State 3000, PlayerPush]
+type = PlayerPush
+trigger1 = Time < 20
+value = 0
+
+[State 3000, ScreenBound]
+type = ScreenBound
+trigger1 = Time < 20
+value = 1
+movecamera = 0,0
+
+[State 3000, TargetState]
+type = TargetState
+trigger1 = Time = 0
+value = 3006
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 1003
+trigger1 = Time = 0
+pos = 60, -10
+
+[State 3000, TargetLifeAdd]
+type = TargetLifeAdd
+trigger1 = Time = 0
+value = -170
+kill = 0
+
+[State 3000, HitAdd]
+type = HitAdd
+trigger1 = Time = 0
+value = 1
+
+[State 3000, 1]
+type = PosSet
+trigger1 = Time = 0
+y = 10
+
+[State 3000, PlaySnd]
+type = PlaySnd
+triggerall = Time = 0
+trigger1 = Var(1) < 2
+value = 10, 8
+channel = 0
+
+[State 3000, PlaySnd]
+type = PlaySnd
+triggerall = Time = 0
+trigger1 = Var(1) = 2
+value = 10, 4
+channel = 0
+
+[State 3000, State]
+type = ChangeState
+triggerall = Time = 15
+trigger1 = Var(1) < 2
+value = 3002
+
+[State 3000, 6]
+type = ChangeAnim
+trigger1 = Time = 20
+value = 1010
+
+[State 3000, 1]
+type = VelSet
+trigger1 = Time = 20
+x = -2
+y = -7
+
+[State 3000, 1]
+type = VelAdd
+trigger1 = Time > 20
+y = .4
+
+[State 3000, 2]
+type = ChangeState
+trigger1 = Time > 30
+trigger1 = Vel Y > 0
+trigger1 = Pos Y >= 0
+value = 52
+
+; Raging Typhoon S - Attempt
+[Statedef 3020]
+type    = S
+movetype= A
+physics = S
+juggle  = 0
+velset = 0,0
+ctrl = 0
+anim = 820
+
+[State 3000, NotHitBy]
+type = NotHitBy
+trigger1 = Time < 30
+value = SCA
+time = 1
+
+[State 3000, AfterImage]
+type = AfterImage
+trigger1 = AnimElem = 1
+time = 1
+
+[State 3000, AfterImageTime]
+type = AfterImageTime
+trigger1 = 1
+time = 2
+
+[State 3000, PlaySnd]
+type = PlaySnd
+trigger1 = Anim = 820
+trigger1 = AnimElem = 1
+value = 10, 5
+channel = 0
+
+[State 3000, SuperPause]
+type = SuperPause
+trigger1 = Anim = 820
+trigger1 = AnimElem = 1
+pos = 20, -115
+anim = 102
+time = 30
+movetime = 20
+sound = F20,0
+poweradd = -3000
+
+[State 3000, Width]
+type = Width
+trigger1 = 1
+value = 20,0
+
+[State 3000, SprPriority]
+type = SprPriority
+trigger1 = AnimElem = 6, < 0
+value = -1
+
+[State 3000, SprPriority]
+type = SprPriority
+trigger1 = AnimElem = 6, >= 0
+value = 1
+
+[State 3000, Arm]
+type = Helper
+trigger1 = AnimElem = 1
+helpertype = normal
+ignorehitpause = 1
+name = "Arm"
+id = 800
+facing = 1
+pos = 0,0
+postype = P1
+stateno = 801
+keyctrl = 0
+
+[State 3000, PlaySnd]
+type = PlaySnd
+trigger1 = Anim = 820
+trigger1 = AnimElem = 6
+value = 10, 0
+channel = 0
+
+[State 3000, 1]
+type = HitDef
+trigger1 = AnimElem = 2,19
+attr = S, HT
+hitflag = M-
+priority = 1, Miss
+sparkno = -1
+sprpriority = 1
+ground.velocity = -4,-6
+air.velocity = -4,-6
+p1facing = 1
+p2facing = 1
+p1stateno = 3021
+p2stateno = 804
+numhits = 0
+snap = 40,0
+fall = 1
+
+[State 3000, 2]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; Raging Typhoon Start
+[Statedef 3021]
+type    = S
+movetype= A
+physics = N
+juggle  = 0
+velset = 0,0
+ctrl = 0
+anim = 1000
+
+[State 3000, VarSet]
+type = VarSet
+trigger1 = Time = 0
+v = 1
+value = 0
+
+[State 3000, AfterImageTime]
+type = AfterImageTime
+trigger1 = 1
+time = 2
+
+[State 3000, NotHitBy]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+time = 1
+
+[State 3000, PlayerPush]
+type = PlayerPush
+trigger1 = 1
+value = 0
+
+[State 3000, ScreenBound]
+type = null ;ScreenBound
+trigger1 = 1
+value = 1
+movecamera = 0,0
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 1000
+trigger1 = AnimElem = 1
+pos = 40, 0
+
+[State 3000, PlaySnd]
+type = PlaySnd
+trigger1 = Anim = 1000
+trigger1 = AnimElem = 1
+value = 0, 2
+
+[State 3000, State]
+type = ChangeState
+trigger1 = Anim = 1000
+trigger1 = AnimTime = 0
+value = 3022
+
+;---------------------------------------------------------------------------
+; Raging Typhoon
+[Statedef 3022]
+type    = A
+movetype= A
+physics = N
+juggle  = 0
+velset = 0,0
+ctrl = 0
+anim = 3001
+
+[State 3000, AfterImageTime]
+type = AfterImageTime
+trigger1 = 1
+time = 2
+
+[State 3000, NotHitBy]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+time = 1
+
+[State 3000, PlayerPush]
+type = PlayerPush
+trigger1 = 1
+value = 0
+
+[State 3000, ScreenBound]
+type = null ;ScreenBound
+trigger1 = 1
+value = 1
+movecamera = 0,0
+
+[State 3000, Width]
+type = Width
+trigger1 = 1
+edge = 30,30
+
+[State 3000, TargetState]
+type = TargetState
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 1
+value = 3005
+
+[State 3000, 2]
+type = VelSet
+triggerall = Anim = 3001
+triggerall = AnimElem = 1
+trigger1 = Var(1) = 0
+x = 1
+y = -10
+
+
+[State 3000, 2]
+type = VelSet
+triggerall = Anim = 3001
+triggerall = AnimElem = 1
+trigger1 = Var(1) = 1
+x = -1
+y = -12
+
+[State 3000, 2]
+type = VelSet
+triggerall = Anim = 3001
+triggerall = AnimElem = 1
+trigger1 = Var(1) = 2
+x = 0
+y = -14
+
+[State 3000, 2]
+type = Veladd
+trigger1 = 1
+y = .4
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 1 >= 0
+pos = 30, -80
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 2 >= 0
+pos = -50, -90
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 3 >= 0
+pos = -80, -130
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 4 >= 0
+pos = -20, -165
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 5 >= 0
+pos = 60, -155
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 6 >= 0
+pos = 80, -100
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 6,3
+pos = 30, -80
+
+[State 3000, Anim]
+type = ChangeAnim
+trigger1 = Time > 40
+trigger1 = Anim = 3001
+trigger1 = Vel Y > 0
+value = 3022
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Time > 40
+trigger1 = Anim = 3001
+trigger1 = Vel Y > 0
+trigger2 = Anim = 3002
+trigger2 = AnimElem = 1, >= 0
+pos = -50, -160
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 3002
+trigger1 = AnimElem = 2, >= 0
+pos = 0, -155
+
+[State 3000, 10]
+type = ChangeState
+triggerall = Time > 30
+trigger1 = Vel Y > 0
+trigger1 = Pos Y >= 5
+value = 3023
+
+;---------------------------------------------------------------------------
+; Raging Typhoon Land
+[Statedef 3023]
+type    = A
+movetype= A
+physics = N
+juggle  = 0
+velset = 0,0
+ctrl = 0
+anim = 1003
+
+[State 3000, VarSet]
+type = VarAdd
+trigger1 = Time = 0
+v = 1
+value = 1
+
+[State 3000, NotHitBy]
+type = NotHitBy
+trigger1 = Time < 20
+value = SCA
+time = 1
+
+[State 3000, PlayerPush]
+type = PlayerPush
+trigger1 = Time < 20
+value = 0
+
+[State 3000, ScreenBound]
+type = ScreenBound
+trigger1 = Time < 20
+value = 1
+movecamera = 0,0
+
+[State 3000, TargetState]
+type = TargetState
+trigger1 = Time = 0
+value = 3006
+
+[State 3000, Bind]
+type = TargetBind
+trigger1 = Anim = 1003
+trigger1 = Time = 0
+pos = 60, -10
+
+[State 3000, TargetLifeAdd]
+type = TargetLifeAdd
+trigger1 = Time = 0
+value = -150
+kill = 0
+
+[State 3000, HitAdd]
+type = HitAdd
+trigger1 = Time = 0
+value = 1
+
+[State 3000, 1]
+type = PosSet
+trigger1 = Time = 0
+y = 10
+
+[State 3000, PlaySnd]
+type = PlaySnd
+trigger1 = Time = 0
+value = 10, 8
+channel = 0
+
+[State 3000, PlaySnd]
+type = PlaySnd
+trigger1 = Time = 0
+value = 10, 4
+channel = 0
+
+[State 3000, State]
+type = ChangeState
+trigger1 = Time = 15
+trigger1 = var(1) < 3
+value = 3022
+
+[State 3000, 6]
+type = ChangeAnim
+trigger1 = Time = 20
+value = 1010
+
+[State 3000, 1]
+type = VelSet
+trigger1 = Time = 20
+x = -2
+y = -7
+
+[State 3000, 1]
+type = VelAdd
+trigger1 = Time > 20
+y = .4
+
+[State 3000, 2]
+type = ChangeState
+trigger1 = Time > 30
+trigger1 = Vel Y > 0
+trigger1 = Pos Y >= 0
+value = 52
+
+;---------------------------------------------------------------------------
+; Canyon Splitter - Tomahawk Buster
+[Statedef 3100]
+type    = A
+movetype= A
+physics = N
+juggle  = 0
+velset = 0,0
+ctrl = 0
+anim = 1100
+
+[State 3100, VarSet]
+type = VarSet
+triggerall = Time = 0
+trigger1 = command = "csplitter_z"
+trigger2 = var(59) && AILevel > 5  && power >= 3000
+v = 0
+value = 2
+
+[State 3100, VarSet]
+type = VarSet
+triggerall = Time = 0
+trigger1 = command = "csplitter_y"
+trigger2 = var(59) && AILevel > 3 && AILevel < 6  && power >= 2000
+v = 0
+value = 1
+
+[State 3100, VarSet]
+type = VarSet
+triggerall = Time = 0
+trigger1 = command = "csplitter_x"
+trigger2 = var(59) && power >= 1000
+v = 0
+value = 0
+
+[State 3100, AfterImage]
+type = AfterImage
+trigger1 = Time <= 0
+time = 1
+
+[State 3100, AfterImageTime]
+type = AfterImageTime
+trigger1 = 1
+time = 2
+
+[State 3100, SuperPause]
+type = SuperPause
+trigger1 = Anim = 1100
+trigger1 = AnimElem = 1
+pos = 40, -60
+anim = -1
+time = 20
+movetime = 20
+sound = S30,40
+poweradd = 0
+
+[State 3100, 2]
+type = ChangeAnim
+trigger1 = Anim = 1100
+trigger1 = AnimElem = 3
+value = 3100
+
+[State 3100, PlaySnd]
+type = PlaySnd
+trigger1 = Anim = 3100
+trigger1 = AnimElem = 1
+value = 10, 6
+channel = 0
+
+[State 3100, SuperPause]
+type = SuperPause
+triggerall = Var(0) = 0
+trigger1 = Anim = 3100
+trigger1 = AnimElem = 1
+pos = 40, -60
+anim = 100
+time = 30
+movetime = 18
+sound = F20,0
+poweradd = -1000
+
+[State 3100, SuperPause]
+type = SuperPause
+triggerall = Var(0) = 1
+trigger1 = Anim = 3100
+trigger1 = AnimElem = 1
+pos = 40, -60
+anim = 101
+time = 30
+movetime = 18
+sound = F20,0
+poweradd = -2000
+
+[State 3100, SuperPause]
+type = SuperPause
+triggerall = Var(0) = 2
+trigger1 = Anim = 3100
+trigger1 = AnimElem = 1
+pos = 40, -60
+anim = 102
+time = 30
+movetime = 18
+sound = F20,0
+poweradd = -3000
+
+[State 3100, Width]
+type = Width
+trigger1 = Anim = 3100
+trigger1 = AnimElem = 2, < 0
+value = 20,0
+
+[State 1300, 0]
+type = VelSet
+trigger1 = Var(0) = 0
+trigger1 = Anim = 3100
+trigger1 = AnimElem = 2
+x = 2
+y = -3
+
+[State 1300, 0]
+type = VelSet
+trigger1 = Var(0) = 1
+trigger1 = Anim = 3100
+trigger1 = AnimElem = 2
+x = 3
+y = -3
+
+[State 1300, 0]
+type = VelSet
+trigger1 = Var(0) = 2
+trigger1 = Anim = 3100
+trigger1 = AnimElem = 2
+x = 4
+y = -3
+
+[State 3100, 2]
+type = VelAdd
+trigger1 = Time > 25
+trigger1 = Anim = 3100
+trigger1 = AnimElem = 2, > 0
+y = .4
+
+[State 3100, 2]
+type = PlaySnd
+trigger1 = AnimElem = 3
+value = 1, 3
+
+[State 3100, 2]
+type = PlaySnd
+trigger1 = AnimElem = 3
+value = 10, 10
+channel = 0
+
+[State 3100, 3]
+type = HitDef
+trigger1 = AnimElem = 4
+attr = A, HA
+damage = 100, 10
+animtype = Heavy
+guardflag = MA
+hitflag = MAF
+priority = 3, Hit
+pausetime = 5, 5
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,1,50001)
+sparkxy = -10, -50
+hitsound = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = High
+ground.slidetime = 5
+ground.hittime  = 30
+ground.velocity = -6,0
+airguard.velocity = -3,0
+air.type = Low
+air.velocity = -6,0
+air.hittime = 12
+
+[State 3100, 3]
+type = HitDef
+triggerall = Var(0) > 0
+trigger1 = AnimElem = 5
+attr = A, HA
+damage = 50, 10
+animtype = Medium
+guardflag = MA
+hitflag = MAF
+priority = 3, Hit
+pausetime = 10, 10
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,1,50001)
+sparkxy = -10, -30
+hitsound = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = Low
+ground.slidetime = 5
+ground.hittime  = 30
+ground.velocity = -6,0
+airguard.velocity = -3,0
+air.type = Low
+air.velocity = -6,0
+air.hittime = 12
+
+[State 3100, 10]
+type = ChangeState
+triggerall = Time > 10
+trigger1 = Vel Y > 0
+trigger1 = Pos Y > 0
+value = 3101
+
+;---------------------------------------------------------------------------
+; Canyon Splitter - Condor Spire
+[Statedef 3101]
+type    = A
+movetype= A
+physics = N
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = 1100
+sprpriority = 2
+
+[State 3100, PosSet]
+type = PosSet
+trigger1 = AnimElem = 1
+y = 0
+
+[State 3100, AfterImageTime]
+type = AfterImageTime
+trigger1 = Vel Y <= 0
+time = 2
+
+[State 3100, Width]
+type = Width
+trigger1 = AnimElem = 4 < 0
+value = 20,0
+
+[State 3100, Width]
+type = Width
+trigger1 = AnimElem = 4 >= 0
+trigger1 = AnimElem = 5 < 0
+value = 30,0
+
+[State 3100, 0]
+type = PlaySnd
+trigger1 = Anim = 1100
+trigger1 = AnimElem = 3
+value = 10, 1
+channel = 0
+
+[State 3100, 0]
+type = PlaySnd
+trigger1 = Anim = 1100
+trigger1 = AnimElem = 4
+value = 1, 3
+
+[State 3100, 1]
+type = PosAdd
+trigger1 = Anim = 1100
+trigger1 = AnimElem = 5
+x = 40
+y = 10
+
+[State 3100, 2]
+type = VelSet
+trigger1 = Anim = 1100
+trigger1 = Var(0) = 0
+trigger1 = AnimElem = 5
+x = 4
+y = -6
+
+[State 3100, 2]
+type = VelSet
+trigger1 = Anim = 1100
+trigger1 = Var(0) = 1
+trigger1 = AnimElem = 5
+x = 5
+y = -7
+
+[State 3100, 2]
+type = VelSet
+trigger1 = Anim = 1100
+trigger1 = Var(0) = 2
+trigger1 = AnimElem = 5
+x = 6
+y = -8
+
+[State 3100, 3]
+type = VelMul
+trigger1 = Time > 12
+x = .9
+
+[State 3100, 4]
+type = Veladd
+trigger1 = Time > 10
+y = .4
+
+[State 3100, 5]
+type = VelSet
+trigger1 = Time > 20
+trigger1 = Vel Y >= 0
+x = 0
+
+[State 3100, 6]
+type = ChangeAnim
+trigger1 = Anim = 1100
+trigger1 = Time > 20
+trigger1 = Vel Y >= 0
+value = 1110
+
+[State 3100, 7]
+type = HitDef
+trigger1 = Anim = 1100
+trigger1 = AnimElem = 4
+attr = A, HA
+damage = 100, 10
+animtype = Heavy
+guardflag = MA
+hitflag = MAF
+priority = 3, Hit
+pausetime = 5, 3
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,1,50001)
+sparkxy = -10, -70
+hitsound = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = High
+ground.slidetime = 5
+ground.hittime  = 12
+ground.velocity = -4,-8
+airguard.velocity = -2,-4
+air.type = Low
+air.velocity = -4,-8
+air.hittime = 12
+air.fall = 1
+fall = 1
+
+[State 3100, 7]
+type = HitDef
+triggerall = Anim = 1100
+trigger1 = AnimElem = 5
+trigger2 = Var(0) > 1
+trigger2 = AnimElem = 5,5
+attr = A, HA
+damage = 50, 10
+animtype = Heavy
+guardflag = MA
+hitflag = MAF
+priority = 3, Hit
+pausetime = 10, 10
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,1,50001)
+sparkxy = -10, -100
+hitsound = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = High
+ground.slidetime = 5
+ground.hittime  = 12
+ground.velocity = -4,-8
+airguard.velocity = -2,-4
+air.type = Low
+air.velocity = -4,-8
+air.hittime = 12
+air.fall = 1
+fall = 1
+
+[State 3100, 8]
+type = ChangeState
+triggerall = Time > 20
+trigger1 = Vel Y > 0
+trigger1 = Pos Y >= 0
+value = 52
+
+;---------------------------------------------------------------------------
+; Canyon Splitter - Condor Dive
+[Statedef 3200]
+type    = A
+movetype= A
+physics = N
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = 3200
+sprpriority = 2
+
+[State 3100, VarSet]
+type = VarSet
+trigger1 = Time = 0
+trigger1 = command = "csplitter_x"
+v = 0
+value = 0
+
+[State 3100, VarSet]
+type = VarSet
+trigger1 = Time = 0
+trigger1 = command = "csplitter_y"
+v = 0
+value = 1
+
+[State 3100, VarSet]
+type = VarSet
+trigger1 = Time = 0
+trigger1 = command = "csplitter_z"
+v = 0
+value = 2
+
+[State 3100, AfterImage]
+type = AfterImage
+trigger1 = AnimElem = 1
+time = 1
+
+[State 3100, AfterImageTime]
+type = AfterImageTime
+trigger1 = 1
+time = 2
+
+[State 3100, PlaySnd]
+type = PlaySnd
+trigger1 = Anim = 3200
+trigger1 = AnimElem = 1
+value = 10, 6
+channel = 0
+
+[State 3100, SuperPause]
+type = SuperPause
+triggerall = Var(0) = 0
+trigger1 = Anim = 3200
+trigger1 = AnimElem = 1
+pos = 30, -120
+anim = 100
+time = 30
+movetime = 20
+sound = F20,0
+poweradd = -1000
+
+[State 3100, SuperPause]
+type = SuperPause
+triggerall = Var(0) = 1
+trigger1 = Anim = 3200
+trigger1 = AnimElem = 1
+pos = 30, -120
+anim = 101
+time = 30
+movetime = 20
+sound = F20,0
+poweradd = -2000
+
+[State 3100, SuperPause]
+type = SuperPause
+triggerall = Var(0) = 2
+trigger1 = Anim = 3200
+trigger1 = AnimElem = 1
+pos = 30, -120
+anim = 102
+time = 30
+movetime = 20
+sound = F20,0
+poweradd = -3000
+
+[State 3200, 1]
+type = PlaySnd
+trigger1 = AnimElem = 3
+value = 1, 3
+
+[State 3200, 1]
+type = PlaySnd
+trigger1 = AnimElem = 4
+value = 10, 9
+channel = 0
+
+[State 3200, 2]
+type = VelSet
+trigger1 = Var(0) < 2
+trigger1 = AnimElem = 4
+x = 10
+y = 5
+
+[State 3200, 2]
+type = VelSet
+trigger1 = Var(0) = 2
+trigger1 = AnimElem = 4
+x = 12
+y = 6
+
+[State 3200, 3]
+type = HitDef
+trigger1 = Var(0) = 0
+trigger1 = TimeMod = 6,0
+attr = A, HA
+damage = 50, 10
+animtype = Heavy
+guardflag = MA
+hitflag = MAF
+priority = 3, Hit
+pausetime = 10, 10
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,1,50001)
+sparkxy = -10, -50
+hitsound = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = High
+ground.slidetime = 5
+ground.hittime  = 30
+ground.velocity = -4,0
+airguard.velocity = -2,1
+air.type = Low
+air.velocity = -4,1
+air.hittime = 12
+air.fall = 1
+
+[State 3200, 3]
+type = HitDef
+trigger1 = Var(0) > 0
+trigger1 = TimeMod = 3,0
+attr = A, HA
+damage = 50, 10
+animtype = Heavy
+guardflag = MA
+hitflag = MAF
+priority = 3, Hit
+pausetime = 8, 8
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,1,50001)
+sparkxy = -10, -50
+hitsound = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = High
+ground.slidetime = 5
+ground.hittime  = 30
+ground.velocity = -4,0
+airguard.velocity = -2,1
+air.type = Low
+air.velocity = -4,1
+air.hittime = 12
+air.fall = 1
+
+[State 3100, 10]
+type = ChangeState
+triggerall = Time > 10
+trigger1 = Vel Y > 0
+trigger1 = Pos Y > 0
+value = 3101
+
+;---------------------------------------------------------------------------
+; Super Typhoon - Attempt
+[Statedef 4000]
+type    = S
+movetype= A
+physics = S
+juggle  = 0
+velset = 0,0
+ctrl = 0
+anim = 820
+
+[State 4000, NotHitBy]
+type = NotHitBy
+trigger1 = Time < 30
+value = SCA
+time = 1
+
+[State 4000, AfterImage]
+type = AfterImage
+trigger1 = AnimElem = 1
+time = 1
+
+[State 4000, AfterImageTime]
+type = AfterImageTime
+trigger1 = 1
+time = 2
+
+[State 4000, PlaySnd]
+type = PlaySnd
+trigger1 = Anim = 820
+trigger1 = AnimElem = 1
+value = 10, 5
+channel = 0
+
+[State 4000, SuperPause]
+type = SuperPause
+trigger1 = Anim = 820
+trigger1 = AnimElem = 1
+pos = 20, -115
+anim = 102
+time = 30
+movetime = 20
+sound = F20,0
+poweradd = -3000
+
+[State 4000, Width]
+type = Width
+trigger1 = 1
+value = 20,0
+
+[State 4000, SprPriority]
+type = SprPriority
+trigger1 = AnimElem = 6, < 0
+value = -1
+
+[State 4000, SprPriority]
+type = SprPriority
+trigger1 = AnimElem = 6, >= 0
+value = 1
+
+[State 4000, Arm]
+type = Helper
+trigger1 = AnimElem = 1
+helpertype = normal
+ignorehitpause = 1
+name = "Arm"
+id = 800
+facing = 1
+pos = 0,0
+postype = P1
+stateno = 801
+keyctrl = 0
+
+[State 4000, PlaySnd]
+type = PlaySnd
+trigger1 = Anim = 820
+trigger1 = AnimElem = 6
+value = 10, 0
+channel = 0
+
+[State 4000, 1]
+type = HitDef
+trigger1 = AnimElem = 2,19
+attr = S, HT
+hitflag = M-
+priority = 1, Miss
+sparkno = -1
+sprpriority = 1
+ground.velocity = -4,-6
+air.velocity = -4,-6
+p1facing = 1
+p2facing = 1
+p1stateno = 4001
+p2stateno = 804
+numhits = 0
+snap = 40,0
+fall = 1
+
+[State 4000, 2]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; Super Typhoon Start
+[Statedef 4001]
+type    = S
+movetype= A
+physics = N
+juggle  = 0
+velset = 0,0
+ctrl = 0
+anim = 1000
+
+[State 4000, AfterImageTime]
+type = AfterImageTime
+trigger1 = 1
+time = 2
+
+[State 4000, NotHitBy]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+time = 1
+
+[State 4000, PlayerPush]
+type = PlayerPush
+trigger1 = 1
+value = 0
+
+[State 4000, ScreenBound]
+type = null ;ScreenBound
+trigger1 = 1
+value = 1
+movecamera = 0,0
+
+[State 4000, Bind]
+type = TargetBind
+trigger1 = Anim = 1000
+trigger1 = AnimElem = 1
+pos = 40, 0
+
+[State 4000, PlaySnd]
+type = PlaySnd
+trigger1 = Anim = 1000
+trigger1 = AnimElem = 1
+value = 0, 2
+
+[State 4000, State]
+type = ChangeState
+trigger1 = Time = 10
+value = 4002
+
+;---------------------------------------------------------------------------
+; Super Typhoon
+[Statedef 4002]
+type    = A
+movetype= A
+physics = N
+juggle  = 0
+velset = 0,0
+ctrl = 0
+anim = 3001
+
+[State 4000, AfterImageTime]
+type = AfterImageTime
+trigger1 = 1
+time = 2
+
+[State 4000, NotHitBy]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+time = 1
+
+[State 4000, PlayerPush]
+type = PlayerPush
+trigger1 = 1
+value = 0
+
+[State 4000, ScreenBound]
+type = null ;ScreenBound
+trigger1 = 1
+value = 1
+movecamera = 0,0
+
+[State 4000, Width]
+type = Width
+trigger1 = 1
+edge = 30,30
+
+[State 4000, TargetState]
+type = TargetState
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 1
+value = 3005
+
+[State 4000, 2]
+type = VelSet
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 1
+x = 0
+y = -20
+
+[State 4000, 2]
+type = Veladd
+trigger1 = 1
+y = .4
+
+[State 4000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 1 >= 0
+pos = 30, -80
+
+[State 4000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 2 >= 0
+pos = -50, -90
+
+[State 4000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 3 >= 0
+pos = -80, -130
+
+[State 4000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 4 >= 0
+pos = -20, -165
+
+[State 4000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 5 >= 0
+pos = 60, -155
+
+[State 4000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 6 >= 0
+pos = 80, -100
+
+[State 4000, Bind]
+type = TargetBind
+trigger1 = Anim = 3001
+trigger1 = AnimElem = 6,3
+pos = 30, -80
+
+[State 4000, Anim]
+type = ChangeAnim
+trigger1 = Time >= 60
+trigger1 = Anim = 3001
+trigger1 = Vel Y > 0
+value = 3002
+
+[State 4000, Bind]
+type = TargetBind
+trigger1 = Time >= 60
+trigger1 = Anim = 1001
+trigger1 = Vel Y > 0
+trigger2 = Anim = 3002
+trigger2 = AnimElem = 1, >= 0
+pos = -50, -160
+
+[State 4000, Bind]
+type = TargetBind
+trigger1 = Anim = 3002
+trigger1 = AnimElem = 2, >= 0
+pos = 0, -155
+
+[State 4000, 10]
+type = ChangeState
+triggerall = Time > 60
+trigger1 = Vel Y > 0
+trigger1 = Pos Y >= 5
+value = 4003
+
+;---------------------------------------------------------------------------
+; Super Typhoon Land
+[Statedef 4003]
+type    = A
+movetype= A
+physics = N
+juggle  = 0
+velset = 0,0
+ctrl = 0
+anim = 1003
+
+[State 4000, NotHitBy]
+type = NotHitBy
+trigger1 = Time < 20
+value = SCA
+time = 1
+
+[State 4000, PlayerPush]
+type = PlayerPush
+trigger1 = Time < 20
+value = 0
+
+[State 4000, ScreenBound]
+type = ScreenBound
+trigger1 = Time < 20
+value = 1
+movecamera = 0,0
+
+[State 4000, PlaySnd]
+type = PlaySnd
+trigger1 = Time = 0
+value = 10, 4
+channel = 0
+
+[State 4000, TargetState]
+type = TargetState
+trigger1 = Time = 0
+value = 3006
+
+[State 4000, Bind]
+type = TargetBind
+trigger1 = Anim = 1003
+trigger1 = Time = 0
+pos = 60, -10
+
+[State 4000, TargetLifeAdd]
+type = TargetLifeAdd
+trigger1 = Time = 0
+value = -500
+
+[State 4000, 1]
+type = PosSet
+trigger1 = Time = 0
+y = 10
+
+[State 4000, 6]
+type = ChangeAnim
+trigger1 = Time = 20
+value = 1010
+
+[State 4000, 1]
+type = VelSet
+trigger1 = Time = 20
+x = -2
+y = -7
+
+[State 4000, 1]
+type = VelAdd
+trigger1 = Time > 20
+y = .4
+
+[State 4000, 2]
+type = ChangeState
+trigger1 = Time > 30
+trigger1 = Vel Y > 0
+trigger1 = Pos Y >= 0
+value = 52
+
+;---------------------------------------------------------------------------

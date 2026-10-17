@@ -1,0 +1,238 @@
+[Info]
+name = "Ryu Boss3"
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -190
+boundright = 190
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz = 0
+botz = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+xscale = 1
+yscale = 1
+
+[Shadow]
+color = 128,128,128
+yscale = .1
+
+[Music]
+bgmusic = sound/Ryu2.mp3
+bgmloopstart = 1508393
+bgmloopend = 3984083
+bgvolume = 0
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Ryu3.sff
+debugbg = 0
+
+[BG farback]; ciudad
+type  = normal
+spriteno = 3,0
+start = 0,-16
+delta = .5,1
+mask=1
+
+[BG farback];edificios y semaforo
+type  = normal
+spriteno = 1,0
+start = 0,-15
+delta = .91,1
+mask=1
+
+[BG farback]; semaforo (verde)
+type  = anim
+actionno = 20
+start = 0,-15
+delta = .91,1
+mask=1
+
+[BG farback]; semaforo (rojo)
+type  = anim
+actionno = 21
+start = 0,-15
+delta = .91,1
+mask=1
+
+[BG farback]; par de pendejas
+type  = anim
+actionno = 6
+start = 0,-15
+delta = .91,1
+mask=1
+
+[BG Floor]; suelo
+type  = parallax
+spriteno = 0,0
+start = 0,192
+delta = .91,1
+;xscale = 1,1.13760152890587673196
+mask=0
+
+[BG farback]; vieja del trapeador
+type  = anim
+actionno = 4
+start = 0,-15
+delta = .91,1
+mask=1
+
+[BG farback];repartidor de diario
+type  = anim
+actionno = 5
+start = 628,-16
+delta = .91,1
+mask=1
+id = 5
+
+[Begin Action 20]
+-1,-1, 0,0, 176
+2,0, 0,0, 176
+-1,-1, 0,0, 14
+2,0, 0,0, 14
+-1,-1, 0,0, 14
+2,0, 0,0, 14
+-1,-1, 0,0, 14
+2,0, 0,0, 14
+-1,-1, 0,0, 14
+2,0, 0,0, 14
+-1,-1, 0,0, 14
+2,0, 0,0, 14
+-1,-1, 0,0, 14
+
+[Begin Action 21]
+2,1, 0,0, 176
+-1,-1, 0,0, 330
+
+[Begin Action 4]
+4,0, 0,0, 9
+4,1, 0,0, 7
+4,2, 0,0, 5
+4,3, 0,0, 5
+4,4, 0,0, 5
+4,5, 0,0, 5
+4,0, 0,0, 5
+4,1, 0,0, 5
+4,2, 0,0, 5
+4,3, 0,0, 5
+4,4, 0,0, 5
+4,5, 0,0, 5
+4,0, 0,0, 5
+4,1, 0,0, 5
+4,2, 0,0, 5
+4,3, 0,0, 5
+4,4, 0,0, 8
+4,6, 0,0, 19
+
+[Begin Action 5]
+5,0, 0,0, 6
+5,1, 0,0, 7
+5,2, 0,0, 6
+5,3, 0,0, 7
+5,4, 0,0, 6
+5,5, 0,0, 7
+5,0, 0,0, 6
+5,1, 0,0, 7
+5,2, 0,0, 6
+5,3, 0,0, 7
+5,4, 0,0, 6
+5,5, 0,0, 7
+5,6, 0,0, 6
+5,7, 0,0, 7
+5,8, 0,0, 6
+5,9, 0,0, 7
+5,10, 0,0, 6
+5,11, 0,0, 7
+
+[Begin Action 6]
+6,7, 0,0, 13
+6,0, 0,0, 13
+6,1, 0,0, 13
+6,2, 0,0, 43
+6,3, 0,0, 13
+6,4, 0,0, 13
+6,5, 0,0, 13
+6,6, 0,0, 13
+6,7, 0,0, 13
+
+[BGCtrlDef Guy]
+
+[BGCtrl Guy]
+type = posadd
+x = -2
+time = 0,0,7
+ctrlID = 5
+
+[BGCtrl Guy]
+type = posadd
+x = -1
+time = 1,1,7
+ctrlID = 5
+
+[BGCtrl Guy]
+type = posadd
+x = -3
+time = 2,2,7
+ctrlID = 5
+
+[BGCtrl Guy]
+type = posadd
+x = -2
+time = 3,3,7
+ctrlID = 5
+
+[BGCtrl Guy]
+type = posadd
+x = -1
+time = 4,4,7
+ctrlID = 5
+
+[BGCtrl Guy]
+type = posadd
+x = -2
+time = 5,5,7
+ctrlID = 5
+
+[BGCtrl Guy]
+type = posadd
+x = -1
+time = 6,6,7
+ctrlID = 5

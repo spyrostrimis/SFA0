@@ -1,0 +1,37 @@
+[Info]
+name = "Dan Hibiki"
+displayname = "DAN"
+versiondate = 02,26,2002
+mugenversion = 1.0
+Pal.Defaults = 1,4
+author = "adamskie"         
+localcoord = 384,224
+
+[Files]
+cmd      = SFZ_Dan.cmd
+cns      = SFZ_Dan.cns
+st       = SFZ_Dan.cns
+stcommon = common1.cns
+sprite   = SFZ_Dan.sff
+anim     = SFZ_Dan.air
+sound    = SFZ_Dan.snd
+movelist = movelist.dat
+
+pal1     = Pals/Z-ISM1.act
+pal2     = Pals/X-ISM1.act
+pal3     = Pals/Z-ISM2.act
+pal4     = Pals/V-ISM1.act
+pal5     = Pals/X-ISM2.act
+pal6     = Pals/V-ISM2.act
+pal7     = Pals/V-ISM3.act
+pal8     = Pals/X-ISM4.act
+pal9     = Pals/V-ISM4.act
+pal10     = Pals/Z-ISM3.act
+pal11     = Pals/X-ISM3.act
+pal12     = Pals/Z-ISM4.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_Dan.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/Dan.lua

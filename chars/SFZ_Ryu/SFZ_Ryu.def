@@ -1,0 +1,35 @@
+[Info]
+name = "Ryu"
+displayname = "RYU"
+author = "Adamskie"
+Pal.Defaults = 1,4
+Localcoord = 384,224
+
+[Files]
+cmd      = SFZ_Ryu.cmd
+cns      = SFZ_Ryu.cns
+st       = SFZ_Ryu.cns
+stcommon = common1.cns
+sprite   = SFZ_Ryu.sff
+anim     = SFZ_Ryu.air
+sound    = SFZ_Ryu.snd 
+movelist = movelist.dat
+
+pal1     = Pals/Ryu1.act
+pal2     = Pals/Ryu2.act
+pal3     = Pals/Ryu3.act
+pal4     = Pals/Ryu4.act
+pal5     = Pals/Ryu5.act
+pal6     = Pals/Ryu6.act
+pal7     = Pals/Ryu7.act
+pal8     = Pals/Ryu8.act
+pal9     = Pals/Ryu9.act
+pal10     = Pals/Ryu10.act
+pal11     = Pals/Ryu11.act
+pal12     = Pals/Ryu12.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_Ryu.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/Ryu.lua

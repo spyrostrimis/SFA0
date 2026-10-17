@@ -1,0 +1,471 @@
+[Info]
+name = "Rolento Boss"
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -190
+boundright = 190
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz = 0
+botz = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0:1
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 5,5,5
+yscale = .05
+intensity = 20
+
+[Music]
+bgmusic = Sound/Rolento.mp3
+bgmloopstart = 2151711
+bgmloopend = 5321483
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Rolento.sff
+
+[BG 0]; BG altura maxima
+type = anim
+actionno = 0
+ID = 1
+start = 0,-281
+delta = .17,1
+
+[BG 1.0];edificios varios
+type = normal
+spriteno = 1,0
+ID = 2
+start = 0,-288
+delta = .17,1
+tile = 0,3
+[BG 1.1]
+type = normal
+spriteno = 1,1
+ID = 2
+start = 0,-544
+delta = .17,1
+
+[BG 2];propaganda
+type = normal
+spriteno = 2,0
+ID = 3
+start = 0,-1552
+delta = .3,1
+tile = 0,2
+tilespacing = 0,1536
+
+[BG 3.0]; Edificios cercanos, publico y weas
+type = normal
+spriteno = 3,0
+ID = 3
+start = 0,-1040
+delta = .35,1
+tile = 0,5
+mask = 1
+[BG 3.1]; fin edificios
+type = normal
+spriteno = 3,1
+ID = 3
+start = 0,-1296
+delta = .35,1
+mask = 1
+
+[BG 4.0]; publico en edificios
+type = normal
+spriteno = 4,0
+ID = 3
+start = 0,-528
+delta = .35,1
+tile = 0,3
+tilespacing = 0,220
+mask = 1
+[BG 4.1]
+type = normal
+spriteno = 4,1
+ID = 3
+start = 0,-784
+delta = .35,1
+tile = 0,2
+tilespacing = 0,474
+mask = 1
+[BG 4.2]
+type = normal
+spriteno = 4,2
+ID = 3
+start = 0,-1296
+delta = .35,1
+mask = 1
+
+[BG 5];wns comiendose
+type = anim
+actionno = 5
+ID = 3
+start = 0,-1296
+delta = .35,1
+
+[BG 6.0];esq viga izq
+type = normal
+spriteno = 6,0
+ID = 4
+start = -326,224
+delta = .7,1
+tile = 0,1
+tilespacing = 0,414
+mask = 1
+[BG 6.1]; esq viga der
+type = normal
+spriteno = 6,1
+ID = 4
+start = 326,224
+delta = .7,1
+tile = 0,1
+tilespacing = 0,414
+mask = 1
+[BG 7]; viga linea horiz
+type = normal
+spriteno = 7,0
+ID = 4
+start = 0,224
+delta = .7,1
+tile = 0,1
+tilespacing = 0,496
+mask = 1
+[BG 8.0];viga izq
+type = normal
+spriteno = 8,0
+ID = 4
+start = -327,224
+delta = .7,1
+tile = 0,1
+mask = 1
+[BG 8.1];viga der
+type = normal
+spriteno = 8,1
+ID = 4
+start = 326,224
+delta = .7,1
+tile = 0,1
+mask = 1
+
+[BG 9];elevador
+type = anim
+actionno = 9
+ID = 5
+start = 0,224
+delta = .7,1
+
+[BG 11];cadena izq
+type = anim
+actionno = 11
+ID = 6
+start = 0,224
+delta = .7,1
+
+[BG 15]; cadena der
+type = anim
+actionno = 15
+ID = 7
+start = 0,224
+delta = .7,1
+
+[BG 19]
+type = parallax
+spriteno = 19,0
+start = 0,177
+delta = .7,1
+;xscale = 1,1.50518902891030392883
+mask = 1
+
+[Begin action 0]
+0,0, 0,0, 4
+0,1, 0,0, 4
+0,2, 0,0, 4
+0,3, 0,0, 4
+0,4, 0,0, 4
+0,5, 0,0, 4
+
+[Begin action 5]
+5,0, 0,0, 2190
+5,1, 0,0, 7
+5,2, 0,0, 4
+5,3, 0,0, 4
+5,4, 0,0, 115
+5,3, 0,0, 13
+5,2, 0,0, 31
+5,1, 0,0, 13
+
+[Begin action 9]
+9,0, 0,0, 8
+9,1, 0,0, 8
+
+[Begin action 10]
+9,0, 0,0, -1
+
+[Begin action 11]
+11,0, 0,0, 8
+11,1, 0,0, 8
+11,2, 0,0, 8
+11,3, 0,0, 8
+11,4, 0,0, 8
+11,5, 0,0, 8
+11,6, 0,0, 8
+11,7, 0,0, 8
+
+[Begin action 12]
+11,4, 0,0, -1
+
+[Begin action 13]
+11,4, 0,0, 8
+11,5, 0,0, 8
+11,6, 0,0, 8
+11,7, 0,0, 8
+11,0, 0,0, 8
+11,1, 0,0, 8
+11,2, 0,0, 8
+11,3, 0,0, 8
+
+[Begin action 14]
+11,3, 0,0, -1
+
+[Begin action 15]
+15,0, 0,0, 8
+15,1, 0,0, 8
+15,2, 0,0, 8
+15,3, 0,0, 8
+15,4, 0,0, 8
+15,5, 0,0, 8
+15,6, 0,0, 8
+15,7, 0,0, 8
+
+[Begin action 16]
+15,4, 0,0, -1
+
+[Begin action 17]
+15,4, 0,0, 8
+15,5, 0,0, 8
+15,6, 0,0, 8
+15,7, 0,0, 8
+15,0, 0,0, 8
+15,1, 0,0, 8
+15,2, 0,0, 8
+15,3, 0,0, 8
+
+[Begin action 18]
+15,3, 0,0, -1
+
+[BGCtrldef 1]
+CtrlID = 1
+
+[BGCtrl 1.1]
+type = VelSet
+time = 0
+x = 0
+y = .167
+
+[BGCtrl 1.2]
+type = VelSet
+time = 2727
+x = 0
+y = 0
+
+[BGCtrl 1.3]
+type = VelSet
+time = 2967
+x = 0
+y = .167
+
+[BGCtrl 1.4]
+type = VelSet
+time = 3350
+x = 0
+y = 0
+
+[BGCtrldef 2]
+CtrlID = 2
+
+[BGCtrl 2.1]
+type = VelSet
+time = 0
+x = 0
+y = .341
+
+[BGCtrl 2.2]
+type = VelSet
+time = 2727
+x = 0
+y = 0
+
+[BGCtrl 2.3]
+type = VelSet
+time = 2967
+x = 0
+y = .329
+
+[BGCtrl 2.4]
+type = VelSet
+time = 3350
+x = 0
+y = 0
+
+[BGCtrldef 3]
+CtrlID = 3
+
+[BGCtrl 3.1]
+type = VelSet
+time = 0
+x = 0
+y = .657
+
+[BGCtrl 3.2]
+type = VelSet
+time = 2727
+x = 0
+y = 0
+
+[BGCtrl 3.3]
+type = VelSet
+time = 2967
+x = 0
+y = .657
+
+[BGCtrl 3.4]
+type = VelSet
+time = 3350
+x = 0
+y = 0
+
+[BGCtrldef 4]
+CtrlID = 4
+
+[BGCtrl 4.1]
+type = VelSet
+time = 0
+x = 0
+y = 1
+
+[BGCtrl 4.2]
+type = VelSet
+time = 2727
+x = 0
+y = 0
+
+[BGCtrl 4.3]
+type = VelSet
+time = 2967
+x = 0
+y = 1
+
+[BGCtrl 4.4]
+type = VelSet
+time = 3350
+x = 0
+y = 0
+
+[BGCtrldef 5]
+CtrlID = 5
+
+[BGCtrl 5.1]
+type = anim
+time = 0
+value = 9
+
+[BGCtrl 5.2]
+type = anim
+time = 2727
+value = 10
+
+[BGCtrl 5.3]
+type = anim
+time = 2967
+value = 9
+
+[BGCtrl 5.4]
+type = anim
+time = 3350
+value = 10
+
+[BGCtrldef 6]
+CtrlID = 6
+
+[BGCtrl 6.1]
+type = anim
+time = 0
+value = 11
+
+[BGCtrl 6.2]
+type = anim
+time = 2727
+value = 12
+
+[BGCtrl 6.3]
+type = anim
+time = 2967
+value = 13
+
+[BGCtrl 6.4]
+type = anim
+time = 3350
+value = 14
+
+[BGCtrldef 7]
+CtrlID = 7
+
+[BGCtrl 7.1]
+type = anim
+time = 0
+value = 15
+
+[BGCtrl 7.2]
+type = anim
+time = 2727
+value = 16
+
+[BGCtrl 7.3]
+type = anim
+time = 2967
+value = 17
+
+[BGCtrl 7.4]
+type = anim
+time = 3350
+value = 18

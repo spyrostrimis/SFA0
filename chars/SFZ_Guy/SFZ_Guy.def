@@ -1,0 +1,37 @@
+[Info]
+name = "Guy"
+displayname = "GUY"
+author = "Ehnyd"
+Pal.Defaults = 1,4
+Localcoord = 384,224
+mugenversion = 1.0
+
+[Files]
+cmd      = SFZ_Guy.cmd
+cns      = 384.cns
+st       = 384.cns
+st2      = System.cns
+stcommon = common1.cns
+sprite   = SFZ_Guy.sff
+anim     = SFZ_Guy.air
+sound    = SFZ_Guy.snd
+movelist = movelist.dat
+
+pal1	= Pals/Z-ISM1.act
+pal2	= Pals/X-ISM1.act
+pal3	= Pals/V-ISM1.act
+pal4	= Pals/Z-ISM2.act
+pal5	= Pals/X-ISM2.act
+pal6	= Pals/V-ISM2.act
+pal7	= Pals/S-ISM2.act
+pal8	= Pals/X-ISM4.act
+pal9	= Pals/V-ISM4.act
+pal10	= Pals/S-ISM1.act
+pal11	= Pals/X-ISM3.act
+pal12	= Pals/V-ISM3.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_Guy.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/Guy.lua

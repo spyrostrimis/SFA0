@@ -1,0 +1,120 @@
+[Info]
+name = "Sonoran Desert - Mexico"
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -190
+boundright = 190
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz     = 0
+botz     = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 25
+screenright = 25
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 16,36,16
+yscale = .05
+intensity = 80
+
+[Music]
+bgmusic = sound/T-Hawk.mp3
+bgmloopstart= 1666402
+bgmloopend=  3326492
+bgvolume = 255
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Mexico.sff
+;debugbg = 0
+
+[bg nubes]
+type=normal
+spriteno=0,0
+start=-15,-16
+delta=.15,1
+layerno=0
+mask=0
+
+[bg rocosas]
+type=normal
+spriteno=1,0
+start=0,-16
+delta=.3,1
+layerno=0
+mask=1
+
+[bg suelo y cactus]
+type=normal
+spriteno=1,1
+start=0,-16
+delta=.75,1
+layerno=0
+mask=1
+
+[bg suelo]
+type=parallax
+spriteno=1,2
+start=0,-16
+delta=.75,1
+;xscale= 1,1.43010752688172
+mask=0
+
+[bg Cactus izq.fondo]
+type=normal
+spriteno=2,1
+start=-10,9
+delta=.75,1
+mask=1
+
+[bg Cactus der.frontal]
+type=normal
+spriteno=2,0
+start=-5,5
+delta=1.53,1
+layerno=1
+mask=1
+
+[bg Cactus izq.frontal]
+type=normal
+spriteno=2,2
+start=-173,5
+delta=1.53,1
+layerno=1
+mask=1

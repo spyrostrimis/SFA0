@@ -1,0 +1,38 @@
+[Info]
+name = "Fei-Long"
+displayname = "FEI-LONG"
+versiondate = 2001.08.04
+mugenversion = 1.1
+author = "Ehnyd"
+Pal.Defaults = 1,4
+localcoord = 384,224
+
+[Files]
+cmd	 = SFZ_FeiLong.cmd
+cns	 = SFZ_FeiLong.cns
+stcommon = common1.cns
+st	 = SFZ_FeiLong.cns
+
+sprite	 = SFZ_FeiLong.sff
+anim	 = SFZ_FeiLong.air
+sound	 = SFZ_FeiLong.snd
+movelist = movelist.dat
+
+pal1   = Pals/Z-ISM1.act
+pal2   = Pals/X-ISM1.act
+pal3   = Pals/V-ISM1.act
+pal4   = Pals/Z-ISM2.act
+pal5   = Pals/X-ISM2.act
+pal6   = Pals/V-ISM2.act
+pal7   = Pals/Z-ISM4.act
+pal8   = Pals/X-ISM4.act
+pal9   = Pals/V-ISM4.act
+pal10   = Pals/Z-ISM3.act
+pal11   = Pals/X-ISM3.act
+pal12   = Pals/V-ISM3.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_Feilong.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/FeiLong.lua

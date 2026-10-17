@@ -1,0 +1,128 @@
+[Info]
+name = "E-Ryu Boss" ;Genbu Plains - Japan
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -190
+boundright = 190
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz = 0
+botz = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 67,100,120
+yscale = .05
+intensity = 2
+
+[Music]
+bgmusic = sound/Ryu3.mp3
+bgmloopstart = 160689
+bgmloopend = 2280895
+bgvolume = 0
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Ryu2.sff
+
+[BG 0];sol
+type = normal
+spriteno = 0,0
+start = 0,224
+delta = 0.2,1
+
+[BG 1];dojo
+type = normal
+spriteno = 1,0
+start = -270,224
+delta = 0.41,1
+mask = 1
+
+[BG 2];bonzai en risco
+type = normal
+spriteno = 2,0
+start = 0,224
+delta = 0.6,1
+mask = 1
+
+[BG 3];caida de agua
+type = anim
+actionno = 3
+start = 0,224
+delta = 0.6,1
+
+[BG 4];bonzai 1er plano
+type = normal
+spriteno = 4,0
+start = 0,224
+delta = 0.8,1
+mask = 1
+
+[BG 5];arbol
+type = normal
+spriteno = 5,0
+start = 368,224
+delta = 0.921,1
+mask = 1
+
+[BG 6]; suelo
+type = parallax
+spriteno = 6,0
+start = 0,185
+delta = .8,1
+;xscale = 1,1.325
+
+[BG 7]
+type = normal
+spriteno = 7,0
+layerno = 1
+start = -440,224
+delta = 1.25,1
+mask = 1
+
+[Begin action 3]
+
+3,0, 0,0, 6
+3,1, 0,0, 6
+3,2, 0,0, 6
+3,3, 0,0, 6

@@ -1,0 +1,37 @@
+[Info]
+name = "Dee Jay"
+displayname = "DEE JAY"
+author = "Ehnyd"
+Pal.Defaults = 1,4
+Localcoord = 384,224
+mugenversion = 1.1
+
+[Files]
+cmd	= SFZ_DJ.cmd
+cns	= SFZ_DJ.cns
+stcommon = common1.cns
+sprite	= SFZ_DJ.sff
+anim	= SFZ_DJ.air
+sound	= SFZ_DJ.snd
+st	= SFZ_DJ.cns
+movelist = movelist.dat
+
+pal1	= pals/Z-ISM1.act
+pal2	= pals/X-ISM1.act
+pal3	= pals/V-ISM1.act
+pal4	= pals/Z-ISM2.act
+pal5	= pals/X-ISM2.act
+pal6	= pals/V-ISM2.act
+pal7	= pals/Z-ISM4.act
+pal8	= pals/X-ISM4.act
+pal9	= pals/V-ISM4.act
+pal10	= pals/Z-ISM3.act
+pal11	= pals/X-ISM3.act
+pal12	= pals/V-ISM3.act
+
+
+[Arcade]
+intro.storyboard = Intros/Intro_DJ.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/DJ.lua

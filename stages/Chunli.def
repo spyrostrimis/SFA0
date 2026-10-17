@@ -1,0 +1,360 @@
+[Info]
+name = "Beijing - China"
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -190
+boundright = 190
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz = 0
+botz = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 16,16,16
+yscale = .05
+
+[Music]
+bgmusic = Sound/Chun3.mp3
+bgmloopstart = 1556869
+bgmloopend = 3996149
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Chunli.sff
+
+[BG 0]
+type = normal
+spriteno = 0,0
+start = 0,224
+delta = 0.885,1
+
+[BG 1]
+type = anim
+actionno = 1
+start = 0,224
+delta = 0.885,1
+
+[BG 2]
+type = parallax
+spriteno = 2,0
+start = 0,193
+delta = .895,1
+;xscale = 1,1.16531234128999492127
+
+[BG 3]
+type = anim
+actionno = 3
+start = -108,167
+delta = .895,1
+tile = 1,0
+tilespacing = 656,0
+velocity = 1.5,0
+
+[BG 4]
+type = anim
+actionno = 4
+start = 360,224
+delta = .895,1
+
+[BG 5]
+type = anim
+actionno = 5
+start = 136,171
+delta = .895,1
+velocity = 1.6
+tile = 1,0
+tilespacing = 767,0
+
+[BG 6]
+type = anim
+actionno = 6
+start = 8,172
+delta = .895,1
+velocity = 1.7,0
+tile = 1,0
+tilespacing = 631,0
+
+[BG 7]
+type = anim
+actionno = 7
+start = -120,173
+delta = .895,1
+velocity = 1.8,0
+tile = 1,0
+tilespacing = 638,0
+
+[BG 8]
+type = anim
+actionno = 8
+start = -248,174
+delta = .895,1
+velocity = 1.9,0
+tile = 1,0
+tilespacing = 712,0
+
+[BG 9]
+type = anim
+actionno = 9
+start = 115,175
+delta = .895,1
+velocity = 2,0
+tile = 1,0
+tilespacing = 780,0
+
+[BG 10]
+type = anim
+actionno = 10
+start = -5,176
+delta = .895,1
+velocity = 2.1,0
+tile = 1,0
+tilespacing = 708,0
+
+[BG 11]
+type = anim
+actionno = 11
+start = -120,177
+delta = .895,1
+velocity = 2.2,0
+tile = 1,0
+tilespacing = 760,0
+
+[BG 12]
+type = anim
+actionno = 12
+start = -224,178
+delta = .895,1
+velocity = 2.3,0
+tile = 1,0
+tilespacing = 700,0
+
+[BG 13]
+type = anim
+actionno = 13
+start = 96,179
+delta = .895,1
+velocity = 2.4,0
+tile = 1,0
+tilespacing = 790,0
+
+[BG 14]
+type = anim
+actionno = 14
+start = -10,180
+delta = .895,1
+velocity = 2.5,0
+tile = 1,0
+tilespacing = 724,0
+
+[BG 15]
+type = anim
+actionno = 15
+start = -106,181
+delta = .895,1
+velocity = 2.6,0
+tile = 1,0
+tilespacing = 760,0
+
+[BG 16]
+type = anim
+actionno = 16
+start = -218,182
+delta = .895,1
+velocity = 2.7,0
+tile = 1,0
+tilespacing = 700,0
+
+[BG 17]
+type = normal
+spriteno = 17,0
+start = -360,224
+delta = .88,1
+mask = 1
+
+[Begin action 1]
+1,0, 0,0, 1024
+1,1, 0,0, 32
+1,2, 0,0, 512
+
+[Begin action 3]
+3,0, 0,0, 8
+3,1, 0,0, 8
+3,2, 0,0, 8
+3,3, 0,0, 8
+3,4, 0,0, 8
+3,5, 0,0, 8
+
+[Begin action 4]
+4,0, 0,0, 48
+4,4, 0,0, 8
+4,5, 0,0, 24
+4,4, 0,0, 8
+4,0, 0,0, 8
+4,1, 0,0, 8
+4,2, 0,0, 16
+4,3, 0,0, 8
+4,0, 0,0, 8
+4,1, 0,0, 8
+4,2, 0,0, 16
+4,3, 0,0, 8
+
+[Begin action 5]
+5,0, 0,0, 8
+5,1, 0,0, 8
+5,2, 0,0, 8
+5,3, 0,0, 8
+5,4, 0,0, 8
+5,5, 0,0, 8
+5,6, 0,0, 8
+5,7, 0,0, 8
+
+[Begin action 6]
+6,0, 0,0, 8
+6,1, 0,0, 8
+6,2, 0,0, 8
+6,3, 0,0, 8
+6,4, 0,0, 8
+6,5, 0,0, 8
+6,6, 0,0, 8
+6,7, 0,0, 8
+
+[Begin action 7]
+7,0, 0,0, 8
+7,1, 0,0, 8
+7,2, 0,0, 8
+7,3, 0,0, 8
+7,4, 0,0, 8
+7,5, 0,0, 8
+7,6, 0,0, 8
+7,7, 0,0, 8
+
+[Begin action 8]
+8,0, 0,0, 8
+8,1, 0,0, 8
+8,2, 0,0, 8
+8,3, 0,0, 8
+8,4, 0,0, 8
+8,5, 0,0, 8
+8,6, 0,0, 8
+8,7, 0,0, 8
+
+[Begin action 9]
+9,0, 0,0, 8
+9,1, 0,0, 8
+9,2, 0,0, 8
+9,3, 0,0, 8
+9,4, 0,0, 8
+9,5, 0,0, 8
+9,6, 0,0, 8
+9,7, 0,0, 8
+
+[Begin action 10]
+10,0, 0,0, 8
+10,1, 0,0, 8
+10,2, 0,0, 8
+10,3, 0,0, 8
+10,4, 0,0, 8
+10,5, 0,0, 8
+10,6, 0,0, 8
+10,7, 0,0, 8
+
+[Begin action 11]
+11,0, 0,0, 8
+11,1, 0,0, 8
+11,2, 0,0, 8
+11,3, 0,0, 8
+11,4, 0,0, 8
+11,5, 0,0, 8
+11,6, 0,0, 8
+11,7, 0,0, 8
+
+[Begin action 12]
+12,0, 0,0, 8
+12,1, 0,0, 8
+12,2, 0,0, 8
+12,3, 0,0, 8
+12,4, 0,0, 8
+12,5, 0,0, 8
+12,6, 0,0, 8
+12,7, 0,0, 8
+
+[Begin action 13]
+13,0, 0,0, 8
+13,1, 0,0, 8
+13,2, 0,0, 8
+13,3, 0,0, 8
+13,4, 0,0, 8
+13,5, 0,0, 8
+13,6, 0,0, 8
+13,7, 0,0, 8
+
+[Begin action 14]
+14,0, 0,0, 8
+14,1, 0,0, 8
+14,2, 0,0, 8
+14,3, 0,0, 8
+14,4, 0,0, 8
+14,5, 0,0, 8
+14,6, 0,0, 8
+14,7, 0,0, 8
+
+[Begin action 15]
+15,0, 0,0, 8
+15,1, 0,0, 8
+15,2, 0,0, 8
+15,3, 0,0, 8
+15,4, 0,0, 8
+15,5, 0,0, 8
+15,6, 0,0, 8
+15,7, 0,0, 8
+
+[Begin action 16]
+16,0, 0,0, 8
+16,1, 0,0, 8
+16,2, 0,0, 8
+16,3, 0,0, 8
+16,4, 0,0, 8
+16,5, 0,0, 8
+16,6, 0,0, 8
+16,7, 0,0, 8

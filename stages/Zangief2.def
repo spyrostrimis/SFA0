@@ -1,0 +1,256 @@
+[Info]
+name = "Industrial Area - Russia"
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -185
+boundright = 185
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz     = 0       
+botz     = 50      
+topscale = 1       
+botscale = 1.2     
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 27,100,90
+yscale = .05
+intensity = 22
+
+[Music]
+bgmusic = sound/Zangief2.mp3
+bgmloopstart = 678013
+bgmloopend = 2809583
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Zangief2.sff
+;debugbg = 0
+
+[BG reflectores]
+type = normal 
+spriteno = 0, 0
+start = 0, -16
+delta = .845982, 1
+
+[BG puerta metalica]
+type = anim
+actionno = 1
+start = 0, 80
+delta = .845982, 1
+
+[BG Metal liquido]
+type = anim
+actionno = 2
+start = 0, 151
+delta = .845982, 1
+
+[BG Piso 1]
+type  = parallax
+spriteno = 3, 0
+start = 0, 180
+delta = .845982, 1
+;xscale = 1,1.12288731945326766493
+id = 300
+
+[BG Piso 2]
+type  = parallax
+spriteno = 3, 1
+start = 0, 180
+delta = .845982, 1
+;xscale = 1,1.12288731945326766493
+id = 301
+
+[BG Piso 3]
+type  = parallax
+spriteno = 3, 2
+start = 0, 180
+delta = .845982, 1
+;xscale = 1,1.12288731945326766493
+id = 302
+
+[BG LeftLight]
+type = anim
+actionno = 4
+start = -306, 64
+delta = .845982, 1
+
+[BG RightLight]
+type = anim
+actionno = 6
+start = 230, 80
+delta = .845982, 1
+
+[BG Pasarela 1]
+type = anim
+actionno = 8
+start = 0, -16
+delta = .845982, 1
+
+[BG Pasarela 2]
+type = anim
+actionno = 7
+start = 0, -16
+delta = .845982, 1
+
+; Sala / Puerta
+[Begin Action 1]
+1,0, 0, 0, 6;12
+1,1, 0, 0, 6
+1,2, 0, 0, 6
+1,1, 0, 0, 6
+
+; Metal liquido
+[Begin Action 2]
+2,0, 0, 0, 4
+2,1, 0, 0, 4
+2,2, 0, 0, 4
+2,3, 0, 0, 4
+2,4, 0, 0, 4
+2,5, 0, 0, 4
+2,6, 0, 0, 4
+2,7, 0, 0, 4
+
+[BGCtrlDef GroundSprite1] ; Ground Animation Sprite 1
+looptime = 48
+CtrlID = 300
+
+[BGCtrl 3.1]
+type = Visible
+time = 0
+value = 1
+
+[BGCtrl 3.2]
+type = Visible
+time = 12
+value = 0
+
+[BGCtrlDef GroundSprite2] ; Ground Animation Sprite 2
+looptime = 48
+CtrlID = 301
+
+[BGCtrl 301.1]
+type = Visible
+time = 12
+value = 1
+
+[BGCtrl 301.2]
+type = Visible
+time = 24
+value = 0
+
+[BGCtrl 301.3]
+type = Visible
+time = 36
+value = 1
+
+[BGCtrl 301.4]
+type = Visible
+time = 0
+value = 0
+
+[BGCtrlDef GroundSprite3] ; Ground Animation Sprite 3
+looptime = 48
+CtrlID = 302
+
+[BGCtrl 302.1]
+type = Visible
+time = 24
+value = 1
+
+[BGCtrl 302.2]
+type = Visible
+time = 36
+value = 0
+
+[Begin Action 4]	; Left Light
+4,0, 0, 0, 1
+4,1, 0, 0, 1
+4,2, 0, 0, 1
+4,3, 0, 0, 1
+4,4, 0, 0, 1
+4,5, 0, 0, 1
+4,6, 0, 0, 1
+4,7, 0, 0, 1
+4,8, 0, 0, 1
+4,7, 0, 0, 1
+4,6, 0, 0, 1
+4,5, 0, 0, 1
+4,4, 0, 0, 1
+4,3, 0, 0, 1
+4,2, 0, 0, 1
+4,1, 0, 0, 1
+
+[Begin Action 6]	; Right Light
+6,0, 0, 0, 2
+6,1, 0, 0, 2
+6,2, 0, 0, 2
+6,3, 0, 0, 2
+6,4, 0, 0, 2
+6,5, 0, 0, 2
+6,6, 0, 0, 2
+6,7, 0, 0, 2
+6,8, 0, 0, 2
+6,9, 0, 0, 2
+6,10, 0, 0, 2
+6,11, 0, 0, 2
+6,10, 0, 0, 2
+6,9, 0, 0, 2
+6,8, 0, 0, 2
+6,7, 0, 0, 2
+6,6, 0, 0, 2
+6,5, 0, 0, 2
+6,4, 0, 0, 2
+6,3, 0, 0, 2
+6,2, 0, 0, 2
+6,1, 0, 0, 2
+
+[Begin Action 7]	; Scene
+7,0, 0, 0, 12
+7,1, 0, 0, 12
+7,2, 0, 0, 12
+7,1, 0, 0, 12
+
+[Begin Action 8]	; Scene
+8,0, 0, 0, 12
+8,1, 0, 0, 12
+8,2, 0, 0, 12
+8,1, 0, 0, 12

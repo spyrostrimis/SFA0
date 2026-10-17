@@ -1,0 +1,152 @@
+[Info]
+name = "Swamplands of Madeira River - Brazil"
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -190
+boundright = 190
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz = 0
+botz = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 36,6,36
+yscale = .05
+
+[Music]
+bgmusic = Sound/Blanka.mp3
+bgmloopstart= 338721
+bgmloopend= 2689429
+bgvolume = 0
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Blanka.sff
+
+[BG 0];fondo
+type = normal
+spriteno = 0,0
+start = 0,224
+delta = 0.25,1
+
+[BG 1];cabaña
+type = normal
+spriteno = 1,0
+start = 0,224
+delta = 0.35,1
+mask = 1
+
+[BG 2.0];palmera
+type = normal
+spriteno = 2,0
+start = 0,214
+delta = 0.6,1
+mask = 1
+
+[BG 2.1]
+type = normal
+spriteno = 2,1
+start = 0,214
+delta = 0.6,1
+mask = 1
+
+[BG 3]
+type = normal
+spriteno = 3,0
+start = 0,224
+delta = 0.965,1
+mask = 1
+
+[BG 4]
+type = parallax
+spriteno = 4,0
+start = 0,193
+delta = .965,1
+;xscale = 1,1.05110692416318982571
+
+[BG 5]
+type = anim
+actionno = 5
+start = 0,214
+delta = .965,1
+
+[BG 6]
+type = normal
+spriteno = 6,0
+start = 0,214
+delta = .965,1
+mask = 1
+
+[Begin action 5]
+5, 0, 0,0, 180
+5, 1, 0,0, 2
+5, 2, 0,0, 2
+5, 1, 0,0, 2
+5, 0, 0,0, 2
+5, 1, 0,0, 2
+5, 0, 0,0, 2
+5, 0, 0,0, 2
+5, 1, 0,0, 2
+5, 2, 0,0, 2
+5, 3, 0,0, 2
+5, 2, 0,0, 2
+5, 3, 0,0, 2
+5, 2, 0,0, 2
+5, 1, 0,0, 2
+5, 0, 0,0, 2
+5, 4, 0,0, 8
+5, 5, 0,0, 6
+5, 6, 0,0, 6
+5, 7, 0,0, 6
+5, 8, 0,0, 6
+5, 9, 0,0, 6
+5,10, 0,0, 8
+5,11, 0,0, 460
+5,10, 0,0, 8
+5, 9, 0,0, 6
+5, 8, 0,0, 6
+5, 7, 0,0, 6
+5, 6, 0,0, 6
+5, 5, 0,0, 6
+5, 4, 0,0, 8

@@ -1,0 +1,141 @@
+[Info]
+name = "Hinode Park - Hong Kong"
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -190
+boundright = 190
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz = 0
+botz = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 47,70,40
+yscale = .05
+intensity = 2
+
+[Music]
+bgmusic = Sound/Dan2.mp3
+bgmloopstart=1344332
+bgmloopend=  3028647
+bgvolume = 0
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Dan2.sff
+
+[BG 0]
+type = normal
+spriteno = 0,0
+start = 0,224
+delta = 0.3,1
+
+[BG 1]; casa
+type = normal
+spriteno = 1,0
+start = 0,224
+delta = 0.7,1
+mask = 1
+
+[BG 2]; patio de juegos
+type = normal
+spriteno = 2,0
+start = 0,224
+delta = 0.8,1
+mask = 1
+
+[BG 3]; postes
+type = normal
+spriteno = 3,0
+start = 0,224
+delta = 0.8,1
+mask = 1
+
+[BG 4]
+type = normal
+spriteno = 4,0
+start = 0,224
+delta = 0.92,1
+mask = 1
+
+[BG 5]
+type = anim
+actionno = 5
+start = 0,224
+delta = 0.825,1
+
+[BG 6]
+type = parallax
+spriteno = 6,0
+start = 0,193
+delta = .92,1
+;xscale = 1,1.12252964426877470355
+
+[BG 7]
+type = normal
+spriteno = 7,0
+layerno = 1
+start = 0,224
+delta = 1.25,1
+mask = 1
+
+[Begin action 5]
+
+5,0, 0,0, 15
+5,1, 0,0, 2
+5,2, 0,0, 2
+5,3, 0,0, 8
+5,2, 0,0, 2
+5,3, 0,0, 8
+5,2, 0,0, 2
+5,3, 0,0, 8
+5,0, 0,0, 15
+5,4, 0,0, 2
+5,5, 0,0, 2
+5,6, 0,0, 2
+5,5, 0,0, 2
+5,6, 0,0, 2
+5,5, 0,0, 2
+5,7, 0,0, 2
+5,5, 0,0, 8

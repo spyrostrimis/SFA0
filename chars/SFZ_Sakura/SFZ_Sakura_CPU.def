@@ -1,0 +1,26 @@
+[Info]
+name = "Sakura Kasugano"
+displayname = "SAKURA"
+author = "adamskie"         
+localcoord = 384,224
+Pal.Defaults = 1,4
+mugenversion = 1.0
+
+[Files]
+cmd      = SFZ_Sakura.cmd
+cns      = 384.cns
+st       = 384.cns
+st2      = System.cns
+stcommon = common1.cns
+sprite   = SFZ_Sakura.sff
+anim     = SFZ_Sakura.air
+sound    = SFZ_Sakura.snd 
+movelist = movelist.dat
+
+pal1     = Pals/X-ISM3.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_Sakura.def
+ending.storyboard = Credits/Credits_Sakura.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/Sakura.lua

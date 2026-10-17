@@ -1,0 +1,37 @@
+[Info]
+name = "Rose"
+displayname = "ROSE"
+author = "Ehnyd"
+Localcoord = 384,224
+Pal.Defaults = 1,4
+mugenversion = 1.0
+
+[Files]
+cmd     = SFZ_Rose.cmd
+cns      = 384.cns        ; 384x224
+st       = 384.cns        ; 384x224
+st2       = System.cns
+stcommon = common1.cns
+sprite  = SFZ_Rose.sff
+anim    = SFZ_Rose.air
+sound   = SFZ_Rose.snd
+movelist = movelist.dat
+
+pal1    = Pals/Rose01.act
+pal2    = Pals/Rose04.act
+pal3    = Pals/Rose05.act
+pal4    = Pals/Rose02.act
+pal5    = Pals/Rose03.act
+pal6    = Pals/Rose06.act
+pal7    = Pals/Rose07.act
+pal8    = Pals/Rose08.act
+pal9    = Pals/Rose09.act
+pal10    = Pals/Rose10.act
+pal11    = Pals/Rose11.act
+pal12    = Pals/Rose12.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_Rose.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/Rose.lua

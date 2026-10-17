@@ -1,0 +1,267 @@
+[Info]
+name = "Ken Boss2";"Hotel Masters - USA"
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -190
+boundright = 190
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 15
+p1facing = 1
+
+p2startx = 75
+p2starty = 0
+p2startz = 15
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz     = 0
+botz     = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 24
+screenright = 24
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 27,100,90
+yscale = .05
+intensity = 22
+
+[Music]
+bgmusic = sound/Ken.mp3
+bgmloopstart= 1415590
+bgmloopend=   4014076
+bgvolume = 0
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Ken2.sff
+;debugbg = 0
+
+[BG Piso]
+type  = parallax
+spriteno = 0,0
+start = 0,-16
+delta = .839,1
+;xscale = 1,1.268383880348982135
+mask=1
+
+[BG Hotel]
+type  = normal
+spriteno = 3,0
+start = 0,-16
+delta = .7,1;.765,1
+layerno = 0
+mask=1
+
+[BG Object]
+type  = normal
+spriteno = 11,0
+start = 0,-16
+delta = .804,1;.805,1
+layerno = 0
+mask=1
+
+[BG Puentes]
+type  = normal
+spriteno = 1,0
+start = 0,-16
+delta = .83,1;.850,1
+layerno = 0
+mask=1
+
+[BG Pool]
+type  = normal
+spriteno = 2,0
+start = 0,-16
+delta = .83,1
+layerno = 0
+mask=1
+
+[BG Steps]
+type  = normal
+spriteno = 2,1
+start = -85826,-16
+delta = 384,1
+layerno = 0
+mask=1
+
+[BG Steps]
+type  = normal
+spriteno = 2,1
+start = -85442,-16
+delta = 384,1
+layerno = 0
+mask=1
+
+[BG People]
+type  = normal
+spriteno = 9,0
+start = 0,-16
+delta = .83,1
+layerno = 0
+mask=1
+
+[BG Water]
+type  = anim
+actionno = 4
+start = 0,-16
+delta = .83,1
+layerno = 0
+mask=1
+
+[BG fountain]
+type  = anim
+actionno = 7
+start = 0,-16
+delta = .83,1
+layerno = 0
+mask=1
+
+[BG legs]
+type  = anim
+actionno = 6
+start = 0,-16
+delta = .83,1
+layerno = 0
+mask=1
+
+[BG hair]
+type  = anim
+actionno = 5
+start = 0,-16
+delta = .83,1
+layerno = 0
+mask=1
+
+[BG Eliza]
+type  = anim
+actionno = 8
+start = 0,-16
+delta = .83,1
+layerno = 0
+mask=1
+
+[BG bar]
+type  = anim
+actionno = 10
+start = 0,-16
+delta = .83,1
+layerno = 0
+mask=1
+
+[Begin Action 4]
+;4,0, 0,0, 59
+;loopstart
+4,0, 0,0, 14
+4,1, 0,0, 14
+4,2, 0,0, 14
+4,1, 0,0, 14
+
+[Begin Action 5]
+;5,0, 0,0, 112
+;5,0, 0,0, 59
+;loopstart
+5,0, 0,0, 208
+5,1, 0,0, 10
+5,2, 0,0, 10
+5,3, 0,0, 10
+5,4, 0,0, 10
+5,5, 0,0, 10
+
+[Begin Action 6]
+;6,0, 0,0, 100
+;6,0, 0,0, 59
+;loopstart
+6,0, 0,0, 160
+6,1, 0,0, 7
+6,2, 0,0, 7
+6,3, 0,0, 7
+6,4, 0,0, 160
+6,3, 0,0, 7
+6,2, 0,0, 7
+6,1, 0,0, 7
+
+[Begin Action 7]
+;7,0, 0,0, 59
+;loopstart
+7,1, 0,0, 1
+7,0, 0,0, 1
+7,2, 0,0, 1
+7,0, 0,0, 1
+7,3, 0,0, 1
+7,0, 0,0, 1
+
+
+[Begin Action 8]
+8,0, 0,0, 194
+8,0, 0,0, 59
+loopstart
+8,0, 0,0, 240
+8,1, 0,0, 10
+8,2, 0,0, 10
+8,3, 0,0, 10
+8,4, 0,0, 10
+8,5, 0,0, 10
+8,6, 0,0, 10
+8,5, 0,0, 10
+8,4, 0,0, 10
+8,3, 0,0, 10
+8,2, 0,0, 10
+8,1, 0,0, 10
+
+[Begin Action 10]
+;10,0, 0,0, 59
+;loopstart
+10,0, 0,0, 6
+10,1, 0,0, 6
+10,2, 0,0, 6
+10,0, 0,0, 6
+10,1, 0,0, 6
+10,2, 0,0, 6
+10,3, 0,0, 6
+10,4, 0,0, 6
+10,5, 0,0, 6
+10,3, 0,0, 6
+10,4, 0,0, 6
+10,5, 0,0, 6
+10,0, 0,0, 6
+10,1, 0,0, 6
+10,2, 0,0, 6
+10,0, 0,0, 6
+10,1, 0,0, 6
+10,2, 0,0, 6
+10,6, 0,0, 6
+10,7, 0,0, 6
+10,8, 0,0, 6
+10,6, 0,0, 6
+10,7, 0,0, 6
+10,8, 0,0, 6

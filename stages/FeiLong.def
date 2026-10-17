@@ -1,0 +1,184 @@
+;--------------------------------------------------------
+[Info]
+name = "Kowloon Park - Hong Kong"
+mugenversion = 1.0
+author = "Ehnyd"
+
+;--------------------------------------------------------
+[Camera]
+startx = 0
+starty = 0
+boundleft = -230
+boundright = 230
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+;--------------------------------------------------------
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+leftbound  = -1000
+rightbound = 1000
+topbound = 0
+botbound = 0
+
+;--------------------------------------------------------
+[Scaling]
+topz     = 0       
+botz     = 50      
+topscale = 1       
+botscale = 1.2     
+
+;--------------------------------------------------------
+[Bound]
+screenleft = 25
+screenright = 25
+
+;--------------------------------------------------------
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+;--------------------------------------------------------
+[Shadow]
+color = 15,36,26
+yscale = .05
+intensity = 50
+
+;--------------------------------------------------------
+[Music]
+bgmusic = Sound/Feilong.mp3
+bgmloopstart=108234
+bgmloopend=1715629
+;bgvolume = 255
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+;--------------------------------------------------------
+[BGdef]
+spr = stages/FeiLong.sff
+;debugbg = 0
+
+[BG Background]
+type = normal 
+spriteno = 0, 0
+start = 0, -26
+delta = .4, 1
+
+[BG Scene]
+type = normal 
+spriteno = 1, 0
+start = 0, -16
+delta = 1, 1
+mask = 1
+
+[BG LeftOldMan]
+type = anim
+actionno = 2
+start = -136, 142
+delta = 1, 1
+
+[Begin Action 2]
+2,0, 0,0, 112
+2,1, 0,0, 16
+2,0, 0,0, 16
+2,1, 0,0, 96
+2,2, 0,0, 16
+2,1, 0,0, 16
+2,2, 0,0, 16
+2,1, 0,0, 16
+2,2, 0,0, 16
+2,1, 0,0, 16
+
+[BG RightOldMan]
+type  = anim
+actionno = 3
+start = 89, 142
+delta = 1, 1
+
+[Begin Action 3]
+3,0, 0,0, 112
+3,1, 0,0, 6
+3,2, 0,0, 6
+3,3, 0,0, 112
+3,2, 0,0, 6
+3,1, 0,0, 4
+3,2, 0,0, 2
+3,3, 0,0, 112
+3,2, 0,0, 6
+3,1, 0,0, 4
+3,2, 0,0, 2
+
+[BG Trainer]
+type  = anim
+actionno = 4
+start = 209, 121
+delta = 1, 1
+
+[Begin Action 4]
+4,0, 0,0, 36
+4,1, 0,0, 6
+4,0, 0,0, 36
+4,1, 0,0, 6
+4,0, 0,0, 6
+4,1, 0,0, 6
+4,0, 0,0, 6
+4,1, 0,0, 6
+4,0, 0,0, 6
+4,1, 0,0, 6
+4,0, 0,0, 6
+4,1, 0,0, 6
+4,0, 0,0, 36
+4,1, 0,0, 6
+4,0, 0,0, 36
+4,1, 0,0, 6
+4,0, 0,0, 6
+4,1, 0,0, 6
+4,0, 0,0, 6
+4,1, 0,0, 6
+4,0, 0,0, 6
+4,1, 0,0, 6
+4,0, 0,0, 6
+4,1, 0,0, 6
+4,0, 0,0, 12
+4,1, 0,0, 2
+4,2, 0,0, 2
+4,3, 0,0, 2
+4,4, 0,0, 2
+4,5, 0,0, 2
+4,6, 0,0, 2
+4,5, 0,0, 8
+4,6, 0,0, 2
+4,5, 0,0, 2
+4,6, 0,0, 2
+4,5, 0,0, 2
+4,6, 0,0, 2
+4,5, 0,0, 2
+4,6, 0,0, 2
+4,5, 0,0, 2
+4,6, 0,0, 2
+4,5, 0,0, 2
+4,6, 0,0, 2
+4,5, 0,0, 2
+4,6, 0,0, 2
+4,5, 0,0, 2
+4,6, 0,0, 42
+4,5, 0,0, 10
+4,4, 0,0, 3
+4,3, 0,0, 2
+4,2, 0,0, 1
+4,1, 0,0, 1

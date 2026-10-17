@@ -1,0 +1,37 @@
+[Info]
+name        = "Gen"
+displayname = "GEN"
+author      = "Ehnyd"
+Pal.Defaults = 1,4
+localcoord = 384,224
+mugenversion = 1.0
+
+[Files]
+cmd      = X-ISM.cmd	; Movimientos responden como en X-ISM
+cns      = SFZ_GenX.cns
+st       = SFZ_GenX.cns
+stcommon = common1.cns
+sprite   = SFZ_Gen.sff
+anim     = SFZ_Gen.air
+sound    = SFZ_Gen.snd
+movelist = movelist.dat
+
+pal1     = Pals/Z-ISM1.act
+pal2     = Pals/Z-ISM2.act
+pal3     = Pals/V-ISM2.act
+pal4     = Pals/X-ISM2.act
+pal5     = Pals/X-ISM1.act
+pal6     = Pals/V-ISM1.act
+pal7     = Pals/X-ISM4.act
+pal8     = Pals/X-ISM3.act
+pal9     = Pals/V-ISM3.act
+pal10     = Pals/Z-ISM3.act
+pal11    = Pals/Z-ISM4.act
+pal12     = Pals/V-ISM4.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_GenX.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/Gen-X.lua
+

@@ -1,0 +1,150 @@
+# ==============================================================================
+# Handicap match support ("guardian" partner)
+# ------------------------------------------------------------------------------
+# Loaded ONLY for fights launched with handicap = true, see
+# external/mods/sfaz_handicap.lua. The file is appended to Common.States for
+# that single fight and removed again when it ends, so no other match in any
+# other mode can be affected by anything in here.
+#
+# For the ENEMY side only:
+#   * every member that is NOT the team leader is held at full life, so the
+#     fight can only be ended by beating the leader;
+#   * when the leader falls, those members stop counting towards the round and
+#     drop into a lose pose - the round then ends exactly as it does when a
+#     player's simul partner is KO'd.
+#
+# ------------------------------------------------------------------------------
+# Why the guardian is NOT killed
+# ------------------------------------------------------------------------------
+# Draining his life to 0 puts the engine through its whole KO pipeline
+# (src/char.go, actionFinish), and every stage of it fights us:
+#
+#   1. the KO sound plays                            -> wrong, nothing hit him
+#   2. selfState(5030) is forced, the falling state  -> the buggy knockdown
+#   3. the round-end readiness loop (src/system.go) then freezes the win-pose
+#      timer until every fighting player is "ready", which for a KO'd character
+#      means reaching state 5150. A character standing in a custom state never
+#      gets there, so the engine waited out its timeout -> the long pause.
+#
+# So instead of killing him, ModifyPlayer moves him off the teams entirely.
+# Both round-end loops in src/system.go skip characters whose teamside is -1:
+#
+#   KO check:        if len(s.chars[i]) > 0 && s.chars[i][0].teamside != -1 {
+#   readiness check: if !p[0].activelyFighting() { continue }   // teamside < 0
+#
+# With the guardian no longer counted, the leader's KO is the whole enemy side
+# being KO'd, so the round ends immediately - the same result the engine gives
+# a player's team through Options.Simul.LoseOnKO, which only applies to
+# human-controlled slots (s.aiLevel[i] == 0) and so never fired for an AI team.
+# No KO sound, no forced knockdown, no waiting, and he stays on screen in his
+# lose pose. His life bar stays full because he genuinely was never beaten.
+# ==============================================================================
+
+#-------------------------------------------------------------------------------
+# Lose pose for a guardian whose leader has fallen.
+# Not every character has anim 170 (SFZ_Zangief has 175 but no 170), so fall
+# back rather than requesting an anim that does not exist - that is what left
+# him standing in anim 0.
+[StateDef 8170; type: S; movetype: I; physics: N; ctrl: 0; velset: 0, 0;]
+
+# Re-asserted every frame rather than only at time = 0, so the pose survives
+# anything else that touches the animation on the way into the state. The
+# "anim != x" guards stop ChangeAnim from restarting the animation each tick.
+if selfAnimExist(170) {
+	if anim != 170 {
+		changeAnim{value: 170}
+	}
+} else if selfAnimExist(175) {
+	if anim != 175 {
+		changeAnim{value: 175}
+	}
+}
+notHitBy{value: SCA; time: 1}
+
+#-------------------------------------------------------------------------------
+[StateDef -2]
+
+if isHelper {
+	# Helpers never take part in any of this.
+} else if map(_sfaz_guardianRetired) != 0 {
+	# Already retired. He is off the teams, so the round has ended; he just
+	# stands where he was. Hold that until the engine starts the win poses and
+	# only then drop into the lose pose, so it lands together with the winner's
+	# pose and the win announcement instead of snapping over instantly.
+	#
+	# RoundState 4 is exactly that moment (src/system.go):
+	#     case sys.intro < -sys.fightScreen.round.over_waittime: return 4
+	# which is where the engine's own "send characters to win/lose poses" loop
+	# runs. RoundState 3 is the KO pause before it, which is what we sit through.
+	if roundState < 2 {
+		# A new round started: put him back on the enemy team and start over,
+		# so this keeps working in fights of more than one round.
+		modifyPlayer{teamside: 2}
+		map(_sfaz_guardianRetired) := 0;
+		map(_sfaz_guardianWait) := 0;
+	} else {
+		# He is out of the fight. Hold ctrl down every frame, not just once:
+		# returning to his own stand state would hand it back (StateDef 0 sets
+		# ctrl = 1 on entry) and his AI would start swinging during the KO
+		# pause. Without ctrl the command state cannot fire, so he just stands.
+		ctrlSet{value: 0}
+		if roundState >= 4 && stateNo != 8170 {
+			changeState{value: 8170}
+		}
+	}
+} else if teamSide != 2 {
+	# Player side and stage characters are left alone.
+} else if playerNo != teamLeader && roundState = 2 {
+	# Guardian: damage does not stick for as long as he is on the enemy team.
+	# He still reacts to hits normally, the life just goes back up.
+	if life < lifeMax {
+		lifeSet{value: lifeMax}
+	}
+	if player(teamLeader), alive {
+		map(_sfaz_guardianWait) := 0;
+		map(_sfaz_guardianRetired) := 0;
+	} else if numTarget = 0 && !inCustomState && ctrl && moveType = I &&
+		stateType != A && pos y >= 0 {
+		# The leader is down AND the guardian has landed, finished whatever he
+		# was doing, and is free to act again. Only now is it safe to retire
+		# him: leaving the team is what lets the round end, because the
+		# round-end checks skip characters with no teamside.
+		#
+		# The grounded tests matter: 8170 is a standing state, so retiring him
+		# in mid-air froze him in a standing lose pose up in the air. "ctrl"
+		# is the engine's own "this character is free to act" flag, which is
+		# the cleanest way to say "not in the middle of a state".
+		#
+		# He is NOT put into the lose pose here - that waits for roundState 4,
+		# up at the top of this state. CtrlSet keeps his AI from starting
+		# anything new in the meantime: state -1, the command state, runs AFTER
+		# -2 in the same tick (src/char.go) and its triggers need ctrl.
+		ctrlSet{value: 0}
+		modifyPlayer{teamside: 0} # 0 means "no team" - the engine stores it as -1
+		map(_sfaz_guardianRetired) := 1;
+	} else {
+		# NOT safe yet: he is airborne, attacking, holding someone, being hit,
+		# or sitting in somebody else's custom state. Let him land and finish.
+		# He stays unkillable meanwhile, so the fight cannot end behind our
+		# back while we wait.
+		#
+		# Holding someone matters most of all. A throw keeps its victim in a
+		# custom state belonging to the THROWER, and only the thrower's own
+		# state releases them - so pulling him out of his own throw would leave
+		# his victim stuck with nobody left to let go. The same applies in
+		# reverse: if the player is throwing HIM, changing his state breaks the
+		# player's throw.
+		map(_sfaz_guardianWait) := map(_sfaz_guardianWait) + 1;
+		# Backstops, so a character that never settles cannot stall the round:
+		# after 10 seconds take any grounded frame, after 20 take anything.
+		# Release anyone still held into the normal air-fall state first, which
+		# is how a throw would have let them go anyway.
+		if (map(_sfaz_guardianWait) > 600 && stateType != A && pos y >= 0) ||
+			map(_sfaz_guardianWait) > 1200 {
+			targetState{value: 5050}
+			ctrlSet{value: 0}
+			modifyPlayer{teamside: 0}
+			map(_sfaz_guardianRetired) := 1;
+		}
+	}
+}

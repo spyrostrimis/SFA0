@@ -1,0 +1,3 @@
+# Store every file byte-for-byte: no line-ending conversion, so Windows and
+# Mac copies stay identical (netplay needs matching game data).
+* -text

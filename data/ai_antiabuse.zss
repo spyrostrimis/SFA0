@@ -1,0 +1,400 @@
+#===============================================================================
+# ai_antiabuse.zss
+#
+# Makes a single repeated tactic stop working. Shared by the whole roster, no
+# per-character edits. Registered in save/config.ini under [Common] States,
+# after data/ai_offense.zss.
+#
+# WHY IT EXISTS - measured, not guessed
+#
+# Reported: "I tried guard crouching in a corner and only crouch kicked in a
+# ratio match. I could win Ken and Sakura just by that." Reproduced with a
+# scripted opponent (data/zz_turtle.zss - backs into the corner, holds
+# down-back forever, throws nothing but a crouching MK). Ken at AI level 4,
+# two rounds:
+#
+#     round 1   Ken 1000 -> 0    turtle 1000 -> 664   Ken threw 0 times
+#     round 2   Ken 1000 -> 0    turtle 1000 -> 456   Ken threw 0 times
+#     Ken's mean fighting distance: 58 and 69
+#
+# Two failures, and the throw count is the headline. A guarding opponent has
+# exactly one universal weakness - a throw is unblockable (state 800 is
+# "attr = S, NT / hitflag = M-" on 43 of the 46 characters, and the other three
+# are the same idea with a different attr) - and the AI never used it once.
+# Second, 58-69 is precisely the range the poke reaches and the throw does not,
+# so the AI parked itself where it could only lose the exchange.
+#
+# The engine cannot help here. Ikemen's AI input is literally random: input.go
+# AiInput.Update picks ONE of 8 directions at random and jams buttons on a
+# timer. It has no idea what blocking is. All defence comes from the character's
+# own .cmd, and that has the same shape everywhere - Ken's is
+#
+#     value = 131 (crouch guard)   triggerall = var(59) && inguarddist
+#                                  trigger1 = p2statetype = C
+#
+# which is a 70%-at-AI-4 dice roll on var(59), and it picks the guard height
+# from the ATTACKER'S stance rather than from the attack. A low poke from a
+# crouching character therefore gets through often enough to win on its own.
+#-------------------------------------------------------------------------------
+# WHAT THIS DOES NOT DO
+#
+# It does not make the AI block everything. The whole system only engages once
+# the player has actually repeated themselves, and every response is aimed at
+# the repetition rather than at the player. Mixing your offence up switches it
+# straight back off:
+#
+#   * a NEW attack drains the turtle meter four times faster than blocking
+#     fills it, so an opponent who varies is never treated as a turtle;
+#   * the forced guard only turns on once the predictability score is up, and
+#     that score falls three times faster than it rises;
+#   * an overhead that beats the forced low guard is REMEMBERED, and the guard
+#     switches to standing for that move afterwards. So the counter to the
+#     counter is real mixup, which is the point.
+#-------------------------------------------------------------------------------
+# TUNABLES
+#
+#   REP_TRIGGER    4   predictability score needed before the forced guard turns
+#                      on. +2 for a repeat, -6 for a new move, capped at 12
+#   TURTLE_ON     60   turtle meter needed to start hunting for the throw
+#   TURTLE_CAP   240   meter ceiling, i.e. about 2 seconds of memory
+#   THROW_RANGE   22   (240p) verified by the probe, which reports hit or miss
+#                      per attempt - connections seen at raw 0, 11 and 17
+#   THROW_CD      45   frames between forced throws, so it is a read and not a
+#                      mash - a whiffed throw is a free punish for the player
+#   MIN_AILEVEL    2   below this the character is left alone entirely
+#===============================================================================
+
+[StateDef -4]
+
+#-------------------------------------------------------------------------------
+# DETECTORS. Everything here runs before the character's own -1, so the
+# actuators in +1 have this frame's answers to work with.
+#-------------------------------------------------------------------------------
+if !isHelper && teamSide != 0 && aiLevel >= 2 {
+
+	# Round boundary: forget everything. These are per-character map values and
+	# they live for the whole match otherwise.
+	if roundState != 2 {
+		map(_sfaz_aab_rep)    := 0;
+		map(_sfaz_aab_last)   := 0;
+		map(_sfaz_aab_turtle) := 0;
+		map(_sfaz_aab_ovh)    := 0;
+		map(_sfaz_aab_grd)    := 0;
+		map(_sfaz_aab_grdlow) := 0;
+		map(_sfaz_aab_grdst)  := 0;
+		map(_sfaz_aab_prev)   := 0;
+		map(_sfaz_aab_throw)  := 0;
+		map(_sfaz_aab_blkst)  := 0;
+		map(_sfaz_aab_veto)   := 0;
+	}
+
+	if roundState = 2 && alive && !inCustomState && numEnemy != 0
+			&& gameVar(pausetime) = 0 && gameVar(superpausetime) = 0 {
+
+		let eSt = enemyNear, stateNo;
+		let eGrd = 0;
+		if enemyNear, stateNo >= 120 && enemyNear, stateNo <= 155 {
+			let eGrd = 1;
+		}
+		let eAtk = 0;
+		if enemyNear, moveType = A {
+			let eAtk = 1;
+		}
+		let eAir = 0;
+		if enemyNear, stateType = A {
+			let eAir = 1;
+		}
+
+		#-----------------------------------------------------------------------
+		# A. READ THE PATTERN.
+		#
+		# A new attack is detected as a CHANGE in the enemy's state number, not
+		# as "their state time is 0". Player order means we may well look at them
+		# before or after they change state, so their time is already 1 by the
+		# time we read it - measured, the time = 0 version never fired once in
+		# three rounds.
+		#
+		# PREDICTABILITY is a score, not a streak. Repeating a move they have
+		# already shown pushes it up, a genuinely new move pushes it down three
+		# times as fast. A streak counter would be beaten by simply alternating
+		# two moves; this is not.
+		#-----------------------------------------------------------------------
+		if $eSt != map(_sfaz_aab_prev) {
+			map(_sfaz_aab_prev) := $eSt;
+			if $eAtk = 1 {
+				if $eSt = map(_sfaz_aab_last) {
+					mapAdd{map: "_sfaz_aab_rep"; value: 2}
+				} else {
+					mapAdd{map: "_sfaz_aab_rep"; value: -6}
+					mapAdd{map: "_sfaz_aab_turtle"; value: -20}
+				}
+				map(_sfaz_aab_last) := $eSt;
+			}
+		}
+		if map(_sfaz_aab_rep) > 12 {
+			map(_sfaz_aab_rep) := 12;
+		}
+		if map(_sfaz_aab_rep) < 0 {
+			map(_sfaz_aab_rep) := 0;
+		}
+
+		#-----------------------------------------------------------------------
+		# B. TURTLE METER. Leaky bucket, so it measures a HABIT rather than a
+		# moment. Guarding fills it, crouching in front of us without attacking
+		# fills it slower, and anything else drains it.
+		#-----------------------------------------------------------------------
+		if $eGrd = 1 {
+			mapAdd{map: "_sfaz_aab_turtle"; value: 2}
+		} else if enemyNear, stateNo >= 10 && enemyNear, stateNo <= 12
+				&& p2BodyDist x < const240p(120) {
+			mapAdd{map: "_sfaz_aab_turtle"; value: 1}
+		} else {
+			mapAdd{map: "_sfaz_aab_turtle"; value: -1}
+		}
+		if map(_sfaz_aab_turtle) > 240 {                        # TURTLE_CAP
+			map(_sfaz_aab_turtle) := 240;
+		}
+		if map(_sfaz_aab_turtle) < 0 {
+			map(_sfaz_aab_turtle) := 0;
+		}
+
+		#-----------------------------------------------------------------------
+		# C. DECIDE WHETHER TO FORCE A GUARD, AND AT WHAT HEIGHT.
+		#
+		# Height is NOT taken from the attacker's stance - that is the bug in the
+		# characters' own guard AI. A crouch guard stops low and mid, i.e. nearly
+		# everything, so it is the default; standing is only for attacks that
+		# have actually been seen to beat it (the overhead memory in E) and for
+		# an airborne opponent.
+		#-----------------------------------------------------------------------
+		map(_sfaz_aab_grd) := 0;
+		if map(_sfaz_aab_rep) >= 4 && $eAtk = 1 {                # REP_TRIGGER
+			map(_sfaz_aab_grd)   := 1;
+			map(_sfaz_aab_grdst) := $eSt;
+			map(_sfaz_aab_grdlow) := 1;
+			if $eAir = 1 || $eSt = map(_sfaz_aab_ovh) {
+				map(_sfaz_aab_grdlow) := 0;
+			}
+		}
+
+		#-----------------------------------------------------------------------
+		# C2. GUARD BY HOLDING BACK, NOT BY CHANGING STATE.
+		#
+		# This is the whole ball game, and the first two versions of this file
+		# got it wrong. A hit is only guarded if char.go hitResultCheck sees
+		# "getter.scf(SCF_guard)", and that flag is set at char.go:11850 from
+		# THE BACK INPUT BEING HELD:
+		#
+		#     c.unsetSCF(SCF_guard)
+		#     if (... moveType == MT_I || c.inGuardState()) && c.cmd != nil &&
+		#         (c.cmd[0].Buffer.Bb > 0 || c.asf(ASF_autoguard)) && ...
+		#             c.setSCF(SCF_guard)
+		#
+		# Forcing the character into state 131 from +1 therefore drew the guard
+		# animation without ever guarding: measured, the guard decision was on
+		# for 25-40% of the round and the time actually spent in guard states did
+		# not move at all (11-12%, same as with the whole file switched off),
+		# while the turtle's poke got MORE successful, not less.
+		#
+		# Two consequences for where this has to live:
+		#   * it must be an ASSERT of the input, which is what the engine reads;
+		#   * it must be in -4. Those guarding instructions run after the state
+		#     controllers but BEFORE +1, so an assert in +1 is a frame late.
+		# Holding down as well makes it a LOW guard, because the height comes
+		# from our own stateType at that moment (char.go:11854).
+		#-----------------------------------------------------------------------
+		if map(_sfaz_aab_grd) != 0 && inguarddist && stateType != A {
+			if map(_sfaz_aab_grdlow) != 0 {
+				assertInput{flag: B; flag2: D}
+			} else {
+				assertInput{flag: B}
+			}
+		}
+
+		#-----------------------------------------------------------------------
+		# D. WALK INTO THROW RANGE.
+		#
+		# ai_offense rule 2 stops closing at 55, which is correct for normals and
+		# useless against a blocker - it is the exact distance the reported
+		# exploit farms. Once the turtle meter is up, keep going to arm's length.
+		# AssertInput rather than a ChangeState so the character still walks with
+		# its own animation and its own speed.
+		#
+		# Gated on !inguarddist rather than on "they are not attacking": a poking
+		# opponent is in an attack state most of the time, so the stricter
+		# version almost never fired and the AI stayed at 118 mean distance with
+		# the turtle meter pinned at 232. Outside guard distance their attack
+		# cannot reach us anyway, and the moment it can, this stops and the
+		# forced guard takes over.
+		#-----------------------------------------------------------------------
+		if map(_sfaz_aab_turtle) >= 60 && ctrl                   # TURTLE_ON
+				&& stateType = S && moveType = I
+				&& !inguarddist
+				&& p2BodyDist x > const240p(14)
+				&& map(_sfaz_pje_mode) = 0 {
+			assertInput{flag: F}
+		}
+
+		#-----------------------------------------------------------------------
+		# E. OVERHEAD MEMORY.
+		#
+		# We were crouch guarding, we are now in hitstun: whatever they were
+		# doing goes over a low guard. Remember it, and guard that move standing
+		# from now on. This is what stops the fix becoming a wall - a player who
+		# adds a genuine overhead to the mix gets through again, which is how it
+		# should work.
+		#-----------------------------------------------------------------------
+		if moveType = H && prevStateNo = 131 && map(_sfaz_aab_grdst) != 0 {
+			map(_sfaz_aab_ovh) := map(_sfaz_aab_grdst);
+		}
+
+		#-----------------------------------------------------------------------
+		# F. DECIDE THE THROW.
+		#
+		# Decided HERE and fired in +1, for the same reason ai_offense rule 1
+		# does it: the character's own -1 runs in between, and the moment it
+		# picks an attack the ctrl this test needs is gone. Deciding in +1
+		# instead meant losing the race almost every frame - measured at 0 to 2
+		# throws a round even with the opponent sitting still in range.
+		#
+		# WHEN A THROW IS LEGAL, all of it engine rule rather than preference
+		# (char.go attrCheck):
+		#   * not moveType = H     - hitflag M- cannot hit while hittmp > 0, and
+		#                            that covers BLOCKSTUN as well as hitstun
+		#   * not stateNo >= 5000  - the knockdown chain
+		#   * not stateType A or L - hitflag M excludes air and down
+		# and one rule that is judgement rather than engine:
+		#   * not moveType = A     - throwing into an active attack is a counter
+		#                            hit against us, measured and seen.
+		#-----------------------------------------------------------------------
+		# WHO CAN BE THROWN. moveType = I in one test excludes both an active
+		# attack (A - throwing into one is a counter hit against us) and hit or
+		# BLOCKSTUN (H - hitflag M- cannot hit while hittmp > 0, which covers
+		# common1.cns states 150-155). The rest is the knockdown chain and the
+		# air, neither of which hitflag M can reach.
+		let eOpen = 0;
+		if enemyNear, moveType = I && enemyNear, stateNo < 5000
+				&& enemyNear, stateType != A && enemyNear, stateType != L {
+			let eOpen = 1;
+		}
+
+		# WHY to throw. "They blocked what I just did" is the direct read and the
+		# one a player would make; the turtle meter is the slower backup for an
+		# opponent who simply will not come forward. Gating on the meter ALONE
+		# was measured at 0-1 throws a round, because a blocking opponent spends
+		# almost all of their time in states the meter is draining on.
+		if moveGuarded {
+			map(_sfaz_aab_blkst) := gameTime + 180;
+		}
+		let wantThrow = 0;
+		if gameTime < map(_sfaz_aab_blkst) || map(_sfaz_aab_turtle) >= 60 {
+			let wantThrow = 1;
+		}
+
+		if $eOpen = 1 && $wantThrow = 1 && ctrl && stateType = S && moveType = I
+				&& p2BodyDist x <= const240p(22)             # THROW_RANGE
+				&& p2BodyDist x > const240p(-8)
+				&& gameTime > map(_sfaz_aab_thrcd) {
+			map(_sfaz_aab_throw) := 1;
+		}
+
+		#-----------------------------------------------------------------------
+		# G. STOP POKING A BLOCKER AND GO AND TAKE THE THROW.
+		#
+		# This is the piece that makes the throw an actual plan rather than an
+		# accident. Measured: against the turtle, Ken started 51-62 attacks a
+		# round into a crouch guard, which is 20-30 frames each with no ctrl and
+		# a recovery to be poked in - so he was in throw range 32% of the time
+		# and still only managed one or two throws.
+		#
+		# Narrow on purpose, and the band matters. It only applies with the turtle
+		# CONFIRMED, with the throw actually off cooldown, and between throw range
+		# and 60 - i.e. exactly where walking one step further forward is strictly
+		# better than the attack being started. Outside that band the character's
+		# normal offence is untouched, which is what keeps the long-range
+		# characters (Z-ChunLi fights at a mean distance of 63-94) out of it.
+		#
+		# Hypers are exempt: they chip, they damage the guard bar, and spending
+		# meter on a blocker is not a mistake.
+		#-----------------------------------------------------------------------
+		map(_sfaz_aab_veto) := 0;
+		if map(_sfaz_aab_turtle) >= 100 && gameTime > map(_sfaz_aab_thrcd)
+				&& p2BodyDist x <= const240p(70)
+				&& p2BodyDist x > const240p(22) {
+			map(_sfaz_aab_veto) := 1;
+		}
+	}
+}
+
+
+[StateDef +1]
+
+#-------------------------------------------------------------------------------
+# ACTUATORS. After the character's own -1, so its AI cannot take these back.
+# Listed after ai_offense.zss in config.ini, so a super there still outranks a
+# throw here.
+#-------------------------------------------------------------------------------
+if !isHelper && teamSide != 0 && aiLevel >= 2 && roundState = 2
+		&& alive && !inCustomState && numEnemy != 0
+		&& gameVar(pausetime) = 0 && gameVar(superpausetime) = 0 {
+
+	#---------------------------------------------------------------------------
+	# 1. GUARD THE MOVE WE HAVE ALREADY SEEN.
+	#
+	# Re-forced every frame rather than entered once, because common1.cns state
+	# 131 has a "Lo to Hi" exit on !var(59) - roughly 30% of frames at AI 4 -
+	# which would pop the character up to a standing guard mid-blockstring and
+	# let the next low through.
+	#
+	# inguarddist is required: entering a guard state with nothing to guard
+	# drops straight back out to 140 and looks like a twitch.
+	#---------------------------------------------------------------------------
+	# DO NOT PRESS A BUTTON INTO A MOVE YOU HAVE ALREADY SEEN FOUR TIMES.
+	#
+	# The guard assert in -4 can only work while moveType = I (char.go:11851), so
+	# an attack started as the poke arrives loses the block outright. Measured,
+	# Ken started 45-64 attacks a round against the turtle, so when the kick
+	# landed he was nearly always mid-animation.
+	#
+	# Bounced back to the movement state it came from, on frame 0, so nothing is
+	# cut off mid-animation - and next frame the assert above has him blocking.
+	#
+	# SCOPED BY inguarddist, the engine's own "their hitbox is live and in range
+	# of me". A flat distance band here instead was a serious regression for the
+	# long-range characters: Z-ChunLi fights at a mean distance of 63-94 and wins
+	# by out-poking, and vetoing her there took her from winning 3 rounds of 4 to
+	# losing 3 of 3. inguarddist cannot do that - it is only ever true when
+	# something is genuinely coming.
+	if map(_sfaz_aab_grd) != 0 && inguarddist && time = 0 && moveType = A
+			&& stateNo >= 200 && stateNo < 3000
+			&& (prevStateNo = 0 || prevStateNo = [10, 12] || prevStateNo = [20, 22]) {
+		changeState{value: prevStateNo; ctrl: 1}
+	}
+
+	# Veto actuator - see rule G. Same shape as ai_offense rule 3: bounce the
+	# attack on its FIRST frame, back to the movement state it came from, so
+	# nothing is interrupted mid-animation. The prevStateNo guard is what keeps
+	# it off chained follow-ups.
+	if map(_sfaz_aab_veto) != 0 && time = 0 && moveType = A
+			&& stateNo >= 200 && stateNo < 3000
+			&& (prevStateNo = 0 || prevStateNo = [10, 12] || prevStateNo = [20, 22]) {
+		changeState{value: prevStateNo; ctrl: 1}
+	}
+
+	if map(_sfaz_aab_throw) != 0 {
+		map(_sfaz_aab_throw) := 0;
+		let thr = 800;
+		if name = "Juli" {
+			let thr = 2060;
+		}
+		if moveType != H && stateType != A && !inCustomState
+				&& stateNo != [3000, 4999] && selfStateNoExist($thr)
+				&& enemyNear, moveType = I && enemyNear, stateNo < 5000
+				&& enemyNear, stateType != A && enemyNear, stateType != L {
+			# Latch first: a self ChangeState ends the state block, so anything
+			# written after it never runs.
+			map(_sfaz_aab_thrcd) := gameTime + 45;       # THROW_CD
+			changeState{value: $thr}
+		}
+	}
+}

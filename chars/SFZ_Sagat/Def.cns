@@ -1,0 +1,218 @@
+;===========================================================================
+; Archive Sagat
+; 14/06/2014 Release                          M.U.G.E.N. version 2002.04.14
+;===========================================================================
+; Data principal
+;===========================================================================
+[Data]
+life = 1000
+power = 3000
+attack = 100
+defence = 100
+fall.defence_up = 50
+liedown.time = 43
+airjuggle = 15
+sparkno = ifelse(teamside = 1,7,50007)
+guard.sparkno = ifelse(teamside = 1,1,50001)
+KO.echo = 1
+volume = 255
+IntPersistIndex = 30
+FloatPersistIndex = 40
+
+[Size]
+xscale = 1
+yscale = 1
+ground.back = 23
+ground.front = 23
+air.back = 12
+air.front = 12
+height = 60
+attack.dist = 160
+proj.attack.dist = 90
+proj.doscale = 0
+head.pos = -5, -90
+mid.pos = -5, -60
+shadowoffset = 0
+draw.offset = 0,0
+
+[Velocity]
+walk.fwd  = 2.5
+walk.back = -2.8
+jump.neu = 0,-9.3
+jump.back = -2.6
+jump.fwd = 2.8
+
+[Movement]
+airjump.num = 0
+airjump.height = 28
+yaccel = .45
+stand.friction = .85
+crouch.friction = .82
+
+;===========================================================================
+; Intro States
+;===========================================================================
+[Statedef 190]
+type = S
+ctrl = 0
+anim = 0
+velset = 0
+
+[State 191, vs Evil Ryu]
+type = ChangeState
+triggerall = teammode = single && p2, teammode = single
+triggerall = Time = 0
+trigger1 = P2Name = "Evil Ryu"
+value = 193
+
+[State 191, 0]
+type = ChangeState
+triggerall = teammode = single && p2, teammode = single
+triggerall = Time = 0
+trigger1 = P2Name = "Adon"
+value = 194
+
+[State 191, vs Ryu]
+type = ChangeState
+triggerall = teammode = single && p2, teammode = single
+triggerall = Time = 0
+trigger1 = P2Name = "Ryu"
+value = 192
+
+[State 191, 9]
+type = ChangeState
+trigger1 = Time = 0
+value = 191
+
+;----------
+; Normal 1
+;----------
+[Statedef 191]
+anim = 191
+velset = 0,0
+
+[State 182, 2]
+type = PlaySnd
+trigger1 = AnimElem = 2
+value = s180,1
+
+[State 191, 1] 
+type = AssertSpecial
+trigger1 = Time >= 0
+flag = Intro
+
+[State 191, 9]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+
+;--------
+; vs Evil Ryu
+;--------
+[Statedef 193]
+anim = 193
+velset = 0,0
+sprpriority = 1
+
+[State 191, 1] 
+type = AssertSpecial
+trigger1 = Time >= 0
+flag = Intro
+
+[State 191, Brazo]
+type = Explod
+trigger1 = Animelem = 1,=1
+persistent = 0
+anim = 19301
+postype = p1
+pos = 75, 0
+sprpriority = 3
+removetime = 90
+shadow = -1;0,0,0
+
+[State 191, Dan Hibiki 1]
+type = Explod
+trigger1 = Animelem = 1,=1
+persistent = 0
+anim = 19302
+postype = p1
+pos = 75, 0
+sprpriority = 2
+removetime = 94
+shadow = -1;0,0,0
+
+[State 191, Dan Hibiki 2]
+type = Explod
+trigger1 = AnimElem = 5
+persistent = 0
+anim = 19303
+postype = p1
+pos = 75, 0
+sprpriority = 2
+velocity = -6.6, -2.5
+accel = 0, .22
+removetime = 60
+shadow = -1;0,0,0
+
+[State 182, 2]
+type = PlaySnd
+trigger1 = AnimElem = 2
+value = s180,1
+
+[State 191, 9]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+
+;--------
+; vs Ryu
+;--------
+[Statedef 192]
+anim = 192
+
+[State 191, Dialogue]
+type = Dialogue
+trigger1 =StageVar(info.name) = "Outbacks"
+trigger1 = matchno = 10 && IsHomeTeam = 0
+hidebars = 1
+text1 = "<p1>Ryu, now is the time for revenge."
+text2 = "<p2>You still haven't recovered from our last duel."
+text3 = "<p1>I have something new for you."
+text4 = "<p1>This time you'll be the one scarred."
+
+[State 191, 1] 
+type = AssertSpecial
+trigger1 = Time >= 0
+flag = Intro
+
+[State 191, 9]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+
+;---------
+; vs Adon
+;---------
+[Statedef 194]
+anim = 194
+
+[State 191, Dialogue]
+type = Dialogue
+trigger1 =StageVar(info.name) = "Adon Boss"
+trigger1 = matchno = 5 && IsHomeTeam = 0
+hidebars = 1
+text1 = "<p2>How could you lose to Ryu?"
+text2 = "<p2>You deserve to die!"
+text3 = "<p1>It's time I teach you respect."
+text4 = "<p1>It's your lucky day. You will share Ryu's fate."
+
+[State 191, 1] 
+type = AssertSpecial
+trigger1 = Time >= 0
+flag = Intro
+
+[State 191, 9]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+

@@ -1,0 +1,467 @@
+[Info]
+name = "Balrog Boss" ;Fremont Street in Las Vegas - U.S.A.
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -190
+boundright = 190
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 15
+p1facing = 1
+
+p2startx = 75
+p2starty = 0
+p2startz = 15
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz     = 0
+botz     = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 24
+screenright = 24
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 16,16,16
+yscale = .05
+reflect = 1
+
+[Reflection]
+intensity = 35
+
+[Music]
+bgmusic = sound/Balrog.mp3
+bgmloopstart = 463039
+bgmloopend = 2782029
+bgvolume = 255
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Balrog.sff
+;debugbg = 0
+
+[bg blue]
+type  = normal
+spriteno = 1, 0
+tile = 1, 1
+
+[bg backleft]
+type  = normal
+spriteno = 2, 0
+delta = .8, .8
+start = 0,-16
+
+[bg backright]
+type  = normal
+spriteno = 2, 1
+delta = .8, .8
+start = 0,-16
+
+[bg girltap]
+type  = anim
+actionno = 11
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 11]
+-1,-1, 0,0, 20
+11,0, 0,0, 20
+
+[bg floor]
+type  = parallax
+spriteno = 1, 1
+delta = .8, .8
+;xscale = .8, 1
+start = 0,-16
+
+[bg reflect]
+type  = normal
+spriteno = 27, 0
+trans = add1
+delta = .8, .8
+start = 0,-16
+
+[bg backflash]
+type  = anim
+actionno = 3
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 3]
+-1,-1, 0,0, 20
+3,0, 0,0, 20
+3,1, 0,0, 20
+3,2, 0,0, 20
+-1,-1, 0,0, 20
+3,0, 0,0, 20
+-1,-1, 0,0, 20
+3,0, 0,0, 20
+-1,-1, 0,0, 20
+3,0, 0,0, 20
+
+[bg backdhflash]
+type  = anim
+actionno = 4
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 4]
+-1,-1, 0,0, 10
+4,0, 0,0, 10
+
+[bg bunnyflash]
+type  = anim
+actionno = 5
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 5]
+-1,-1, 0,0, 10
+5,0, 0,0, 10
+
+[bg cowboyflash]
+type  = anim
+actionno = 6
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 6]
+-1,-1, 0,0, 10
+6,0, 0,0, 10
+
+[bg oplights]
+type  = anim
+actionno = 8
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 8]
+-1,-1, 0,0, 20
+8,0, 0,0, 15
+8,1, 0,0, 15
+
+[bg redyellowflash]
+type  = anim
+actionno = 7
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 7]
+-1,-1, 0,0, 20
+7,0, 0,0, 20
+
+[bg optitle]
+type  = anim
+actionno = 9
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 9]
+-1,-1, 0,0, 5
+9,0, 0,0, 5
+
+[bg patitle]
+type  = anim
+actionno = 10
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 10]
+-1,-1, 0,0, 10
+10,0, 0,0, 10
+
+[bg fistshaker]
+type  = anim
+actionno = 12
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 12]
+12,0, 0,0, 10
+12,1, 0,0, 10
+12,2, 0,0, 10
+12,1, 0,0, 10
+
+[bg cheershaker]
+type  = anim
+actionno = 13
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 13]
+13,0, 0,0, 10
+13,1, 0,0, 10
+13,2, 0,0, 10
+13,1, 0,0, 10
+
+[bg fistpunchr]
+type  = anim
+actionno = 14
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 14]
+-1,-1, 0,0, 10
+14,0, 0,0, 10
+
+[bg cheershakel]
+type  = anim
+actionno = 15
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 15]
+15,0, 0,0, 10
+15,1, 0,0, 10
+15,2, 0,0, 10
+15,1, 0,0, 10
+
+[bg fistpunchl]
+type  = anim
+actionno = 17
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 17]
+-1,-1, 0,0, 10
+17,0, 0,0, 10
+
+[bg 77lights]
+type  = anim
+actionno = 19
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 19]
+-1,-1, 0,0, 5
+19,0, 0,0, 5
+19,1, 0,0, 5
+
+[bg 77blink]
+type  = anim
+actionno = 190
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 190]
+-1,-1, 0,0, 5
+19,2, 0,0, 5
+
+[bg umbrellalights]
+type  = anim
+actionno = 18
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 18]
+-1,-1, 0,0, 5
+18,0, 0,0, 5
+
+[bg fistshaker]
+type  = anim
+actionno = 16
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 16]
+16,0, 0,0, 10
+16,1, 0,0, 10
+16,0, 0,0, 10
+-1,-1, 0,0, 10
+
+[bg dance]
+type  = anim
+actionno = 20
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 20]
+20,0, 0,0, 20
+20,1, 0,0, 20
+-1,-1, 0,0, 20
+20,1, 0,0, 20
+
+[bg ga]
+type  = anim
+actionno = 21
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 21]
+-1,-1, 0,0, 5
+21,0, 0,0, 5
+
+[bg pipeflash]
+type  = anim
+actionno = 22
+delta = .8, .8
+start = 0,-16
+
+[Begin Action 22]
+-1,-1, 0,0, 5
+22,1, 0,0, 5
+22,0, 0,0, 15
+22,1, 0,0, 5
+
+[bg casinoball]
+type  = anim
+actionno = 25
+delta = .8, .8
+id = 1
+start = 0,-16
+
+[Begin Action 25]
+25,0, 0,0, 10
+25,1, 0,0, 10
+25,2, 0,0, 10
+25,1, 0,0, 10
+
+[bg casinoballlights]
+type  = anim
+actionno = 26
+delta = .8, .8
+id = 1
+start = 0,-16
+
+[Begin Action 26]
+26,0, 0,0, 10,,A
+26,1, 0,0, 10,,A
+26,2, 0,0, 10,,A
+26,1, 0,0, 10,,A
+
+[BGCtrlDef 1]
+looptime = 200
+CtrlID = 1
+
+[BGCtrl 1.1] 
+type = Velset
+time = 0
+y = -.2
+
+[BGCtrl 1.1] 
+type = Velset
+time = 100
+y = .2
+
+[bg girldance]
+type  = anim
+actionno = 23
+delta = .8, .8
+start = 40,-16
+id = 2
+
+[BGCtrlDef 2]
+looptime = 240
+CtrlID = 2
+
+[BGCtrl 2.1]
+type = Velset
+time = 0
+x = -.7
+
+[BGCtrl 2.1]
+type = Velset
+time = 120
+x = .7
+
+[bg girldance1]
+type  = anim
+actionno = 230
+delta = .8, .8
+start = -40,-16
+id = 3
+
+[BGCtrlDef 3]
+looptime = 240
+CtrlID = 3
+
+[BGCtrl 3.1]
+type = Velset
+time = 0
+x = .7
+
+[BGCtrl 3.1]
+type = Velset
+time = 120
+x = -.7
+
+[Begin Action 23]
+23,0, 0,0, 10, H
+23,1, 0,0, 10, H
+23,2, 0,0, 10, H
+23,3, 0,0, 10, H
+23,0, 0,0, 10, H
+23,1, 0,0, 10, H
+23,2, 0,0, 10, H
+23,3, 0,0, 10, H
+23,0, 0,0, 10, H
+23,1, 0,0, 10, H
+23,2, 0,0, 10, H
+23,3, 0,0, 10, H
+23,0, 0,0, 10
+23,1, 0,0, 10
+23,2, 0,0, 10
+23,3, 0,0, 10
+23,0, 0,0, 10
+23,1, 0,0, 10
+23,2, 0,0, 10
+23,3, 0,0, 10
+23,0, 0,0, 10
+23,1, 0,0, 10
+23,2, 0,0, 10
+23,3, 0,0, 10
+
+[Begin Action 230]
+23,0, 0,0, 10
+23,1, 0,0, 10
+23,2, 0,0, 10
+23,3, 0,0, 10
+23,0, 0,0, 10
+23,1, 0,0, 10
+23,2, 0,0, 10
+23,3, 0,0, 10
+23,0, 0,0, 10
+23,1, 0,0, 10
+23,2, 0,0, 10
+23,3, 0,0, 10
+23,0, 0,0, 10, H
+23,1, 0,0, 10, H
+23,2, 0,0, 10, H
+23,3, 0,0, 10, H
+23,0, 0,0, 10, H
+23,1, 0,0, 10, H
+23,2, 0,0, 10, H
+23,3, 0,0, 10, H
+23,0, 0,0, 10, H
+23,1, 0,0, 10, H
+23,2, 0,0, 10, H
+23,3, 0,0, 10, H

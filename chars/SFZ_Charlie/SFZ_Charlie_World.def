@@ -1,0 +1,25 @@
+[Info]
+name = "Charlie Nash"
+displayname = "CHARLIE"
+author = "Adamskie"
+Pal.Defaults = 1,4
+localcoord = 384,224
+mugenversion = 1.0
+
+[Files]
+cmd      = SFZ_Charlie_World.cmd
+cns      = 384.cns
+st       = 384.cns
+st2       = System.cns
+stcommon = common1.cns
+sprite   = SFZ_Charlie.sff
+sound    = SFZ_Charlie.snd
+anim     = SFZ_Charlie.air
+
+pal1     = Set1/Shadow.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_Charlie.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/Charlie.lua

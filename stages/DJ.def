@@ -1,0 +1,221 @@
+;--------------------------------------------------------
+[Info]
+name = "Port Antonio - Jamaica"
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -192
+boundright = 192
+boundhigh = -16
+boundlow = 10
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz = 0
+botz = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 67,70,30
+yscale = .05
+intensity = 30
+
+[Music]
+bgmusic = sound/DJ.mp3
+bgmloopstart = 1175587
+bgmLoopend =  2927182
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/DJ.sff
+
+[BG 0]; Cielo
+type = normal 
+spriteno = 0,0
+start = 0,-16
+delta = .5, 1
+
+[BG 1]; Mar
+type = anim
+actionno = 1
+start = 0,-16
+delta = .5, 1
+
+[Begin Action 1]
+1,0, 0,0, 7
+1,1, 0,0, 7
+1,2, 0,0, 7
+1,3, 0,0, 7
+1,4, 0,0, 7
+1,3, 0,0, 7
+1,2, 0,0, 7
+1,1, 0,0, 7
+
+[BG 2]; campanario
+type = normal 
+spriteno = 2, 0
+start = 0,-16
+delta = .65, 1
+mask = 1
+
+[BG 3]; Casa
+type = normal
+spriteno = 3,0
+start = 0,-16
+delta = .75, 1
+mask = 1
+
+[BG 4]; Poste señaletico
+type = anim
+actionno = 4
+start = 0,-16
+delta = .875,1
+
+[Begin Action 4]
+4,0, 0,0, 9
+4,1, 0,0, 9
+4,2, 0,0, 9
+4,3, 0,0, 9
+4,4, 0,0, 9
+
+[BG 5]; Suelo, auto y otros
+type = normal
+spriteno = 5,0
+start = 0,-16
+delta = 1,1
+mask = 1
+
+[BG 6]; rasta
+type = anim
+actionno = 6
+start = 0,-16
+delta = 1,1
+
+[Begin Action 6]
+6,0, 0,0, 5
+6,1, 0,0, 5
+6,0, 0,0, 5
+6,1, 0,0, 5
+6,0, 0,0, 5
+6,1, 0,0, 5
+6,0, 0,0, 5
+6,1, 0,0, 5
+6,2, 0,0, 4
+6,1, 0,0, 4
+6,2, 0,0, 4
+6,1, 0,0, 4
+6,2, 0,0, 4
+6,1, 0,0, 4
+6,2, 0,0, 4
+6,1, 0,0, 4
+6,2, 0,0, 3
+6,1, 0,0, 3
+6,0, 0,0, 3
+6,1, 0,0, 3
+6,2, 0,0, 3
+6,1, 0,0, 3
+6,0, 0,0, 3
+6,1, 0,0, 3
+6,2, 0,0, 3
+6,1, 0,0, 4
+6,2, 0,0, 4
+6,1, 0,0, 4
+6,2, 0,0, 4
+6,1, 0,0, 4
+6,2, 0,0, 4
+6,1, 0,0, 4
+6,2, 0,0, 4
+6,1, 0,0, 4
+6,2, 0,0, 4
+6,1, 0,0, 4
+
+[BG 7]; Girl
+type = anim
+actionno = 7
+start = 0,-16
+delta = 1,1
+
+[Begin Action 7]
+7,0, 0,0, 8
+7,1, 0,0, 8
+7,2, 0,0, 8
+7,3, 0,0, 8
+7,4, 0,0, 8
+7,3, 0,0, 8
+7,2, 0,0, 8
+7,1, 0,0, 8
+
+[BG 8]; Club Playero
+type = anim
+actionno = 8
+start = 0,-16
+delta = 1, 1
+
+[Begin Action 8]
+8,0, 0,0, 8
+8,1, 0,0, 8
+8,2, 0,0, 8
+8,3, 0,0, 8
+
+[BG 9]; People
+type = anim
+actionno = 9
+start = 0,-16
+delta = 1,1
+
+[Begin Action 9]
+9,0, 0,0, 9
+9,1, 0,0, 9
+9,2, 0,0, 9
+
+[BG 10]; Door
+type = anim
+actionno = 10
+start = 0,-16
+delta = 1,1
+
+[Begin Action 10]
+10,0, 0,0, 8
+10,1, 0,0, 8
+10,2, 0,0, 8
+10,3, 0,0, 8
+10,4, 0,0, 8
+10,5, 0,0, 8
+10,6, 0,0, 8
+10,7, 0,0, 8

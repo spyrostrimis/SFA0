@@ -1,0 +1,206 @@
+
+
+; Partner Assist (Kick - Pasok sa scene)
+[Statedef 190198]
+type = A
+movetype = A
+physics = N
+anim = ifelse(SelfAnimExist(45),45,42)
+SprPriority = 5
+ctrl = 0
+;sys::partner_assist-mark1
+[state 0] ;; Mark: "p-1" / "p-2" / "cpu"
+	type=explod
+	trigger1=!time && roundstate=2 && !numexplod(296000) && numpartner
+	id=296000
+     anim=GO5600+(matchno<2||ishometeam=0)*teamside
+	postype=p1
+	pos=0,floor( (const(size.head.pos.y)-const(size.ground.front)/2-const(size.ground.back)/2) )
+	facing=ifelse(facing=1,1,-1)
+	scale=0.5,0.5
+	sprpriority=5
+	ownpal=1
+	bindtime=-1
+	supermovetime=-1
+	pausemovetime=-1
+	ignorehitpause=1
+	persistent=0
+;---
+[state 0]
+	type=palfx
+	trigger1=!time && sysfvar(4)=0 && sysvar(0)>0 && playeridexist(sysvar(0))
+	trigger1=playerid(sysvar(0)),sysfvar(4)=2 ;; "switch-canneling"
+	time=20
+	add=-256,0,256
+ 
+;sys::player_cost_sc0 ;; ??—???
+[state 0]
+	type=poweradd
+	trigger1=!time && sysfvar(4)=0 && sysvar(0)>0 && playeridexist(sysvar(0))
+	trigger1=playerid(sysvar(0)),sysfvar(4)=2 ;; "switch-canneling"
+	value=-250
+	persistent=0
+
+; Define this if necessary...
+[State 1251104, Aerial Attack Anim]
+type = ChangeAnim
+trigger1 = p2bodydist x = [0,175]
+trigger2 = Pos x = [(playerid(sysvar(0)), pos x - 150),(playerid(sysvar(0)), pos x + 150)]
+value = Const(AnimAerialAttack)
+persistent = 0
+
+[State 1251104, Turn]
+type = Turn
+triggerall = Time = [0,1]
+triggerall = NumEnemy && EnemyNear, StateNo != [190191,190192]
+trigger1 = Facing = -1 && ((EnemyNear, Pos X -95) >= playerid(sysvar(0)), Pos X)
+trigger2 = Facing = 1 && ((EnemyNear, Pos X +95) <= playerid(sysvar(0)), Pos X)
+trigger3 = Facing != Partner, Facing
+
+[State 1251104, InitPos]
+type = PosSet
+trigger1 = NumPartner && Time = [0,1]
+x = (50 + (GameWidth/2))*(-1*Facing)
+y = ((ifelse((Facing = playerid(sysvar(0)), Facing),(playerid(sysvar(0)), BackEdgeBodyDist+20),(playerid(sysvar(0)), FrontEdgeBodyDist+20))*-1)/2)-ifelse((playerid(sysvar(0)), NumTarget),50,-2)
+
+[State 1251104, Vel]
+type = VelSet
+triggerall = NumPartner
+trigger1 = Time = [1,2]
+x = (abs(BackEdgeDist)+abs(pos y * 2))/12
+y = (abs(pos y )/12)
+persistent = 0
+
+[State 1251104, VMClose]
+type = VelMul
+triggerall = Pos Y < 0
+trigger1 = BackEdgeBodyDist >= 0
+trigger1 = FrontEdgeBodyDist = [0,35]
+x = 0.55
+
+[State 1251104, VelAdd]
+type = VelAdd
+trigger1 = vel y < 1
+y = 0.2
+
+[State 1251104, hit]
+type                    = HitDef
+trigger1                = !MoveContact && !(NumTarget)
+attr                    = A, SA
+damage                  = 3, 1
+animtype                = heavy
+air.animtype 			= back
+fall.animtype			= diagup
+guardflag               = MA
+hitflag                 = MAFD
+priority                = 5, Hit
+pauseTime               = 7, ifelse((EnemyNear, statetype = A),2,9)
+sparkxy                 = -10, -80
+hitsound                = 5,2
+guardsound              = 6,0
+ground.type             = High
+ground.slideTime        = 3
+ground.hitTime          = 24
+guard.hitTime 			= 22
+ground.velocity         = -0.25, 0
+airguard.velocity       = -2.5, -1.85
+air.type                = high
+air.velocity            = -2, -5
+air.hitTime             = 6
+getpower                = 0
+givepower      			= 25
+fall                    = 0
+fall.recover            = 0
+air.fall                = 1
+air.recover             = 0
+down.bounce 			= 0
+down.velocity			= -1,-6
+guard.kill = 0
+
+[State 1251104, Anim2]
+type = ChangeAnim
+triggerall = (Anim != [42,45]) && AnimTime = 0
+trigger1 = MoveContact
+value = ifelse(SelfAnimExist(45),45,44)
+persistent = 0
+
+[State 1251104, NoJC]     
+type = AssertSpecial
+trigger1 = 1
+flag = nojugglecheck
+ignorehitpause = 1
+
+[State 1251104, pause]
+type = Superpause
+trigger1 = MoveContact
+anim = -1
+Time = ifelse(MoveHit, 6, 12)
+moveTime = 0
+p2defmul = 1
+darken = 0
+persistent = 0
+ignorehitpause = 1
+
+[State 0, Shake]
+type = EnvShake
+trigger1 = MoveHit
+Time = 8
+persistent = 0
+ignorehitpause = 1
+
+[State 1251104, TVel]
+type = TargetVelSet
+triggerall = NumTarget = 1 && MoveHit
+trigger1 = Target, statetype != S && Target, statetype != C
+trigger1 = (Target, GetHitVar(yvel) >= 0 || Target, vel y >= 0)
+x = 0
+y = ifelse((Target, anim >= 5100),-3.5,-1.7)
+persistent = 0
+
+[State 1251104, TVel]
+type = TargetVelSet
+triggerall = NumTarget = 1 && MoveHit
+trigger1 = Target, GetHitVar(xvel) <= -3 || Target, vel x <= -3
+trigger2 = Target, GetHitVar(xvel) >= 3 || Target, vel x >= 3
+x = 0
+persistent = 0
+
+[State 1251104, VelMul]
+type = VelMul
+triggerall = BackEdgeBodyDist > 0
+trigger1 = MoveContact
+trigger2 = p2bodydist x = [-50,10]
+x = ifelse(FrontEdgeBodyDist <= 30,0.37,0.2)
+y = ifelse(MoveContact,1.4,1)
+
+[State 1251104, inv]
+type = NotHitBy
+trigger1 = BackEdgeBodyDist <= 0
+value = SCA
+Time = 2
+
+[State 1251104, inv]
+type = NotHitBy
+trigger1 = playerid(sysvar(0)), Life <= 0
+value = SCA
+Time = 6
+
+[State 1251104, sb] 
+type = ScreenBound
+trigger1 = 1
+value = 0
+movecamera = 0,0
+
+[State 1251104, 9]
+type = VelSet
+trigger1 = Vel Y >= 0
+trigger1 = Pos Y >= 0
+x = 0
+y = 0
+
+[State 1251104, End]
+type = ChangeState
+trigger1 = Vel Y >= 0
+trigger1 = Pos Y >= 0
+value = 190195
+ctrl=0

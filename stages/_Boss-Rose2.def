@@ -1,0 +1,118 @@
+[Info]
+name = "Rose Boss2";"Palazzo Mistero - Italy"
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -190
+boundright = 190
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz = 0
+botz = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 70,68,55
+yscale = .05
+intensity = 20
+
+[Music]
+bgmusic = sound/Rose2.mp3
+bgmloopstart=737583
+bgmloopend= 2801776
+bgvolume = 0
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Rose2.sff
+
+[BG 0]
+type = normal
+spriteno = 0,0
+start = 0,224
+delta = 0.45,1
+
+[BG 1]
+type = normal
+spriteno = 1,0
+start = 0,224
+delta = 0.92,1
+mask = 1
+
+[BG 2]
+type = normal
+spriteno = 2,0
+start = 0,224
+delta = 0.92,1
+mask = 1
+
+[BG 3]
+type = parallax
+spriteno = 3,0
+start = 0,193
+delta = .923,1
+;xscale = 1,1.12208498023715410197
+
+[BG 4]
+type = anim
+actionno = 4
+start = 0,224
+delta = 0.92,1
+
+[BG 5]
+type = normal
+spriteno = 5,0
+start = 0,224
+delta = 0.92,1
+mask = 1
+
+[BG 6]
+type = normal
+spriteno = 6,0
+start = 0,224
+delta = 0.938,1
+mask = 1
+
+[Begin action 4]
+
+4,0, 0,0, 2
+4,1, 0,0, 2

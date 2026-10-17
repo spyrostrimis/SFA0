@@ -1,0 +1,37 @@
+[Info]
+name = "Killer Bee"
+displayname = "CAMMY"
+Author = "Ehnyd"
+Pal.Defaults = 1,4
+Localcoord = 384,224
+mugenversion = 1.0
+
+[Files]
+cmd      = SFZ_Kbee.cmd
+cns      = SFZ_Kbee.cns
+st       = SFZ_Kbee.cns
+st2      = System.cns
+stcommon = common1.cns
+sprite   = SFZ_Kbee.sff
+anim     = SFZ_Kbee.air
+sound    = SFZ_Kbee.snd
+movelist = movelist.dat
+
+pal1     = Pals/Z-ISM1.act
+pal2     = Pals/V-ISM2.act
+pal3     = Pals/X-ISM2.act
+pal4     = Pals/Z-ISM2.act
+pal5     = Pals/X-ISM1.act
+pal6     = Pals/V-ISM1.act
+pal7     = Pals/CPU4.act
+pal8     = Pals/CPU2.act
+pal9     = Pals/CPU3.act
+pal10     = Pals/CPU1.act
+pal11     = Pals/CPU5.act
+pal12     = Pals/CPU6.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_Kbee.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/KBee.lua

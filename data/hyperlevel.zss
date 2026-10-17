@@ -1,0 +1,110 @@
+# ==============================================================================
+# Hyper super-level detector
+# ------------------------------------------------------------------------------
+# Records which LEVEL of hyper a character last performed, so the engine can show
+# a per-level win icon (WT_Hyper1/2/3 in src/fightscreen.go) instead of the one
+# generic hyper icon.
+#
+# Why it can be done generically, with no per-character work:
+# the level is spent exactly ONCE, by a single poweradd on the SuperPause at the
+# very start of the move, before any of its HitDefs run:
+#
+#     [State 3000,SuperPause]
+#     type = SuperPause
+#     poweradd = -1000        <- level 1
+#
+# Everything after that is just "attr = S, HA", which says "hyper" and nothing
+# about level - and statedefs/hitdefs may change several times during the move.
+# So the level is not readable from the finishing hit; it has to be captured when
+# it is paid for. Power is engine state and identical for every character, which
+# is what makes one shared rule enough.
+#
+# The value is stored in a NAMED map rather than a numbered var: this roster is
+# third-party, and any var number could collide with a character's own use.
+# src/char.go reads it back through sfazHyperWinType() when it sets WT_Hyper.
+#
+# Robustness: the engine only consults this once it has already decided the kill
+# was a hyper, and the killing hyper writes its own level at its own start - so
+# the last write before a hyper KO is always that hyper's. A 1000-power spend by
+# something that is NOT a hyper can overwrite the value, but it can only matter
+# if it then lands a killing blow with a hyper attribute, which it cannot.
+#
+# Thresholds are ranges, not exact values, because a character can gain a little
+# power on the same tick it spends (getpower/givepower), leaving a net drop of
+# slightly under the nominal cost.
+# ==============================================================================
+
+[StateDef -2]
+
+if isHelper || teamSide = 0 {
+	# Helpers and stage characters never spend super levels.
+} else if roundState = 0 {
+	map(_sfaz_hyperLevel) := 0;
+	map(_sfaz_hyperPower) := power;
+	map(_sfaz_zeroCounter) := 0;
+	map(_sfaz_shungoku) := 0;
+} else {
+	# --------------------------------------------------------------------------
+	# Zero Counter
+	# --------------------------------------------------------------------------
+	# Flagged by STATE, not by the hit and not by "is this a reversal":
+	#   * the hit is "attr = S, SA", identical to any other special;
+	#   * several characters (Karin, Juni) have reversals that are not Zero
+	#     Counters, so reversal-ness is the wrong test.
+	# It also spends 500, not a full level, so the power rule below ignores it.
+	#
+	# The marker is live only while the character is in the state, and the
+	# killing hit lands during it, so it cannot go stale. Add state numbers here
+	# for any character that does not use the usual 2600 - no rebuild needed.
+	if stateNo = 2600 {
+		map(_sfaz_zeroCounter) := 1;
+	} else if map(_sfaz_zeroCounter) != 0 {
+		map(_sfaz_zeroCounter) := 0;
+	}
+	# --------------------------------------------------------------------------
+	# Shun Goku Satsu
+	# --------------------------------------------------------------------------
+	# Flagged by STATE, like the Zero Counter above, because nothing about the hit
+	# identifies it: the grab is "attr = S, HT" - an ordinary throw - and the
+	# damage is not even dealt by that HitDef. It lands in the FOLLOW-UP state the
+	# grab sends the attacker to (p1stateno), via TargetLifeAdd. Both states are
+	# therefore listed:
+	#
+	#     Gouki       (SFZ_Akuma)     3400 -> 3405
+	#     Shin_Akuma  (SFZ_AkumaS)    3450 -> 3405
+	#     Evil Ryu    (SFZ_E-Ryu)     3500 -> 3510
+	#     Sakura Dark (SFZ_D-Sakura)  4250 -> 4251
+	#
+	# The name test is not decoration. These numbers are heavily reused: Statedef
+	# 3400 is defined by 14 characters in this roster and is an ordinary hyper for
+	# most of them, 3500 by 14, 3510 by 12. Matching on state alone would hand the
+	# Shun Goku Satsu icon to Sagat, Zangief and others. "name" is the .def name,
+	# which is unique for all four of these (the displaynames are not - two of
+	# them display as "AKUMA").
+	#
+	# To add a character, add its name/state pair here. No rebuild needed.
+	if (name = "Gouki" && (stateNo = 3400 || stateNo = 3405))
+			|| (name = "Shin_Akuma" && (stateNo = 3450 || stateNo = 3405))
+			|| (name = "Evil Ryu" && (stateNo = 3500 || stateNo = 3510))
+			|| (name = "Sakura Dark" && (stateNo = 4250 || stateNo = 4251)) {
+		map(_sfaz_shungoku) := 1;
+	} else if map(_sfaz_shungoku) != 0 {
+		map(_sfaz_shungoku) := 0;
+	}
+	# --------------------------------------------------------------------------
+	# Hyper level
+	# --------------------------------------------------------------------------
+	# One-tick drop since the previous frame.
+	# Note the "$" on the read: ZSS declares a local with "let name = ..." but
+	# reads it back as "$name". Without it the compiler treats the bare word as
+	# data and rejects the line ("Invalid data: spent").
+	let spent = map(_sfaz_hyperPower) - power;
+	if $spent >= 2900 {
+		map(_sfaz_hyperLevel) := 3;
+	} else if $spent >= 1900 {
+		map(_sfaz_hyperLevel) := 2;
+	} else if $spent >= 900 {
+		map(_sfaz_hyperLevel) := 1;
+	}
+	map(_sfaz_hyperPower) := power;
+}

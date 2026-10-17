@@ -1,0 +1,290 @@
+;---------------------------------------------------------------------
+[Characters]
+; Row 1
+EMPTY
+ slot = {
+	SFZ_Ryu,		stages/Ryu.def, 	includestage =0,	order = 3, ordersurvival= 2, previous=d, next=w
+	SFZ_E-Ryu,		stages/Ryu2.def,	includestage =0,	order = 0, ordersurvival= 0, previous=d, next=w
+
+  }
+ slot = {
+	SFZ_ChunLi-Z,	stages/Chunli.def,	includestage =0,	order = 2, ordersurvival= 2, previous=d, next=w
+	SFZ_ChunLi-X,	stages/Chunli2.def,	includestage =0,	order = 0, ordersurvival= 0, previous=d, next=w
+  }
+ slot = {
+	SFZ_Akuma,		stages/Gokuento.def,	includestage =0,	order = 3, ordersurvival= 2, previous=d, next=w
+	SFZ_AkumaS,	stages/OniFangYellow.def,	includestage =0,	order = 4, ordersurvival= 0, previous=d, next=w
+  }
+ slot = {
+	SFZ_Sakura,		stages/Sakura.def,	includestage =0,	order = 2, ordersurvival= 2, previous=d, next=w
+	SFZ_D-Sakura,		stages/Sakura2.def,	includestage =0,	order = 0, ordersurvival= 0, previous=d, next=w
+  }
+ slot = {
+	SFZ_Ken,		stages/Ken.def, 	includestage =0,	order = 2, ordersurvival= 2, previous=d, next=w 
+	SFZ_V-Ken,		stages/Ken3.def, 	includestage =0,	order = 0, ordersurvival= 0, previous=d, next=w
+  }
+EMPTY
+EMPTY
+EMPTY
+EMPTY
+EMPTY
+;--------------------
+; Row 2
+EMPTY
+chars/SFZ_Rose/SFZ_Rose_player.def,		stages/Rose.def,	includestage =0,	order = 3, ordersurvival= 2
+SFZ_Rolento,		stages/Rolento.def,	includestage =0,	order = 2, ordersurvival= 2
+SFZ_Adon,		stages/Adon.def,	includestage =0,	order = 3, ordersurvival= 2
+SFZ_Zangief,		stages/Zangief.def,	includestage =0,	order = 3, ordersurvival= 2
+SFZ_Birdie,		Stages/Birdie.def,	includestage =0,	order = 2, ordersurvival= 2
+EMPTY
+EMPTY
+EMPTY
+EMPTY
+EMPTY
+;--------------------
+; Row 3
+EMPTY
+SFZ_Dan,		stages/Dan.def, 	includestage =0,	order = 2
+ slot = {
+	SFZ_Kbee,	Stages/KillerBee.def,	includestage =0,	order = 2, ordersurvival= 2, previous=d, next=w
+	SFZ_Cammy,		stages/London.def,	includestage =0,	order = 0, ordersurvival= 0, previous=d, next=w
+  }
+ slot = {
+	SFZ_Gen-Z,		stages/Gen.def, 	includestage =0,	order = 3, ordersurvival= 2, previous=d, next=w
+	SFZ_Gen-X,		stages/Gen2.def, 	includestage =0,	order = 0, ordersurvival= 0, previous=d, next=w
+  }
+ slot = {
+	SFZ_Sodom-Z,	stages/Sodom-Z.def,	includestage =0,	order = 2, ordersurvival= 2, previous=d, next=w
+	SFZ_Sodom-X,	stages/Sodom-X.def,	includestage =0,	order = 0, ordersurvival= 0, previous=d, next=w
+  }
+SFZ_Dhalsim,		stages/Dhalsim.def,	includestage =0,	order = 3, ordersurvival= 2
+EMPTY
+EMPTY
+EMPTY
+EMPTY
+EMPTY
+;--------------------
+; Row 4
+EMPTY
+SFZ_Karin,		stages/Karin.def,	includestage =0,	order = 2
+ slot = {
+	SFZ_Charlie,		stages/Charlie.def,	includestage =0,	order = 2, ordersurvival= 2, previous=d, next=w
+	SFZ_R-Charlie,		stages/Charlie2.def,	includestage =0,	order = 0, ordersurvival= 0, previous=d, next=w
+  }
+ slot = {
+	SFZ_Cody-Z,		stages/Cody-Z.def,	includestage =0,	order = 3, ordersurvival= 2, previous=d, next=w
+	SFZ_Cody-X, stages/Cody-X.def,	includestage =0,	order = 0, ordersurvival= 0, previous=d, next=w
+  }
+SFZ_Guile,		stages/Guile.def,	includestage =0,	order = 3, ordersurvival= 2
+SFZ_Blanka,		stages/Blanka.def,	includestage =0,	order = 2, ordersurvival= 2
+EMPTY
+EMPTY
+EMPTY
+EMPTY
+EMPTY
+;--------------------
+; Row 5
+EMPTY
+SFZ_DJ,			stages/DJ.def, 		includestage =0,	order = 2, ordersurvival= 2
+SFZ_Mika,		stages/Mika.def,	includestage =0,	order = 2, ordersurvival= 2
+SFZ_FeiLong,		stages/FeiLong.def,	includestage =0,	order = 2, ordersurvival= 2
+SFZ_Vega,		stages/Vega.def,	includestage =0,	order = 3, ordersurvival= 2
+SFZ_Honda,		stages/Honda.def,	includestage =0,	order = 2, ordersurvival= 2
+EMPTY
+EMPTY
+EMPTY
+EMPTY
+EMPTY
+;--------------------
+; Row 6
+EMPTY
+SFZ_Guy,		stages/Guy.def, 	includestage =0,	order = 3
+SFZ_Juli,		stages/Dolls.def,	includestage =0,	order = 0, ordersurvival= 0, previous=d, next=w
+ slot = {
+	chars/SFZ_Sagat/SFZ_Sagat_player.def,		stages/Sagat.def,	includestage =0,	order = 3, ordersurvival= 2, previous=d, next=w
+	chars/SFZ_U-Sagat/SFZ_U-Sagat_player.def,		stages/Sagat2.def,	 includestage =0,	order = 0, ordersurvival= 0, previous=d, next=w
+  }
+SFZ_Juni,		stages/Dolls.def,	includestage =0,	order = 0, ordersurvival= 0, previous=d, next=w
+ slot = {
+	SFZ_Balrog,		Stages/Balrog.def,	includestage =0,	order = 3, ordersurvival= 2, previous=d, next=w
+	SFZ_Mike,		stages/Mike.def, 	includestage =0,	order = 0, ordersurvival= 0, previous=d, next=w
+  }
+EMPTY
+EMPTY
+EMPTY
+EMPTY
+EMPTY 
+;--------------------
+; Row 7
+EMPTY
+SFZ_Eagle,		stages/Birdie2.def,	includestage =0,	order = 1, ordersurvival= 1
+SFZ_T-Hawk,		stages/Mexico.def,	includestage =0,	order = 3, ordersurvival= 2
+ slot = {
+	SFZ_Bison, 		Stages/Vtol.def, 	includestage =0,	order = 3, ordersurvival= 2, previous=d, next=w
+	SFZ_N-Bison, 		Stages/Shadaloo.def, 	includestage =0,	order = 0, ordersurvival= 0, previous=d, next=w
+  }
+randomselect
+SFZ_Ingrid,		stages/Africa.def,	includestage =0,	order = 3, ordersurvival= 2
+EMPTY
+EMPTY
+EMPTY
+EMPTY
+EMPTY
+EMPTY
+EMPTY
+EMPTY 
+;--------------------
+; Row 8 (to define CPU stages only)
+ slot = {
+	SFZ_Sagat,		stages/Sagat.def,	includestage =0,	order = 0, ordersurvival= 0, previous=d, next=w, hidden = 2
+	SFZ_U-Sagat,		stages/Sagat2.def,	 includestage =0,	order = 0, ordersurvival= 0, previous=d, next=w, hidden = 2
+	SFZ_Rose,		stages/Rose.def,	includestage =0,	order = 3, ordersurvival= 2
+  }
+
+[Stages]
+
+[ExtraStages]
+Stages/Ryu.def ;ryu sfa2
+Stages/Ryu2.def ;ryu sfa3
+Stages/Ryu3.def ;ryu sfa1
+Stages/Sakura.def ;sakura sfa2
+Stages/Sakura2.def ;sfa3 sakura
+Stages/Karin2.def ;karin sfa3
+Stages/Karin.def ;karin sfa3max
+Stages/Honda.def ;sfa3 honda
+Stages/Honda2.def ;honda mvc
+Stages/Honda3.def ;honda mvc
+Stages/Mika.def ;mika sfa3
+Stages/Gokuento.def ;akuma sfa2
+Stages/OniFangYellow.def ; akuma sfa3
+Stages/Zangief.def ;zangief sfa2
+Stages/Zangief2.def ;zangief sfa3
+Stages/Chunli.def ;chunli sfa2
+Stages/Chunli2.def ;chunli sfa3
+Stages/Chunli3.def ;chunli sfa1
+Stages/Gen.def ;gen sfa2
+Stages/Gen2.def ;gen sfa3
+Stages/Dan.def ;dan sfa2
+Stages/Dan2.def ;sfa3 dan
+Stages/FeiLong.def ;sfa3 feilong
+Stages/Adon.def ;adon sfa2
+Stages/Adon2.def ;sfa3 adon
+Stages/Sagat.def ;sagat sfa2
+Stages/Sagat2.def ; sfa3 sagat
+Stages/BuddhaEvening.def ;adon sfa1 
+Stages/BuddhaNight.def ;sfa1 thaliand
+Stages/Dhalsim.def ;dhalsim sfa2
+Stages/Dhalsim2.def ;dhalsim sfa3
+Stages/Outbacks.def ;ryu vs sagat sfa2
+Stages/Africa.def ;elena sf3
+Stages/Rose.def ;rose sfa2
+Stages/Rose2.def ;rose sfa3
+Stages/Rose3.def ;rose sfa
+Stages/KillerBee2.def ;cammy sfa3
+Stages/Vega.def ;vega sfa3
+Stages/London.def ;dudley sf3
+Stages/Birdie.def ;birdie sfa2
+Stages/Birdie2.def; birdie/eagle sfa3
+Stages/Ken.def ;ken sfa2 for ken
+Stages/Ken2.def ;ken sfa3
+Stages/Ken3.def ;ken sfa1
+Stages/Charlie.def ;charlie sfa2 
+Stages/Charlie2.def ;charlie sfa3
+Stages/Guile.def ;guile sfa3max
+Stages/Balrog.def ;balrog sfa3max
+Stages/Mike.def ; sodom sfa1
+Stages/Guy.def ;guy sfa2
+Stages/Guy2.def ;guy sfa2
+Stages/Cody-X.def ;guy sfa3
+Stages/Cody-Z.def ;cody sfa3
+Stages/Rolento.def ;rolento sfa2
+Stages/Rolento2.def ;rolento sfa3
+Stages/Sodom-Z.def ;sodom sfa2
+Stages/Sodom-X.def ; sfa3 sodom
+Stages/Mexico.def ;thawk sfa3
+Stages/DJ.def ;dj sfa3
+Stages/Blanka.def ;blanka sfa3
+Stages/Vtol.def ;bison sfa2
+Stages/Venezuela.def ;bisonvscharlie sfa2
+Stages/Secret-Red.def
+Stages/Secret-Green.def
+Stages/Secret-Blue.def
+Stages/Dolls.def ;dolls sfa3
+Stages/Dolls2.def ;sf3 russia
+Stages/Shadaloo.def ;sfa3 bison
+
+;Boss stages (for story mode)
+;Stages/_Boss-Adon.def
+;Stages/_Boss-Adon2.def
+;Stages/_Boss-Akuma2.def
+;Stages/_Boss-Birdie.def
+;Stages/_Boss-Birdie2.def
+;Stages/_Boss-Blanka.def
+;Stages/_Boss-Buddha.def
+;Stages/_Boss-Cammy.def
+;Stages/_Boss-Charlie.def
+;Stages/_Boss-Charlie2.def
+;Stages/_Boss-Chunli.def
+;Stages/_Boss-Chunli2.def
+;Stages/_Boss-Chunli3.def
+;Stages/_Boss-Cody-X.def
+;Stages/_Boss-Cody-Z.def
+;Stages/_Boss-Dan.def
+;Stages/_Boss-Dan2.def
+;Stages/_Boss-Dhalsim.def
+;Stages/_Boss-Dhalsim2.def
+;Stages/_Boss-Dolls.def
+;Stages/_Boss-Dolls2.def
+;Stages/_Boss-Gen.def
+;Stages/_Boss-Gen2.def
+;Stages/_Boss-Gokuento.def
+;Stages/_Boss-Guy.def
+;Stages/_Boss-Guy2.def
+;Stages/_Boss-Honda.def
+;Stages/_Boss-Honda2.def
+;Stages/_Boss-Karin.def
+;Stages/_Boss-Karin2.def
+;Stages/_Boss-Ken.def
+;Stages/_Boss-Ken2.def
+;Stages/_Boss-Ken3.def
+;Stages/_Boss-KillerBee2.def
+;Stages/_Boss-Mika.def
+;Stages/_Boss-Mike.def
+;Stages/_Boss-Outbacks.def
+;Stages/_Boss-Rolento.def
+;Stages/_Boss-Rolento2.def
+;Stages/_Boss-Rose.def
+;Stages/_Boss-Rose2.def
+;Stages/_Boss-Ryu.def
+;Stages/_Boss-Ryu2.def
+;Stages/_Boss-Sagat.def
+;Stages/_Boss-Sagat2.def
+;Stages/_Boss-Sakura.def
+;Stages/_Boss-Sakura2.def
+;Stages/_Boss-Shadaloo.def
+;Stages/_Boss-Sodom-X.def
+;Stages/_Boss-Sodom-Z.def
+;Stages/_Boss-Vega.def
+;Stages/_Boss-Venezuella.def
+;Stages/_Boss-Vtol.def
+;Stages/_Boss-Zangief.def
+;Stages/_Boss-Zangief2.def
+;---------------------------------------------------------------------
+[Options]
+; Battle order =    1,2,3,4,5,6,7,8,9,10
+arcade.maxmatches =   0,5,5,0,0,0,0,0,0,0
+arcade.ratiomatches = 1-3:2, 3:2, 2:2, 2:2, 1:2, 1:3, 3:3, 1-2:3, 2:3, 1:4
+team.maxmatches =   0,5,5,0,0,0,0,0,0,0
+survival.maxmatches = 0,10,0,0,0,0,0,0,0,0
+timeattack.maxmatches = 0,5,5,0,0,0,0,0,0,0
+
+survival.AIramp.start = 0, -3
+survival.AIramp.end   = 10, 0
+
+;AI for a single opponent
+arcade.AIramp.start = 0, -2
+arcade.AIramp.end   = 10, 2
+
+;AI for multiple opponents
+team.AIramp.start = 0, -2
+team.AIramp.end   = 10, 1

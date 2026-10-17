@@ -1,0 +1,331 @@
+[Info]
+name = "Guy Boss" ;Metro City Main Street - U.S.A
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -190
+boundright = 190
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz = 0
+botz = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 16,22,16
+yscale = .05
+intensity = 70
+
+[Music]
+bgmusic = Sound/Guy.mp3
+bgmloopstart=2811306
+bgmloopend=5775943
+bgvolume = 255
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Guy.sff
+
+[BG 0]; tiendas
+type = normal
+spriteno = 0,0
+start = 0,224
+delta = 0.5,1
+
+[BG 1]; edificios
+type = normal
+spriteno = 1,0
+start = 0,224
+delta = .81,1
+mask = 1
+
+[BG 2];bandera
+type = anim
+actionno = 2
+start = -352,224
+delta = .81,1
+
+[BG 3];pandilleros
+type = anim
+actionno = 3
+start = 0,224
+delta = .81,1
+
+[BG 4];edi E
+type = anim
+actionno = 4
+start = 0,224
+delta = .81,1
+
+[BG 5];DamnD
+type = anim
+actionno = 5
+start = 0,224
+delta = .81,1
+
+[BG 6]; suelo
+type = parallax
+spriteno = 6,0
+start = 0,192
+delta = .81,1
+;xscale = 1,1.32635534084809447128
+
+[BG 7];andore
+type = anim
+actionno = 7
+start = -352,224
+delta = .81,1
+
+[BG 8]
+type = anim
+actionno = 8
+start = -352,240
+delta = .81,1
+
+[BG 9];haggar
+type = anim
+actionno = 9
+start = 352,224
+delta = .81,1
+
+[BG 10];Poison
+type = normal
+spriteno = 10,0
+start = 352,224
+delta = .81,1
+mask = 1
+
+[BG 11]; El Gado
+type = anim
+actionno = 11
+start = 352,224
+delta = .81,1
+
+[BG 12];AXL
+type = normal
+spriteno = 12,0
+start = 352,224
+delta = .81,1
+mask = 1
+
+
+[BG 13];basura
+type = normal
+spriteno = 13,0
+layerno = 1
+start = 0,224
+delta = 2.11,1
+mask = 1
+
+[Begin action 2]
+2,0, 0,0, 4
+2,1, 0,0, 4
+2,2, 0,0, 4
+2,3, 0,0, 4
+2,4, 0,0, 4
+2,5, 0,0, 4
+
+[Begin action 3]
+3,0, 0,0, 15
+3,1, 0,0, 8
+3,2, 0,0, 8
+3,3, 0,0, 15
+3,4, 0,0, 8
+3,5, 0,0, 8
+
+[Begin action 4]
+4,0, 0,0, 32
+4,1, 0,0, 8
+4,2, 0,0, 8
+4,3, 0,0, 8
+4,4, 0,0, 80
+4,3, 0,0, 8
+4,2, 0,0, 8
+4,1, 0,0, 16
+4,2, 0,0, 8
+4,3, 0,0, 8
+4,4, 0,0, 80
+4,3, 0,0, 8
+4,2, 0,0, 8
+4,1, 0,0, 16
+
+[Begin action 5]
+5,0, 0,0, 512
+5,1, 0,0, 15
+5,2, 0,0, 15
+5,3, 0,0, 15
+5,4, 0,0, 32
+5,3, 0,0, 15
+5,2, 0,0, 15
+5,3, 0,0, 15
+5,4, 0,0, 32
+5,3, 0,0, 15
+5,2, 0,0, 15
+5,1, 0,0, 15
+
+[Begin action 7]
+7,0, 0,0, 64
+7,1, 0,0, 17
+7,2, 0,0, 12
+7,3, 0,0, 14
+7,4, 0,0, 29
+7,3, 0,0, 12
+7,2, 0,0, 10
+7,1, 0,0, 15
+
+[Begin action 8]
+
+8,0, -5,-18, 90
+8,1, -5,-18, 90
+8,2, -5,-18, 5
+8,3, -5,-18, 3
+8,4, -5,-18, 60
+8,5, -5,-18, 120
+8,6, -5,-18, 90
+8,7, -5,-18, 4
+8,6, -5,-18, 3
+8,7, -5,-18, 7
+8,6, -5,-18, 3
+8,7, -5,-18, 7
+8,6, -5,-18, 90
+8,8, -5,-18, 10
+8,9, -5,-18, 8
+8,10, -5,-18, 6
+8,11, -5,-18, 6
+8,12, -5,-18, 6
+8,13, -5,-18, 8
+8,14, -5,-18, 10
+8,15, -5,-18, 50
+8,16, -5,-18, 120
+
+[Begin action 9]
+9,0, 0,0, 13
+9,1, 0,0, 3
+9,2, 0,0, 4
+9,3, 0,0, 5
+9,4, 0,0, 8
+9,8, 0,0, 4
+9,9, 0,0, 4
+9,0, 0,0, 13
+9,1, 0,0, 3
+9,2, 0,0, 4
+9,3, 0,0, 5
+9,4, 0,0, 8
+9,8, 0,0, 4
+9,9, 0,0, 4
+9,0, 0,0, 13
+9,1, 0,0, 4
+9,2, 0,0, 4
+9,3, 0,0, 4
+9,4, 0,0, 7
+9,5, 0,0, 8
+9,6, 0,0, 7
+9,7, 0,0, 4
+9,8, 0,0, 3
+9,9, 0,0, 5
+9,0, 0,0, 13
+9,1, 0,0, 3
+9,2, 0,0, 4
+9,3, 0,0, 5
+9,4, 0,0, 8
+9,8, 0,0, 4
+9,9, 0,0, 4
+9,0, 0,0, 13
+9,1, 0,0, 3
+9,2, 0,0, 4
+9,3, 0,0, 5
+9,4, 0,0, 8
+9,8, 0,0, 4
+9,9, 0,0, 4
+9,0, 0,0, 13
+9,1, 0,0, 4
+9,2, 0,0, 4
+9,3, 0,0, 4
+9,4, 0,0, 7
+9,5, 0,0, 8
+9,6, 0,0, 7
+9,7, 0,0, 4
+9,8, 0,0, 3
+9,9, 0,0, 5
+9,0, 0,0, 13
+9,1, 0,0, 4
+9,2, 0,0, 4
+9,3, 0,0, 4
+9,4, 0,0, 7
+9,5, 0,0, 8
+9,6, 0,0, 7
+9,7, 0,0, 4
+9,8, 0,0, 3
+9,9, 0,0, 5
+9,0, 0,0, 13
+9,1, 0,0, 4
+9,2, 0,0, 4
+9,3, 0,0, 4
+9,4, 0,0, 7
+9,5, 0,0, 8
+9,6, 0,0, 7
+9,7, 0,0, 4
+9,8, 0,0, 3
+9,9, 0,0, 5
+9,0, 0,0, 13
+9,1, 0,0, 3
+9,2, 0,0, 4
+9,3, 0,0, 5
+9,4, 0,0, 8
+9,8, 0,0, 4
+9,9, 0,0, 4
+9,0, 0,0, 13
+9,1, 0,0, 4
+9,2, 0,0, 4
+9,3, 0,0, 4
+9,4, 0,0, 7
+9,5, 0,0, 8
+9,6, 0,0, 7
+9,7, 0,0, 4
+9,8, 0,0, 3
+9,9, 0,0, 5
+
+[Begin action 11]
+11,0, 0,0, 19
+11,1, 0,0, 19
+11,2, 0,0, 19
+11,3, 0,0, 19

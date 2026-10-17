@@ -1,0 +1,36 @@
+[Info]
+name        ="Cody"
+displayName ="CODY"
+author      ="Ehnyd"
+Pal.Defaults = 1,4
+localCoord  = 384,224
+mugenversion = 1.0
+
+[Files]
+cmd     = SFZ_Cody_X.cmd
+cns     = SFZ_Cody_X.cns
+st      = SFZ_Cody_X.cns
+stcommon = common1.cns
+sprite  = SFZ_Cody_X.sff
+anim    = SFZ_Cody_X.air
+sound   = SFZ_Cody.snd
+movelist = movelist.dat
+
+pal1    = Pals_X/Z-ism1.act
+pal2    = Pals_X/X-ism1.act
+pal3    = Pals_X/V-ism1.act
+pal4    = Pals_X/Z-ism2.act
+pal5    = Pals_X/X-ism2.act
+pal6    = Pals_X/V-ism2.act
+pal7    = Pals_X/CS.act
+pal8    = Pals_X/CvS2.act
+pal9    = Pals_X/Default.act
+pal10    = Pals_X/Devon - Orange & Black.act
+pal11    = Pals_X/Joe.act
+pal12    = Pals_X/Metro City's Jaguar.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_Cody-X.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/Cody-X.lua

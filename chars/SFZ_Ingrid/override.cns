@@ -1,0 +1,368 @@
+;---------------------------------------------------------------------------
+; override common states (use same number to override) :
+;---------------------------------------------------------------------------
+
+
+
+;---------------------------------------------------------------------------
+; run_back land
+[statedef 106]
+type    = S
+physics = S
+anim = 106
+sprpriority = 1
+
+[state 106,1]
+type = posset
+trigger1 = time = 0
+y = 0
+
+[state 106,2]
+type = velset
+trigger1 = time >= 0
+x = -6
+y = 0
+
+[state 106, sfx]
+type = playsnd
+trigger1 = time = 0
+value = s0,27
+
+[state 106,4] 
+type = assertspecial
+trigger1 = 1
+flag = nowalk
+
+[state 106,3]
+type = changestate
+trigger1 = time = 30
+value = 0
+ctrl = 1
+
+
+;-----------------------------------------
+; hit_getup
+[statedef 5120]
+type    = L
+movetype= I
+physics = N
+velset = 0,0
+
+[State 5120, 0] ; Sneak Roll Backwards for Back
+type = ChangeState
+triggerall = time = 0
+triggerall = anim != 5111
+trigger1 = command = "holddownback" 
+trigger2 = command = "holdback"
+value = 5122
+
+[State 5120, 1] ; Sneak Roll Forwards for Back
+type = ChangeState
+triggerall = time = 0
+triggerall = anim != 5111
+trigger1 = command = "holddownforward"
+trigger2 = command = "holdfwd"
+value = 5123
+
+[state 5120, 1a]
+type = changeanim
+triggerall = time = 0
+trigger1 = anim != 5111
+value = 5120
+
+[state 5120, 1b]
+type = changeanim
+triggerall = time = 0
+trigger1 = anim = 5111
+value = 5121
+
+[state 5120, 3]
+type = nothitby
+trigger1 = 1
+value = sca
+time = 1
+
+[state 5120, 5]
+type = hitfallset
+trigger1 = animtime = 0
+value = 1
+
+[state 5120, 6]
+type = nothitby
+trigger1 = animtime = 0
+value = , nt,st,ht
+time = 12
+
+[state 5120, 6]
+type = nothitby
+trigger1 = animtime = 0
+value = sca
+time = 3
+
+[state 5120, 7]
+type = changestate
+trigger1 = animtime = 0
+value = 0
+ctrl = 1
+
+; hit_getup (backward)
+[statedef 5122]
+type    = L
+movetype= I
+physics = N
+ctrl = 0
+velset = 0,0
+
+[state 5120, 1]
+type = posset
+trigger1 = 1
+y = 0
+
+[state 5120, 1]
+type = posset
+trigger1 = 1
+y = 0
+
+[state 5120, 1]
+type = changeanim
+trigger1 = time = 0
+value = 5122
+
+[state 5121, 2]
+type = veladd
+trigger1 = time = 0
+x = -8
+
+[state 5121, 3]
+type = nothitby
+trigger1 = time >= 0
+value = sca
+time = 1
+
+[state 5121, 5]
+type = hitfallset
+trigger1 = animtime = 0
+value = 1
+
+[state 5121, 6]
+type = nothitby
+trigger1 = animtime = 0
+value = sca, nt,st,ht
+time = 12
+
+[state 5121, 6] 
+type = nothitby
+trigger1 = animtime = 0
+value2 = sca
+time = 3
+
+[state 5121, 7]
+type = changestate
+trigger1 = anim = 5122
+trigger1 = animtime = 0
+value = 11
+ctrl = 1
+
+; hit_getup (forward)
+[statedef 5123]
+type    = l
+movetype= i
+physics = n
+ctrl = 0
+velset = 0,0
+
+[state 5120, 1]
+type = posset
+trigger1 = 1
+y = 0
+
+[state 5120, 1]
+type = changeanim
+trigger1 = time = 0
+value = 5123
+
+[state 5122, 2]
+type = veladd
+trigger1 = time = 0
+x = 8
+
+[state 5122, 3]
+type = nothitby
+trigger1 = time = 0
+value = sca
+time = 1
+
+[state 5122, 5]
+type = hitfallset
+trigger1 = animtime = 0
+value = 1
+
+[state 5122, 6] ;can't be thrown right after getting Up
+type = nothitby
+trigger1 = animtime = 0
+value = sca, nt,st,ht
+time = 12
+
+[state 5122, 6] ;can't be hit right after getting Up (short time)
+type = nothitby
+trigger1 = animtime = 0
+value2 = sca
+time = 3
+
+[state 5121, 7]
+type = changestate
+trigger1 = anim = 5123
+trigger1 = animtime = 0
+value = 11
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; jump_land
+[statedef 52]
+type    = s
+physics = s
+ctrl = 0
+anim = 47
+
+[state 52, 0]
+type       = playsnd
+trigger1   = time = 0
+value      = s0,16
+persistent = 0
+
+[state 52, 1]
+type = velset
+trigger1 = time = 0
+y = 0
+
+[state 52, 3]
+type = posset
+trigger1 = time = 0
+y = 0
+
+[state 52, 3]
+type = ctrlset
+trigger1 = time >= 3
+value = 1
+
+[state 52, 4]
+type = changestate
+trigger1 = animtime = 0
+value = 0
+ctrl = 1
+
+[state 52, 4]
+type = changestate
+trigger1 = command = "holddown"
+value = 11
+ctrl = 1
+
+[state 52, 4]
+type = changestate
+trigger1 = command = "holdback"
+value = 20
+ctrl = 1
+
+;------------------------------------------
+; HIT_LIEDEAD
+[Statedef 5150]
+type    = L
+movetype= H
+physics = N
+sprpriority = -3
+
+[State 5150, 1] ;Normal anim
+type = ChangeAnim
+triggerall = Time = 0
+triggerall = SelfAnimExist(5140)
+trigger1 = (anim != [5111,5119]) && (anim != [5171,5179])
+trigger2 = !SelfAnimExist(5140 + (anim % 10))
+value = 5140
+
+[State 5150, 3] ;Hit up type anim
+type = ChangeAnim
+trigger1 = Time = 0
+trigger1 = (anim = [5111,5119]) || (anim = [5171,5179])
+trigger1 = SelfAnimExist(5140 + (anim % 10))
+value = 5140 + (anim % 10)
+
+[State 5150, 4] ;Match over anim
+type = ChangeAnim
+persistent = 0
+;trigger1 = Time = 0
+trigger1 = MatchOver = 1
+trigger1 = Anim = [5140,5149]
+trigger1 = SelfAnimExist(anim+10)
+value = anim+10
+
+[State 5150, 5] ;Switch to 5110 if liedead anim does not exist
+type = ChangeAnim
+trigger1 = Time = 0
+trigger1 = Anim != [5140,5159]
+trigger1 = Anim != [5110,5119]
+value = 5110
+
+[State 5150, 6] ;Friction
+type = VelMul
+trigger1 = 1
+x = 0.85
+
+[State 5150, 7] ;Friction
+type = VelSet
+trigger1 = Vel x < .05
+persistent = 0
+x = 0
+
+[State 5150, 7] ;Friction
+type = changestate
+triggerall = numpartner
+triggerall = partner, stateno = 4520
+trigger1 = life = 0
+value = 5151
+
+[State 5150, 8]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+time = 1
+
+;------------------------------------------
+; HIT_LIEDEAD
+[Statedef 5151]
+type    = L
+movetype= H
+physics = N
+sprpriority = -3
+
+[State 5150, 8]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+time = 1
+
+[State 5150, 8]
+type = screenbound
+trigger1 = 1
+value = 0
+
+[State 5150, 8]
+type = explod 
+trigger1 = time = 0
+anim = 5151
+removetime = 300
+bindtime = 1
+ownpal = 1
+pos = 0,0
+postype = p1
+sprpriority = -4
+
+[State 5150, 8]
+type = posadd
+trigger1 = time > 2
+x = -9999
+y = 9999
+
+[State 5150, 8]
+type = changestate
+trigger1 = time = 60
+value = 5150

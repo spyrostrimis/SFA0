@@ -1,0 +1,40 @@
+[Info]
+name        = "X-ISM ChunLi"
+displayname = "CHUN-LI"
+author      = "Ehnyd"
+Pal.Defaults = 1,4
+localcoord = 384,224
+mugenversion = 1.0
+
+[Files]
+cmd      = X-ISM.cmd
+cns      = 01b_Main.cns
+st       = 01b_Main.cns
+st2       = 02_Attacks.cns
+st3       = 03_Specials.cns
+st4       = 04_SuperCombos_X.cns
+st5       = 05_SFZ.cns
+stcommon = common1.cns
+sprite   = SFZ_ChunLi-X.sff
+anim     = SFZ_ChunLi.air
+sound    = SFZ_ChunLi.snd
+movelist = movelist.dat
+
+pal1     = X-ISM/Z-ISM1.act
+pal2     = X-ISM/X-ISM1.act
+pal3     = X-ISM/V-ISM2.act
+pal4     = X-ISM/Z-ISM2.act
+pal5     = X-ISM/X-ISM2.act
+pal6     = X-ISM/V-ISM1.act
+pal7     = X-ISM/Z-ISM3.act
+pal8     = X-ISM/X-ISM4.act
+pal9     = X-ISM/V-ISM3.act
+pal10     = X-ISM/Z-ISM4.act
+pal11     = X-ISM/X-ISM3.act
+pal12     = X-ISM/V-ISM4.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_Chun_X.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/Chunli-X.lua

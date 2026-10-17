@@ -1,0 +1,159 @@
+[Info]
+name = "Honda Boss" ;Sento Entrance- Japan
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -190
+boundright = 190
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz = 0
+botz = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 67,70,50
+yscale = .05
+intensity = 2
+
+[Music]
+bgmusic = sound/Honda.mp3
+bgmloopstart = 183407
+bgmloopend = 2794963
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Honda.sff
+
+[BG 0]
+type = normal
+spriteno = 0,0
+start = 0,224
+delta = 0.825,1
+
+[BG 1]
+type = normal
+spriteno = 1,0
+start = 0,224
+delta = 0.965,1
+mask = 1
+
+[BG 2]
+type = normal
+spriteno = 2,0
+start = 0,224
+delta = 0.965,1
+mask = 1
+
+[BG 3]
+type = parallax
+spriteno = 3,0
+start = 0,193
+delta = .965,1
+;xscale = 1,1.05110692416391898257
+mask = 1
+
+[BG 4]
+type = anim
+actionno = 4
+start = 0,224
+delta = 0.965,1
+mask = 1
+
+[BG 5]
+type = normal
+spriteno = 5,0
+start = 0,224
+delta = 0.965,1
+mask = 1
+
+[BG 6]
+type = normal
+spriteno = 6,0
+start = 0,224
+delta = 0.965,1
+mask = 1
+
+[BG 7]
+type = anim
+actionno = 7
+start = 0,224
+delta = 0.965,1
+mask = 1
+
+[Begin action 4]
+4,0, 0,0, 50
+4,1, 0,0, 106
+4,0, 0,0, 50
+4,1, 0,0, 106
+4,0, 0,0, 50
+4,1, 0,0, 106
+4,0, 0,0, 50
+4,1, 0,0, 106
+4,0, 0,0, 50
+4,1, 0,0, 106
+4,0, 0,0, 50
+4,1, 0,0, 106
+4,2, 0,0, 36
+4,3, 0,0, 36
+4,4, 0,0, 50
+4,5, 0,0, 106
+4,4, 0,0, 50
+4,5, 0,0, 106
+4,4, 0,0, 50
+4,5, 0,0, 106
+4,4, 0,0, 50
+4,5, 0,0, 106
+4,4, 0,0, 50
+4,5, 0,0, 106
+4,4, 0,0, 50
+4,5, 0,0, 106
+4,6, 0,0, 36
+4,7, 0,0, 36
+
+[Begin action 7]
+7,0, 0,0, 256
+7,1, 0,0, 16
+7,2, 0,0, 80
+7,3, 0,0, 128
+7,2, 0,0, 32
+7,1, 0,0, 8

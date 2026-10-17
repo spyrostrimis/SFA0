@@ -1,0 +1,37 @@
+[Info]
+name    = "Sodom Z-ISM"
+displayname = "SODOM"
+author = "M.M.R."
+Edition = Ehnyd
+Localcoord = 384,224
+Pal.Defaults = 1,4
+mugenversion = 1.0
+
+[Files]
+cmd	= SFZ_Sodom.cmd
+cns	= SFZ_Sodom_Z.cns
+st	= SFZ_Sodom_Z.cns
+stcommon= common1.cns
+sprite	= SFZ_Sodom_Z.sff
+anim	= SFZ_Sodom_Z.air
+sound	= SFZ_Sodom.snd
+movelist = movelist.dat
+
+pal1     = Pals/Z-ISM1.act
+pal2     = Pals/Z-ISM2.act
+pal3     = Pals/V-ISM2.act
+pal4     = Pals/X-ISM1.act
+pal5     = Pals/V-ISM1.act
+pal6     = Pals/X-ISM2.act
+pal7     = Pals/X-ISM3.act
+pal8     = Pals/V-ISM3.act
+pal9     = Pals/X-ISM4.act
+pal10     = Pals/Z-ISM3.act
+pal11     = Pals/Z-ISM4.act
+pal12     = Pals/V-ISM4.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_Sodom_Z.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/Sodom-Z.lua

@@ -1,0 +1,638 @@
+[Info]
+name = "Japantown, Metro City - U.S.A"
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+
+startx = 0
+starty = 0
+boundleft = -190
+boundright = 190
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 15
+p1facing = 1
+p2startx = 75
+p2starty = 0
+p2startz = 15
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz     = 0
+botz     = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 24
+screenright = 24
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 16,16,37
+yscale = .05
+intensity = 100
+
+[Reflection]
+intensity = 0
+
+[Music]
+bgmusic = sound/Sodom2.mp3
+bgmloopstart=1338341
+bgmloopend=4674998
+bgvolume = 0
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Sodom-X.sff
+;debugbg = 0
+
+[BG back]
+type  = normal
+spriteno = 1,0
+start = 0, -16
+delta = .893,1
+mask=0
+
+[BG back]
+type  = anim
+actionno = 0
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = anim
+actionno = 2
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = anim
+actionno = 202
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = anim
+actionno = 3
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = normal
+spriteno = 4,0
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = normal
+spriteno = 5,0
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = anim
+actionno = 6
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = anim
+actionno = 7
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = anim
+actionno = 8
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = anim
+actionno = 9
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = anim
+actionno = 10
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = anim
+actionno = 11
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = anim
+actionno = 12
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = anim
+actionno = 13
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = anim
+actionno = 14
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = anim
+actionno = 15
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = anim
+actionno = 16
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = anim
+actionno = 17
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = anim
+actionno = 24
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = normal
+spriteno = 19,0
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = anim
+actionno = 22
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = anim
+actionno = 23
+start = 0, -16
+delta = 1,1
+mask=1
+id = 23
+
+[BG back]
+type  = anim
+actionno = 25
+start = 0, -16
+delta = 1,1
+mask=1
+id = 25
+
+[BG back]
+type  = normal
+spriteno = 20,0
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = anim
+actionno = 18
+start = 0, -16
+delta = 1,1
+mask=1
+
+[BG back]
+type  = normal
+spriteno = 21,0
+start = 431, 0
+delta = 1,1
+layerno = 1
+mask=1
+id = 21
+
+[Begin Action 0]
+0,2, 0,0, 59
+loopstart
+0,2, 0,0, 8
+0,1, 0,0, 8
+0,0, 0,0, 8
+0,1, 0,0, 8
+
+[Begin Action 2]
+2,0, 0,0, 59
+loopstart
+2,0, 0,0, 2
+2,1, 0,0, 2
+
+[Begin Action 202]
+-1,-1, 0,0, 59
+loopstart
+-1,-1, 0,0, 1
+2,2, 0,0, 2
+-1,-1, 0,0, 1
+
+[Begin Action 3]
+3,1, 0,0, 59
+loopstart
+3,1, 0,0, 4
+3,0, 0,0, 4
+
+[Begin Action 6]
+6,4, 0,0, 59
+loopstart
+6,4, 0,0, 15
+6,3, 0,0, 8
+6,2, 0,0, 8
+6,1, 0,0, 8
+6,0, 0,0, 15
+6,1, 0,0, 8
+6,2, 0,0, 8
+6,3, 0,0, 8
+
+[Begin Action 7]
+7,4, 0,0, 59
+loopstart
+7,4, 0,0, 15
+7,3, 0,0, 8
+7,2, 0,0, 8
+7,1, 0,0, 8
+7,0, 0,0, 15
+7,1, 0,0, 8
+7,2, 0,0, 8
+7,3, 0,0, 8
+
+[Begin Action 8]
+8,0, 0,0, 59
+loopstart
+8,0, 0,0, 2
+8,1, 0,0, 2
+
+[Begin Action 9]
+9,0, 0,0, 59
+loopstart
+9,0, 0,0, 7
+9,1, 0,0, 7
+9,2, 0,0, 7
+9,1, 0,0, 7
+
+[Begin Action 10]
+10,2, 0,0, 59
+loopstart
+10,2, 0,0, 16
+10,1, 0,0, 16
+10,0, 0,0, 16
+10,1, 0,0, 16
+
+
+[Begin Action 11]
+11,0, 0,0, 59
+loopstart
+11,0, 0,0, 11
+11,1, 0,0, 11
+11,2, 0,0, 11
+11,1, 0,0, 11
+
+[Begin Action 12]
+12,2, 0,0, 59
+loopstart
+12,2, 0,0, 14
+12,1, 0,0, 14
+12,0, 0,0, 14
+12,1, 0,0, 14
+
+[Begin Action 13]
+13,2, 0,0, 59
+loopstart
+13,2, 0,0, 16
+13,1, 0,0, 16
+13,0, 0,0, 16
+13,1, 0,0, 16
+
+[Begin Action 14]
+14,0, 0,0, 59
+loopstart
+14,0, 0,0, 14
+14,1, 0,0, 14
+14,2, 0,0, 14
+14,1, 0,0, 14
+
+[Begin Action 15]
+15,0, 0,0, 59
+loopstart
+15,0, 0,0, 16
+15,1, 0,0, 16
+15,2, 0,0, 16
+15,1, 0,0, 16
+
+[Begin Action 16]
+16,1, 0,0, 59
+loopstart
+16,1, 0,0, 2
+16,0, 0,0, 2
+
+[Begin Action 17]
+17,1, 0,0, 59
+loopstart
+17,1, 0,0, 1
+17,0, 0,0, 2
+17,1, 0,0, 1
+
+[Begin Action 24]
+24,2, 0,0, 59
+loopstart
+24,2, 0,0, 16
+24,1, 0,0, 16
+24,0, 0,0, 16
+24,1, 0,0, 16
+
+[Begin Action 18]
+18,0, 0,0, 59
+loopstart
+18,0, 0,0, 12
+18,1, 0,0, 12
+18,0, 0,0, 12
+18,1, 0,0, 12
+18,2, 0,0, 12
+18,3, 0,0, 12
+18,2, 0,0, 12
+18,3, 0,0, 12
+18,4, 0,0, 12
+18,5, 0,0, 12
+18,4, 0,0, 12
+18,5, 0,0, 12
+18,6, 0,0, 12
+18,7, 0,0, 12
+18,6, 0,0, 12
+18,7, 0,0, 12
+18,8, 0,0, 12
+18,9, 0,0, 12
+18,8, 0,0, 12
+18,9, 0,0, 12
+18,10, 0,0, 12
+18,11, 0,0, 12
+18,10, 0,0, 12
+18,11, 0,0, 12
+
+[Begin Action 22]
+22,2, 0,0, 59
+loopstart
+22,2, 0,0, 16
+22,1, 0,0, 16
+22,0, 0,0, 16
+22,1, 0,0, 16
+
+[Begin Action 23]
+23,1, 0,0, 59
+loopstart
+23,1, 0,0, 8
+23,2, 0,0, 8
+23,3, 0,0, 8
+23,4, 0,0, 8
+23,3, 0,0, 8
+23,2, 0,0, 8
+23,1, 0,0, 8
+23,0, 0,0, 9
+23,1, 0,0, 8
+23,2, 0,0, 8
+23,3, 0,0, 8
+23,4, 0,0, 8
+23,3, 0,0, 8
+23,2, 0,0, 8
+23,1, 0,0, 8
+23,0, 0,0, 9
+23,1, 0,0, 8
+23,2, 0,0, 8
+23,3, 0,0, 8
+23,4, 0,0, 8
+23,3, 0,0, 8
+23,2, 0,0, 8
+23,1, 0,0, 8
+23,0, 0,0, 9
+23,1, 0,0, 8
+23,2, 0,0, 8
+23,3, 0,0, 8
+23,4, 0,0, 8
+23,3, 0,0, 8
+23,2, 0,0, 8
+23,1, 0,0, 8
+23,0, 0,0, 9
+23,1, 0,0, 8
+23,2, 0,0, 8
+23,3, 0,0, 8
+23,4, 0,0, 8
+23,3, 0,0, 8
+23,2, 0,0, 8
+23,1, 0,0, 8
+23,0, 0,0, 9
+23,5, 0,0, 8
+23,6, 0,0, 8
+23,7, 0,0, 8
+23,8, 0,0, 8
+23,9, 0,0, 8
+23,10, 0,0, 8
+23,11, 0,0, 8
+23,12, 0,0, 8
+23,13, 0,0, 8
+23,14, 0,0, 8
+23,15, 0,0, 8
+23,16, 0,0, 8
+23,17, 0,0, 8
+23,18, 0,0, 8
+23,19, 0,0, 8
+23,20, 0,0, 8
+23,21, 0,0, 8
+23,22, 0,0, 8
+23,23, 0,0, 8
+23,24, 0,0, 8
+23,25, 0,0, 8
+23,26, 0,0, 8
+23,27, 0,0, 8
+23,28, 0,0, 8
+
+[Begin Action 25]
+25,1, 0,0, 59
+loopstart
+25,1, 0,0, 8
+25,2, 0,0, 8
+25,3, 0,0, 8
+25,4, 0,0, 8
+25,3, 0,0, 8
+25,2, 0,0, 8
+25,1, 0,0, 8
+25,0, 0,0, 9
+25,1, 0,0, 8
+25,2, 0,0, 8
+25,3, 0,0, 8
+25,4, 0,0, 8
+25,3, 0,0, 8
+25,2, 0,0, 8
+25,1, 0,0, 8
+25,0, 0,0, 9
+25,1, 0,0, 8
+25,2, 0,0, 8
+25,3, 0,0, 8
+25,4, 0,0, 8
+25,3, 0,0, 8
+25,2, 0,0, 8
+25,1, 0,0, 8
+25,0, 0,0, 9
+25,1, 0,0, 8
+25,2, 0,0, 8
+25,3, 0,0, 8
+25,4, 0,0, 8
+25,3, 0,0, 8
+25,2, 0,0, 8
+25,1, 0,0, 8
+25,0, 0,0, 9
+25,1, 0,0, 8
+25,2, 0,0, 8
+25,3, 0,0, 8
+25,4, 0,0, 8
+25,3, 0,0, 8
+25,2, 0,0, 8
+25,1, 0,0, 8
+25,0, 0,0, 9
+25,5, 0,0, 8
+25,6, 0,0, 8
+25,7, 0,0, 8
+25,8, 0,0, 8
+23,9, 0,0, 8
+23,10, 0,0, 8
+23,11, 0,0, 8
+23,12, 0,0, 8
+23,13, 0,0, 8
+23,14, 0,0, 8
+23,15, 0,0, 8
+23,16, 0,0, 8
+23,17, 0,0, 8
+23,18, 0,0, 8
+23,19, 0,0, 8
+23,20, 0,0, 8
+23,21, 0,0, 8
+25,22, 0,0, 8
+25,23, 0,0, 8
+25,24, 0,0, 8
+25,25, 0,0, 8
+25,26, 0,0, 8
+25,27, 0,0, 8
+25,28, 0,0, 8
+
+[BGCtrlDef Objects]
+
+[BGCtrl Swing]
+type = Visible
+value = 1
+time = 0,2,8
+ctrlID = 25
+
+[BGCtrl Swing]
+type = Visible
+value = 0
+time = 0,2,8
+ctrlID = 23
+
+[BGCtrl Swing]
+type = Visible
+value = 0
+time = 3,6,8
+ctrlID = 25
+
+[BGCtrl Swing]
+type = Visible
+value = 1
+time = 3,6,8
+ctrlID = 23
+
+[BGCtrl Swing]
+type = Visible
+value = 1
+time = 7,7,8
+ctrlID = 25
+
+[BGCtrl Swing]
+type = Visible
+value = 0
+time = 7,7,8
+ctrlID = 23
+
+[BGCtrl Swing]
+type = Visible
+value = 1
+time = 0,59
+ctrlID = 23
+
+[BGCtrl Swing]
+type = velset
+time = 164,164,2215
+x = -9
+ctrlID = 21
+
+[BGCtrl Train]
+type = velset
+time = 298,298,2215
+x = 0
+ctrlID = 21
+
+[BGCtrl Swing]
+type = velset
+time = 1272,1272,2215
+x = 9
+ctrlID = 21
+
+[BGCtrl Swing]
+type = velset
+time = 1406,1406,2215
+x = 0
+ctrlID = 21

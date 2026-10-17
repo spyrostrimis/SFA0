@@ -1,0 +1,795 @@
+{
+  "modes": {
+    "training": {
+      "playtime": 0,
+      "clear": 0
+    },
+    "survival": {
+      "playtime": 203.81,
+      "clear": 5,
+      "clearcount": [],
+      "ranking": [
+        {
+          "score": 652200,
+          "time": 0.17,
+          "win": 10,
+          "lose": 0,
+          "consecutive": 10,
+          "name": "",
+          "chars": [
+            "sfz_ryu"
+          ],
+          "tmode": 0,
+          "ailevel": 4
+        },
+        {
+          "score": 585000,
+          "time": 0.17,
+          "win": 9,
+          "lose": 1,
+          "consecutive": 0,
+          "name": "AAA",
+          "chars": [
+            "sfz_ryu"
+          ],
+          "tmode": 0,
+          "ailevel": 4
+        },
+        {
+          "score": 10000,
+          "time": 2.75,
+          "win": 6,
+          "lose": 0,
+          "consecutive": 6,
+          "name": "CHN",
+          "chars": [
+            "sfz_chunli-z"
+          ],
+          "tmode": 0,
+          "ailevel": 4
+        },
+        {
+          "score": 9000,
+          "time": 0.3,
+          "win": 5,
+          "lose": 0,
+          "consecutive": 5,
+          "name": "MKE",
+          "chars": [
+            "sfz_mike"
+          ],
+          "tmode": 0,
+          "ailevel": 4
+        },
+        {
+          "score": 8000,
+          "time": 0.17,
+          "win": 5,
+          "lose": 0,
+          "consecutive": 5,
+          "name": "CMY",
+          "chars": [
+            "sfz_cammy"
+          ],
+          "tmode": 0,
+          "ailevel": 4
+        },
+        {
+          "score": 7000,
+          "time": 0.17,
+          "win": 4,
+          "lose": 0,
+          "consecutive": 4,
+          "name": "D/B",
+          "chars": [
+            "sfz_dhalsim",
+            "sfz_blanka"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        },
+        {
+          "score": 48200,
+          "time": 203.37,
+          "win": 3,
+          "lose": 1,
+          "consecutive": 0,
+          "name": "",
+          "chars": [
+            "sfz_ryu"
+          ],
+          "tmode": 0,
+          "ailevel": 4
+        }
+      ]
+    },
+    "versus": {
+      "playtime": 3368.87,
+      "clear": 13,
+      "clearcount": {
+        "sfz_ryu": 9,
+        "sfz_akuma": 1,
+        "sfz_akumas": 1,
+        "sfz_d-sakura": 1,
+        "sfz_eagle": 1
+      }
+    },
+    "freebattle": {
+      "playtime": 21620.09,
+      "clear": 18,
+      "clearcount": {
+        "sfz_ryu": 16,
+        "sfz_rolento": 1,
+        "sfz_eagle": 1
+      }
+    },
+    "arcade": {
+      "playtime": 228.49,
+      "clear": 124,
+      "clearcount": {
+        "sfz_ryu": 8,
+        "sfz_sagat_player": 5,
+        "sfz_u-sagat_player": 4,
+        "sfz_karin": 2,
+        "sfz_dj": 4,
+        "sfz_ken": 4,
+        "sfz_sakura": 3,
+        "sfz_dan": 4,
+        "sfz_rolento": 3,
+        "sfz_zangief": 5,
+        "sfz_chunli-z": 6,
+        "sfz_rose_player": 8,
+        "sfz_adon": 1,
+        "sfz_birdie": 4,
+        "sfz_kbee": 3,
+        "sfz_gen-z": 3,
+        "sfz_sodom-z": 2,
+        "sfz_dhalsim": 2,
+        "sfz_charlie": 3,
+        "sfz_cody-z": 4,
+        "sfz_guile": 2,
+        "sfz_blanka": 2,
+        "sfz_mika": 3,
+        "sfz_feilong": 3,
+        "sfz_vega": 1,
+        "sfz_honda": 1,
+        "sfz_guy": 2,
+        "sfz_juli": 2,
+        "sfz_juni": 2,
+        "sfz_balrog": 1,
+        "sfz_t-hawk": 3,
+        "sfz_bison": 4,
+        "sfz_n-bison": 1,
+        "sfz_e-ryu": 2,
+        "sfz_akumas": 2,
+        "sfz_akuma": 4,
+        "sfz_d-sakura": 2,
+        "sfz_r-charlie": 2,
+        "sfz_mike": 2,
+        "sfz_cammy": 1,
+        "sfz_sodom-x": 1,
+        "sfz_chunli-x": 1,
+        "sfz_v-ken": 1,
+        "sfz_cody-x": 1
+      },
+      "ranking": [
+        {
+          "score": 654600,
+          "time": 6.52,
+          "win": 10,
+          "lose": 0,
+          "consecutive": 9,
+          "name": "",
+          "chars": [
+            "sfz_ryu"
+          ],
+          "tmode": 0,
+          "ailevel": 4
+        },
+        {
+          "score": 66500,
+          "time": 0.07,
+          "win": 1,
+          "lose": 1,
+          "consecutive": 0,
+          "name": "",
+          "chars": [
+            "sfz_ryu",
+            "sfz_chunli-z"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        },
+        {
+          "score": 65000,
+          "time": 0.02,
+          "win": 1,
+          "lose": 0,
+          "consecutive": 1,
+          "name": "",
+          "chars": [
+            "sfz_ryu"
+          ],
+          "tmode": 0,
+          "ailevel": 4
+        },
+        {
+          "score": 65000,
+          "time": 0.02,
+          "win": 1,
+          "lose": 0,
+          "consecutive": 1,
+          "name": "",
+          "chars": [
+            "sfz_ryu"
+          ],
+          "tmode": 0,
+          "ailevel": 4
+        },
+        {
+          "score": 65000,
+          "time": 0.02,
+          "win": 1,
+          "lose": 0,
+          "consecutive": 1,
+          "name": "",
+          "chars": [
+            "sfz_ryu"
+          ],
+          "tmode": 0,
+          "ailevel": 4
+        },
+        {
+          "score": 65000,
+          "time": 0.02,
+          "win": 1,
+          "lose": 0,
+          "consecutive": 1,
+          "name": "",
+          "chars": [
+            "sfz_sagat_player"
+          ],
+          "tmode": 0,
+          "ailevel": 4
+        },
+        {
+          "score": 65000,
+          "time": 0.02,
+          "win": 1,
+          "lose": 0,
+          "consecutive": 1,
+          "name": "",
+          "chars": [
+            "sfz_u-sagat_player"
+          ],
+          "tmode": 0,
+          "ailevel": 4
+        }
+      ]
+    },
+    "timeattack": {
+      "playtime": 33.66,
+      "clear": 2,
+      "clearcount": [],
+      "ranking": [
+        {
+          "score": 650000,
+          "time": 0.17,
+          "win": 10,
+          "lose": 0,
+          "consecutive": 10,
+          "name": "",
+          "chars": [
+            "sfz_ryu"
+          ],
+          "tmode": 0,
+          "ailevel": 4
+        },
+        {
+          "score": 650000,
+          "time": 0.17,
+          "win": 10,
+          "lose": 0,
+          "consecutive": 10,
+          "name": "",
+          "chars": [
+            "sfz_ryu"
+          ],
+          "tmode": 0,
+          "ailevel": 4
+        },
+        {
+          "score": 3200,
+          "time": 62.65,
+          "win": 1,
+          "lose": 0,
+          "consecutive": 1,
+          "name": "RLT",
+          "chars": [
+            "sfz_rolento"
+          ],
+          "tmode": 1,
+          "ailevel": 8
+        },
+        {
+          "score": 2500,
+          "time": 76.83,
+          "win": 1,
+          "lose": 0,
+          "consecutive": 1,
+          "name": "KRN",
+          "chars": [
+            "sfz_Karin"
+          ],
+          "tmode": 1,
+          "ailevel": 8
+        },
+        {
+          "score": 8500,
+          "time": 379.07,
+          "win": 10,
+          "lose": 4,
+          "consecutive": 3,
+          "name": "RLT",
+          "chars": [
+            "sfz_rolento"
+          ],
+          "tmode": 1,
+          "ailevel": 8
+        },
+        {
+          "score": 9500,
+          "time": 423.02,
+          "win": 0,
+          "lose": 1,
+          "consecutive": 0,
+          "name": "VEG",
+          "chars": [
+            "sfz_vega"
+          ],
+          "tmode": 1,
+          "ailevel": 8
+        },
+        {
+          "score": 10000,
+          "time": 580.78,
+          "win": 5,
+          "lose": 95,
+          "consecutive": 1,
+          "name": "ADN",
+          "chars": [
+            "sfz_adon"
+          ],
+          "tmode": 1,
+          "ailevel": 8
+        }
+      ]
+    },
+    "vs100kumite": {
+      "playtime": 127.22,
+      "clear": 6,
+      "clearcount": {
+        "sfz_rose": 1,
+        "sfz_ryu": 5
+      },
+      "ranking": [
+        {
+          "score": 32900,
+          "time": 127.07,
+          "win": 50,
+          "lose": 50,
+          "consecutive": 2,
+          "name": "ROS",
+          "chars": [
+            "sfz_rose"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        },
+        {
+          "score": 32900,
+          "time": 127.07,
+          "win": 40,
+          "lose": 60,
+          "consecutive": 2,
+          "name": "SKR",
+          "chars": [
+            "sfz_sakura"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        },
+        {
+          "score": 32900,
+          "time": 127.07,
+          "win": 30,
+          "lose": 70,
+          "consecutive": 2,
+          "name": "HND",
+          "chars": [
+            "sfz_honda"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        },
+        {
+          "score": 32900,
+          "time": 127.07,
+          "win": 20,
+          "lose": 80,
+          "consecutive": 2,
+          "name": "RLT",
+          "chars": [
+            "sfz_rolento"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        },
+        {
+          "score": 32900,
+          "time": 127.07,
+          "win": 15,
+          "lose": 85,
+          "consecutive": 2,
+          "name": "CDY",
+          "chars": [
+            "sfz_cody-z"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        },
+        {
+          "score": 32900,
+          "time": 127.07,
+          "win": 10,
+          "lose": 90,
+          "consecutive": 2,
+          "name": "BRD",
+          "chars": [
+            "sfz_birdie"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        },
+        {
+          "score": 32900,
+          "time": 127.07,
+          "win": 5,
+          "lose": 95,
+          "consecutive": 2,
+          "name": "KRN",
+          "chars": [
+            "sfz_karin"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        }
+      ]
+    },
+    "teamcoop": {
+      "playtime": 1192.62,
+      "clear": 1,
+      "clearcount": [],
+      "ranking": [
+        {
+          "score": 548900,
+          "time": 1117.55,
+          "win": 10,
+          "lose": 2,
+          "consecutive": 0,
+          "name": "AAA",
+          "chars": [
+            "sfz_gen-z",
+            "sfz_ken"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        },
+        {
+          "score": 65000,
+          "time": 0.07,
+          "win": 1,
+          "lose": 1,
+          "consecutive": 0,
+          "name": "",
+          "chars": [
+            "sfz_ryu",
+            "sfz_ken"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        },
+        {
+          "score": 52500,
+          "time": 75,
+          "win": 0,
+          "lose": 1,
+          "consecutive": 0,
+          "name": "RK",
+          "chars": [
+            "sfz_ryu",
+            "sfz_ken"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        },
+        {
+          "score": 42800,
+          "time": 75,
+          "win": 0,
+          "lose": 1,
+          "consecutive": 0,
+          "name": "MZ",
+          "chars": [
+            "sfz_mika",
+            "sfz_zangief"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        },
+        {
+          "score": 32100,
+          "time": 75,
+          "win": 0,
+          "lose": 1,
+          "consecutive": 0,
+          "name": "BD",
+          "chars": [
+            "sfz_blanka",
+            "sfz_dan"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        },
+        {
+          "score": 24700,
+          "time": 75,
+          "win": 0,
+          "lose": 1,
+          "consecutive": 0,
+          "name": "BB",
+          "chars": [
+            "sfz_birdie",
+            "sfz_balrog"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        },
+        {
+          "score": 12600,
+          "time": 75,
+          "win": 0,
+          "lose": 1,
+          "consecutive": 0,
+          "name": "SK",
+          "chars": [
+            "sfz_sakura",
+            "sfz_karin"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        }
+      ]
+    },
+    "worldtour": {
+      "playtime": 8943.87,
+      "clear": 16,
+      "clearcount": [],
+      "ranking": [
+        {
+          "score": 192000,
+          "time": 3277.07,
+          "name": "JUL",
+          "chars": [
+            "sfz_juli"
+          ],
+          "tmode": 0,
+          "ailevel": 4,
+          "win": 45,
+          "lose": 19,
+          "consecutive": 14
+        },
+        {
+          "score": 176200,
+          "time": 4630.78,
+          "name": "JUN",
+          "chars": [
+            "sfz_juni"
+          ],
+          "tmode": 0,
+          "ailevel": 4,
+          "win": 40,
+          "lose": 19,
+          "consecutive": 7
+        },
+        {
+          "score": 152500,
+          "time": 0,
+          "name": "MIK",
+          "chars": [
+            "sfz_mika"
+          ],
+          "tmode": 0,
+          "ailevel": 1,
+          "win": 12,
+          "lose": 0,
+          "consecutive": 12
+        },
+        {
+          "score": 126300,
+          "time": 332.05,
+          "name": "NSH",
+          "chars": [
+            "sfz_r-charlie"
+          ],
+          "tmode": 0,
+          "ailevel": 1,
+          "win": 12,
+          "lose": 0,
+          "consecutive": 11
+        },
+        {
+          "score": 108900,
+          "time": 338.02,
+          "name": "KEN",
+          "chars": [
+            "sfz_v-ken"
+          ],
+          "tmode": 0,
+          "ailevel": 4,
+          "win": 10,
+          "lose": 0,
+          "consecutive": 10
+        },
+        {
+          "score": 82000,
+          "time": 3.43,
+          "name": "FEI",
+          "chars": [
+            "sfz_feilong"
+          ],
+          "tmode": 0,
+          "ailevel": 4,
+          "win": 1,
+          "lose": 1,
+          "consecutive": 1
+        },
+        {
+          "score": 65000,
+          "time": 3.43,
+          "name": "CDY",
+          "chars": [
+            "sfz_cody-x"
+          ],
+          "tmode": 0,
+          "ailevel": 4,
+          "win": 1,
+          "lose": 1,
+          "consecutive": 1
+        }
+      ]
+    },
+    "netplayversus": {
+      "playtime": 1322.29,
+      "clear": 10,
+      "clearcount": {
+        "sfz_eagle": 2,
+        "sfz_mike": 1,
+        "sfz_kbee": 1,
+        "sfz_birdie": 1,
+        "sfz_d-sakura": 1,
+        "sfz_ken": 1,
+        "sfz_charlie": 1,
+        "sfz_rolento": 1,
+        "sfz_u-sagat_player": 1
+      }
+    },
+    "teamarcade": {
+      "playtime": 1.89,
+      "clear": 0,
+      "ranking": [
+        {
+          "score": 65000,
+          "time": 1.77,
+          "win": 0,
+          "lose": 1,
+          "consecutive": 0,
+          "name": "AAA",
+          "chars": [
+            "sfz_ryu",
+            "sfz_chunli-z"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        }
+      ]
+    },
+    "netplaysurvivalcoop": {
+      "playtime": 230.05,
+      "clear": 0,
+      "ranking": [
+        {
+          "score": 83100,
+          "time": 117.03,
+          "win": 2,
+          "lose": 1,
+          "consecutive": 0,
+          "name": "",
+          "chars": [
+            "sfz_blanka",
+            "sfz_ryu"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        },
+        {
+          "score": 74100,
+          "time": 113.02,
+          "win": 2,
+          "lose": 1,
+          "consecutive": 0,
+          "name": "",
+          "chars": [
+            "sfz_ken",
+            "sfz_guile"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        }
+      ]
+    },
+    "netplayteamcoop": {
+      "playtime": 1471.45,
+      "clear": 0,
+      "ranking": [
+        {
+          "score": 417700,
+          "time": 531.98,
+          "win": 4,
+          "lose": 1,
+          "consecutive": 0,
+          "name": "",
+          "chars": [
+            "sfz_eagle",
+            "sfz_ken"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        },
+        {
+          "score": 408300,
+          "time": 754.62,
+          "win": 9,
+          "lose": 1,
+          "consecutive": 0,
+          "name": "",
+          "chars": [
+            "sfz_ryu",
+            "sfz_adon"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        },
+        {
+          "score": 118200,
+          "time": 184.85,
+          "win": 1,
+          "lose": 1,
+          "consecutive": 0,
+          "name": "",
+          "chars": [
+            "sfz_ryu",
+            "sfz_bison"
+          ],
+          "tmode": 1,
+          "ailevel": 4
+        }
+      ]
+    },
+    "survivalcoop": {
+      "playtime": 0,
+      "clear": 2
+    }
+  },
+  "playtime": 29832.08
+}

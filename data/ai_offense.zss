@@ -1,0 +1,675 @@
+#===============================================================================
+# ai_offense.zss
+#
+# Makes the CPU's offence actually land. Shared by the whole roster, no
+# per-character edits, no engine rebuild. Registered in save/config.ini under
+# [Common] States, after data/ai_projectile_evade.zss.
+#
+# WHY IT EXISTS - measured, not guessed
+#
+# Telemetry over 12 rounds of human-vs-CPU at AI level 4
+# (external/mods/sfaz_ai_report.lua; full table in SFAZ_SESSION_HANDOVER.md 5d):
+#
+#     301 attacks attempted -> 83 landed, 70 blocked, 150 hit NOTHING (50%)
+#     16 supers used, while sitting on a full 3000 meter for entire rounds
+#
+#   char      walk%  dist  att  hit  blk whiff whiff%  supers  meter>=3000
+#   Ryu         3.2   131   32    5    2    25    78%     0        95%
+#   Gouki      12.1   107   41   10    6    25    61%     1        44%
+#   Bison       3.2   100   32    9   16     7    22%     0       100%
+#   Sagat      16.4    71   11   10    3     0     0%     1        24%
+#
+# That ordering is the same as the player's own verdict on who was easy. The two
+# things separating Sagat's winning round from Ryu's losing one are the distance
+# he fought at (71 vs 131) and how much of what he threw connected.
+#
+# Root cause in the data: 928 of 2147 AI attack blocks across the roster (43%)
+# carry NO distance condition at all. Ryu's Shoryuken is the clearest case -
+#
+#     trigger2 = p2movetype = A && p2stateno != 450
+#     trigger2 = p2statetype != A          <- no range test anywhere
+#     trigger3 = EnemyNear, NumProj = 1
+#     trigger3 = p2bodydist X > 190        <- full-screen DP into a fireball
+#
+# so he dragon-punches whenever the player presses a button, from any distance.
+# He used that state 16 times in one round and spent 36% of it in hitstun.
+#
+# Fixing that across 46 .cmd files is not maintainable. The three rules below fix
+# it from outside instead: get them to the range their moves work at, drop the
+# attacks that provably cannot reach, and spend the meter they hoard. Rule 4 was
+# added later and is unrelated to offence - it is the crouch/stand blinking fix,
+# and it lives here because it is the same kind of AI-versus-engine argument.
+#-------------------------------------------------------------------------------
+# THE MEASURED REACH NUMBERS - do not invent new ones, re-measure
+#
+# From a per-attack probe (state, body distance at start, outcome):
+#
+#     normals        connected  0..94   (90th percentile 74)
+#     throws         connected  0..14
+#     melee specials connected 21..83
+#     hypers         connected  1..59
+#
+# An attack started beyond those distances is a guaranteed whiff, so the
+# thresholds below sit just above each measured maximum. They are const240p()
+# values, i.e. about 1.2x these raw numbers on this roster's 384-wide characters.
+#
+# PROJECTILE moves are the exception, and the reason for the generated block in
+# rule 3. Fireballs are thrown from 88 to 300 units out and that is correct play.
+# Melee whiffs and fireball zoning OVERLAP completely in distance (melee whiffs
+# 0..318, fireballs 88..300), so no distance rule can separate them - the
+# projectile states have to be known by name. Measured, not assumed: every band
+# from 100..160 up to 100..infinity was checked and every one of them cost
+# fireballs.
+#-------------------------------------------------------------------------------
+# TUNABLES
+#
+#   APPROACH_DIST   70   (240p) start closing when the opponent is further than
+#                        this. Sagat won his rounds fighting at 71 raw units.
+#   APPROACH_STOP   55   (240p) stop closing at this. The gap between the two is
+#                        hysteresis and is required, not cosmetic - see RULE 2.
+#   REACH_HYPER     70   (240p) veto hypers beyond this. Measured max is 59.
+#   VETO_LOCK       30   ticks after a veto during which no further attack is
+#                        vetoed. Required - see RULE 3.
+#   (rule 4)       180   ticks an AI character may be pinned in a crouch before
+#                        the engine is allowed to stand it up again. A safety
+#                        bound only; nothing normally reaches it.
+#   REACH_NORMAL    85   (240p) veto normals and melee specials started beyond
+#                        this. Measured maxima are 94 and 83 raw units.
+#   REACH_THROW     25   (240p) veto throws beyond this. Measured max is 14.
+#   SUPER_RANGE     50   (240p) fire the super only this close. Hypers were
+#                        measured connecting at up to 59 raw units.
+#   SUPER_COOLDOWN 240   ticks between forced supers (4 seconds).
+#   CC_STRIKE_DIST  28   (240p) inside a custom combo, the range the AI closes to
+#                        and the range RULE 5 opens fire at. Measured: the light
+#                        normals of this roster reach const240p 33 at the very
+#                        shortest, 48 median, so 28 is inside everyone's jab.
+#                        Raise it and the short-reach characters swing at air.
+#   CC_REACH_NORMAL 50   (240p) inside a custom combo, veto normals started
+#                        beyond this. Tighter than REACH_NORMAL's 85 because a
+#                        normal that only just reaches still lets the opponent
+#                        drift out of the combo.
+#   HOARD_TICKS    480   ticks of sitting on a full meter after which the super
+#                        fires on the next in-range frame even without a textbook
+#                        opening. This clause is what stops a whole round at 3000
+#                        power with nothing spent.
+#-------------------------------------------------------------------------------
+# REGENERATING THE PROJECTILE-STATE LIST (rule 3)
+#
+# It is every statedef in 1000-4999 containing a Projectile controller, keyed by
+# the [Info] name - specials AND hypers, so a projectile super is exempt too. 24
+# characters have any; the rest have none, and for those the whole band is safely
+# vetoable. If characters are added or their moves renumbered, rebuild it by
+# scanning chars/*/*.cns and chars/*/*.cmd for "[Statedef n]" followed by
+# "type = Projectile", grouping by the .def name.
+#-------------------------------------------------------------------------------
+# WHAT THIS DELIBERATELY DOES NOT DO
+#
+# It does not touch how OFTEN the AI acts. The .cmd files re-roll var(59) every
+# frame as random < var(58) * <scale by AILevel>, which is the difficulty slider
+# doing its job - at level 4 they act on about 70% of frames, and that was left
+# alone on purpose. Everything here makes the actions they already choose count
+# for more, rather than making them more frequent.
+#===============================================================================
+
+
+[StateDef -4]
+
+if !isHelper && teamSide != 0 {
+
+	map(_sfaz_aio_sup) := 0;
+
+	# Meter-hoard clock: stamped the moment the meter fills, cleared when spent.
+	if power >= 3000 {
+		if map(_sfaz_aio_hoard) = 0 {
+			map(_sfaz_aio_hoard) := gameTime + 480;          # HOARD_TICKS
+		}
+	} else {
+		map(_sfaz_aio_hoard) := 0;
+	}
+
+	if roundState = 2 && aiLevel > 0 && alive && !inCustomState && numEnemy != 0
+			&& moveType != H && gameVar(pausetime) = 0 && gameVar(superpausetime) = 0 {
+
+		#-----------------------------------------------------------------------
+		# RULE 1 - SPEND THE METER.
+		#
+		# Decided here in -4 rather than in +1 because it needs ctrl as it was
+		# BEFORE the character's own -1 ran; by +1 the AI has usually spent it.
+		# Same reasoning as data/ai_projectile_evade.zss - see its header.
+		#
+		# State 3000 is the level-1 super for 42 of the 46 characters; for Bison
+		# and Juli it is their level 3. Requiring a FULL meter therefore works for
+		# every one of them, and it matches the measured problem exactly, which is
+		# characters sitting on a full bar (Bison: 100% of both rounds, zero
+		# supers). It also sidesteps Bison's own super trigger, which is gated on
+		# "(AILevel < 5 && matchno >= 10)" and so can never fire early in a run.
+		#
+		# Fires on a real opening - opponent in hitstun, or committed to an attack
+		# - or failing that once the meter has been full for HOARD_TICKS. That
+		# second clause is the important half: waiting only for textbook openings
+		# is precisely what produced zero supers per round.
+		#-----------------------------------------------------------------------
+		if ctrl && stateType != A && power >= 3000 && selfStateNoExist(3000)
+				&& stateNo != [3000, 4999] && gameTime > map(_sfaz_aio_supcd)
+				&& p2BodyDist x <= const240p(50)                 # SUPER_RANGE
+				&& p2BodyDist x >= const240p(-20) {
+			if enemyNear, moveType = H && enemyNear, stateNo < 5030 {
+				# stateNo < 5030 keeps this to GROUND hitstun. 5030 and up is the
+				# fall / fall-down / lying / getting-up chain, where a super is
+				# thrown away - reported as "Bison used a hyper during my
+				# fall-down state".
+				map(_sfaz_aio_sup) := 1;
+			} else if enemyNear, moveType = A {
+				map(_sfaz_aio_sup) := 1;
+			} else if map(_sfaz_aio_hoard) != 0 && gameTime > map(_sfaz_aio_hoard) {
+				map(_sfaz_aio_sup) := 1;
+			}
+		}
+
+		#-----------------------------------------------------------------------
+		# RULE 4 - LET AN AI CHARACTER STAY CROUCHED.
+		#
+		# The engine stands a crouching character up the moment down is not held
+		# (char.go actionPrepare: stateType == ST_C && Db <= 0 -> changeState 12).
+		# That is right for a player and wrong for an AI, which never holds a
+		# direction. The four CHARGE characters - Bison, Charlie, R-Charlie and
+		# Guile - have an AI block that crouches to build charge:
+		#
+		#     [State AI, Crouch fr Psycho Shoot S]
+		#     value = 11
+		#     triggerall = statetype != A     ; fires even while ALREADY crouching
+		#     trigger1 = random < var(59)*990 ; 99% of frames
+		#
+		# so the engine stands them up and the AI re-crouches, every 1-3 frames,
+		# for as long as the trigger holds. That is the reported crouch/stand
+		# blinking, worst on Bison. Same shape as the guard flicker in handover
+		# section 5c, but the engine owns this one, so it needs the flag rather
+		# than a common1.cns edit.
+		#
+		# Scoped to the fight actually happening: stateNo 11 with prevStateNo 12
+		# IS the signature ("the engine stood me up and my AI put me straight
+		# back"). A character that crouches and stands normally never matches it,
+		# so the rest of the roster is untouched. Bounded by time so it can never
+		# latch a character into a permanent crouch.
+		#
+		# The flag is read by the NEXT frame's actionPrepare - specialFlag is
+		# cleared after that block runs, not before it - so asserting here in -4
+		# is in time.
+		#-----------------------------------------------------------------------
+		if stateNo = 11 && prevStateNo = 12 && time < 180 {
+			assertSpecial{flag: noStand}
+		}
+
+		#-----------------------------------------------------------------------
+		# RULE 2 - CLOSE THE DISTANCE.
+		#
+		# AssertInput rather than a ChangeState, so the character walks with its
+		# own animation at its own walk speed, and its own AI blocks that test
+		# command = "holdfwd" start passing. No decision is overridden.
+		#
+		# Held off while a projectile is being evaded (both of those flags belong
+		# to data/ai_projectile_evade.zss) and while in guard distance, since
+		# walking forward means not holding back, i.e. not blocking.
+		#-----------------------------------------------------------------------
+		# HYSTERESIS: start closing beyond APPROACH_DIST, keep closing until
+		# APPROACH_STOP. Without the gap the character sits on the boundary and
+		# alternates walk-forward with whatever its own AI wants to do instead -
+		# reported as Sagat "stuck walking back and forth for a second".
+		if p2BodyDist x > const240p(70) {                        # APPROACH_DIST
+			map(_sfaz_aio_close) := 1;
+		} else if p2BodyDist x < const240p(55) {                 # APPROACH_STOP
+			map(_sfaz_aio_close) := 0;
+		}
+		# CUSTOM COMBO override, and it has to come AFTER the two clauses above so
+		# it gets the last word on _sfaz_aio_close.
+		#
+		# The normal 70/55 hysteresis parks the character at a range where its
+		# heavier normals reach and its light ones do not, which is fine in open
+		# play and wrong inside the mode: RULE 5 opens with a light punch or kick,
+		# and those were MEASURED at const240p 33 minimum / 48 median across the
+		# roster (Clsn1 front edge of each character's state 200 and 400 anim,
+		# minus its own size ground.front). Left at 55 the character stood outside
+		# its own jab and swung anyway - the reported "punching and kicking from
+		# too far, hopelessly".
+		#
+		# So during the mode it closes all the way to CC_STRIKE_DIST and only then
+		# starts hitting. No hysteresis on purpose: the two distances are the same
+		# number, so the character is always either closing or striking, never
+		# idling in a gap between the two. RULE 5 uses the same constant.
+		if map(_sfaz_cc_active) != 0 {
+			if p2BodyDist x > const240p(28) {                    # CC_STRIKE_DIST
+				map(_sfaz_aio_close) := 1;
+			} else {
+				map(_sfaz_aio_close) := 0;
+			}
+		}
+
+		if ctrl && stateType = S && moveType = I && !inguarddist
+				&& map(_sfaz_aio_close) != 0
+				&& map(_sfaz_pje_mode) = 0 && gameTime >= map(_sfaz_pje_air) {
+			assertInput{flag: F}
+		}
+
+		#-----------------------------------------------------------------------
+		# RULE 5 - DO NOT WALK INTO A BODY YOU ARE ALREADY TOUCHING.
+		#
+		# State 20 is entered by the ENGINE, not by the character's AI: char.go
+		# actionPrepare puts any standing character with ctrl into it whenever
+		# forward is held (see the ASF_nowalk branch), and the CPU's generated
+		# input holds forward a lot. Once the pushboxes are in contact the walk
+		# cannot make progress, so the walk animation keeps playing with nothing
+		# moving - measured at up to 50 frames while standing over a knocked-down
+		# opponent. That is the second half of the "walking but not moving"
+		# report; the first half was the state 42 jump start in common1.cns.
+		#
+		# noWalk stops the engine RE-ENTERING state 20, so the ChangeState below
+		# does not turn into a one-frame flicker the way plain leaving would. The
+		# assert is repeated for as long as forward is held into the body, and it
+		# is conditioned on forward specifically - walking AWAY from a touching
+		# opponent is legitimate and still works, since state 20 covers both
+		# directions and only this one is blocked.
+		#
+		# Same one-frame timing as rule 4: actionPrepare reads the flag set by
+		# the previous frame.
+		#-----------------------------------------------------------------------
+		if stateType = S && p2BodyDist x <= 0 && command = "holdfwd" {
+			assertSpecial{flag: noWalk}
+			if stateNo = 20 && anim = 20 {
+				changeState{value: 0; ctrl: 1}
+			}
+		}
+	}
+}
+
+
+[StateDef +1]
+
+#-------------------------------------------------------------------------------
+# Runs after the character's own -1, so both of these get the last word.
+#-------------------------------------------------------------------------------
+if !isHelper && teamSide != 0 && aiLevel > 0 && roundState = 2
+		&& alive && !inCustomState && numEnemy != 0 {
+
+	# RULE 1, actuator.
+	if map(_sfaz_aio_sup) != 0 && moveType != H && stateType != A
+			&& stateNo != [3000, 4999] {
+		# Latches first: a self ChangeState ends the state block, so anything
+		# written after it never runs.
+		map(_sfaz_aio_sup) := 0;
+		map(_sfaz_aio_supcd) := gameTime + 240;                  # SUPER_COOLDOWN
+		map(_sfaz_aio_hoard) := 0;
+		changeState{value: 3000}
+	}
+
+	#---------------------------------------------------------------------------
+	# RULE 3 - VETO AN ATTACK THAT CANNOT REACH.
+	#
+	# At time = 0, so nothing is drawn: states 0 and 20 declare no "anim" of their
+	# own (they use a ChangeAnim guarded on "Anim != n"), so bouncing back into one
+	# does not restart its animation and the cancel is invisible.
+	#
+	# TWO GUARDS, both added after playtesting - do not remove either:
+	#
+	#   prevStateNo must be a MOVEMENT state. Multi-hit dragon punches are chained
+	#   statedefs (1000 -> 1001 -> 1002), each entered at time = 0, and the target
+	#   is knocked further away with every hit - so without this the follow-ups got
+	#   vetoed and the animation visibly dragged/aborted. Reported on Akuma and Evil
+	#   Ryu. A follow-up always arrives from another attack state, so testing where
+	#   it came from separates a fresh attack from a link.
+	#
+	#   VETO_LOCK. The AI re-picks the same move every frame (the first matching
+	#   ChangeState in its own -1 wins and stops that state, so a high-priority
+	#   block starves everything below it). Vetoing every frame left the character
+	#   standing there doing nothing for as long as its trigger held - reported as
+	#   Ryu "stuck in a pose while the hadouken passes over him", because his AI
+	#   has "trigger3 = EnemyNear, NumProj = 1 / p2bodydist X > 190", i.e. a
+	#   full-screen DP that stays true for the whole flight of the fireball. One
+	#   veto per lock window means the attack is stopped once and then allowed, so
+	#   it can never freeze.
+	#---------------------------------------------------------------------------
+	# The gate used to carry "!isAsserted(noJump)" as a stand-in for "a custom
+	# combo is running, leave this character alone". That proxy is gone, for two
+	# reasons. It was WRONG - standing the veto down is the opposite of what a
+	# custom combo needs, as the CUSTOM COMBO branch below explains - and it was
+	# FRAGILE: data/custom_combo.zss has since stopped asserting noJump for a
+	# human and asserts it only for the AI, so the proxy silently changed meaning
+	# twice without this file being touched. The mode is tested directly now, by
+	# its own map key.
+	if map(_sfaz_aio_sup) = 0 && time = 0 && moveType = A && stateType != A
+			&& gameTime > map(_sfaz_aio_vetolock)
+			&& (prevStateNo = 0 || prevStateNo = [10, 12] || prevStateNo = [20, 22]
+				|| prevStateNo = [100, 106]) {
+
+		let aioD = p2BodyDist x;
+		let aioProj = 0;
+
+		# GENERATED - see REGENERATING above. These are the states that fire a
+		# Projectile, i.e. exactly the ones that are SUPPOSED to be used from across
+		# the screen, so they are never vetoed on distance. Covers 1000-4999, so
+		# projectile HYPERS are exempt too.
+		if stateNo = [1000, 4999] {
+			if name = "Bison" {
+				if stateNo = 1000 || stateNo = 1010 || stateNo = 1020 ||
+					stateNo = 3001 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Blanka" {
+				if stateNo = 3002 || stateNo = 3012 || stateNo = 3022 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Charlie Nash" {
+				if stateNo = 1100 || stateNo = 1110 || stateNo = 1120 ||
+					stateNo = [3100, 3101] || stateNo = [3110, 3112] ||
+					stateNo = [3120, 3123] {
+					let aioProj = 1;
+				}
+			}
+			if name = "Cody" {
+				if stateNo = 1051 || stateNo = 1100 || stateNo = 1110 ||
+					stateNo = 1120 || stateNo = 1300 || stateNo = 1905 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Dan Hibiki" {
+				if stateNo = 1100 || stateNo = 1110 || stateNo = 1120 ||
+					stateNo = 1500 || stateNo = 1600 || stateNo = 3200 ||
+					stateNo = 3210 || stateNo = 3220 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Dee Jay" {
+				if stateNo = 1000 || stateNo = 1010 || stateNo = 1020 ||
+					stateNo = 3400 || stateNo = 3410 || stateNo = 3420 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Dhalsim" {
+				if stateNo = 1000 || stateNo = 1010 || stateNo = 1020 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Dictador" {
+				if stateNo = 3001 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Eagle" {
+				if stateNo = 1151 || stateNo = 1161 || stateNo = 1171 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Evil Ryu" {
+				if stateNo = 1100 || stateNo = 1110 || stateNo = 1120 ||
+					stateNo = 1200 || stateNo = 1210 || stateNo = 1220 ||
+					stateNo = 1500 || stateNo = 1510 || stateNo = 1520 ||
+					stateNo = 3000 || stateNo = 3010 || stateNo = 3020 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Gouki" {
+				if stateNo = [1000, 1002] || stateNo = [1050, 1052] ||
+					stateNo = [1100, 1102] || stateNo = [1150, 1152] ||
+					stateNo = [1200, 1202] || stateNo = [1250, 1252] ||
+					stateNo = [3000, 3002] || stateNo = 3050 ||
+					stateNo = [3300, 3302] || stateNo = 3600 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Ken" {
+				if stateNo = 1100 || stateNo = 1110 || stateNo = 1120 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Killer Bee" {
+				if stateNo = 1504 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Rose" {
+				if stateNo = 1001 || stateNo = 1011 || stateNo = 1021 ||
+					stateNo = 1101 || stateNo = 1111 || stateNo = 1121 ||
+					stateNo = 1216 || stateNo = 1226 || stateNo = 1300 ||
+					stateNo = 1310 || stateNo = 1320 || stateNo = 1400 ||
+					stateNo = 1410 || stateNo = 1420 || stateNo = 3000 ||
+					stateNo = 3013 || stateNo = 3020 || stateNo = 3026 ||
+					stateNo = 3101 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Ryu" {
+				if stateNo = 1100 || stateNo = 1110 || stateNo = 1120 ||
+					stateNo = 3000 || stateNo = 3010 || stateNo = 3020 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Sagat" {
+				if stateNo = 1100 || stateNo = 1110 || stateNo = 1120 ||
+					stateNo = 1150 || stateNo = 1160 || stateNo = 1170 ||
+					stateNo = 3000 || stateNo = 3010 || stateNo = 3020 ||
+					stateNo = 3100 || stateNo = 3110 || stateNo = 3120 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Sakura Dark" {
+				if stateNo = [1050, 1052] || stateNo = 1100 || stateNo = 1110 ||
+					stateNo = 1120 || stateNo = 3100 || stateNo = 3110 ||
+					stateNo = 3120 || stateNo = 4030 || stateNo = 4040 ||
+					stateNo = 4050 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Sakura Kasugano" {
+				if stateNo = 1100 || stateNo = 1110 || stateNo = 1120 ||
+					stateNo = 3100 || stateNo = 3110 || stateNo = 3120 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Shin_Akuma" {
+				if stateNo = [1000, 1002] || stateNo = [1050, 1052] ||
+					stateNo = [1100, 1102] || stateNo = [1150, 1152] ||
+					stateNo = [1250, 1252] || stateNo = [3000, 3002] ||
+					stateNo = [3300, 3302] || stateNo = 3600 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Violent Ken" {
+				if stateNo = 1100 || stateNo = 1110 || stateNo = 1120 {
+					let aioProj = 1;
+				}
+			}
+			if name = "William Guile" {
+				if stateNo = 1100 || stateNo = 1110 || stateNo = 1120 ||
+					stateNo = 3000 || stateNo = 3010 || stateNo = 3020 {
+					let aioProj = 1;
+				}
+			}
+			if name = "X-ISM ChunLi" {
+				if stateNo = 1000 || stateNo = 1010 || stateNo = 1020 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Z-ISM ChunLi" {
+				if stateNo = 1000 || stateNo = 1010 || stateNo = 1020 {
+					let aioProj = 1;
+				}
+			}
+			if name = "Zangief" {
+				if stateNo = 3600 {
+					let aioProj = 1;
+				}
+			}
+		}
+
+		let aioVeto = 0;
+		if map(_sfaz_cc_active) != 0 {
+			#-------------------------------------------------------------------
+			# CUSTOM COMBO - the veto runs HARDER here, not softer.
+			#
+			# The mode's whole value is "stay on the opponent and keep hitting".
+			# Two classes of move throw that away however well aimed, so inside
+			# the mode they are refused at any distance:
+			#
+			#   THROWS. A throw cannot touch an opponent already in hitstun -
+			#   src/char.go attrCheck excludes any HitDef carrying AT_AT from the
+			#   nohitcombocheck bypass, precisely so a combo cannot be converted
+			#   into a grab - so inside a custom combo a throw is a guaranteed
+			#   whiff. Reported on Birdie, whose AI leans on grapples; his are
+			#   spread over 800/850 AND 1300-1370, which is why both bands here
+			#   are needed to cover him.
+			#
+			#   MELEE SPECIALS. Almost all of them either carry the character
+			#   away from the opponent or knock the opponent away, and either
+			#   ends the pressure. Reported on Adon, whose AI leans on Jaguar
+			#   Tooth (1200/1210/1220) - he leaps to the top corner and dives
+			#   back, detaching him for most of the mode. Vetoing the whole
+			#   non-projectile special band catches that and Birdie's grapple
+			#   specials with no per-character list, and it is also just correct
+			#   play: a custom combo is chained NORMALS.
+			#
+			# PROJECTILES STAY EXEMPT, on purpose - aioProj is the generated list
+			# above, and rapid fireballs inside the mode are a deliberate feature
+			# of data/custom_combo.zss (see its noProjLimit note).
+			#
+			# HYPERS need no clause: custom_combo.zss blocks 3000-4999 in its own
+			# State -1 and poisons the power trigger with noPowerTrigger.
+			#
+			# Normals get a TIGHTER reach. 85 is the measured whiff boundary in
+			# open play; inside the mode a normal that only just reaches still
+			# lets the opponent drift out of range, so this asks for a real
+			# point-blank hit. RULE 5 below is what stops the extra vetoing from
+			# turning into idling.
+			#-------------------------------------------------------------------
+			if stateNo = [800, 899] {                                # CC_NO_THROW
+				let aioVeto = 1;
+			} else if stateNo = [1000, 2999] && $aioProj = 0 {       # CC_NO_SPECIAL
+				let aioVeto = 1;
+			} else if stateNo = [200, 499] && $aioD > const240p(50) {
+				let aioVeto = 1;                                     # CC_REACH_NORMAL
+			}
+		} else if stateNo = [200, 499] && $aioD > const240p(85) {    # REACH_NORMAL
+			let aioVeto = 1;
+		} else if stateNo = [800, 899] && $aioD > const240p(25) {    # REACH_THROW
+			let aioVeto = 1;
+		} else if stateNo = [1000, 2999] && $aioProj = 0 && $aioD > const240p(85) {
+			let aioVeto = 1;
+		}
+		# NO REACH_HYPER CLAUSE, AND THERE CANNOT BE ONE HERE. This used to carry
+		#
+		#     } else if stateNo = [3000, 4999] && $aioProj = 0
+		#             && $aioD > const240p(70) {
+		#
+		# on the reasoning that "a wasted level is worse than a wasted normal". It
+		# did the opposite: it wasted the level AND showed the cancel.
+		#
+		# The whole veto rests on "at time = 0, so nothing is drawn" (see above).
+		# That holds for a normal, which only starts swinging. It is FALSE for a
+		# hyper, because +1 does not run before the vetoed state - it runs after it.
+		# src/char.go actionRun, in order: -4, -3, -2, -1, stateChange2, THE CURRENT
+		# STATE (c.minus = 0, c.ss.sb.run), then +1 as states[-10]. So by the time
+		# this block is reached on the hyper's first frame, that hyper's own
+		#
+		#     type = SuperPause
+		#     trigger1 = AnimElem = 1
+		#     poweradd = -1000 / -2000 / -3000
+		#
+		# has ALREADY run: the level is spent, the screen is darkened and the flash
+		# explod is on screen. Bouncing to prevStateNo then hands the character back
+		# to idle with the bar gone - reported as "DJ opened up a hyper move and took
+		# it back right away, level bar emptied".
+		#
+		# Dee Jay is the worst case rather than a special case. His own AI block in
+		# SFZ_DJ.cmd fires Climax at "p2bodydist X = [-5,170]", so it deliberately
+		# aims a level 3 from more than twice REACH_HYPER's 70, and his level 3s cost
+		# 3000 - the whole bar. Only 3400/3410/3420 are in the generated projectile
+		# table above, so Sunrise, Carnival and Climax were all exposed.
+		#
+		# A reach test for hypers has to be taken BEFORE the move starts, not after -
+		# which means poisoning the trigger from -4 the way data/custom_combo.zss
+		# does with noPowerTrigger, not cancelling the state from +1. That is a
+		# bigger change than this file should make on its own, because the same
+		# assert would also block the projectile hypers that are SUPPOSED to be used
+		# from across the screen. An AI that occasionally whiffs a super at range is
+		# the strictly better failure.
+		#
+		# data/ai_antiabuse.zss never had this bug: both of its veto actuators are
+		# written "stateNo >= 200 && stateNo < 3000". That is the precedent.
+
+		if $aioVeto != 0 {
+			map(_sfaz_aio_vetolock) := gameTime + 30;                # VETO_LOCK
+			changeState{value: prevStateNo; ctrl: 1}
+		}
+	}
+
+	#---------------------------------------------------------------------------
+	# RULE 5 - CUSTOM COMBO PRESSURE.
+	#
+	# Fills in the one thing the mode cannot do for itself: make the CPU actually
+	# swing. Reported on Gen, who activated and then "stands idle a lot, didn't
+	# do much" - and the same gap is what would otherwise make RULE 3's extra
+	# custom-combo vetoing worse than the disease, since a vetoed attack returns
+	# the character to a movement state with nothing queued behind it.
+	#
+	# This is the ONLY place in this file that changes how often the AI acts,
+	# and the header's "does not touch how OFTEN" caveat is deliberately broken
+	# here: for these few seconds the character has spent two levels of meter and
+	# standing still is not a strategy. Everywhere else the difficulty slider is
+	# still left alone.
+	#
+	# IT NEVER OVERRIDES A REAL CHOICE. +1 runs after the character's own -1, so
+	# if its AI picked anything at all this frame the character is already in that
+	# state and the movement-state test below fails. This only fires on a frame
+	# where the CPU chose NOTHING - which is exactly the Gen case, and exactly the
+	# frame after a veto.
+	#
+	# Light punch / light kick, alternating on a 12-frame phase so it reads as a
+	# chain rather than one move on repeat. They are the shortest-recovery
+	# normals, so they give the mode the most hits per second, and
+	# data/custom_combo.zss hands ctrl back on every cancellable frame, which is
+	# what lets one run into the next.
+	#
+	# selfStateNoExist is not optional: 200 is defined by 43 of the 46 characters
+	# and 400 by 43, not all 46, and a ChangeState to a state a character does not
+	# have would drop it into the engine's invalid-state fallback. Whoever is
+	# missing both is simply left alone.
+	#
+	# RANGE - CC_STRIKE_DIST, and it is measured, not picked.
+	#
+	# This used to reuse CC_REACH_NORMAL (60), which is a VETO threshold tuned for
+	# normals in general - their measured connect maximum is 94 raw. A light punch
+	# or kick reaches nothing like that far. Measured per character as the Clsn1
+	# front edge of its state 200 / 400 animation minus its own size ground.front,
+	# converted to const240p units (localcoord 384, so constp divides by 1.2):
+	#
+	#     min 33   5th 36   10th 40   25th 42   median 48   max 86
+	#
+	# 28 sits below the MINIMUM, which is the statistic that matters: a threshold
+	# that works for the shortest-reaching character works for all 46. Anything
+	# near the median meant the short-reach half of the roster swung at air, which
+	# is exactly what was reported. Closing this far in is also just the doctrine -
+	# stay on the opponent and do not let them reset.
+	#
+	# RULE 2 above uses the same constant to decide when to close, so out of range
+	# the character walks in instead of idling.
+	#
+	# NOT AT SOMETHING LYING ON THE FLOOR. Only 24 HitDefs in this roster carry
+	# the "D" hitflag, so a downed opponent is unhittable for almost everyone and
+	# mashing at them is the same wasted bar in a different place. Airborne is
+	# fine and wanted - JUGGLE_POP in data/custom_combo.zss exists to keep them
+	# there.
+	#---------------------------------------------------------------------------
+	if map(_sfaz_cc_active) != 0 && moveType != H && stateType != A
+			&& ctrl = 1 && hitPauseTime = 0
+			&& (stateNo = 0 || stateNo = [10, 12] || stateNo = [20, 22])
+			&& !(enemyNear, stateType = L)
+			&& p2BodyDist x <= const240p(28) {                       # CC_STRIKE_DIST
+		if (gameTime % 24) < 12 && selfStateNoExist(200) {
+			changeState{value: 200}
+		} else if selfStateNoExist(400) {
+			changeState{value: 400}
+		} else if selfStateNoExist(200) {
+			changeState{value: 200}
+		}
+	}
+}

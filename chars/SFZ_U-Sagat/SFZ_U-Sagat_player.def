@@ -1,0 +1,37 @@
+[Info]
+name = "Sagat"
+displayname = "SAGAT"
+author = "Ehnyd"
+Pal.Defaults = 1,4
+localcoord = 384,224
+mugenversion = 1.0
+
+[Files]
+cmd      = SFZ_U-Sagat.cmd
+cns      = U-Def.cns
+st       = U-Def.cns
+st2      = U-System.cns
+stcommon = common1.cns
+sprite   = SFZ_U-Sagat.sff
+anim     = SFZ_sagat.air
+sound    = SFZ_sagat.snd 
+movelist = movelist.dat
+
+pal1     = Pals/SF1.act
+pal2     = Pals/X-ISM1.act
+pal3     = Pals/V-ISM1.act
+pal4     = Pals/SF1_Alt.act
+pal5     = Pals/X-ISM2.act
+pal6     = Pals/V-ISM2.act
+pal7     = Pals/Z-ISM2.act
+pal8     = Pals/X-ISM4.act
+pal9     = Pals/V-ISM4.act
+pal10     = Pals/Z-ISM1.act
+pal11     = Pals/X-ISM3.act
+pal12     = Pals/V-ISM3.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_U-Sagat.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/U-Sagat.lua

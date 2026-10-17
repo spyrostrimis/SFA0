@@ -1,0 +1,16 @@
+# Full game is tracked (chars, stages, sound, engine, libs) so any machine
+# can clone a playable copy. Only backups and generated output stay out.
+
+# Backups (*.bak, *.bak-*, *.bak424, .bak-lookahead, ...)
+*.bak*
+.bak*
+
+# Build/distribution archives
+*.zip
+
+# Generated at runtime
+debug/
+save/logs/
+save/replays/
+data/backup/
+data/work/

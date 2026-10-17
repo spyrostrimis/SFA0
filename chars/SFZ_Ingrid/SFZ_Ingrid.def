@@ -1,0 +1,33 @@
+[info]
+name ="Ingrid SXP"        
+displayname ="Ingrid"
+mugenversion = 1.0  
+author ="Beximus"
+pal.defaults = 1,
+Localcoord = 384,224
+
+[files]
+cmd     = ingrid.cmd   
+cns     = ingrid.cns   
+st      = ingrid.cns 
+st1     = engine.cns 
+st2 	= override.cns
+stcommon = common1.cns 
+sprite  = ingrid.sff   
+anim    = ingrid.air   
+sound   = ingrid.snd   
+pal1	= ingridblue.act
+;pal2	= ingridonyx.act
+pal2	= ingridmagenta.act
+;pal4	= ingridemerald.act
+;pal5	= ingridgarnet.act
+;pal6	= ingridaquamarine.act
+;pal7	= ingriddiamond.act
+;pal8	= ingridamethyst.act
+;pal9	= ingridcitrine.act
+;pal10	= ingridruby.act
+;pal11	= ingridperidot.act
+;pal12	= ingridamber.act
+
+
+

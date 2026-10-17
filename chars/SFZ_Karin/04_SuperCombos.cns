@@ -1,0 +1,812 @@
+;===========================================================================
+; Super Motions
+;===========================================================================
+; Aletazos varios
+;-----------------
+[Statedef 3000]
+type    = S
+movetype= A
+physics = N
+juggle  = 1
+poweradd= -1000
+velset = 2.4,0
+anim = 3000
+ctrl = 0
+sprpriority = 2
+
+[State 3000, Super A]
+type = SuperPause
+trigger1 = AnimElemTime(1) = 2
+pos = 1, -56
+anim = F100
+sound = S3200,0
+
+[State 3000, 1]
+type = AfterImage
+trigger1 = Animelem=2,=1
+time = 1200
+length = 16
+palcolor = 256
+timegap = 1
+framegap = 4
+
+[State 3100, 1]
+type = PlaySnd
+trigger1 = Time = 2
+value = 3100,0
+
+[State 3100, 1]
+type = PlaySnd
+trigger1 = AnimElem = 3
+value = 3000,0
+
+[State 3100, 1]
+type = PlaySnd
+trigger1 = AnimElem = 13
+value = 3000,1
+
+[State 3000, 0]
+type = VelMul
+trigger1 = AnimElemTime(18) >= 1
+trigger1 = vel X > .001
+x = .9
+
+[State 3000, Super D]
+type = NotHitBy
+trigger1 = AnimElem = 1
+value = , NA, SA, AT
+time = 12
+
+[State 1040, 6]
+type = HitDef
+trigger1 = AnimElem = 3
+trigger2 = AnimElem = 9
+attr = S, HA
+animtype  = Hard
+damage    = 42, 5
+getpower  = 0
+priority  = 5
+guardflag = MAffff
+pausetime = 4,4
+sparkxy = -20,-66
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,2,50002)
+hitsound   = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = high
+ground.slidetime = 20
+ground.hittime  = 20
+ground.velocity = -4.8
+guard.velocity = -7
+air.velocity = -2,-4
+airguard.velocity = -5, -4
+air.fall = 1
+air.recover = 0
+
+[State 1050, 6]
+type = HitDef
+trigger1 = AnimElem = 6
+trigger2 = AnimElem = 12
+attr = S, HA
+animtype  = Hard
+damage    = 42, 5
+getpower  = 0
+priority  = 5
+guardflag = MA
+pausetime = 4,4
+sparkxy = -10,-60
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,2,50002)
+hitsound   = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = Low
+ground.slidetime = 20
+ground.hittime  = 20
+ground.velocity = -4.8
+guard.velocity = -7
+air.velocity = -2,-4
+airguard.velocity = -5, -4
+air.fall = 1
+air.recover = 0
+
+[State 1010, 6]
+type = HitDef
+trigger1 = p2bodydist X < 47
+trigger1 = AnimElem = 18
+attr = S, HA
+animtype  = Heavy
+damage    = 90,5
+priority  = 6
+guardflag = MA
+pausetime = 15,15
+sparkxy = -10,-60
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,2,50002)
+hitsound   = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = Low
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = -4,-3.5
+air.velocity = -4,-3
+snap = 70
+fall = 1
+air.fall = 1
+air.recover = 0
+
+[State 1010, 6] ;far
+type = HitDef
+trigger1 = p2bodydist X >= 47
+trigger1 = AnimElem = 18
+attr = S, HA
+animtype  = Heavy
+damage    = 90,5
+priority  = 6
+guardflag = MA
+pausetime = 15,15
+sparkxy = -10,-60
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,2,50002)
+hitsound   = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = Low
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = -4,-3.5
+air.velocity = -4,-3
+fall = 1
+air.fall = 1
+air.recover = 0
+
+[State 3000, end]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+; Lv.2
+[Statedef 3010]
+type    = S
+movetype= A
+physics = N
+juggle  = 1
+poweradd= -2000
+velset = 2.43,0
+anim = 3010
+ctrl = 0
+sprpriority = 2
+
+[State 3000, Super A]
+type = SuperPause
+trigger1 = AnimElemTime(1) = 2
+pos = 1, -56
+anim = F101
+sound = S3200,0
+
+[State 3000, 1]
+type = AfterImage
+trigger1 = Animelem=2,=1
+time = 1200
+length = 16
+palcolor = 256
+timegap = 1
+framegap = 4
+
+[State 3100, 1]
+type = PlaySnd
+trigger1 = Time = 2
+value = 3100,0
+
+[State 3100, 1]
+type = PlaySnd
+trigger1 = AnimElem = 3
+value = 3000,0
+
+[State 3100, 1]
+type = PlaySnd
+trigger1 = AnimElem = 13
+value = 3000,1
+
+[State 3000, 0]
+type = VelMul
+trigger1 = AnimElemTime(21) >= 1
+trigger1 = vel X > .001
+x = .9
+
+[State 3000, Super D]
+type = NotHitBy
+trigger1 = AnimElem = 1
+value = , NA, SA, AT
+time = 16
+
+[State 1040, 6]
+type = HitDef
+trigger1 = AnimElem = 3
+trigger2 = AnimElem = 9
+attr = S, HA
+animtype  = Hard
+damage    = 64, 5
+getpower  = 0
+priority  = 5
+guardflag = MAffff
+pausetime = 4,4
+sparkxy = -20,-66
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,2,50002)
+hitsound   = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = high
+ground.slidetime = 20
+ground.hittime  = 20
+ground.velocity = -4
+guard.velocity = -7
+air.velocity = -2,-4
+airguard.velocity = -5, -4
+air.fall = 1
+air.recover = 0
+
+[State 1050, 6]
+type = HitDef
+trigger1 = AnimElem = 6
+trigger2 = AnimElem = 12
+attr = S, HA
+animtype  = Hard
+damage    = 64, 5
+getpower  = 0
+priority  = 5
+guardflag = MA
+pausetime = 4,4
+sparkxy = -10,-60
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,2,50002)
+hitsound   = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = Low
+ground.slidetime = 20
+ground.hittime  = 20
+ground.velocity = -4
+guard.velocity = -7
+air.velocity = -2,-4
+airguard.velocity = -5, -4
+air.fall = 1
+air.recover = 0
+
+[State 1020, 6]
+type = HitDef
+trigger1 = AnimElem = 16
+attr = S, SA
+animtype  = Hard
+air.animtype  = UP
+damage    = 45, 5
+getpower  = 0
+priority  = 5
+guardflag = MA
+pausetime = 8,7
+sparkxy = -10,-60
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,2,50002)
+hitsound   = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = Low
+ground.slidetime = 20
+ground.hittime  = 20
+ground.velocity = -4
+guard.velocity = -7
+air.velocity = -2,-4
+airguard.velocity = -3, -4
+air.fall = 1
+air.recover = 0
+
+[State 1020, 6.5]
+type = HitDef
+trigger1 = AnimElem = 20
+attr = S, SA
+animtype  = UP
+damage    = 50, 5
+getpower  = 0
+priority  = 5
+guardflag = MA
+pausetime = 8,7
+sparkxy = -10,-60
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,2,50002)
+hitsound   = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = Low
+ground.slidetime = 20
+ground.hittime  = 20
+ground.velocity = -1,-8.6
+guard.velocity = -7
+air.velocity = -1.5,-5.8
+airguard.velocity = -3, -4
+fall = 1
+air.fall = 1
+air.recover = 0
+yaccel = .42
+
+[State 3001, end]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+; Lv.3
+[Statedef 3020]
+type    = S
+movetype= A
+physics = N
+juggle  = 1
+poweradd= -3000
+velset = 2.43,0
+anim = 3020
+ctrl = 0
+sprpriority = 2
+
+[State 3000, Super A]
+type = SuperPause
+trigger1 = AnimElemTime(1) = 2
+pos = 3, -56
+anim = F102
+sound = S3200,0
+
+[State 3000, 1]
+type = AfterImage
+trigger1 = Animelem=2,=1
+time = 1200
+length = 16
+palcolor = 256
+timegap = 1
+framegap = 4
+
+[State 3100, 1]
+type = PlaySnd
+trigger1 = Time = 2
+value = 3100,0
+
+[State 3100, 1]
+type = PlaySnd
+trigger1 = AnimElem = 6
+value = 3000,0
+
+[State 3100, 1]
+type = PlaySnd
+trigger1 = AnimElem = 20
+value = 3000,1
+
+[State 3000, 0]
+type = VelMul
+trigger1 = AnimElemTime(31) >= 1
+trigger1 = vel X > .001
+x = .9
+
+[State 3000, Super D]
+type = NotHitBy
+trigger1 = AnimElem = 1
+value = , NA, SA, AT
+time = 20
+
+[State 1040, 6]
+type = HitDef
+trigger1 = AnimElem = 3
+trigger2 = AnimElem = 9
+trigger3 = AnimElem = 24
+attr = S, HA
+animtype  = Hard
+damage    = 58, 5
+getpower  = 0
+priority  = 5
+guardflag = MAffff
+pausetime = 4,4
+sparkxy = -20,-66
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,2,50002)
+hitsound   = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = high
+ground.slidetime = 20
+ground.hittime  = 20
+ground.velocity = -4.8
+guard.velocity = -7
+air.velocity = -2,-4
+airguard.velocity = -5, -4
+air.fall = 1
+air.recover = 0
+
+[State 1050, 6]
+type = HitDef
+trigger1 = AnimElem = 6
+trigger2 = AnimElem = 12
+trigger3 = AnimElem = 18
+attr = S, HA
+animtype  = Hard
+damage    = 58, 5
+getpower  = 0
+priority  = 5
+guardflag = MA
+pausetime = 4,4
+sparkxy = -10,-60
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,2,50002)
+hitsound   = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = Low
+ground.slidetime = 20
+ground.hittime  = 20
+ground.velocity = -4.8
+guard.velocity = -7
+air.velocity = -2,-4
+airguard.velocity = -5, -4
+air.fall = 1
+air.recover = 0
+
+[State 1010, 6] ;Opponent near
+type = HitDef
+trigger1 = p2bodydist X < 47
+trigger1 = AnimElem = 30
+attr = S, HA
+animtype  = Heavy
+damage    = 125,5
+priority  = 6
+guardflag = MA
+pausetime = 15,15
+sparkxy = -10,-60
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,2,50002)
+hitsound   = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = Low
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = -4,-3.5
+air.velocity = -4,-3
+snap = 70
+fall = 1
+air.fall = 1
+air.recover = 0
+
+[State 1010, 6] ;far
+type = HitDef
+trigger1 = p2bodydist X >= 47
+trigger1 = AnimElem = 30
+attr = S, HA
+animtype  = Heavy
+damage    = 125,5
+priority  = 6
+guardflag = MA
+pausetime = 15,15
+sparkxy = -10,-60
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,2,50002)
+hitsound   = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = Low
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = -4,-3.5
+air.velocity = -4,-3
+fall = 1
+air.fall = 1
+air.recover = 0
+
+[State 3002, end]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; Aletazos voladores varios
+;---------------------------
+; Lv.1
+[Statedef 3100]
+type    = S
+movetype= A
+physics = S
+juggle  = 0
+poweradd= -1000
+velset = 0,0
+anim = 3100
+ctrl = 0
+sprpriority = 2
+
+[State 3100, Super A]
+type = SuperPause
+trigger1 = AnimElemTime(1) = 2
+pos = 37, -55
+anim = F100
+sound = S3200,0
+
+[State 3000, 1]
+type = AfterImage
+trigger1 = Animelem=2,=1
+time = 1200
+length = 16
+palcolor = 256
+timegap = 1
+framegap = 4
+
+[State 3100, 1]
+type = PlaySnd
+trigger1 = Time = 2
+value = 3100,0
+
+[State 3100, 1]
+type = PlaySnd
+trigger1 = AnimElem = 3
+value = 3100,1
+
+[State 3100, 2]
+type = VelSet
+trigger1 = AnimElemTime(2) = 1
+x = 1.5
+y = -5.4
+
+[State 3100, 3]
+type = StateTypeSet
+trigger1 = AnimElemTime(2) = 1
+statetype = A
+physics = N
+
+[State 3100, 4]
+type = Veladd
+trigger1 = AnimElemTime(8) >= 1
+y = .45
+
+[State 3100, 5]
+type = Velset
+trigger1 = AnimElem = 17
+x = 0;x = 0.001
+
+[State 3100, 6]
+type = HitDef
+trigger1 = AnimElem = 5
+trigger2 = AnimElem = 9
+trigger3 = AnimElem = 13
+attr = A, HA
+animtype  = Heavy
+damage    = 75, 5
+getpower  = 0
+priority  = 5
+guardflag = MAF
+pausetime = 4,4
+sparkxy = -10,-90
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,2,50002)
+hitsound   = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = High
+ground.slidetime = 20
+ground.hittime  = 20
+ground.velocity = -2,-6
+air.velocity = -2,-6
+fall = 1
+air.fall = 1
+air.recover = 0
+
+[State 3100, 7]
+type = ChangeState
+trigger1 = AnimElemTime(8) > 0
+trigger1 = Pos Y > -7
+value = 52
+ctrl = 0
+
+; Lv.2
+[Statedef 3110]
+type    = S
+movetype= A
+physics = S
+juggle  = 0
+poweradd= -2000
+velset = 0,0
+anim = 3110
+ctrl = 0
+sprpriority = 2
+
+[State 3100, Super A]
+type = SuperPause
+trigger1 = AnimElemTime(1) = 2
+pos = 37, -55
+anim = F101
+sound = S3200,0
+
+[State 3000, 1]
+type = AfterImage
+trigger1 = Animelem=2,=1
+time = 1200
+length = 16
+palcolor = 256
+timegap = 1
+framegap = 4
+
+[State 3100, 1]
+type = PlaySnd
+trigger1 = Time = 2
+value = 3100,0
+
+[State 3100, 1]
+type = PlaySnd
+trigger1 = AnimElem = 3
+value = 3100,1
+
+[State 3100, 2]
+type = VelSet
+trigger1 = AnimElemTime(2) = 1
+x = 1.5
+y = -5.4
+
+[State 3100, 3]
+type = StateTypeSet
+trigger1 = AnimElemTime(2) = 1
+statetype = A
+physics = N
+
+[State 3100, 4]
+type = Veladd
+trigger1 = AnimElemTime(8) >= 1
+y = .45
+
+[State 3100, 5]
+type = Velset
+trigger1 = AnimElem = 17
+x = 0;x = 0.001
+
+[State 3100, 6]
+type = HitDef
+trigger1 = AnimElem = 5
+trigger2 = AnimElem = 7
+trigger3 = AnimElem = 9
+trigger4 = AnimElem = 11
+trigger5 = AnimElem = 13
+attr = A, HA
+animtype  = Hard
+damage    = 65, 5
+getpower  = 0
+priority  = 5
+guardflag = MAF
+pausetime = 4,4
+sparkxy = -10,-90
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,2,50002)
+hitsound   = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = Low
+ground.slidetime = 20
+ground.hittime  = 20
+ground.velocity = -2,-7
+guard.velocity = -7
+air.velocity = -2,-7
+airguard.velocity = -5, -4
+fall = 1
+air.fall = 1
+air.recover = 0
+yaccel = .42
+
+[State 3100, 7]
+type = ChangeState
+trigger1 = AnimElemTime(8) > 0
+trigger1 = Pos Y > -7
+value = 52
+ctrl = 0
+
+; Lv.3
+[Statedef 3120]
+type    = S
+movetype= A
+physics = S
+juggle  = 0
+poweradd= -3000
+velset = 0,0
+anim = 3120
+ctrl = 0
+sprpriority = 2
+
+[State 3100, Super A]
+type = SuperPause
+trigger1 = AnimElemTime(1) = 2
+pos = 37, -55
+anim = F102
+sound = S3200,0
+
+[State 3000, 1]
+type = AfterImage
+trigger1 = Animelem=2,=1
+time = 1200
+length = 16
+palcolor = 256
+timegap = 1
+framegap = 4
+
+[State 3100, 1]
+type = PlaySnd
+trigger1 = Time = 2
+value = 3100,0
+
+[State 3100, 1]
+type = PlaySnd
+trigger1 = AnimElem = 3
+value = 3100,1
+
+[State 3100, 2]
+type = VelSet
+trigger1 = AnimElemTime(2) = 1
+x = 1.5
+y = -5.4
+
+[State 3100, 3]
+type = StateTypeSet
+trigger1 = AnimElemTime(2) = 1
+statetype = A
+physics = N
+
+[State 3100, 4]
+type = Veladd
+trigger1 = AnimElemTime(8) >= 1
+y = .45
+
+[State 3100, 5]
+type = Velset
+trigger1 = AnimElem = 17
+x = 0;x = 0.001
+
+[State 3100, 6]
+type = HitDef
+triggerall = hitcount < 9
+trigger1 = AnimElem = 5
+trigger2 = AnimElem = 6
+trigger3 = AnimElem = 7
+trigger4 = AnimElem = 8
+trigger5 = AnimElem = 9
+trigger6 = AnimElem = 10
+trigger7 = AnimElem = 11
+trigger8 = AnimElem = 12
+trigger9 = AnimElem = 13
+trigger10 = AnimElem = 14
+attr = A, HA
+animtype  = Hard
+damage    = 50, 5
+getpower  = 0
+priority  = 5
+guardflag = MAF
+pausetime = 4,4
+sparkxy = -10,-90
+sparkno = ifelse(teamside = 1,9,50009)
+guard.sparkno = ifelse(teamside = 1,2,50002)
+hitsound   = F5,3
+hitsound.channel = 12
+guardsound = F6,0
+ground.type = Low
+ground.slidetime = 20
+ground.hittime  = 20
+ground.velocity = -2,-7
+guard.velocity = -7
+air.velocity = -2,-7
+airguard.velocity = -5, -4
+fall = 1
+air.fall = 1
+air.recover = 0
+yaccel = .42
+
+[State 3100, 7]
+type = ChangeState
+trigger1 = AnimElemTime(8) > 0
+trigger1 = Pos Y > -7
+value = 52
+ctrl = 0
+
+;===========================================================================
+;						    E N D   O F   F I L E .
+;===========================================================================

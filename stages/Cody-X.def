@@ -1,0 +1,175 @@
+[Info]
+name = "Metro City Police Detention Center - U.S.A"
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -190
+boundright = 190
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz = 0
+botz = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 19,46,16
+yscale = .05
+intensity = 40
+
+[Music]
+bgmusic = Sound/Cody.mp3
+bgmloopstart = 279279
+bgmLoopend =  3241315
+bgvolume = 0
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Cody-X.sff
+
+[BG 0]
+type = normal
+spriteno = 0,0
+start = 0,224
+delta = 0.85,1
+
+[BG 1]
+type = anim
+actionno = 1
+start = -353,224
+delta = 0.85,1
+
+[BG 2]
+type = normal
+spriteno = 2,0
+start = 0,224
+delta = 0.965,1
+mask = 1
+
+[BG 3]
+type = normal
+spriteno = 3,0
+start = 0,224
+delta = 0.965,1
+mask = 1
+
+[BG 4]
+type = Normal;parallax
+spriteno = 4,0
+start = 0,193
+delta = 1,1;.968,1
+;xscale = .965,1.097
+
+[BG 5]
+type = anim
+actionno = 5
+start = -376,224
+delta = 0.965,1
+
+[BG 6]
+type = anim
+actionno = 6
+start = 376,224
+delta = 0.965,1
+
+[BG 7]
+type = anim
+actionno = 7
+start = 376,224
+delta = 0.965,1
+
+[BG 8]
+type = anim
+actionno = 8
+start = 376,224
+delta = 0.965,1
+
+[BG 9]
+type = normal
+spriteno = 9,0
+layerno = 1
+start = 0,224
+delta = 1.165,1
+mask = 1
+
+[Begin action 1]
+
+1,0, 0,0, 8
+1,1, 0,0, 8
+1,2, 0,0, 8
+
+[Begin action 5]
+
+5,0, 0,0, 128
+5,1, 0,0, 8
+5,2, 0,0, 32
+5,1, 0,0, 8
+
+[Begin action 6]
+
+6,0, 0,0, 224
+6,1, 0,0, 4
+6,2, 0,0, 4
+6,1, 0,0, 4
+
+[Begin action 7]
+
+7,0, 0,0, 270
+7,1, 0,0, 6
+7,0, 0,0, 6
+7,2, 0,0, 6
+
+[Begin action 8]
+
+8,0, 0,0, 108
+8,1, 0,0, 4
+8,2, 0,0, 4
+8,3, 0,0, 4
+8,4, 0,0, 6
+8,3, 0,0, 4
+8,2, 0,0, 4
+8,5, 0,0, 7
+8,2, 0,0, 4
+8,3, 0,0, 4
+8,4, 0,0, 8
+8,3, 0,0, 4
+8,2, 0,0, 4
+8,1, 0,0, 4

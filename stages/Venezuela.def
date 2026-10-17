@@ -1,0 +1,91 @@
+[Info]
+name = "Guyana Falls - Venezuela"
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -190
+boundright = 190
+boundhigh = -16
+boundlow = 0
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz = 0
+botz = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 16,16,16
+yscale = .05
+
+[Music]
+bgmusic = sound/Secret.mp3
+bgmloopstart=649383
+bgmloopend= 2145596
+bgvolume = 0
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+
+[BGdef]
+spr = stages/Venezuela.sff
+
+[BG 1]; fondo
+type = normal
+spriteno = 0,0
+start = 0,224
+delta = 0.125,1
+
+[BG 2]
+type = anim
+actionno = 1
+start = 0,224
+delta = .175,1
+
+[BG 3]; suelo
+type = normal
+spriteno = 2,0
+start = 0,224
+delta = 1,1
+mask = 1
+
+[Begin action 1]
+1,0, 0,0, 5
+1,1, 0,0, 5
+1,2, 0,0, 5
+1,3, 0,0, 5

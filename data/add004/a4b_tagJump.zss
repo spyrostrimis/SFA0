@@ -1,0 +1,423 @@
+# Zantei State Script
+#; #20200830a62 (player tag states)
+
+
+
+
+
+
+##;==========================
+##;==========================
+##; Partner Action in TagMode ; (ƒ^ƒbƒOƒ‚[ƒhƒp[ƒgƒi[ˆ—)
+##; [190190-190196]
+##;==========================
+#; out screen ; (‰æ–ÊŠO‚Ö)
+[Statedef 190190; type: A; movetype: I; physics: N; anim: 40; sprpriority:-2;
+velset: 0,0; ctrl: 0; facep2: 1; ]
+
+#;sys::partner_life-recover1
+if !time {
+	removeexplod{id:490600} #;sys::face_d_clear
+	posset{y:0}
+	afterimagetime{time:0}
+	if life<1 { lifeadd{value:1} }
+}
+
+nothitby{value: sca}
+playerpush{value:0}
+
+if sysfvar(0)>0 && playeridexist(floor(sysfvar(0))) {
+if playerid(floor(sysfvar(0))),var(0)=90900 && playerid(floor(sysfvar(0))),var(28)<200 {
+	screenbound{value:0; movecamera:0,0}
+}}
+
+if pos y!=0 { assertspecial{flag:noshadow} }
+
+#;sys::partner_run-anim2
+#;persistent(0) if (anim=40) && (animtime=0) && selfanimexist(100) { changeanim{value:100} }
+#;persistent(0) if (anim=100) { turn{} }
+
+#;sys::partner_run-vel2
+#;if (anim=100) { velset{x:15.6*const(movement.yaccel); y:0} }
+
+#; take off ; —£—¤
+#;sys::partner_jump-anim1
+if (anim=40) && (animtime=0) { changeanim{value:41} }
+if (anim=[41,43]) && (animtime=0) && selfanimexist(anim+3) { changeanim{value:anim+3} }
+
+#;sys::partner_jump-vel1
+if (anim=[41,46]) || (anim=909601) {
+	velset{x:-20*const(movement.yaccel); y:-7*const(movement.yaccel) }
+}
+
+#;sys::player_type_change1
+sysfvar(4):=1; #; (0:main / 1:assist)
+
+#;sys::player_pos_y_outscreen1
+if backedgedist<-const240p(160) || frontedgedist<-const240p(160) {
+	posset{y:0}
+	velset{x:0; y:0}
+}
+
+#;sys::partner_goto-standby1
+if time>59 {
+if backedgedist<-const240p(100) || frontedgedist<-const240p(100) || pos y>100 || time>218 {
+	if sysfvar(0)>0 && playeridexist(floor(sysfvar(0))) {
+	if playerid(floor(sysfvar(0))),var(0)=90900 && playerid(floor(sysfvar(0))),var(28)>200 {
+		changestate{value:190191}
+	}}
+	if roundstate>2 {
+		changestate{value:190191}
+	}
+}}
+
+
+#;------------------------
+#; Stand-By1 (Change OK) ; ‘Ò‹@’†1(Œğ‘Ö‰Â)
+#;------------------------
+[Statedef 190191; type: A; movetype: I; physics: N; anim: 909601; velset: 0, 0; ctrl: 0; ]
+
+screenbound{value:0; movecamera:0,0}
+
+#;sys::partner-standby_id_input2
+if !time { sysvar(0):=0; }
+
+if !ishelper && sysfvar(0)>0 && playeridexist(floor(sysfvar(0))) {
+if playerid(floor(sysfvar(0))),var(0)=90900 && playerid(floor(sysfvar(0))),var(15)!=id {
+	sysvar(0):=playerid(floor(sysfvar(0))),var(15);
+}}
+
+#;sys::partner-standby-set3
+if sysvar(0)>0 && playeridexist(sysvar(0)) {
+	if facing!=playerid(sysvar(0)),facing { turn{} }
+	posset{
+	x:playerid(sysvar(0)),pos x -8*playerid(sysvar(0)),facing;
+	y:playerid(sysvar(0)),pos y-const240p(0) }
+}
+
+#;sys::partner-standby-out1 ; o‚é
+if !ishelper && roundstate=2 && numpartner && sysvar(0)>0 && playeridexist(sysvar(0)) && sysfvar(0)>0 && playeridexist(floor(sysfvar(0))) {
+if (playerid(sysvar(0)),alive=0 && playerid(sysvar(0)),stateno=5150) || (playerid(sysvar(0)),sysfvar(4)>0) {
+if id=playerid(floor(sysfvar(0))),var(49) {
+	sysfvar(4):=0; #; (0:main / 1:assist)
+	map(_iksys_tagLastID) := player(teamLeader),id;
+    TagIn{leader: PlayerNo}
+}}}
+
+#;sys::partner-standby-out2
+if (time>0 && sysfvar(4)<1) || (roundstate>2) { changestate{value:190193} }
+
+#;sys::partner_goto-standby2 was if time>=49 
+#;;<<- (158F) interval / charge-time ; ŠÔŠu/’~ÏŠúŠÔ
+if time>=59 { changestate{value:190192} }
+
+
+#;------------------------
+#; Stand-By2 (Change / Partner-Assist-OK, Life-Recover) ; ‘Ò‹@’†2(Œğ‘Ö/x‰‡‰Â,‘Ì—Í‰ñ•œ)
+#;------------------------
+[Statedef 190192; type: U; movetype: U; physics: N; velset: 0,0; ctrl: 0;]
+
+screenbound{value: 0; movecamera: 0,0}
+
+#;sys::partner_life-recover3
+if (time%20=19) && (life<lifemax-1) { lifeadd{value:1} }
+
+if Map(assist) = 1 && time = 0 {
+   mapset{map:"assist"; value:0 }
+}
+
+#;sys::partner-standby_id_input3
+if !ishelper && sysfvar(0)>0 && playeridexist(floor(sysfvar(0))) {
+if playerid(floor(sysfvar(0))),var(0)=90900 {
+	sysvar(0):=playerid(floor(sysfvar(0))),var(15);
+}}
+
+#;sys::partner-standby-set5
+if sysvar(0)>0 && playeridexist(sysvar(0)) {
+	if facing!=playerid(sysvar(0)),facing { turn{} }
+	posset{
+	x:playerid(sysvar(0)),pos x -1*playerid(sysvar(0)),facing;
+	y:playerid(sysvar(0)),pos y-const240p(0) }
+}
+
+#;sys::partner-standby-out1 ; o‚é
+if !ishelper && roundstate=2 && numpartner && sysvar(0)>0 && playeridexist(sysvar(0)) && sysfvar(0)>0 && playeridexist(floor(sysfvar(0))) {
+if (playerid(sysvar(0)),alive=0 && playerid(sysvar(0)),stateno=5150) || (playerid(sysvar(0)),sysfvar(4)>0) {
+if id=playerid(floor(sysfvar(0))),var(49) {
+	sysfvar(4):=0; #; (0:main / 1:assist)
+	map(_iksys_tagLastID) := player(teamLeader),id;
+    TagIn{leader: PlayerNo}
+}}}
+
+#;sys::partner_goto-out1
+if (time>1 && sysfvar(4)<1) || (roundstate>2) {
+	changestate{value:190193}
+}
+if sysfvar(0)>0 && playeridexist(floor(sysfvar(0))) {
+if playerid(floor(sysfvar(0))),var(0)=90900 && playerid(floor(sysfvar(0))),var(48)=12 && id=playerid(floor(sysfvar(0))),var(49) {
+	changestate{value:190193}
+}}
+
+
+#;------------------------
+#; in (190193-190195) ; “oê
+#;------------------------
+[Statedef 190193; type: U; movetype: U; physics: N; sprpriority: -2; velset: 0,0; ctrl: 0;]
+
+nothitby{value:sca}
+screenbound{value:0; movecamera:0,0}
+playerpush{value:0}
+assertspecial{flag:invisible}
+
+#;sys::face_d_clear
+if !time {
+	removeexplod{id:490600}
+	sysvar(1):=-1; #;sys::init_assist_no
+}
+
+#;;--- for_ikemen
+#; ƒ^ƒbƒOx‰‡ƒXƒe[ƒg”Ô†İ’è
+#;sys::tag_assist_stno_set
+if (sysvar(1)>159) && selfstatenoexist(sysvar(1)) && map(a4b_assist1)<160 {
+	mapset{map:"a4b_assist1"; value:sysvar(1) }
+}
+
+#;sys::partner-out-set2
+if sysvar(0)>0 && playeridexist(sysvar(0)) {
+
+	if facing!=playerid(sysvar(0)),facing { turn{} }
+	posset{
+	x: (playerid(sysvar(0)),pos x) - ( playerid(sysvar(0)),backedgebodydist +const240p(90) )*facing;
+	y:-const240p(180) }
+
+	#;sys::partner-landing-pos2
+	if !time && !ishelper && roundstate=2 && sysfvar(4)=0 && !numhelper(909606) && sysfvar(0)>0 && playeridexist(floor(sysfvar(0))) {
+	if (playerid(floor(sysfvar(0))),var(0)=90900) && !(playerid(floor(sysfvar(0))),var(7)&65536) {
+		helper{
+		pos:floor(playerid(sysvar(0)),pos x-pos x)*facing, floor(playerid(sysvar(0)),pos y-pos y);
+		id:909606; stateno:190202 }
+	}}
+
+	#;sys::partner-out-vel2
+	map(_iksys_tagSwitchDist) := abs(pos x - playerid(sysvar(0)),pos x);
+	# set movement
+	#velSet{x: min(const240p(const(TagInVelX)), map(_iksys_tagSwitchDist)*0.08); y: abs(pos y)*0.05}
+	#;sys::partner-out-vel2
+	velset{x:map(_iksys_tagSwitchDist)*0.080; y:abs(pos y)*0.05 }
+	#;sys::partner-out-vel3
+	if (roundstate>2) {
+		velset{x:map(_iksys_tagSwitchDist)*0.055;
+		y:abs(pos y)*0.035 }
+	}
+
+}
+
+if playeridexist(sysvar(0)) && const(MVCIActiveSwitch) = 1 {
+    if playerid(sysvar(0)),teamside=teamside && playerid(sysvar(0)),sysfvar(4)=2
+    && sysfvar(0)>0 && playeridexist(floor(sysfvar(0))) 
+    && Roundstate=2 && sysfvar(4)=0 {
+       changestate{value:190198 }
+    }
+}
+
+#;sys::partner_goto-out2
+if time>ifelse(roundstate<=2, 1, ifelse(win,100,160)+(id-sysvar(0))*8 ) {
+	changestate{value:ifelse((sysfvar(4)<1), 190194, 190196)}
+}
+
+#;------------------------
+#; Empty States for override ; ƒXƒgƒ‰ƒCƒJ[oŒ» ã‘‚«—p’†ŠÔƒXƒe[ƒg
+#;------------------------
+[Statedef 190196; type:U; movetype:U; ctrl:0;]
+
+#;sys::partner_goto-out3
+if !time { changestate{value:190194} }
+
+#;------------------------
+#; Striker-Call / Summon ; ƒXƒgƒ‰ƒCƒJ[¢Š«
+#;------------------------
+[Statedef 190194; type: A; movetype: U; physics: N; anim: ifelse(selfanimexist(44),44,41);
+sprpriority: -2; ctrl: 0;]
+
+#;sys::partner_assist-mark1
+# ;; Mark: "p-1" / "p-2" / "cpu"
+if !time && roundstate=2 && !numexplod(296000) && numpartner {
+	explod{
+	id:296000;
+	anim:GO5600+(matchno<2||ishometeam=0)*teamside;
+	postype:p1;
+	pos:0,floor( (const(size.head.pos.y)-const(size.ground.front)/2-const(size.ground.back)/2) );
+	facing:ifelse(facing=1,1,-1);
+	scale:1,1;
+	sprpriority:5;
+	bindtime:-1;
+	supermovetime:-1;
+	pausemovetime:-1;
+	ignorehitpause:1;
+	ownpal:1}
+}
+
+#;sys::partner-out-set4
+if !time && sysvar(0)>0 && playeridexist(sysvar(0)) {
+	nothitby{value:sca; time:ifelse(playerid(sysvar(0)),alive=0,25,10) }
+}
+
+if (pos y<0) { assertspecial{flag:noshadow} }
+
+screenbound{value:0; movecamera:0,0}
+playerpush{value:0}
+
+#;sys::partner_goto-assist1
+if (anim=[41,46]) {
+	if (roundstate>2) { veladd{y:0.35} }
+	if (pos y>=0) || ((pos y+vel y>=0)&&(vel y>0)) { changestate{value:190195} }
+}
+
+ignorehitpause if playerid(sysvar(0)),sysfvar(4)=2 && var(45):=1 && var(45)%1=0 {
+    pause{time:1; movetime:0; pausebg:1;}
+	}
+if !time && sysfvar(4)=0 && sysvar(0)>0 && playeridexist(sysvar(0)) {
+    if var(45)>=1 {
+        var(45):=var(45)+1;
+    }
+    if var(45)>=25 {
+        var(45):=0;
+    }
+}
+#;; "switch-canneling"
+if !time && sysfvar(4)=0 && sysvar(0)>0 && playeridexist(sysvar(0)) {
+if playerid(sysvar(0)),sysfvar(4)=2 {
+	palfx{ time:20; add:-256,0,256}
+	poweradd{value:0} #;sys::player_cost_sc0 ;; ƒpƒ[Á”ï—Ê
+}}
+
+#;; "switch-canneling"
+if !time && sysfvar(4)=0 && sysvar(0)>0 && playeridexist(sysvar(0)) {
+if playerid(sysvar(0)),sysfvar(4)=3 {
+	palfx{ time:20; add:256,0,-256}
+	poweradd{value:0} #;sys::player_cost_sc0 ;; ƒpƒ[Á”ï—Ê
+}}
+
+#;sys::partner_run-anim2
+if !time && roundstate=2 && selfanimexist(100) { changeanim{value:100} }
+
+if (anim=100) { 
+	velset{y:0}
+	posset{y:0}
+}
+
+#;sys::partner_goto-assist1
+if (anim=100) && (time>=13) { changestate{value:190195} }
+if playerid(sysvar(0)),sysfvar(4)=2 && (anim=100) && (p2bodydist x<5) { changestate{value:190195} }
+ 
+#;------------------------
+#; Land > RoundOver ; ’…’n>ƒ‰ƒEƒ“ƒhI—¹
+#;------------------------
+[Statedef 190195; type:S; movetype:I; physics:S; anim:47; sprpriority:-2; velset:0,0; ctrl:0;]
+if !time && ( (animtime>0) || (animtime<-5) ) { changeanim{value:40} }
+if !time { posset{y:0} }
+
+#;sys::partner_goto-assist2
+#;if (animtime=0) && roundstate=2 && sysfvar(4)>0 {
+	#;let va = 1000;
+	#;if map(a4b_assist1)>159 && selfstatenoexist(map(a4b_assist1)) { let va = map(a4b_assist1); }
+	#;changestate{ value:$va; ctrl:0 }
+#;}
+
+if (animtime=0) && roundstate=2 && sysfvar(4)>0 && sysfvar(0)>0 && playeridexist(floor(sysfvar(0))) && playerid(floor(sysfvar(0))),var(0)=90900 {
+changestate{ value:playerid(floor(sysfvar(0))),var(53+id-playerid(floor(sysfvar(0))),sysvar(0)); ctrl:0 }
+}
+
+
+#;sys::partner_ex-change_safety
+if (animtime=0) { changestate{ value:0; ctrl:1 } }
+
+#hyper-cancel _
+if  power >= 500 && playerid(sysvar(0)),teamside=teamside &&
+!time && sysfvar(4)=0 && sysvar(0)>0 && playeridexist(sysvar(0)) {
+	if playerid(sysvar(0)),sysfvar(4)=3 {changestate{ value:Const(StateTagSuperAssist); ctrl:0;}}
+}
+
+##;==========================
+##;==========================
+#; Static Pos [helper] ; À•WŒÅ’è
+[Statedef 190202; type:S; movetype:I; physics:N; anim:909601; velset:0,0; ctrl:0;]
+screenbound{value:1; movecamera:1,1}
+if (parent,stateno!=[190190,190196]) || (roundstate!=2) || time>56 { destroyself{} }
+
+
+#===============================================================================
+#===============================================================================
+[statedef -4]
+ignorehitpause if !ishelper && (stateno=[190190,190191] || stateno=[190193,190194] || Map(assist) = 1|| stateno = 190198) { assertspecial{flag:noturntarget} }
+
+##;sys::-2::helper::intro
+#ignorehitpause if (stateno=5900) && !ishelper && !numhelper(185905) {
+#	helper{
+#		id:185905;stateno:185905;helpertype:normal;
+#		supermovetime:88888;pausemovetime:88888;ownpal:1 }
+#}
+
+#;sys::-2::partners_standby ; ƒp[ƒgƒi[‘Ò‹@
+ignorehitpause if !ishelper && numpartner && roundstate=2 && alive && sysfvar(0)>0 && playeridexist(floor(sysfvar(0))) {
+ignorehitpause if (stateno!=[190190,190199]) && playerid(floor(sysfvar(0))),var(0)=90900 && playerid(floor(sysfvar(0))),var(22)=4 {
+ignorehitpause if  (sysfvar(4)=3) && ( ctrl || stateno != [3000,4999]) { selfstate{value:190190 } }
+
+	if (pos y>=0) && movetype!=h && gethitvar(isbound)=0 && (stateno!=5120) && (stateno!=[5200,5210]) {
+		#;;---// switch / change ;(Œğ‘Ö)
+		if sysfvar(4)<1 && ( ctrl || (time<2 && stateno<600) ) && playerid(floor(sysfvar(0))),var(48)=11 {
+			selfstate{value:190190 } }
+		#;;---// assist ;(‹¦—Í)
+		###if sysfvar(4)=1 && ( ctrl || (stateno-playerid(floor(sysfvar(0))),var(53+id-playerid(floor(sysfvar(0))),sysvar(0))!=[0,999]) ) {
+		###if sysfvar(4)=1 && ( ctrl || map(a4b_assist1)>=160 && (stateno-map(a4b_assist1))!=[0,999]) ) {
+		#;;---// switch-canceling ;(Š„‚è‚İŒğ‘Ö)
+		###if sysfvar(4)=2 && ( ctrl || stateno<160 ) {
+		###	selfstate{value:190190 } }
+		#;;---// assist or switch-canceling ;(‹¦—Í/Š„‚è‚İŒğ‘Ö)
+		if (sysfvar(4)=[1,2]) && ( ctrl || stateno<160 ) { selfstate{value:190190 } }
+	}
+
+	#;;---// player-priority ;(‡ˆÊ)
+	if sysfvar(4)<1 && playerid(floor(sysfvar(0))),var(15)!=id {
+		selfstate{value:190190 } }
+}}
+
+#;sys::-2::partners_change_interrupted ; Š„‚è‚İŒğ‘Ö
+ignorehitpause if !ishelper && numpartner && roundstate=2 && alive && sysfvar(0)>0 && playeridexist(floor(sysfvar(0))) {
+ignorehitpause if playerid(floor(sysfvar(0))),var(0)=90900 && playerid(floor(sysfvar(0))),var(48)=21 && sysfvar(4)<1 {
+	sysfvar(4):=2; ##;; (0:main / 1:assist / 2:switch-canceling/ 3:Hyper Cancel)
+}}
+
+#sys::-2::hyper-cancel
+ignorehitpause if power>=1000 && !ishelper && numpartner && roundstate=2 && alive && sysfvar(0)>0 && playeridexist(floor(sysfvar(0))) {
+ignorehitpause if playerid(floor(sysfvar(0))),var(0)=90900 && playerid(floor(sysfvar(0))),var(48)=15 && sysfvar(4)<1 {
+	sysfvar(4):=3; ##;; (0:main / 1:assist / 2:switch-canceling/ 3: Hyper Cancel)
+}}
+
+##;sys::-2::helper::bar004 ; ƒ‰ƒCƒtƒo[
+#ignorehitpause if !ishelper && !numhelper(90900) {
+#ignorehitpause if cond(numpartner, id<(partner,id) && partner,numhelper(90900)=0, 1) {
+#	helper{
+#		id:90900;
+#		stateno:90900;
+#		helpertype:normal;
+#		size.air.front:1911115; ##; <<-version
+#		size.height:0; ## 1;; <<-powerbar off mode
+#		supermovetime:88888;pausemovetime:88888;
+#		pos:0,88888;ownpal:1 }
+#}}
+
+##;sys::-2::get_helper::bar004_id ; IDæ“¾
+#if !ishelper && numhelper(90900) {
+#if (helper(90900),var(0)=90900) && (sysfvar(0)!=helper(90900),id) {
+#	sysfvar(0):=(helper(90900),id);
+#}}
+
+##;sys::-2::get_players_id2
+#if !ishelper && numpartner {
+#if !numhelper(90900) && (partner,numhelper(90900)) && (sysfvar(0)!=(partner,sysfvar(0))) {
+#	sysfvar(0):=(partner,sysfvar(0));
+#}}
+#;;---
+#;;---
+#;//[EOF]

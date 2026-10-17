@@ -1,0 +1,648 @@
+#===============================================================================
+# ai_projectile_evade.zss
+#
+# Universal CPU anti-fireball jump. One shared rule for the whole roster, no
+# per-character edits, no engine rebuild. Registered in save/config.ini under
+# [Common] States (LAST in the list - see "LOAD ORDER" below).
+#
+# WHAT IT DOES
+#
+#   A CPU-controlled character that sees an ENEMY projectile heading for it
+#   jumps over it - straight up, or up+forward when the opponent is far enough
+#   away that a forward jump is the punish. It does not care what the
+#   projectile's ID is, which character threw it, or which state threw it: the
+#   enemy's whole live projectile list is scanned every frame.
+#
+#   Characters that answer a fireball with a fireball of their own are EXEMPT
+#   (see EXEMPT ROSTER). They keep their own AI - except against a HYPER
+#   projectile, which a special-level projectile cannot trade with, so they jump
+#   over those like everybody else.
+#-------------------------------------------------------------------------------
+# WHY IT IS SHAPED LIKE THIS - the two problems, and what solves each
+#
+# 1. "OVERRIDE THE CHARACTER'S OWN AI"
+#
+#    Every .cmd in this roster carries its own AI block inside [Statedef -1],
+#    and a ChangeState there STOPS the rest of state -1 for that frame
+#    (bytecode.go, changeState.Run returns "stop" for a self-change; StateBlock
+#    .Run propagates it out of the whole state). Common state files are compiled
+#    AFTER the character's own files and their negative states are APPENDED
+#    (compiler.go), so a [StateDef -1] here would sit behind the character's AI
+#    and simply never run on any frame where that AI acted.
+#
+#    That is not a rare frame. Adon's AI, for one, is:
+#
+#        [State -3]; Guard      (label is cosmetic - it is under Statedef -1)
+#        type = ChangeState
+#        value = 130
+#        triggerall = var(59)
+#        triggerall = statetype != A && ctrl
+#        trigger2 = EnemyNear, NumProj || ProjContact = 1
+#
+#    - "the enemy has ANY projectile out" with no distance test at all, so it
+#    fires on EVERY frame the character has ctrl while a fireball is on screen.
+#    Exactly the window this file needs. Most of the roster is built the same
+#    way.
+#
+#    The fix is the hook: [StateDef +1] (state -10). src/char.go actionRun runs
+#    it AFTER -4/-3/-2/-1, after the buffered state change, and after the
+#    current state - and it is not reachable by any ChangeState the character
+#    made, because it is a separate state block. If it changes state, actionRun
+#    applies that immediately and runs the new state in the same frame. It is
+#    the one hook a character's own AI cannot take away.
+#
+# 2. "BUT AT +1 THE CHARACTER NO LONGER HAS CTRL"
+#
+#    By the time +1 runs, the AI has already moved the character into state 130
+#    (guard) or into an attack, so testing "ctrl" there always fails. So the
+#    eligibility test is taken in [StateDef -4], which runs BEFORE -1, and
+#    parked in map(_sfaz_pje_ready). +1 acts on what was true before the
+#    character's AI got its turn.
+#
+#    Note that this also means a move the AI started THIS frame is cancelled on
+#    its very first tick, before anything is drawn - which is the intended
+#    "override". A move that was already running (no ctrl at -4 time) is never
+#    interrupted.
+#-------------------------------------------------------------------------------
+# HOW A PROJECTILE IS FOUND - and why nothing here mentions an ID
+#
+#   enemy(n), NumProj             -> how many live projectiles that enemy owns
+#   enemy(n), ProjVar(-1, i, ...) -> read projectile #i, ANY id (-1 = wildcard,
+#                                    char.go getMultipleProjs: "id < 0" matches)
+#
+# ProjVar is the Ikemen trigger that makes this possible at all; plain Mugen can
+# only count an enemy's projectiles, never locate them. Everything is read in
+# OUR local coordinate space (the engine divides by the reading character's
+# localscl), so no scaling maths is needed even between chars with different
+# localcoord.
+#
+# Two conventions that are easy to get wrong, both verified in src:
+#   * ProjVar pos x is camera-relative, and so is the "pos x" trigger, so
+#     subtracting them gives a true world offset.
+#   * ProjVar vel x is FACING-RELATIVE (char.go: pos += velocity[0] * facing).
+#     World velocity is therefore vel x * ProjVar facing. Same convention as the
+#     character's own "vel x", which is why "closing speed contributed by my own
+#     movement" is simply "vel x" with no facing term at all.
+#
+# HELPER-THROWN projectiles are covered without doing anything special: a helper
+# only owns its projectiles if it was created with ownprojectile (char.go
+# canOwnProjectiles); nothing in this roster sets that, so every projectile -
+# including Bison's and N-Bison's helper-spawned 3001 hyper, Cody's 1905 and
+# Rose's 19001 - is owned by the root and shows up in enemy(n), NumProj.
+#-------------------------------------------------------------------------------
+# THE DECISION - simulate the jump, do not guess a time window
+#
+# THE BUG THIS REPLACES, because it will be tempting to "simplify" back to it:
+# the first version picked a fixed window of ticks-to-impact (jump if impact is
+# 16-36 ticks away), where ticks-to-impact was computed from the character's
+# CURRENT velocity. That is wrong twice over, and the symptom was exactly what
+# it sounds like - characters taking a short hop forward into the fireball and
+# air-blocking it:
+#
+#   * A jump REPLACES the character's horizontal velocity. A forward jump adds
+#     velocity.jump.fwd.x (2.9 for Zangief, 4.3 for Vega) to the closing speed,
+#     so against a 3-unit-a-frame hadouken the projectile arrives almost TWICE
+#     as fast as the standing estimate said. A character that triggered at the
+#     late edge of the window was hit at jump tick 6, barely off the ground.
+#   * A fixed tick window cannot fit the whole roster anyway. Zangief rises
+#     7.8/frame decaying at .43 and peaks at 74 units; Vega rises 11.5 at .60
+#     and peaks at 116. The same 16 ticks is a very different height.
+#
+# So this version simulates instead. Everything below comes from the character's
+# OWN constants, so it is correct per character with nothing to tune per char:
+#
+#     jy    = -const(velocity.jump.y)      rise speed, as a positive number
+#     ya    =  const(movement.yaccel)      gravity
+#     apex  =  jy / ya                     ticks to the top of the jump
+#     h(t)  =  jy*t - ya*t*(t-1)/2         height above the ground at tick t
+#                                          (the discrete sum the engine actually
+#                                          performs, not the calculus version)
+#
+# For a candidate jump with horizontal speed jx toward the enemy:
+#
+#     rem = ahead - (projectile speed + my current forward speed) * JUMP_STARTUP
+#     t   = rem / (projectile speed + jx)      ticks airborne when it arrives
+#
+# and the jump is taken only when BOTH
+#
+#     t <= apex          impact happens while still rising, never on the way down
+#     h(t) >= CLEAR      and high enough to actually be over it
+#
+# The "t <= apex" half is what sets the timing, and it is self-tuning: as the
+# projectile approaches, t falls. The FIRST frame the test passes is the frame
+# where t equals apex - i.e. the character jumps at the exact moment that puts
+# the projectile underneath it at the TOP of its arc. There is no window to
+# tune, and no way to trigger at an edge where the arc is too low.
+#
+# Worked example, Zangief vs a light hadouken (3 units a frame): apex is 18.1
+# ticks, so a forward jump is taken at ahead = 18.1 * (3 + 2.9) + 3*4 = 119
+# units, and a straight-up one at ahead = 18.1 * 3 + 12 = 66. The old code
+# triggered anywhere from 48 units out, which is where the hop-into-it came from.
+#-------------------------------------------------------------------------------
+# TUNABLES - everything worth changing is here. Search the CAPITALISED name.
+#
+#   JUMP_STARTUP   4   ticks between the decision and leaving the ground, for a
+#                      jump this file started: 3 for the jump-start state plus
+#                      the 1 tick State +1 costs to react. Exact, because the
+#                      3 is pinned - see PIN THE JUMP START in State +1.
+#   JUMP_STARTUP_MAX 9 the same thing for a jump the character's own AI started
+#                      on the frame we wanted one, where the length is whatever
+#                      that character's animations make it. The apex test uses
+#                      the SHORT bound and the clearance test the LONG one, so
+#                      the jump is safe anywhere in between. Underestimating is
+#                      the dangerous direction: a longer start means less time
+#                      airborne when the projectile arrives, i.e. lower on the
+#                      arc, which is exactly how Ken got clipped at 34 units.
+#   CLEAR              how high the character must be when the projectile
+#                      arrives: (-projectile y at impact) + const240p(5), i.e.
+#                      just over its centre line. Derived from the boxes: a
+#                      hadouken's Clsn1 is -20,-4,9,13 around its own position,
+#                      and an airborne character's Clsn2 bottom sits anywhere
+#                      from 11 BELOW its position (Ryu) to 46 above it (Cody),
+#                      so its own centre line is the honest middle. This is a
+#                      FEASIBILITY test more than a timing one - because the
+#                      trigger targets the apex, the real clearance is the peak
+#                      of the arc, and CLEAR is what stops a character whose
+#                      jump simply cannot get over a given projectile.
+#   HIT_Y_LOW     10   impact heights BELOW this are ignored (positive y is
+#                      below ground level).
+#   HIT_Y_HIGH         const(size.head.pos.y) - const240p(20): a projectile that
+#                      would pass over a STANDING character's head is not a
+#                      threat and is ignored.
+#   CLEAR              how high the character must be when the projectile
+#                      arrives: (-projectile y at impact) - const240p(8).
+#                      Derived from the boxes, NOT guessed. A hadouken's Clsn1 is
+#                      -20,-4,9,13 about its own position, so its top edge is 4
+#                      above that position; and an airborne character's Clsn2
+#                      BOTTOM sits above its own position for all but four of the
+#                      roster (median -25, and -80 for Dee Jay; only Ryu, E-Ryu,
+#                      Ken and V-Ken hang below, at about +10). So clearing it
+#                      needs -projY + 4 + boxBottom, and const240p(8) ~ -10 is a
+#                      cautious stand-in for that box bottom.
+#
+#                      This is the number that decides WHO can use the system at
+#                      all, so it is worth being accurate rather than safe: it
+#                      gates on peak jump height, and the roster's peaks run from
+#                      Birdie's 64 and Zangief's 75 to Vega's 116. An earlier
+#                      value of +const240p(5) (i.e. assuming the hurtbox bottom
+#                      sat AT the character's position) put the bar at 58 and
+#                      quietly locked out the bottom of that range - playtesting
+#                      reported Birdie jumping about 5% of fireballs, Zangief
+#                      "mostly", Blanka and Vega perfect, which is exactly that
+#                      list in order of jump height.
+#   FWD_DIST      90   (240p units) opponent farther than this -> up+forward
+#                      jump; closer -> straight up, so the character does not
+#                      jump into them.
+#
+# Distances that are not read from the character's own constants use
+# const240p(), so they mean the same thing on a 320-wide char as on the 384-wide
+# ones in this roster.
+#-------------------------------------------------------------------------------
+# WHY "STRAIGHT UP" NEEDS THE VELOCITY PINNED
+#
+# Mode 1 uses common1.cns state 40, and state 40 decides its own horizontal
+# velocity from the INPUT:
+#
+#     [State 40, 2] VarSet trigger1 = command = "holdfwd"   sysvar(1) = 1
+#     [State 40, 4] VelSet x = ifelse(sysvar(1)=0, neu.x, ifelse(...fwd.x...))
+#
+# An AI's inputs are randomised, so if it happens to be holding forward that
+# frame the "straight up" jump silently becomes a forward one - and the model
+# just finished computing the arc for a velocity the jump is not going to use.
+# PIN THE JUMP START in State +1 sets the velocity itself from the same constant
+# the model read, so mode 1 is genuinely straight up on every character.
+#
+# Writing a private neutral-jump statedef instead was rejected: Vega picks its
+# jump animations as 40 + var(29)*10000 (claw / clawless), so a generic state
+# cannot pick the right sprites for the whole roster. Entering the character's
+# own 40/42 and only overriding the velocity keeps every per-character animation
+# rule intact.
+#-------------------------------------------------------------------------------
+# EXEMPT ROSTER - characters that can trade fireballs
+#
+# Matched on the "name" trigger (the [Info] name, NOT displayname - several
+# characters share a displayname). Comparison is case-insensitive; the engine
+# lowercases both sides.
+#
+#   Ryu           "Ryu"              SFZ_Ryu
+#                 "Evil Ryu"         SFZ_E-Ryu
+#   Ken           "Ken"              SFZ_Ken
+#                 "Violent Ken"      SFZ_V-Ken
+#   Chun-Li       "X-ISM ChunLi"     SFZ_ChunLi-X
+#                 "Z-ISM ChunLi"     SFZ_ChunLi-Z
+#   Sakura        "Sakura Kasugano"  SFZ_Sakura
+#                 "Sakura Dark"      SFZ_D-Sakura
+#   Charlie       "Charlie Nash"     SFZ_Charlie AND SFZ_R-Charlie (same name)
+#   Akuma         "Gouki"            SFZ_Akuma
+#                 "Shin_Akuma"       SFZ_AkumaS
+#   M.Bison       "Bison"            SFZ_Bison   - and ONLY this one. N-Bison's
+#                                    [Info] name is "Dictador", so it is not
+#                                    matched and it does jump, as asked.
+#   Rose          "Rose"             SFZ_Rose
+#   Guile         "William Guile"    SFZ_Guile
+#   Dhalsim       "Dhalsim"          SFZ_Dhalsim
+#
+# The exemption is lifted for a HYPER projectile, detected by hit attribute
+# (ProjVar attr = SCA, HP). Checked against the data: every hyper projectile in
+# this roster is declared "attr = <S|A>, HP" and every special-level one "SP",
+# so the attribute alone separates them - no state-number lists needed.
+#-------------------------------------------------------------------------------
+# THE JUMP ITSELF
+#
+#   mode 1 -> state 40, the normal jump start (see the note above about state 40
+#             reading the input for its direction).
+#   mode 2 -> state 42, "Jump (CPU)" - already in common1.cns and already used
+#             by this roster's own AI (Adon's [State -1, Nomal Jump] and 20-odd
+#             others). It applies velocity.jump.fwd.x unconditionally, so the
+#             direction cannot be lost to whatever the AI happens to be holding.
+#
+# Both exist for every character: all 48 use stcommon = common1.cns, and the
+# five that define their own 40 (Cody x2, Dhalsim, Juni, Vega) all define a
+# normal jump start. Only Vega defines its own 42, also a CPU forward jump.
+#
+# moveType is forced to I first. Statedefs 40 and 42 do not declare a movetype,
+# so cancelling an attack into them would otherwise carry moveType = A into the
+# jump, leaving the character "attacking" with no HitDef.
+#-------------------------------------------------------------------------------
+# LOAD ORDER
+#
+# This file must be LAST in [Common] States. data/system.zss also defines
+# [StateDef +1] and negative / "+1" statedefs from several common files are
+# appended in load order, so being last means this block runs after it. Nothing
+# in system.zss's +1 changes state, so the two do not fight - but keep the order
+# anyway if anything is ever added there.
+#===============================================================================
+
+
+[StateDef -4]
+
+#-------------------------------------------------------------------------------
+# Runs before the character's own -3/-2/-1, and for helpers too, hence the gate.
+# teamSide = 0 is a stage character.
+#-------------------------------------------------------------------------------
+if !isHelper && teamSide != 0 {
+
+	map(_sfaz_pje_mode)  := 0;
+	map(_sfaz_pje_ready) := 0;
+
+	# PROTECT THE ARC. Without this the jump is not the jump that was modelled.
+	# One tick after leaving the ground the character turns its own jump into an
+	# air guard, and the arc collapses. Measured on Zangief: peak 39 instead of
+	# 74, hit on the way up. That is the "short jump forward that doesn't clear
+	# it".
+	#
+	# There are two mechanisms and they need different answers:
+	#
+	#   * The ENGINE's automatic guard (char.go actionPrepare) sees back held
+	#     plus inguarddist and sends the character to state 120. The guard
+	#     AssertSpecial flags stop that.
+	#   * The character's OWN AI, which the flags cannot touch because it is a
+	#     plain ChangeState. Zangief's .cmd:
+	#
+	#         [State -3]; type = ChangeState; value = 132   ; air guard
+	#         triggerall = var(59)
+	#         triggerall = inguarddist
+	#         trigger1 = statetype = A && ctrl
+	#
+	#     State 132 is physics = N and applies gravity ITSELF with a VelAdd; it
+	#     then falls straight through to 140 ("stop guarding", because the AI is
+	#     not holding back), whose [State 140,4] puts physics back to A. So the
+	#     character bounces 140 -> 132 -> 140 every single frame and gravity is
+	#     applied TWICE per frame - .86 instead of .43. That is the doubled decay,
+	#     and it is why the arc peaks at barely half its height.
+	#
+	# The common factor those AI triggers all need is CTRL, so taking ctrl away
+	# for the rising half is what actually beats them - and it is taken away in
+	# -4, before the character's own -1 gets to look at it. Control is handed
+	# back at the apex, so the descent behaves completely normally, air guard
+	# included. Only a jump this file asked for is ever touched (see the latch in
+	# State +1); every other jump the character takes is left alone.
+	if gameTime < map(_sfaz_pje_air) && stateType = A && moveType != H && !inCustomState {
+		if vel y < 0 {
+			assertSpecial{flag: noAirGuard; flag2: noStandGuard; flag3: noCrouchGuard}
+			ctrlSet{value: 0}
+		} else {
+			# Apex. Stop protecting and give control back.
+			ctrlSet{value: 1}
+			map(_sfaz_pje_air) := 0;
+		}
+	}
+
+	# ELIGIBILITY. Read here and only here: at +1 the character's AI may already
+	# have spent its ctrl on a guard or an attack.
+	if roundState = 2 && aiLevel > 0 && alive && !inCustomState && ctrl
+			&& stateType != A && moveType != H
+			&& gameVar(pausetime) = 0 && gameVar(superpausetime) = 0 {
+		map(_sfaz_pje_ready) := 1;
+	}
+
+	if map(_sfaz_pje_ready) != 0 {
+
+		# EXEMPT ROSTER (see header). Split off into a var rather than folded into
+		# the scan, so the string compares happen once per frame and not once per
+		# projectile.
+		let pjeExempt = 0;
+		if name = "Ryu" || name = "Evil Ryu"
+				|| name = "Ken" || name = "Violent Ken"
+				|| name = "X-ISM ChunLi" || name = "Z-ISM ChunLi"
+				|| name = "Sakura Kasugano" || name = "Sakura Dark"
+				|| name = "Charlie Nash"
+				|| name = "Gouki" || name = "Shin_Akuma"
+				|| name = "Bison"
+				|| name = "Rose"
+				|| name = "William Guile"
+				|| name = "Dhalsim" {
+			let pjeExempt = 1;
+		}
+
+		# This character's own jump arc, from its own constants.
+		let pjeJY   = -const(velocity.jump.y);          # rise speed, positive
+		let pjeYA   = max(0.05, const(movement.yaccel));
+		let pjeApex = $pjeJY / $pjeYA;                  # ticks to the top
+		let pjeJFX  = const(velocity.jump.fwd.x);       # forward jump speed
+		let pjeJNX  = const(velocity.jump.neu.x);       # normally 0
+
+		let pjeMyX   = pos x;
+		let pjeVF    = max(0, vel x);                   # my own closing speed
+		let pjeYHigh = const(size.head.pos.y) - const240p(20);   # HIT_Y_HIGH
+
+		# Forward jump only when the opponent is not already on top of us.
+		let pjeFar = 0;
+		if p2BodyDist x >= const240p(90) {              # FWD_DIST
+			let pjeFar = 1;
+		}
+
+		let pjeMode = 0;
+		let pjeNE   = numEnemy;
+
+		# Every enemy, every one of its live projectiles, any ID.
+		#
+		# Each redirected read is assigned on its own line: an operator may not
+		# appear at the top level of a redirection ("'-' operator cannot be used
+		# within a trigger redirection"), so all the arithmetic is done on the
+		# locals afterwards.
+		for pjeE = 0; $pjeNE - 1; 1 {
+			let pjeNP = enemy($pjeE), numProj;
+			for pjeI = 0; $pjeNP - 1; 1 {
+
+				let pjePX    = enemy($pjeE), projVar(-1, $pjeI, pos x);
+				let pjeAhead = ($pjePX - $pjeMyX) * facing;   # > 0 = in front of us
+
+				if $pjeAhead > 0 {
+					let pjePVX = enemy($pjeE), projVar(-1, $pjeI, vel x);
+					let pjePF  = enemy($pjeE), projVar(-1, $pjeI, facing);
+					# vel x is facing-relative on both sides; the trailing * facing
+					# turns it into "speed toward me".
+					let pjeSpd = -($pjePVX * $pjePF) * facing;
+
+					if $pjeSpd > 0.05 {
+						let pjePY  = enemy($pjeE), projVar(-1, $pjeI, pos y);
+						let pjePVY = enemy($pjeE), projVar(-1, $pjeI, vel y);
+
+						# Is it a threat at all? Answered for a character that
+						# does NOT move: where would it be when it got here?
+						# Discards the one that sails overhead and the air
+						# fireball that arcs down and lands short.
+						let pjeT0 = $pjeAhead / max(0.05, $pjeSpd + $pjeVF);
+						let pjeY0 = $pjePY + $pjePVY * $pjeT0;
+
+						if $pjeY0 <= const240p(10) && $pjeY0 >= $pjeYHigh {
+
+							# Distance still to cover once we are off the ground.
+							# TWO bounds, because the jump start is not a fixed
+							# length - see JUMP_STARTUP in the header.
+							let pjeRemA = $pjeAhead - ($pjeSpd + $pjeVF) * 4;
+							let pjeRemC = $pjeAhead - ($pjeSpd + $pjeVF) * 9;
+
+							if $pjeRemC > 0 {
+								# Ticks airborne at impact, and the height of the
+								# arc then, for each candidate jump. The jump
+								# REPLACES our horizontal velocity, which is the
+								# whole point of computing this per mode.
+								# ...A = shortest start (most airborne time, used
+								# for the apex test); ...C = longest start (least
+								# airborne time, used for the clearance test).
+								let pjeTAF = $pjeRemA / max(0.05, $pjeSpd + $pjeJFX);
+								let pjeTCF = $pjeRemC / max(0.05, $pjeSpd + $pjeJFX);
+								let pjeTAN = $pjeRemA / max(0.05, $pjeSpd + $pjeJNX);
+								let pjeTCN = $pjeRemC / max(0.05, $pjeSpd + $pjeJNX);
+
+								let pjeHF = $pjeJY * $pjeTCF - $pjeYA * $pjeTCF * ($pjeTCF - 1) / 2;
+								let pjeHN = $pjeJY * $pjeTCN - $pjeYA * $pjeTCN * ($pjeTCN - 1) / 2;
+
+								# CLEAR, evaluated where the projectile will be.
+								let pjeCF = -($pjePY + $pjePVY * ($pjeTCF + 9)) - const240p(8);
+								let pjeCN = -($pjePY + $pjePVY * ($pjeTCN + 9)) - const240p(8);
+
+								# Impact must land on the way UP even with the
+								# shortest start, and be high enough even with the
+								# longest. See "THE DECISION" in the header.
+								let pjeOkF = 0;
+								if $pjeTAF <= $pjeApex && $pjeHF >= $pjeCF {
+									let pjeOkF = 1;
+								}
+								let pjeOkN = 0;
+								if $pjeTAN <= $pjeApex && $pjeHN >= $pjeCN {
+									let pjeOkN = 1;
+								}
+
+								let pjeThreat = 0;
+								if $pjeExempt = 0 {
+									let pjeThreat = 1;
+								} else if enemy($pjeE), projVar(-1, $pjeI, attr) = SCA, HP {
+									# Exempt characters still jump hypers: a
+									# special-level projectile cannot trade with one.
+									let pjeThreat = 1;
+								}
+
+								if $pjeThreat != 0 {
+									if $pjeFar != 0 && $pjeOkF != 0 {
+										let pjeMode = 2;            # up + forward
+									} else if $pjeOkN != 0 && $pjeMode = 0 {
+										let pjeMode = 1;            # straight up
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		map(_sfaz_pje_mode) := $pjeMode;
+	}
+}
+
+
+[StateDef +1]
+
+#-------------------------------------------------------------------------------
+# The actuator. Runs after -1 and after the current state, so whatever the
+# character's own AI did this frame, this gets the last word. State -4 already
+# decided; this only checks that the frame did not turn into something where a
+# jump would be wrong (got hit, thrown, KO'd, or the AI happened to jump by
+# itself).
+#
+# ctrl is deliberately NOT re-tested here - see WHY IT IS SHAPED LIKE THIS (2).
+#-------------------------------------------------------------------------------
+if !isHelper && teamSide != 0 && map(_sfaz_pje_mode) != 0 && map(_sfaz_pje_ready) != 0 {
+
+	map(_sfaz_pje_ready) := 0;
+
+	# NO JUMPING OUT OF A CUSTOM COMBO. This used to read "!isAsserted(noJump)",
+	# on the reasoning that data/custom_combo.zss asserted noJump for the whole
+	# duration - but it has since stopped doing that for a human and asserts it
+	# only for the AI, so the proxy changed meaning twice without this file being
+	# touched. The mode is tested directly now, by its own map key, which is what
+	# was always meant: spending the mode hopping over a fireball wastes it.
+	if alive && !inCustomState && moveType != H && map(_sfaz_cc_active) = 0 {
+
+		# Hold the arc open for the rising half - see PROTECT THE ARC in -4.
+		# JUMP_PROTECT 45 ticks is a comfortable upper bound on any rise in this
+		# roster (the longest apex is Ryu's at 21), and it is only an upper
+		# bound: "vel y <= 0" ends it at the apex on its own.
+		map(_sfaz_pje_air) := gameTime + 45;
+		map(_sfaz_pje_atk) := gameTime + 70;   # AIR_PUNISH window (whole jump)
+
+		# stateNo 40/42/43/44/45/50 = the jump states. Reaching +1 already in one
+		# of them means the character's own AI jumped on the very frame we wanted
+		# a jump - which happens often, because both are reacting to the same
+		# fireball. Do NOT start a second jump; the latch above is set either way,
+		# so the arc is protected whoever started it. Leaving this case
+		# unprotected was why half the jumps still came up short.
+		# AND NOT OUT OF A HYPER. +1 runs AFTER the current state (src/char.go
+		# actionRun: -4, -3, -2, -1, stateChange2, the state itself, then +1 as
+		# states[-10]), so on the first frame of a hyper its own SuperPause has
+		# already run and already taken the level. Jumping out from here spends the
+		# bar and gives nothing back. The "nothing is drawn yet" argument in (2)
+		# above is true for a normal and false for a hyper. Same defect as the
+		# REACH_HYPER clause removed from data/ai_offense.zss - see the note there.
+		# A fireball eaten at full meter is cheaper than a level thrown away.
+		if stateType != A && stateNo != [3000, 4999]
+				&& stateNo != 40 && stateNo != 42 && stateNo != 43
+				&& stateNo != 44 && stateNo != 45 && stateNo != 50 {
+
+			# Statedefs 40 and 42 declare no movetype, so an attack cancelled
+			# into them would stay moveType = A.
+			stateTypeSet{movetype: I}
+
+			# Diagnostic latch: the gameTime of the last jump this file forced.
+			# Nothing reads it in-game; it is here so a Lua probe or the debug
+			# console can tell one of these jumps apart from the character's own.
+			map(_sfaz_pje_fired) := gameTime;
+
+			# Both latches MUST be written before the ChangeState. A
+			# ChangeState on self returns "stop", which ends the whole state
+			# block - anything after it in this file simply never runs.
+			map(_sfaz_pje_pin) := gameTime + 12;
+
+			if map(_sfaz_pje_mode) = 2 {
+				map(_sfaz_pje_vx) := const(velocity.jump.fwd.x);
+				changeState{value: 42}                        # CPU forward jump
+			} else {
+				map(_sfaz_pje_vx) := const(velocity.jump.neu.x);
+				changeState{value: 40}                        # neutral jump
+			}
+		}
+	}
+}
+
+#-------------------------------------------------------------------------------
+# PIN THE JUMP START, for a jump this file started (map(_sfaz_pje_pin)).
+#
+# States 40 and 42 leave on "AnimTime = 0", which is NOT a fixed number of ticks.
+# Anim 40 is a single 3-tick frame for most of the roster, but Dhalsim's is 2,
+# Honda's and Dee Jay's are 6, and state 42 does not even ask for anim 40 - it
+# asks for "ifelse(!var(20) || var(20) = 1, 40, 50)". Ken has no anim 50 at all,
+# so that ChangeAnim does nothing and the state leaves whenever whatever anim the
+# character happened to be playing runs out. Measured: Ken sat in state 42 for
+# EIGHT ticks, the fireball arrived five ticks earlier in the arc than the model
+# assumed, and he was clipped at 34 units up. Bison's anim 50 is 33 ticks.
+#
+# So for our own jumps the start is pinned to 3 ticks and the horizontal velocity
+# is set from the same constant the model used - which also makes the "straight
+# up" mode genuinely straight up, instead of state 40 reading whatever direction
+# the AI's randomised input happened to be holding.
+#
+# Jumps the character's own AI started are NOT pinned (we did not choose their
+# velocity either); they are only protected, and JUMP_STARTUP_MAX in the model is
+# what covers their unknown length.
+#-------------------------------------------------------------------------------
+if !isHelper && teamSide != 0 && gameTime < map(_sfaz_pje_pin)
+		&& stateType = S && moveType != H && !inCustomState && alive
+		&& (((stateNo = 40 || stateNo = 42) && time >= 2)
+			|| (stateNo != 40 && stateNo != 42)) {
+	# The second half of that condition is the character's AI taking the jump
+	# back off us: Honda cancels our State 40 into his own state 1200 on the very
+	# next frame, and states 40 and 42 have ctrl = 0, so there is no ctrl to
+	# remove that would stop him. Reaching here in any state other than the two
+	# jump starts, inside the pin window, means exactly that - so launch anyway.
+	map(_sfaz_pje_pin) := 0;
+	# The pin is dropped unconditionally above, but the LAUNCH is skipped if the
+	# state the AI took the jump back into is a hyper. +1 runs after the current
+	# state, so that hyper's SuperPause has already spent the level by the time we
+	# get here, and launching would bin it. Same reasoning as the jump-out guard
+	# above and as the REACH_HYPER clause removed from data/ai_offense.zss.
+	if stateNo != [3000, 4999] {
+		if stateNo = 42 {
+			playSnd{value: 40, 0; channel: 20}    # what state 42 plays on AnimTime = 0
+		}
+		velSet{x: map(_sfaz_pje_vx); y: const(velocity.jump.y)}
+		changeState{value: 50; ctrl: 1}
+	}
+}
+
+
+#-------------------------------------------------------------------------------
+# AIR PUNISH - turn the evasion into an attack.
+#
+# Once the character is over the fireball and coming down on the person who threw
+# it, it attacks instead of just landing: jump over the projectile and make them
+# pay for throwing it. Only from AIR_PUNISH_AILEVEL up, and only during a jump
+# this file asked for (map(_sfaz_pje_atk), set in the block above, which covers
+# both the jumps it starts and the ones the character's own AI started on the
+# same frame).
+#
+# Timed on the way DOWN (vel y > 0), which is where a jump-in connects: coming up,
+# an air normal would whiff over their head and leave the character in recovery
+# for the landing.
+#
+# The attack is picked from what the character actually has. 600/610/620 (air
+# punches) and 630/640/650 (air kicks) are the roster's layout - all 46 have 600,
+# 44 have all six; Juli and Juni only have 600, hence selfStateNoExist rather
+# than a fixed number. The random ordering is only so the same character does not
+# always answer with the same button.
+#
+#   AIR_PUNISH_AILEVEL   3   only above this AI level
+#   AIR_PUNISH_RANGE    45   (240p) horizontal body distance to attack from
+#   AIR_PUNISH_HEIGHT   30   (240p) minimum height, so it does not swing at the
+#                            floor on the last frame before landing
+#-------------------------------------------------------------------------------
+if !isHelper && teamSide != 0 && aiLevel > 3 && gameTime < map(_sfaz_pje_atk)
+		&& alive && !inCustomState && numEnemy != 0
+		&& stateType = A && moveType = I && vel y > 0
+		&& pos y <= const240p(-30)
+		&& p2BodyDist x <= const240p(45) && p2BodyDist x >= const240p(-30) {
+
+	let pjeAtk = 0;
+	if random < 300 && selfStateNoExist(650) {
+		let pjeAtk = 650;
+	} else if random < 500 && selfStateNoExist(640) {
+		let pjeAtk = 640;
+	} else if random < 700 && selfStateNoExist(620) {
+		let pjeAtk = 620;
+	} else if selfStateNoExist(600) {
+		let pjeAtk = 600;
+	}
+
+	if $pjeAtk != 0 {
+		# Cleared BEFORE the ChangeState - a self ChangeState ends the state
+		# block, so a line after it would never run.
+		map(_sfaz_pje_atk) := 0;
+		# Diagnostic latch, same idea as _sfaz_pje_fired: the gameTime of the
+		# last air punish, so one of these can be told apart from the
+		# character's own jump attack.
+		map(_sfaz_pje_punished) := gameTime;
+		changeState{value: $pjeAtk}
+	}
+}

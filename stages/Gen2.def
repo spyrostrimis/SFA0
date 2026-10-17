@@ -1,0 +1,409 @@
+[Info]
+name = "Victoria Harbor - Hong Kong"
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -190
+boundright = 190
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0           
+p1startz = 0         
+p1facing = 1         
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000 
+rightbound =  1000 
+topbound  =  0
+botbound  =  0 
+
+[Scaling]
+topz     = 0 
+botz     = 50     
+topscale = 1      
+botscale = 1.2    
+
+[Bound]
+screenleft = 15 
+screenright = 15   
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 1
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 26,54,55
+yscale = .05
+intensity = 25
+
+[Music]
+bgmusic = Sound/Gen.mp3
+bgmloopstart = 360000
+bgmloopend = 3322713
+bgvolume = 0
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Gen2.sff
+;debugbg = 1
+
+[BG 0]
+type = normal
+spriteno = 0,0
+start = -325,-16
+delta = 0.7,1
+mask = 1
+
+[BG 1]
+type = normal
+spriteno = 1,0
+start = 4,121
+delta = 0.837,1
+mask = 1
+
+[BG 2]
+type = normal
+spriteno = 2,0
+id = 2
+start = 200,138
+delta = 0.8370,1
+mask = 1
+
+[BGCtrlDef 2]
+CtrlID = 2
+looptime = -1
+
+[BGCtrl 2.1]
+type = VelSet
+time = 0
+x = -0.15
+
+[BG 3]
+type = normal
+spriteno = 3,0
+id = 3
+start = -80,134
+delta = 0.8370,1
+mask = 1
+
+[BGCtrlDef 3]
+CtrlID = 3
+looptime = -1
+
+[BGCtrl 3.1]
+type = VelSet
+time = 0
+x = -0.1
+
+[BG 4]
+type = normal
+spriteno = 4,0
+id = 4
+start = -90,94
+delta = 0.8370,1
+mask = 1
+
+[BGCtrlDef 4]
+CtrlID = 4
+looptime = 480
+
+[BGCtrl 4.1]
+type = PosAdd
+time = 0
+y = 1
+
+[BGCtrl 4.2]
+type = PosAdd
+time = 240
+y = -1
+
+[BG 5]
+type = normal
+spriteno = 5,0
+id = 5
+start = -225,114
+delta = 0.8370,1
+mask = 1
+
+[BGCtrlDef 5]
+CtrlID = 5
+looptime = 370
+
+[BGCtrl 5.1]
+type = PosAdd
+time = 0
+y = 1
+
+[BGCtrl 5.2]
+type = PosAdd
+time = 185
+y = -1
+
+[BG 6]
+type = anim
+actionno = 6
+id = 6
+start = 523,-116
+delta = 0.8370,1
+
+[Begin Action 6]
+6,0,0,0,2092
+6,0,0,0,2092,H
+
+[BGCtrlDef 6]
+looptime = 4184
+CtrlID = 6
+
+[BGCtrl 6.1]
+type = VelSet
+time = 0
+x = -0.5
+y = 0.1
+
+[BGCtrl 6.2]
+type = VelSet
+time = 2092
+x = 0.5
+y = -0.1
+
+[BG 7]
+type = normal
+spriteno = 7,0
+id = 7
+start = -370,-16
+delta = 0.9352,1
+mask = 1
+
+[BGCtrlDef 7]
+CtrlID = 7
+looptime = 448
+
+[BGCtrl 7.1]
+type = PosAdd
+time = 0
+y = 1
+
+[BGCtrl 7.2]
+type = PosAdd
+time = 56
+y = 1
+
+[BGCtrl 7.3]
+type = PosAdd
+time = 112
+y = 1
+
+[BGCtrl 7.4]
+type = PosAdd
+time = 168
+y = 1
+
+[BGCtrl 7.5]
+type = PosAdd
+time = 224
+y = -1
+
+[BGCtrl 7.6]
+type = PosAdd
+time = 280
+y = -1
+
+[BGCtrl 7.7]
+type = PosAdd
+time = 336
+y = -1
+
+[BGCtrl 7.8]
+type = PosAdd
+time = 392
+y = -1
+
+[BG 8]
+type = normal
+spriteno = 8,0
+start = -370,-16
+delta = 0.9375,1
+mask = 1
+
+[BG 9]
+type = anim
+actionno = 9
+start = 160,113
+delta = 0.9375,1
+
+[Begin Action 9]
+9,6,0,0,122
+9,5,0,0,8
+9,4,0,0,8
+9,0,0,0,15
+9,1,0,0,8
+9,0,0,0,8
+9,2,0,0,8
+9,0,0,0,8
+9,1,0,0,8
+9,0,0,0,8
+9,2,0,0,8
+9,0,0,0,8
+9,1,0,0,8
+9,0,0,0,8
+9,2,0,0,8
+9,0,0,0,8
+9,1,0,0,8
+9,0,0,0,8
+9,2,0,0,9
+9,3,0,0,8
+9,4,0,0,8
+9,5,0,0,8
+
+[BG 10]
+type = parallax
+spriteno = 10,0
+start = 0,186
+delta = 0.9375,1
+;xscale = 1,1.08735632183908045977
+
+[BG 11]
+type = anim
+actionno = 11
+start = 300,84
+delta = 0.9375,1
+
+[Begin Action 11]
+11,0,0,0,1
+11,0,1,1,1
+11,0,2,2,1
+11,0,3,3,1
+11,0,4,4,1
+11,0,5,5,1
+11,0,6,6,1
+11,0,7,7,1
+11,0,8,8,1
+11,0,9,9,1
+11,0,10,10,1
+11,0,9,11,1
+11,0,8,12,1
+11,0,7,13,1
+11,0,6,14,1
+11,0,5,15,1
+11,0,4,16,1
+11,0,3,17,1
+11,0,2,18,1
+11,0,1,19,1
+11,0,0,20,1
+11,0,1,21,1
+11,0,2,22,1
+11,0,3,23,1
+11,0,4,24,1
+11,0,5,25,1
+11,0,6,26,1
+11,0,7,27,1
+11,0,8,28,1
+11,0,9,29,1
+11,0,10,30,1
+11,0,11,29,1
+11,0,12,28,1
+11,0,13,27,1
+11,0,14,26,1
+11,0,15,25,1
+11,0,16,24,1
+11,0,17,23,1
+11,0,18,22,1
+11,0,19,21,1
+11,0,20,20,1
+11,0,19,19,1
+11,0,18,18,1
+11,0,17,17,1
+11,0,16,16,1
+11,0,15,15,1
+11,0,14,14,1
+11,0,13,13,1
+11,0,12,12,1
+11,0,11,11,1
+11,0,10,10,1
+11,0,9,9,1
+11,0,8,8,1
+11,0,7,7,1
+11,0,6,6,1
+11,0,5,5,1
+11,0,4,4,1
+11,0,3,3,1
+11,0,2,2,1
+11,0,1,1,1
+11,0,0,0,120
+
+[BG 12]
+type = anim
+actionno = 12
+id = 12
+start = -340,112
+delta = 0.9352,1
+
+[BGCtrlDef 12]
+CtrlID = 12
+looptime = 448
+
+[BGCtrl 12.1]
+type = PosAdd
+time = 0
+y = 1
+
+[BGCtrl 12.2]
+type = PosAdd
+time = 56
+y = 1
+
+[BGCtrl 12.3]
+type = PosAdd
+time = 112
+y = 1
+
+[BGCtrl 12.4]
+type = PosAdd
+time = 168
+y = 1
+
+[BGCtrl 12.5]
+type = PosAdd
+time = 224
+y = -1
+
+[BGCtrl 12.6]
+type = PosAdd
+time = 280
+y = -1
+
+[BGCtrl 12.7]
+type = PosAdd
+time = 336
+y = -1
+
+[BGCtrl 12.8]
+type = PosAdd
+time = 392
+y = -1
+
+[Begin Action 12]
+12,0,0,0,195
+12,1,0,0,2
+12,2,0,0,2
+12,3,0,0,195
+12,2,0,0,2
+12,1,0,0,2

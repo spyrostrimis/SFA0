@@ -1,0 +1,378 @@
+[Info]
+name = "Arizona Desert - U.S.A"
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -220
+boundright = 220
+boundhigh = -16
+boundlow = 0
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz = 0
+botz = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 16,36,16
+yscale = .05
+intensity = 80
+
+[Music]
+bgmusic = sound/Sodom.mp3
+bgmloopstart=2183769
+bgmloopend=  5057034
+bgvolume = 0
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Sodom-Z.sff
+;debugbg = 0
+
+[BG 0]
+type = normal
+spriteno = 0,0
+start = 0,224
+delta = .572,1
+tile = 1,0
+tilespacing = 0
+
+[BG 1]
+type = normal
+spriteno = 1,0
+start = 0,224
+delta = .605,1
+tile = 1,0
+tilespacing = 0
+mask = 1
+
+[BG 2]
+type = Normal;parallax
+spriteno = 2,0
+start = 0,161
+delta = 1,1;.605,1
+;xscale = .605,1.22
+
+[BG 3]; auto destruido
+type = normal
+spriteno = 3,0
+start = -86,224
+delta = 1,1
+mask = 1
+
+[BG 4]; camion de Sodom
+type = normal
+spriteno = 4,0
+start = 0,224
+delta = 1,1
+mask = 1
+[BG 5]
+type = anim
+actionno = 5
+start = 0,224
+delta = 1,1
+[BG 6]
+type = anim
+actionno = 6
+start = 0,224
+delta = 1,1
+[BG 7]
+type = anim
+actionno = 7
+start = 0,224
+delta = 1,1
+[BG 8]
+type = anim
+actionno = 8
+start = 0,224
+delta = 1,1
+[BG 91]
+type = anim
+actionno = 91
+ID = 91
+start = 0,224
+delta = 1,1
+[BG 92]
+type = anim
+actionno = 92
+ID = 92
+start = 0,224
+delta = 1,1
+[BG 101]
+type = anim
+actionno = 101
+ID = 91
+start = 0,224
+delta = 1,1
+[BG 102]
+type = anim
+actionno = 102
+ID = 92
+start = 0,224
+delta = 1,1
+[BG 11]
+type = anim
+actionno = 11
+start = 0,224
+delta = 1,1
+[BG 121]
+type = anim
+actionno = 121
+ID = 91
+start = 0,224
+delta = 1,1
+[BG 122]
+type = anim
+actionno = 122
+ID = 92
+start = 0,224
+delta = 1,1
+
+[BG 13]; arbol
+type = anim
+actionno = 13
+start = 29,224
+delta = 1,1
+
+[BG 14]
+type = normal
+spriteno = 14,0
+layerno = 1
+start = 0,224
+delta = 1.21,1
+mask = 1
+
+[BG 15]
+type = normal
+spriteno = 15,0
+layerno = 1
+start = 0,224
+delta = 1.21,1
+mask = 1
+
+[BG 16]
+type = normal
+spriteno = 16,0
+layerno = 1
+start = 0,224
+delta = 1.21,1
+mask = 1
+
+[BG 17]
+type = normal
+spriteno = 17,0
+layerno = 1
+start = 0,224
+delta = 1.31,1
+mask = 1
+
+[BG 18]
+type = normal
+spriteno = 18,0
+layerno = 1
+start = 0,224
+delta = 1.31,1
+mask = 1
+
+[BGCtrlDef 91]
+CtrlID = 91
+looptime = 24
+
+[BGCtrl 91.1]
+type = visible
+time = 0
+value = 1
+
+[BGCtrl 91.2]
+type = visible
+time = 12
+value = 0
+
+[BGCtrlDef 92]
+CtrlID = 92
+looptime = 24
+
+[BGCtrl 92.1]
+type = visible
+time = 0
+value = 0
+
+[BGCtrl 92.2]
+type = visible
+time = 12
+value = 1
+
+[Begin action 5]
+5,0, 0,0, 16
+5,1, 0,0, 16
+
+[Begin action 6]
+6,0, 0,0, 12
+6,1, 0,0, 12
+6,0, 0,0, 12
+6,1, 0,0, 12
+6,0, 0,0, 12
+6,1, 0,0, 12
+6,0, 0,0, 12
+6,1, 0,0, 12
+6,0, 0,0, 12
+6,1, 0,0, 12
+6,2, 0,0, 12
+6,3, 0,0, 12
+6,2, 0,0, 12
+6,3, 0,0, 12
+6,2, 0,0, 12
+6,3, 0,0, 12
+
+[Begin action 7]
+7,0, 0,0, 14
+7,1, 0,0, 14
+7,0, 0,0, 14
+7,1, 0,0, 14
+7,0, 0,0, 14
+7,1, 0,0, 14
+7,0, 0,0, 14
+7,1, 0,0, 14
+7,0, 0,0, 14
+7,1, 0,0, 14
+7,2, 0,0, 14
+7,3, 0,0, 14
+7,2, 0,0, 14
+7,3, 0,0, 14
+7,2, 0,0, 14
+7,3, 0,0, 14
+
+[Begin action 8]
+8,0, 0,0, 12
+8,1, 0,0, 12
+8,2, 0,0, 12
+8,3, 0,0, 12
+8,0, 0,0, 12
+8,1, 0,0, 12
+8,2, 0,0, 12
+8,3, 0,0, 12
+8,0, 0,0, 12
+8,1, 0,0, 12
+8,2, 0,0, 12
+8,3, 0,0, 12
+8,0, 0,0, 12
+8,1, 0,0, 12
+8,2, 0,0, 12
+8,3, 0,0, 12
+8,1, 0,0, 12
+8,3, 0,0, 12
+8,1, 0,0, 12
+8,3, 0,0, 12
+8,1, 0,0, 12
+8,3, 0,0, 12
+
+[Begin action 91]
+9,0, 0,0, 64
+9,1, 0,0, 8
+9,2, 0,0, 16
+9,1, 0,0, 8
+9,2, 0,0, 16
+9,1, 0,0, 16
+9,2, 0,0, 24
+9,1, 0,0, 16
+
+[Begin action 92]
+9,3, 0,0, 64
+9,4, 0,0, 8
+9,5, 0,0, 16
+9,4, 0,0, 8
+9,5, 0,0, 16
+9,4, 0,0, 16
+9,5, 0,0, 24
+9,4, 0,0, 16
+
+[Begin action 101]
+10,0, 0,0, 20
+10,1, 0,0, 10
+10,2, 0,0, 20
+10,1, 0,0, 10
+
+[Begin action 102]
+10,3, 0,0, 20
+10,4, 0,0, 10
+10,5, 0,0, 20
+10,4, 0,0, 10
+
+[Begin action 11]
+11,0, 0,0, 12
+11,1, 0,0, 12
+11,2, 0,0, 12
+11,3, 0,0, 12
+11,0, 0,0, 12
+11,1, 0,0, 12
+11,2, 0,0, 12
+11,3, 0,0, 12
+11,0, 0,0, 12
+11,1, 0,0, 12
+11,2, 0,0, 12
+11,3, 0,0, 12
+11,0, 0,0, 12
+11,1, 0,0, 12
+11,2, 0,0, 12
+11,3, 0,0, 12
+11,1, 0,0, 12
+11,3, 0,0, 12
+11,1, 0,0, 12
+11,3, 0,0, 12
+11,1, 0,0, 12
+11,3, 0,0, 12
+
+[Begin action 121]
+12,0, 0,0, 4
+12,1, 0,0, 4
+12,2, 0,0, 4
+12,3, 0,0, 4
+12,4, 0,0, 4
+
+[Begin action 122]
+12,5, 0,0, 4
+12,6, 0,0, 4
+12,7, 0,0, 4
+12,8, 0,0, 4
+12,9, 0,0, 4
+
+[Begin action 13]
+13,0, 0,0, 14
+13,1, 0,0, 14

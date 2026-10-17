@@ -1,0 +1,223 @@
+;サリーちゃん
+;--------------------------------------
+;State looking left
+[Statedef 4000]
+type = S
+anim = 4000
+SprPriority = -4
+
+;looking right
+[State 4000, 右]
+type = changestate
+trigger1 = rootdist X > 0
+value = 4001
+
+;happy/clapping
+[State 4000, 喜]
+type = changestate
+trigger1 = time > 10 && p2stateno = [5000,5070]
+value = 4010
+
+;looking back/sad
+[State 4000, 哀]
+type = changestate
+trigger1 = time > 10 && root, stateno = [5000,5070]
+value = 4020
+
+;dhalsim wins
+[State 4000, 大喜]
+type = changestate
+trigger1 = root, stateno = [181,186]
+value = 4030
+
+;dhalsim defeated
+[State 4000, 泣]
+type = changestate
+trigger1 = (root, stateno = 170) || (root, stateno = 5150)
+value = 4040
+
+;--------------------------------------
+;State looking right
+[Statedef 4001]
+type = S
+anim = 4001
+SprPriority = -5
+
+;考ooking left
+[State 4001, 左]
+type = changestate
+trigger1 = rootdist X < 0
+value = 4000
+
+;happy/clapping
+[State 4001, 喜]
+type = changestate
+trigger1 = time > 10 && p2stateno = [5000,5070]
+value = 4010
+
+;looking back/sad
+[State 4001, 哀]
+type = changestate
+trigger1 = time > 10 && root, stateno = [5000,5070]
+value = 4020
+
+;dhalsim wins
+[State 4001, 大喜]
+type = changestate
+trigger1 = root, stateno = [181,186]
+value = 4030
+
+;dhalsim defeated
+[State 4001, 泣]
+type = changestate
+trigger1 = (root, stateno = 170) || (root, stateno = 5150)
+value = 4040
+
+;--------------------------------------
+;State looking back/sad
+[Statedef 4020]
+type = S
+anim = 4020
+SprPriority = -5
+
+;考ooking left
+[State 4020, 左]
+type = changestate
+trigger1 = time > 65
+value = 4000
+
+;happy/clapping
+[State 4020, 喜]
+type = changestate
+trigger1 = root, stateno != [5000,5070]
+trigger1 = p2stateno = [5000,5070]
+value = 4010
+
+;dhalsim wins
+[State 4020, 大喜]
+type = changestate
+trigger1 = root, stateno = [181,186]
+value = 4030
+
+;dhalsim defeated
+[State 4020, 泣]
+type = changestate
+trigger1 = (root, stateno = 170) || (root, stateno = 5150)
+value = 4040
+
+;--------------------------------------
+;State happy/clapping left
+[Statedef 4010]
+type = S
+anim = 4010
+SprPriority = -5
+
+;考ooking left
+[State 4010, 左]
+type = changestate
+trigger1 = time > 480
+value = 4000
+
+;State happy/clapping right
+[State 4010, 右]
+type = changestate
+trigger1 = rootdist X > 0
+value = 4011
+
+;looking back/sad
+[State 4010, 哀]
+type = changestate
+trigger1 = root, stateno = [5000,5070]
+trigger1 = p2stateno != [5000,5070]
+value = 4020
+
+;dhalsim wins
+[State 4010, 大喜]
+type = changestate
+trigger1 = root, stateno = [181,186]
+value = 4030
+
+;dhalsim defeated
+[State 4010, 泣]
+type = changestate
+trigger1 = (root, stateno = 170) || (root, stateno = 5150)
+value = 4040
+
+;--------------------------------------
+;State dhalsim wins
+[Statedef 4030]
+type = S
+anim = 4030
+SprPriority = -5
+
+[State 4030, パピィ]
+type = PlaySnd
+trigger1 = Time = 40
+value = 4000, 0
+
+;--------------------------------------
+;State happy/clapping right
+[Statedef 4011]
+type = S
+anim = 4011
+SprPriority = -5
+
+;考ooking left
+[State 4011, 左]
+type = changestate
+trigger1 = time > 480
+value = 4000
+
+;State happy/clapping left
+[State 4011, 右]
+type = changestate
+trigger1 = rootdist X < 0
+value = 4010
+
+;looking back/sad
+[State 4011, 哀]
+type = changestate
+trigger1 = root, stateno = [5000,5070]
+trigger1 = p2stateno != [5000,5070]
+value = 4020
+
+;dhalsim wins
+[State 4011, 大喜]
+type = changestate
+trigger1 = root, stateno = [181,186]
+value = 4030
+
+;dhalsim defeated
+[State 4011, 泣]
+type = changestate
+trigger1 = (root, stateno = 170) || (root, stateno = 5150)
+value = 4040
+
+;--------------------------------------
+;State dhalsim wins
+[Statedef 4030]
+type = S
+anim = 4030
+SprPriority = -5
+
+[State 4030, パピィ]
+type = PlaySnd
+trigger1 = Time = 40
+value = 4000, 0
+
+;--------------------------------------
+;State dhalsim defeated
+[Statedef 4040]
+type = S
+anim = 4040
+SprPriority = -5
+
+[State 4040, 1]
+type = null
+trigger1 = 1
+
+
+
+
+
+

@@ -1,0 +1,107 @@
+
+[Info]
+name = "Honda Boss3" ;Bath in Sento - Japan
+author = "chok"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -106
+boundright = 106
+boundhigh = -231
+boundlow = 0
+verticalfollow = .1
+floortension = 00
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+leftbound = -1000
+rightbound = 1000
+topbound = 0
+botbound = 0
+
+[Scaling]
+topz = 0
+botz = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 1
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 116,86,16
+yscale = .05
+
+[Music]
+bgmusic = sound/Honda2.mp3
+bgmloopstart = 419325
+bgmloopend = 4419332
+bgvolume = 0
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Honda3.sff
+
+[BG Womensarea]
+type = normal
+spriteno = 2,0
+start = -308,6
+delta = 1,1
+mask = 1
+;actionno =0
+
+[BG WomensRope]
+type = normal
+spriteno = 4,1
+start = -211,-110
+delta = 1.1,1.1
+mask = 1
+;actionno =0
+
+[BG WomensLantern]
+type = normal
+spriteno = 4,0
+start = -211,-110
+delta = 1.1,1.1
+mask = 1
+;actionno =0
+
+
+
+[BG Water]
+type = anim
+spriteno = 16,0
+start = 131,136
+delta = 1,1
+mask = 1
+actionno =12
+
+
+[Begin action 12]
+
+16,0, 0,0, 8
+16,1, 0,0, 4
+16,2, 0,0, 3
+16,3, 0,0, 8
+16,2, 0,0, 3
+16,1, 0,0, 4

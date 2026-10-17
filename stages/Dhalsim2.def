@@ -1,0 +1,190 @@
+[Info]
+name = "Jaunpur Monument - India"
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -190
+boundright = 190
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz = 0
+botz = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+xscale = 1
+yscale = 1
+
+[Shadow]
+color = 16,16,16
+yscale = .05
+
+[Music]
+bgmusic = Sound/Dhalsim2.mp3
+bgmloopstart= 26505
+bgmloopend= 2380941
+bgvolume = 0
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Dhalsim2.sff
+
+[BG farback]; cielo
+type  = normal
+spriteno = 2,0
+start = 0,-16
+delta = .08,1
+layerno = 0
+mask=0
+
+[BG back];campanario(banderines)
+type  = normal
+spriteno = 4,1
+start = 0,-16
+delta = .35,1;.386,1
+layerno = 0
+mask=1
+[BG back];campanario
+type  = normal
+spriteno = 4,0
+start = 0,-16
+delta = .45,1;.466,1
+layerno = 0
+mask=1
+
+[BG back]; banderines y otros
+type  = normal
+spriteno = 1,0
+start = 0,-16
+delta = .55,1
+layerno = 0
+mask=1
+
+[BG Floor 2];arbol y elefantes
+type  = normal
+spriteno = 0,1
+start = 0,-16
+delta = .75,1
+layerno = 0
+mask=1
+
+[BG righteye]
+type  = anim
+actionno = 6
+start = 0,-16
+delta = .75,1
+mask=1
+
+[BG Guy]
+type  = anim
+actionno = 3
+start = 0,-16
+delta = .75,1
+mask=1
+
+[BG Dog]
+type  = anim
+actionno = 5
+start = 0,-16
+delta = .75,1
+mask=1
+
+[BG earleft]
+type  = anim
+actionno = 7
+start = 0,-16
+delta = .75,1
+mask=1
+
+[BG eyeleft]
+type  = anim
+actionno = 8
+start = 0,-16
+delta = .75,1
+mask=1
+
+[BG Floor]
+type  = parallax
+spriteno = 0,0
+start = 0,192
+delta = .75,1
+mask=1
+;xscale = 1,1.46376811594202898550
+
+[Begin Action 3]
+3,0, 0,0, 59
+loopstart
+3,0, 0,0, 8
+3,1, 0,0, 4
+3,2, 0,0, 4
+3,3, 0,0, 8
+3,4, 0,0, 4
+3,5, 0,0, 4
+
+[Begin Action 5]
+5,1, 0,0, 59
+loopstart
+5,1, 0,0, 8
+5,0, 0,0, 8
+
+[Begin Action 6]
+-1,-1, 0,0, 112
+6,0, 0,0, 4
+6,1, 0,0, 8
+6,2, 0,0, 4
+6,3, 0,0, 8
+6,4, 0,0, 4
+-1,-1, 0,0, 326
+
+[Begin Action 7]
+-1,-1, 0,0, 90
+7,0, 0,0, 12
+7,1, 0,0, 12
+7,2, 0,0, 12
+7,3, 0,0, 12
+7,4, 0,0, 12
+-1,-1, 0,0, 165
+
+[Begin Action 8]
+-1,-1, 0,0, 186
+8,0, 0,0, 4
+8,1, 0,0, 8
+8,2, 0,0, 4
+8,3, 0,0, 8
+8,4, 0,0, 4
+-1,-1, 0,0, 166

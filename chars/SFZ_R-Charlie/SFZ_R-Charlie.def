@@ -1,0 +1,38 @@
+[Info]
+name = "Charlie Nash"
+displayname = "CHARLIE"
+author = "Adamskie"
+Pal.Defaults = 1,4
+localcoord = 384,224
+mugenversion = 1.0
+
+[Files]
+cmd      = SFZ_Charlie.cmd
+cns      = 384.cns
+st       = 384.cns
+st2       = System.cns
+stcommon = common1.cns
+sprite   = SFZ_Charlie.sff
+sound    = SFZ_Charlie.snd
+anim     = SFZ_Charlie.air
+movelist = movelist.dat
+
+pal1     = Set1/Z-ISM1.act
+pal2     = Set1/V-ISM1.act
+pal3     = Set1/X-ISM1.act
+pal4     = Set1/SFV_Zombie.act
+pal5     = Set1/X-ISM2.act
+pal6     = Set1/Z-ISM2.act
+pal7     = Set1/V-ISM2.act
+pal8     = Set1/X-ISM4.act
+pal9     = Set1/Z-ISM4.act
+pal10     = Set1/Z-ISM3.act
+pal11     = Set1/V-ISM3.act
+pal12     = Set1/X-ISM3.act
+
+
+[Arcade]
+intro.storyboard = Intros/Intro_R-Charlie.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/R-Charlie.lua

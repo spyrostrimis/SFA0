@@ -1,0 +1,52 @@
+[Info]
+localcoord = 384,224
+
+[SceneDef]
+spr = Logo.sff
+snd = Data/system.snd
+
+[Scene 0]
+fadein.time = 0
+fadein.col = 0,0,0
+fadeout.time = 0
+fadeout.col = 0,0,0
+clearcolor = 255,255,255
+bg.name = BG
+layer0.starttime = 0
+end.time = 99999999
+bgm = Sound/Screenpack/Score.wav
+loop = 0
+
+;------------------------------------
+[BGDef]
+
+[BG 0]
+type  = normal
+spriteno = 2,0
+layerno = 0
+start = 0,1
+tile  = 1,1
+velocity = 0,0
+
+[BG 1]
+type = normal
+spriteno = 2,1
+layerno = 0
+start = -192,0
+tile = 1,1
+mask = 1
+
+[BG 2]
+type = anim
+actionno = 2
+layerno = 0
+start = -192,0
+tile = 0,0
+mask = 1
+
+[Begin Action 2]
+2,3,0,0,1
+LoopStart
+2,2,0,0,20
+-1,0,0,0,20
+

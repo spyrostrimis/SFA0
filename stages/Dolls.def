@@ -1,0 +1,2977 @@
+[Info]
+name = "Secret Area 48106 - Unknown"
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx=0
+starty=0
+boundleft=-190
+boundright=190
+boundhigh = -16
+boundlow = 32
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx=-75
+p1starty=0
+p1startz=0
+p1facing=1
+
+p2startx=75
+p2starty=0
+p2startz=0
+p2facing=-1
+
+leftbound=-1000
+rightbound=1000
+topbound=0
+botbound=0
+
+[Scaling]
+topz=0
+botz=50
+topscale=1
+botscale=1.2
+
+[Bound]
+screenleft=15
+screenright=15
+
+[StageInfo]
+zoffset=200
+autoturn=1
+resetBG=0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 16,16,16
+yscale = .05
+
+[Music]
+bgmusic = sound/Dolls.mp3
+bgmloopstart = 1357951
+bgmloopend =   3693408
+bgvolume = 255
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Dolls.sff
+debugbg = 0
+
+[BG rain T]
+type=anim
+actionno=6
+layerno=1
+start=0,-16
+delta=.95758928,1
+tile=1,1
+tilespacing=64,64
+
+[BG safety]
+type=normal
+spriteno=0,99
+layerno=0
+start=0,-16
+delta=0,0
+mask=0
+tile=1,1
+tilespacing=0,0
+
+;---Sky---
+[BG sky]
+type=normal
+spriteno=12,0
+layerno=0
+start=-384,-16
+delta=.82
+ID=100
+
+[BG sky]
+type=normal
+spriteno=12,1
+layerno=0
+start=-384,-15
+delta=.82
+ID=101
+
+[BG sky]
+type=normal
+spriteno=12,2
+layerno=0
+start=-384,-14
+delta=.82
+ID=102
+
+[BG sky]
+type=normal
+spriteno=12,3
+layerno=0
+start=-384,-13
+delta=.82
+ID=103
+
+[BG sky]
+type=normal
+spriteno=12,4
+layerno=0
+start=-384,-12
+delta=.82
+ID=104
+
+[BG sky]
+type=normal
+spriteno=12,5
+layerno=0
+start=-384,-11
+delta=.82
+ID=105
+
+[BG sky]
+type=normal
+spriteno=12,6
+layerno=0
+start=-384,-10
+delta=.82
+ID=106
+
+[BG sky]
+type=normal
+spriteno=12,7
+layerno=0
+start=-384,-9
+delta=.82
+ID=107
+
+[BG sky]
+type=normal
+spriteno=12,8
+layerno=0
+start=-384,-8
+delta=.82
+ID=108
+
+[BG sky]
+type=normal
+spriteno=12,9
+layerno=0
+start=-384,-7
+delta=.82
+ID=109
+
+[BG sky]
+type=normal
+spriteno=12,10
+layerno=0
+start=-384,-6
+delta=.82
+ID=110
+
+[BG sky]
+type=normal
+spriteno=12,11
+layerno=0
+start=-384,-5
+delta=.82
+ID=111
+
+[BG sky]
+type=normal
+spriteno=12,12
+layerno=0
+start=-384,-4
+delta=.82
+ID=112
+
+[BG sky]
+type=normal
+spriteno=12,13
+layerno=0
+start=-384,-3
+delta=.82
+ID=113
+
+[BG sky]
+type=normal
+spriteno=12,14
+layerno=0
+start=-384,-2
+delta=.82
+ID=114
+
+[BG sky]
+type=normal
+spriteno=12,15
+layerno=0
+start=-384,-1
+delta=.82
+ID=115
+
+[BG sky]
+type=normal
+spriteno=12,16
+layerno=0
+start=-384,0
+delta=.82
+ID=116
+
+[BG sky]
+type=normal
+spriteno=12,17
+layerno=0
+start=-384,1
+delta=.82
+ID=117
+
+[BG sky]
+type=normal
+spriteno=12,18
+layerno=0
+start=-384,2
+delta=.82
+ID=118
+
+[BG sky]
+type=normal
+spriteno=12,19
+layerno=0
+start=-384,3
+delta=.82
+ID=119
+
+[BG sky]
+type=normal
+spriteno=12,20
+layerno=0
+start=-384,4
+delta=.82
+ID=120
+
+[BG sky]
+type=normal
+spriteno=12,21
+layerno=0
+start=-384,5
+delta=.82
+ID=121
+
+[BG sky]
+type=normal
+spriteno=12,22
+layerno=0
+start=-384,6
+delta=.82
+ID=122
+
+[BG sky]
+type=normal
+spriteno=12,23
+layerno=0
+start=-384,7
+delta=.82
+ID=123
+
+[BG sky]
+type=normal
+spriteno=12,24
+layerno=0
+start=-384,8
+delta=.82
+ID=124
+
+[BG sky]
+type=normal
+spriteno=12,25
+layerno=0
+start=-384,9
+delta=.82
+ID=125
+
+[BG sky]
+type=normal
+spriteno=12,26
+layerno=0
+start=-384,10
+delta=.82
+ID=126
+
+[BG sky]
+type=normal
+spriteno=12,27
+layerno=0
+start=-384,11
+delta=.82
+ID=127
+
+[BG sky]
+type=normal
+spriteno=12,28
+layerno=0
+start=-384,12
+delta=.82
+ID=128
+
+[BG sky]
+type=normal
+spriteno=12,29
+layerno=0
+start=-384,13
+delta=.82
+ID=129
+
+[BG sky]
+type=normal
+spriteno=12,30
+layerno=0
+start=-384,14
+delta=.82
+ID=130
+
+[BG sky]
+type=normal
+spriteno=12,31
+layerno=0
+start=-384,15
+delta=.82
+ID=131
+
+[BG sky]
+type=normal
+spriteno=12,32
+layerno=0
+start=-384,16
+delta=.82
+ID=132
+
+[BG sky]
+type=normal
+spriteno=12,33
+layerno=0
+start=-384,17
+delta=.82
+ID=133
+
+[BG sky]
+type=normal
+spriteno=12,34
+layerno=0
+start=-384,18
+delta=.82
+ID=134
+
+[BG sky]
+type=normal
+spriteno=12,35
+layerno=0
+start=-384,19
+delta=.82
+ID=135
+
+[BG sky]
+type=normal
+spriteno=12,36
+layerno=0
+start=-384,20
+delta=.82
+ID=136
+
+[BG sky]
+type=normal
+spriteno=12,37
+layerno=0
+start=-384,21
+delta=.82
+ID=137
+
+[BG sky]
+type=normal
+spriteno=12,38
+layerno=0
+start=-384,22
+delta=.82
+ID=138
+
+[BG sky]
+type=normal
+spriteno=12,39
+layerno=0
+start=-384,23
+delta=.82
+ID=139
+
+[BG sky]
+type=normal
+spriteno=12,40
+layerno=0
+start=-384,24
+delta=.82
+ID=140
+
+[BG sky]
+type=normal
+spriteno=12,41
+layerno=0
+start=-384,25
+delta=.82
+ID=141
+
+[BG sky]
+type=normal
+spriteno=12,42
+layerno=0
+start=-384,26
+delta=.82
+ID=142
+
+[BG sky]
+type=normal
+spriteno=12,43
+layerno=0
+start=-384,27
+delta=.82
+ID=143
+
+[BG sky]
+type=normal
+spriteno=12,44
+layerno=0
+start=-384,28
+delta=.82
+ID=144
+
+[BG sky]
+type=normal
+spriteno=12,45
+layerno=0
+start=-384,29
+delta=.82
+ID=145
+
+[BG sky]
+type=normal
+spriteno=12,46
+layerno=0
+start=-384,30
+delta=.82
+ID=146
+
+[BG sky]
+type=normal
+spriteno=12,47
+layerno=0
+start=-384,31
+delta=.82
+ID=147
+
+[BG sky]
+type=normal
+spriteno=12,48
+layerno=0
+start=-384,32
+delta=.82
+ID=148
+
+[BG sky]
+type=normal
+spriteno=12,49
+layerno=0
+start=-384,33
+delta=.82
+ID=149
+
+[BG sky]
+type=normal
+spriteno=12,50
+layerno=0
+start=-384,34
+delta=.82
+ID=150
+
+[BG sky]
+type=normal
+spriteno=12,51
+layerno=0
+start=-384,35
+delta=.82
+ID=151
+
+[BG sky]
+type=normal
+spriteno=12,52
+layerno=0
+start=-384,36
+delta=.82
+ID=152
+
+[BG sky]
+type=normal
+spriteno=12,53
+layerno=0
+start=-384,37
+delta=.82
+ID=153
+
+[BG sky]
+type=normal
+spriteno=12,54
+layerno=0
+start=-384,38
+delta=.82
+ID=154
+
+[BG sky]
+type=normal
+spriteno=12,55
+layerno=0
+start=-384,39
+delta=.82
+ID=155
+
+[BG sky]
+type=normal
+spriteno=12,56
+layerno=0
+start=-384,40
+delta=.82
+ID=156
+
+[BG sky]
+type=normal
+spriteno=12,57
+layerno=0
+start=-384,41
+delta=.82
+ID=157
+
+[BG sky]
+type=normal
+spriteno=12,58
+layerno=0
+start=-384,42
+delta=.82
+ID=158
+
+[BG sky]
+type=normal
+spriteno=12,59
+layerno=0
+start=-384,43
+delta=.82
+ID=159
+
+[BG sky]
+type=normal
+spriteno=12,60
+layerno=0
+start=-384,44
+delta=.82
+ID=160
+
+[BG sky]
+type=normal
+spriteno=12,61
+layerno=0
+start=-384,45
+delta=.82
+ID=161
+
+[BG sky]
+type=normal
+spriteno=12,62
+layerno=0
+start=-384,46
+delta=.82
+ID=162
+
+[BG sky]
+type=normal
+spriteno=12,63
+layerno=0
+start=-384,47
+delta=.82
+ID=163
+
+[BG sky]
+type=normal
+spriteno=12,64
+layerno=0
+start=-384,48
+delta=.82
+ID=164
+
+[BG sky]
+type=normal
+spriteno=12,65
+layerno=0
+start=-384,49
+delta=.82
+ID=165
+
+[BG sky]
+type=normal
+spriteno=12,66
+layerno=0
+start=-384,50
+delta=.82
+ID=166
+
+[BG sky]
+type=normal
+spriteno=12,67
+layerno=0
+start=-384,51
+delta=.82
+ID=167
+
+[BG sky]
+type=normal
+spriteno=12,68
+layerno=0
+start=-384,52
+delta=.82
+ID=168
+
+[BG sky]
+type=normal
+spriteno=12,69
+layerno=0
+start=-384,53
+delta=.82
+ID=169
+
+[BG sky]
+type=normal
+spriteno=12,70
+layerno=0
+start=-384,54
+delta=.82
+ID=170
+
+[BG sky]
+type=normal
+spriteno=12,71
+layerno=0
+start=-384,55
+delta=.82
+ID=171
+
+[BG sky]
+type=normal
+spriteno=12,72
+layerno=0
+start=-384,56
+delta=.82
+ID=172
+
+[BG sky]
+type=normal
+spriteno=12,73
+layerno=0
+start=-384,57
+delta=.82
+ID=173
+
+[BG sky]
+type=normal
+spriteno=12,74
+layerno=0
+start=-384,58
+delta=.82
+ID=174
+
+[BG sky]
+type=normal
+spriteno=12,75
+layerno=0
+start=-384,59
+delta=.82
+ID=175
+
+[BG sky]
+type=normal
+spriteno=12,76
+layerno=0
+start=-384,60
+delta=.82
+ID=176
+
+[BG sky]
+type=normal
+spriteno=12,77
+layerno=0
+start=-384,61
+delta=.82
+ID=177
+
+[BG sky]
+type=normal
+spriteno=12,78
+layerno=0
+start=-384,62
+delta=.82
+ID=178
+
+[BG sky]
+type=normal
+spriteno=12,79
+layerno=0
+start=-384,63
+delta=.82
+ID=179
+
+[BG sky]
+type=normal
+spriteno=12,80
+layerno=0
+start=-384,64
+delta=.82
+ID=180
+
+[BG sky]
+type=normal
+spriteno=12,81
+layerno=0
+start=-384,65
+delta=.82
+ID=181
+
+[BG sky]
+type=normal
+spriteno=12,82
+layerno=0
+start=-384,66
+delta=.82
+ID=182
+
+[BG sky]
+type=normal
+spriteno=12,83
+layerno=0
+start=-384,67
+delta=.82
+ID=183
+
+[BG sky]
+type=normal
+spriteno=12,84
+layerno=0
+start=-384,68
+delta=.82
+ID=184
+
+[BG sky]
+type=normal
+spriteno=12,85
+layerno=0
+start=-384,69
+delta=.82
+ID=185
+
+[BG sky]
+type=normal
+spriteno=12,86
+layerno=0
+start=-384,70
+delta=.82
+ID=186
+
+[BG sky]
+type=normal
+spriteno=12,87
+layerno=0
+start=-384,71
+delta=.82
+ID=187
+
+[BG sky]
+type=normal
+spriteno=12,88
+layerno=0
+start=-384,72
+delta=.82
+ID=188
+
+[BG sky]
+type=normal
+spriteno=12,89
+layerno=0
+start=-384,73
+delta=.82
+ID=189
+
+[BG sky]
+type=normal
+spriteno=12,90
+layerno=0
+start=-384,74
+delta=.82
+ID=190
+
+[BG sky]
+type=normal
+spriteno=12,91
+layerno=0
+start=-384,75
+delta=.82
+ID=191
+
+[BG sky]
+type=normal
+spriteno=12,92
+layerno=0
+start=-384,76
+delta=.82
+ID=192
+
+[BG sky]
+type=normal
+spriteno=12,93
+layerno=0
+start=-384,77
+delta=.82
+ID=193
+
+[BG sky]
+type=normal
+spriteno=12,94
+layerno=0
+start=-384,78
+delta=.82
+ID=194
+
+[BG sky]
+type=normal
+spriteno=12,95
+layerno=0
+start=-384,79
+delta=.82
+ID=195
+
+[BG sky]
+type=normal
+spriteno=12,96
+layerno=0
+start=-384,80
+delta=.82
+ID=196
+
+[BG sky]
+type=normal
+spriteno=12,97
+layerno=0
+start=-384,81
+delta=.82
+ID=197
+
+[BG sky]
+type=normal
+spriteno=12,98
+layerno=0
+start=-384,82
+delta=.82
+ID=198
+
+[BG sky]
+type=normal
+spriteno=12,99
+layerno=0
+start=-384,83
+delta=.82
+ID=199
+
+[BG sky]
+type=normal
+spriteno=12,100
+layerno=0
+start=-384,84
+delta=.82
+ID=200
+
+[BG sky]
+type=normal
+spriteno=12,101
+layerno=0
+start=-384,85
+delta=.82
+ID=201
+
+[BG sky]
+type=normal
+spriteno=12,102
+layerno=0
+start=-384,86
+delta=.82
+ID=202
+
+[BG sky]
+type=normal
+spriteno=12,103
+layerno=0
+start=-384,87
+delta=.82
+ID=203
+
+[BG sky]
+type=normal
+spriteno=12,104
+layerno=0
+start=-384,88
+delta=.82
+ID=204
+
+[BG sky]
+type=normal
+spriteno=12,105
+layerno=0
+start=-384,89
+delta=.82
+ID=205
+
+[BG sky]
+type=normal
+spriteno=12,106
+layerno=0
+start=-384,90
+delta=.82
+ID=206
+
+[BG sky]
+type=normal
+spriteno=12,107
+layerno=0
+start=-384,91
+delta=.82
+ID=207
+
+[BG sky]
+type=normal
+spriteno=12,108
+layerno=0
+start=-384,92
+delta=.82
+ID=208
+
+[BG sky]
+type=normal
+spriteno=12,109
+layerno=0
+start=-384,93
+delta=.82
+ID=209
+
+[BG sky]
+type=normal
+spriteno=12,110
+layerno=0
+start=-384,94
+delta=.82
+ID=210
+
+[BG sky]
+type=normal
+spriteno=12,111
+layerno=0
+start=-384,95
+delta=.82
+ID=211
+
+[BG sky]
+type=normal
+spriteno=12,112
+layerno=0
+start=-384,96
+delta=.82
+ID=212
+
+[BG sky]
+type=normal
+spriteno=12,113
+layerno=0
+start=-384,97
+delta=.82
+ID=213
+
+[BG sky]
+type=normal
+spriteno=12,114
+layerno=0
+start=-384,98
+delta=.82
+ID=214
+
+[BG sky]
+type=normal
+spriteno=12,115
+layerno=0
+start=-384,99
+delta=.82
+ID=215
+
+[BG sky]
+type=normal
+spriteno=12,116
+layerno=0
+start=-384,100
+delta=.82
+ID=216
+
+[BG sky]
+type=normal
+spriteno=12,117
+layerno=0
+start=-384,101
+delta=.82
+ID=217
+
+[BG sky]
+type=normal
+spriteno=12,118
+layerno=0
+start=-384,102
+delta=.82
+ID=218
+
+[BG sky]
+type=normal
+spriteno=12,119
+layerno=0
+start=-384,103
+delta=.82
+ID=219
+
+[BG sky]
+type=normal
+spriteno=12,120
+layerno=0
+start=-384,104
+delta=.82
+ID=220
+
+[BG sky]
+type=normal
+spriteno=12,121
+layerno=0
+start=-384,105
+delta=.82
+ID=221
+
+[BG sky]
+type=normal
+spriteno=12,122
+layerno=0
+start=-384,106
+delta=.82
+ID=222
+
+[BG sky]
+type=normal
+spriteno=12,123
+layerno=0
+start=-384,107
+delta=.82
+ID=223
+
+[BG sky]
+type=normal
+spriteno=12,124
+layerno=0
+start=-384,108
+delta=.82
+ID=224
+
+[BG sky]
+type=normal
+spriteno=12,125
+layerno=0
+start=-384,109
+delta=.82
+ID=225
+
+[BG sky]
+type=normal
+spriteno=12,126
+layerno=0
+start=-384,110
+delta=.82
+ID=226
+
+[BG sky]
+type=normal
+spriteno=12,127
+layerno=0
+start=-384,111
+delta=.82
+ID=227
+
+[BG sky]
+type=normal
+spriteno=12,128
+layerno=0
+start=-384,112
+delta=.82
+ID=228
+
+[BG sky]
+type=normal
+spriteno=12,129
+layerno=0
+start=-384,113
+delta=.82
+ID=229
+
+[BG sky]
+type=normal
+spriteno=12,130
+layerno=0
+start=-384,114
+delta=.82
+ID=230
+
+[BG sky]
+type=normal
+spriteno=12,131
+layerno=0
+start=-384,115
+delta=.82
+ID=231
+
+[BG sky]
+type=normal
+spriteno=12,132
+layerno=0
+start=-384,116
+delta=.82
+ID=232
+
+[BG sky]
+type=normal
+spriteno=12,133
+layerno=0
+start=-384,117
+delta=.82
+ID=233
+
+[BG sky]
+type=normal
+spriteno=12,134
+layerno=0
+start=-384,118
+delta=.82
+ID=234
+
+[BG sky]
+type=normal
+spriteno=12,135
+layerno=0
+start=-384,119
+delta=.82
+ID=235
+
+[BG sky]
+type=normal
+spriteno=12,136
+layerno=0
+start=-384,120
+delta=.82
+ID=236
+
+[BG sky]
+type=normal
+spriteno=12,137
+layerno=0
+start=-384,121
+delta=.82
+ID=237
+
+[BG sky]
+type=normal
+spriteno=12,138
+layerno=0
+start=-384,122
+delta=.82
+ID=238
+
+[BG sky]
+type=normal
+spriteno=12,139
+layerno=0
+start=-384,123
+delta=.82
+ID=239
+
+[BG sky]
+type=normal
+spriteno=12,140
+layerno=0
+start=-384,124
+delta=.82
+ID=240
+
+[BG sky]
+type=normal
+spriteno=12,141
+layerno=0
+start=-384,125
+delta=.82
+ID=241
+
+[BG sky]
+type=normal
+spriteno=12,142
+layerno=0
+start=-384,126
+delta=.82
+ID=242
+
+[BG sky]
+type=normal
+spriteno=12,143
+layerno=0
+start=-384,127
+delta=.82
+ID=243
+
+[BG sky]
+type=normal
+spriteno=12,144
+layerno=0
+start=-384,128
+delta=.82
+ID=244
+
+[BG sky]
+type=normal
+spriteno=12,145
+layerno=0
+start=-384,129
+delta=.82
+ID=245
+
+[BG sky]
+type=normal
+spriteno=12,146
+layerno=0
+start=-384,130
+delta=.82
+ID=246
+
+[BG sky]
+type=normal
+spriteno=12,147
+layerno=0
+start=-384,131
+delta=.82
+ID=247
+
+[BG sky]
+type=normal
+spriteno=12,148
+layerno=0
+start=-384,132
+delta=.82
+ID=248
+
+[BG sky]
+type=normal
+spriteno=12,149
+layerno=0
+start=-384,133
+delta=.82
+ID=249
+
+[BG sky]
+type=normal
+spriteno=12,150
+layerno=0
+start=-384,134
+delta=.82
+ID=250
+
+[BG sky]
+type=normal
+spriteno=12,151
+layerno=0
+start=-384,135
+delta=.82
+ID=251
+
+[BG sky]
+type=normal
+spriteno=12,152
+layerno=0
+start=-384,136
+delta=.82
+ID=252
+
+[BG sky]
+type=normal
+spriteno=12,153
+layerno=0
+start=-384,137
+delta=.82
+ID=253
+
+[BG sky]
+type=normal
+spriteno=12,154
+layerno=0
+start=-384,138
+delta=.82
+ID=254
+
+[BG sky]
+type=normal
+spriteno=12,155
+layerno=0
+start=-384,139
+delta=.82
+ID=255
+
+[BG sky]
+type=normal
+spriteno=12,156
+layerno=0
+start=-384,140
+delta=.82
+ID=256
+
+[BG sky]
+type=normal
+spriteno=12,157
+layerno=0
+start=-384,141
+delta=.82
+ID=257
+
+[BG sky]
+type=normal
+spriteno=12,158
+layerno=0
+start=-384,142
+delta=.82
+ID=258
+
+[BG sky]
+type=normal
+spriteno=12,159
+layerno=0
+start=-384,143
+delta=.82
+ID=259
+;---Sky---
+
+[BG trees C]
+type=anim
+actionno=3
+layerno=0
+start=0,-16
+delta=.95758928,1
+
+[BG floor]
+type=normal
+spriteno=0,0
+layerno=0
+start=0,-16
+delta=.95758928,1
+mask=1
+
+[BG floor]
+type=parallax
+spriteno=0,1
+layerno=0
+start=0,-16
+delta=.95758928,1
+;xscale=1,1.061619548550538058
+mask=1     
+
+[BG bolt 1]
+type=anim
+actionno=0
+layerno=0
+start=0,-16
+delta=.95758928,1
+ID=8
+
+[BG trees L]
+type=anim
+actionno=1
+layerno=0
+start=0,-16
+delta=.95758928,1
+
+[BG trees R]
+type=anim
+actionno=2
+layerno=0
+start=0,-16
+delta=.95758928,1
+
+[BG leaf A1]
+type=anim
+actionno=13
+layerno=0
+start=-344,102
+delta=.95758928,1
+ID=50
+
+[BG leaf A2]
+type=anim
+actionno=13
+layerno=0
+start=-240,120
+delta=.95758928,1
+ID=51
+
+[BG leaf A3]
+type=anim
+actionno=13
+layerno=0
+start=-125,105
+delta=.95758928,1
+ID=52
+
+[BG leaf A4]
+type=anim
+actionno=13
+layerno=0
+start=129,106
+delta=.95758928,1
+ID=53
+
+[BG leaf A5]
+type=anim
+actionno=13
+layerno=0
+start=210,105
+delta=.95758928,1
+ID=54
+
+[BG leaf A6]
+type=anim
+actionno=13
+layerno=0
+start=307,85
+delta=.95758928,1
+ID=55
+
+[BG leaf B1]
+type=anim
+actionno=14
+layerno=0
+start=-336,120
+delta=.95758928,1
+ID=60
+
+[BG leaf B2]
+type=anim
+actionno=14
+layerno=0
+start=-228,136
+delta=.95758928,1
+ID=61
+
+[BG leaf B3]
+type=anim
+actionno=14
+layerno=0
+start=-100,120
+delta=.95758928,1
+ID=62
+
+[BG leaf B4]
+type=anim
+actionno=14
+layerno=0
+start=-60,130
+delta=.95758928,1
+ID=63
+
+[BG leaf B5]
+type=anim
+actionno=14
+layerno=0
+start=26,125
+delta=.95758928,1
+ID=64
+
+[BG leaf B6]
+type=anim
+actionno=14
+layerno=0
+start=130,145
+delta=.95758928,1
+ID=65
+
+[BG leaf B7]
+type=anim
+actionno=14
+layerno=0
+start=217,154
+delta=.95758928,1
+ID=66
+
+[BG leaf B8]
+type=anim
+actionno=14
+layerno=0
+start=305,142
+delta=.95758928,1
+ID=67
+
+[BG bolt 2]
+type=anim
+actionno=0
+layerno=0
+start=0,-16
+delta=.95758928,1
+ID=9
+
+[BG bolt 3]
+type=anim
+actionno=0
+layerno=0
+start=0,-16
+delta=.95758928,1
+ID=10
+
+[BG rain L]
+type=anim
+actionno=4
+layerno=0
+start=0,-16
+delta=1,1
+tile=1,0
+tilespacing=768,768
+ID=4
+
+[BG rain R]
+type=anim
+actionno=5
+layerno=0
+start=0,-16
+delta=1,1
+tile=1,0
+tilespacing=768,768
+ID=4
+
+[BG lightning]
+type=anim
+actionno=7
+layerno=1
+start=0,-16
+delta=0,0
+tile=1,1
+tilespacing=320,240
+ID=7
+
+
+;=====<BGCTRLDEFs>=====
+;---Lightning Bolts---
+;2  120
+;5  300
+;11 660
+;15 900
+;23 1380
+;30 1800
+;33 1980
+;39 2340
+;44 2640
+;48 2880
+;54 3240
+;60 reset
+
+[BGctrldef 7]
+ctrlid=7,8,9,10
+looptime=3600
+[BGctrl 7, anim]
+type=anim
+time=0
+value=0
+
+[BGctrl 7, anim]
+type=anim
+time=120
+ctrlid=7
+value=7
+[BGctrl 7, anim]
+type=anim
+time=120
+ctrlid=8
+value=8
+[BGctrl 7, pos]
+type=posset
+time=120
+ctrlid=8
+x=0
+
+[BGctrl 7, anim]
+type=anim
+time=300
+ctrlid=7
+value=7
+[BGctrl 7, anim]
+type=anim
+time=300
+ctrlid=9
+value=9
+[BGctrl 7, pos]
+type=posset
+time=300
+ctrlid=9
+x=-192
+
+[BGctrl 7, anim]
+type=anim
+time=660
+ctrlid=7
+value=7
+[BGctrl 7, anim]
+type=anim
+time=660
+ctrlid=10
+value=10
+[BGctrl 7, pos]
+type=posset
+time=660
+ctrlid=10
+x=0
+
+[BGctrl 7, anim]
+type=anim
+time=900
+ctrlid=7
+value=7
+[BGctrl 7, anim]
+type=anim
+time=900
+ctrlid=9
+value=9
+[BGctrl 7, pos]
+type=posset
+time=900
+ctrlid=9
+x=384
+
+[BGctrl 7, anim]
+type=anim
+time=1380
+ctrlid=7
+value=7
+[BGctrl 7, anim]
+type=anim
+time=1380
+ctrlid=8
+value=8
+[BGctrl 7, pos]
+type=posset
+time=1380
+ctrlid=8
+x=0
+
+[BGctrl 7, anim]
+type=anim
+time=1800
+ctrlid=7
+value=7
+[BGctrl 7, anim]
+type=anim
+time=1800
+ctrlid=9
+value=9
+[BGctrl 7, pos]
+type=posset
+time=1800
+ctrlid=9
+x=192
+
+[BGctrl 7, anim]
+type=anim
+time=1980
+ctrlid=7
+value=7
+[BGctrl 7, anim]
+type=anim
+time=1980
+ctrlid=10
+value=10
+[BGctrl 7, pos]
+type=posset
+time=1980
+ctrlid=10
+x=128
+
+[BGctrl 7, anim]
+type=anim
+time=2340
+ctrlid=7
+value=7
+[BGctrl 7, anim]
+type=anim
+time=2340
+ctrlid=10
+value=10
+[BGctrl 7, pos]
+type=posset
+time=2340
+ctrlid=10
+x=0
+
+[BGctrl 7, anim]
+type=anim
+time=2640
+ctrlid=7
+value=7
+[BGctrl 7, anim]
+type=anim
+time=2640
+ctrlid=9
+value=9
+[BGctrl 7, pos]
+type=posset
+time=2640
+ctrlid=9
+x=-32
+
+[BGctrl 7, anim]
+type=anim
+time=2880
+ctrlid=7
+value=7
+[BGctrl 7, anim]
+type=anim
+time=2880
+ctrlid=8
+value=8
+[BGctrl 7, pos]
+type=posset
+time=2880
+ctrlid=8
+x=0
+
+[BGctrl 7, anim]
+type=anim
+time=3240
+ctrlid=7
+value=7
+[BGctrl 7, anim]
+type=anim
+time=3240
+ctrlid=10
+value=10
+[BGctrl 7, pos]
+type=posset
+time=3240
+ctrlid=10
+x=64
+
+
+;---Leaves A---
+[BGctrldef 50]
+ctrlid=50,51,52,53,54,55
+
+[BGCtrl 50, enable]
+type=enable
+time=0
+value=0
+
+[BGCtrl 50, enable]
+type=enable
+ctrlid=50
+time=0
+value=1
+[BGCtrl 50, enable]
+type=enable
+ctrlid=51
+time=30
+value=1
+[BGCtrl 50, enable]
+type=enable
+ctrlid=52
+time=60
+value=1
+
+[BGCtrl 50, enable]
+type=enable
+ctrlid=53
+time=15
+value=1
+[BGCtrl 50, enable]
+type=enable
+ctrlid=54
+time=45
+value=1
+[BGCtrl 50, enable]
+type=enable
+ctrlid=55
+time=75
+value=1
+
+[BGCtrl 50, vel]
+type=velset
+time=0
+x=1.5
+y=-.75
+
+[BGctrl 50, pos]
+type=posset
+time=0,0,240
+ctrlid=50
+x=0
+y=0
+[BGctrl 50, pos]
+type=posset
+time=30,30,270
+ctrlid=51
+x=0
+y=0
+[BGctrl 50, pos]
+type=posset
+time=60,60,300
+ctrlid=52
+x=0
+y=0
+
+[BGctrl 50, pos]
+type=posset
+time=15,15,255
+ctrlid=53
+x=0
+y=0
+[BGctrl 50, pos]
+type=posset
+time=45,45,285
+ctrlid=54
+x=0
+y=0
+[BGctrl 50, pos]
+type=posset
+time=75,75,315
+ctrlid=55
+x=0
+y=0
+
+[BGCtrl 50, vel]
+type=sinx
+value=16,48,0
+ctrlID=50
+[BGCtrl 50, vel]
+type=sinx
+value=16,48,8
+ctrlID=51
+[BGCtrl 50, vel]
+type=sinx
+value=16,48,16
+ctrlID=52
+[BGCtrl 50, vel]
+type=sinx
+value=16,48,24
+ctrlID=53
+[BGCtrl 50, vel]
+type=sinx
+value=16,48,32
+ctrlID=54
+[BGCtrl 50, vel]
+type=sinx
+value=16,48,40
+ctrlID=55
+
+
+;---Leaves B---
+[BGctrldef 60]
+ctrlid=60,61,62,63,64,65,66,67
+
+[BGCtrl 60, enable]
+type=enable
+time=0
+value=0
+
+[BGCtrl 60, enable]
+type=enable
+ctrlid=60
+time=15
+value=1
+[BGCtrl 60, enable]
+type=enable
+ctrlid=61
+time=45
+value=1
+[BGCtrl 60, enable]
+type=enable
+ctrlid=62
+time=75
+value=1
+
+[BGCtrl 60, enable]
+type=enable
+ctrlid=63
+time=60
+value=1
+[BGCtrl 60, enable]
+type=enable
+ctrlid=64
+time=15
+value=1
+
+[BGCtrl 60, enable]
+type=enable
+ctrlid=65
+time=0
+value=1
+[BGCtrl 60, enable]
+type=enable
+ctrlid=66
+time=30
+value=1
+[BGCtrl 60, enable]
+type=enable
+ctrlid=67
+time=60
+value=1
+
+[BGCtrl 60, vel]
+type=velset
+time=0
+x=2
+y=-1
+
+[BGCtrl 60, pos]
+type=posset
+time=15,15,195
+ctrlid=60
+x=0
+y=0
+[BGCtrl 60, pos]
+type=posset
+time=45,45,225
+ctrlid=61
+x=0
+y=0
+[BGCtrl 60, pos]
+type=posset
+time=75,75,255
+ctrlid=62
+x=0
+y=0
+
+[BGCtrl 60, pos]
+type=posset
+time=60,60,195
+ctrlid=63
+x=0
+y=0
+[BGCtrl 60, pos]
+type=posset
+time=15,15,180
+ctrlid=64
+x=0
+y=0
+
+[BGCtrl 60, pos]
+type=posset
+time=0,0,180
+ctrlid=65
+x=0
+y=0
+[BGCtrl 60, pos]
+type=posset
+time=30,30,210
+ctrlid=66
+x=0
+y=0
+[BGCtrl 60, pos]
+type=posset
+time=60,60,240
+ctrlid=67
+x=0
+y=0
+
+[BGCtrl 60, vel]
+type=sinx
+value=8,32,0
+ctrlid=60
+[BGCtrl 60, vel]
+type=sinx
+value=8,32,4
+ctrlid=61
+[BGCtrl 60, vel]
+type=sinx
+value=8,32,8
+ctrlid=62
+[BGCtrl 60, vel]
+type=sinx
+value=8,32,12
+ctrlid=63
+[BGCtrl 60, vel]
+type=sinx
+value=8,32,16
+ctrlid=64
+[BGCtrl 60, vel]
+type=sinx
+value=8,32,20
+ctrlid=65
+[BGCtrl 60, vel]
+type=sinx
+value=8,32,24
+ctrlid=66
+[BGCtrl 60, vel]
+type=sinx
+value=8,32,28
+ctrlid=67
+
+
+;---Sky---
+[BGCtrldef 100]
+
+[BGCtrl 100]
+type=sinx
+ctrlid=100
+value=32,1280,0
+
+[BGCtrl 100]
+type=sinx
+ctrlid=101
+value=32,1280,5
+
+[BGCtrl 100]
+type=sinx
+ctrlid=102
+value=32,1280,10
+
+[BGCtrl 100]
+type=sinx
+ctrlid=103
+value=32,1280,15
+
+[BGCtrl 100]
+type=sinx
+ctrlid=104
+value=32,1280,20
+
+[BGCtrl 100]
+type=sinx
+ctrlid=105
+value=32,1280,25
+
+[BGCtrl 100]
+type=sinx
+ctrlid=106
+value=32,1280,30
+
+[BGCtrl 100]
+type=sinx
+ctrlid=107
+value=32,1280,35
+
+[BGCtrl 100]
+type=sinx
+ctrlid=108
+value=32,1280,40
+
+[BGCtrl 100]
+type=sinx
+ctrlid=109
+value=32,1280,45
+
+[BGCtrl 100]
+type=sinx
+ctrlid=110
+value=32,1280,50
+
+[BGCtrl 100]
+type=sinx
+ctrlid=111
+value=32,1280,55
+
+[BGCtrl 100]
+type=sinx
+ctrlid=112
+value=32,1280,60
+
+[BGCtrl 100]
+type=sinx
+ctrlid=113
+value=32,1280,65
+
+[BGCtrl 100]
+type=sinx
+ctrlid=114
+value=32,1280,70
+
+[BGCtrl 100]
+type=sinx
+ctrlid=115
+value=32,1280,75
+
+
+[BGCtrl 100]
+type=sinx
+ctrlid=116
+value=32,1280,80
+
+[BGCtrl 100]
+type=sinx
+ctrlid=117
+value=32,1280,85
+
+[BGCtrl 100]
+type=sinx
+ctrlid=118
+value=32,1280,90
+
+[BGCtrl 100]
+type=sinx
+ctrlid=119
+value=32,1280,95
+
+[BGCtrl 100]
+type=sinx
+ctrlid=120
+value=32,1280,100
+
+[BGCtrl 100]
+type=sinx
+ctrlid=121
+value=32,1280,105
+
+[BGCtrl 100]
+type=sinx
+ctrlid=122
+value=32,1280,110
+
+[BGCtrl 100]
+type=sinx
+ctrlid=123
+value=32,1280,115
+
+[BGCtrl 100]
+type=sinx
+ctrlid=124
+value=32,1280,120
+
+[BGCtrl 100]
+type=sinx
+ctrlid=125
+value=32,1280,125
+
+[BGCtrl 100]
+type=sinx
+ctrlid=126
+value=32,1280,130
+
+[BGCtrl 100]
+type=sinx
+ctrlid=127
+value=32,1280,135
+
+[BGCtrl 100]
+type=sinx
+ctrlid=128
+value=32,1280,140
+
+[BGCtrl 100]
+type=sinx
+ctrlid=129
+value=32,1280,145
+
+[BGCtrl 100]
+type=sinx
+ctrlid=130
+value=32,1280,150
+
+[BGCtrl 100]
+type=sinx
+ctrlid=131
+value=32,1280,155
+
+[BGCtrl 100]
+type=sinx
+ctrlid=132
+value=32,1280,160
+
+[BGCtrl 100]
+type=sinx
+ctrlid=133
+value=32,1280,165
+
+[BGCtrl 100]
+type=sinx
+ctrlid=134
+value=32,1280,170
+
+[BGCtrl 100]
+type=sinx
+ctrlid=135
+value=32,1280,175
+
+[BGCtrl 100]
+type=sinx
+ctrlid=136
+value=32,1280,180
+
+[BGCtrl 100]
+type=sinx
+ctrlid=137
+value=32,1280,185
+
+[BGCtrl 100]
+type=sinx
+ctrlid=138
+value=32,1280,190
+
+[BGCtrl 100]
+type=sinx
+ctrlid=139
+value=32,1280,195
+
+[BGCtrl 100]
+type=sinx
+ctrlid=140
+value=32,1280,200
+
+[BGCtrl 100]
+type=sinx
+ctrlid=141
+value=32,1280,205
+
+[BGCtrl 100]
+type=sinx
+ctrlid=142
+value=32,1280,210
+
+[BGCtrl 100]
+type=sinx
+ctrlid=143
+value=32,1280,215
+
+[BGCtrl 100]
+type=sinx
+ctrlid=144
+value=32,1280,220
+
+[BGCtrl 100]
+type=sinx
+ctrlid=145
+value=32,1280,225
+
+[BGCtrl 100]
+type=sinx
+ctrlid=146
+value=32,1280,230
+
+[BGCtrl 100]
+type=sinx
+ctrlid=147
+value=32,1280,240
+
+[BGCtrl 100]
+type=sinx
+ctrlid=148
+value=32,1280,245
+
+[BGCtrl 100]
+type=sinx
+ctrlid=149
+value=32,1280,250
+
+[BGCtrl 100]
+type=sinx
+ctrlid=150
+value=32,1280,255
+
+[BGCtrl 100]
+type=sinx
+ctrlid=151
+value=32,1280,260
+
+[BGCtrl 100]
+type=sinx
+ctrlid=152
+value=32,1280,265
+
+[BGCtrl 100]
+type=sinx
+ctrlid=153
+value=32,1280,270
+
+[BGCtrl 100]
+type=sinx
+ctrlid=154
+value=32,1280,275
+
+[BGCtrl 100]
+type=sinx
+ctrlid=155
+value=32,1280,280
+
+[BGCtrl 100]
+type=sinx
+ctrlid=156
+value=32,1280,285
+
+[BGCtrl 100]
+type=sinx
+ctrlid=157
+value=32,1280,290
+
+[BGCtrl 100]
+type=sinx
+ctrlid=158
+value=32,1280,295
+
+[BGCtrl 100]
+type=sinx
+ctrlid=159
+value=32,1280,300
+
+[BGCtrl 100]
+type=sinx
+ctrlid=160
+value=32,1280,305
+
+[BGCtrl 100]
+type=sinx
+ctrlid=161
+value=32,1280,310
+
+[BGCtrl 100]
+type=sinx
+ctrlid=162
+value=32,1280,315
+
+[BGCtrl 100]
+type=sinx
+ctrlid=163
+value=32,1280,320
+
+[BGCtrl 100]
+type=sinx
+ctrlid=164
+value=32,1280,325
+
+[BGCtrl 100]
+type=sinx
+ctrlid=165
+value=32,1280,330
+
+[BGCtrl 100]
+type=sinx
+ctrlid=166
+value=32,1280,335
+
+[BGCtrl 100]
+type=sinx
+ctrlid=167
+value=32,1280,340
+
+[BGCtrl 100]
+type=sinx
+ctrlid=168
+value=32,1280,345
+
+[BGCtrl 100]
+type=sinx
+ctrlid=169
+value=32,1280,350
+
+[BGCtrl 100]
+type=sinx
+ctrlid=170
+value=32,1280,355
+
+[BGCtrl 100]
+type=sinx
+ctrlid=171
+value=32,1280,360
+
+[BGCtrl 100]
+type=sinx
+ctrlid=172
+value=32,1280,365
+
+[BGCtrl 100]
+type=sinx
+ctrlid=173
+value=32,1280,370
+
+[BGCtrl 100]
+type=sinx
+ctrlid=174
+value=32,1280,375
+
+[BGCtrl 100]
+type=sinx
+ctrlid=175
+value=32,1280,380
+
+[BGCtrl 100]
+type=sinx
+ctrlid=176
+value=32,1280,385
+
+[BGCtrl 100]
+type=sinx
+ctrlid=177
+value=32,1280,390
+
+[BGCtrl 100]
+type=sinx
+ctrlid=178
+value=32,1280,395
+
+[BGCtrl 100]
+type=sinx
+ctrlid=179
+value=32,1280,400
+
+[BGCtrl 100]
+type=sinx
+ctrlid=180
+value=32,1280,405
+
+[BGCtrl 100]
+type=sinx
+ctrlid=181
+value=32,1280,410
+
+[BGCtrl 100]
+type=sinx
+ctrlid=182
+value=32,1280,415
+
+[BGCtrl 100]
+type=sinx
+ctrlid=183
+value=32,1280,420
+
+[BGCtrl 100]
+type=sinx
+ctrlid=184
+value=32,1280,425
+
+[BGCtrl 100]
+type=sinx
+ctrlid=185
+value=32,1280,430
+
+[BGCtrl 100]
+type=sinx
+ctrlid=186
+value=32,1280,435
+
+[BGCtrl 100]
+type=sinx
+ctrlid=187
+value=32,1280,440
+
+[BGCtrl 100]
+type=sinx
+ctrlid=188
+value=32,1280,445
+
+[BGCtrl 100]
+type=sinx
+ctrlid=189
+value=32,1280,450
+
+[BGCtrl 100]
+type=sinx
+ctrlid=190
+value=32,1280,455
+
+[BGCtrl 100]
+type=sinx
+ctrlid=191
+value=32,1280,460
+
+[BGCtrl 100]
+type=sinx
+ctrlid=192
+value=32,1280,465
+
+[BGCtrl 100]
+type=sinx
+ctrlid=193
+value=32,1280,470
+
+[BGCtrl 100]
+type=sinx
+ctrlid=194
+value=32,1280,475
+
+[BGCtrl 100]
+type=sinx
+ctrlid=195
+value=32,1280,480
+
+[BGCtrl 100]
+type=sinx
+ctrlid=196
+value=32,1280,485
+
+[BGCtrl 100]
+type=sinx
+ctrlid=197
+value=32,1280,490
+
+[BGCtrl 100]
+type=sinx
+ctrlid=198
+value=32,1280,495
+
+[BGCtrl 100]
+type=sinx
+ctrlid=199
+value=32,1280,500
+
+[BGCtrl 100]
+type=sinx
+ctrlid=200
+value=32,1280,505
+
+[BGCtrl 100]
+type=sinx
+ctrlid=201
+value=32,1280,510
+
+[BGCtrl 100]
+type=sinx
+ctrlid=202
+value=32,1280,515
+
+[BGCtrl 100]
+type=sinx
+ctrlid=203
+value=32,1280,520
+
+[BGCtrl 100]
+type=sinx
+ctrlid=204
+value=32,1280,525
+
+[BGCtrl 100]
+type=sinx
+ctrlid=205
+value=32,1280,530
+
+[BGCtrl 100]
+type=sinx
+ctrlid=206
+value=32,1280,535
+
+[BGCtrl 100]
+type=sinx
+ctrlid=207
+value=32,1280,540
+
+[BGCtrl 100]
+type=sinx
+ctrlid=208
+value=32,1280,545
+
+[BGCtrl 100]
+type=sinx
+ctrlid=209
+value=32,1280,550
+
+[BGCtrl 100]
+type=sinx
+ctrlid=210
+value=32,1280,555
+
+[BGCtrl 100]
+type=sinx
+ctrlid=211
+value=32,1280,560
+
+[BGCtrl 100]
+type=sinx
+ctrlid=212
+value=32,1280,565
+
+[BGCtrl 100]
+type=sinx
+ctrlid=213
+value=32,1280,570
+
+[BGCtrl 100]
+type=sinx
+ctrlid=214
+value=32,1280,575
+
+[BGCtrl 100]
+type=sinx
+ctrlid=215
+value=32,1280,580
+
+[BGCtrl 100]
+type=sinx
+ctrlid=216
+value=32,1280,585
+
+[BGCtrl 100]
+type=sinx
+ctrlid=217
+value=32,1280,590
+
+[BGCtrl 100]
+type=sinx
+ctrlid=218
+value=32,1280,595
+
+[BGCtrl 100]
+type=sinx
+ctrlid=219
+value=32,1280,600
+
+[BGCtrl 100]
+type=sinx
+ctrlid=220
+value=32,1280,605
+
+[BGCtrl 100]
+type=sinx
+ctrlid=221
+value=32,1280,610
+
+[BGCtrl 100]
+type=sinx
+ctrlid=222
+value=32,1280,615
+
+[BGCtrl 100]
+type=sinx
+ctrlid=223
+value=32,1280,620
+
+[BGCtrl 100]
+type=sinx
+ctrlid=224
+value=32,1280,625
+
+[BGCtrl 100]
+type=sinx
+ctrlid=225
+value=32,1280,630
+
+[BGCtrl 100]
+type=sinx
+ctrlid=2
+value=32,1280,635
+
+[BGCtrl 100]
+type=sinx
+ctrlid=226
+value=32,1280,640
+
+[BGCtrl 100]
+type=sinx
+ctrlid=227
+value=32,1280,645
+
+[BGCtrl 100]
+type=sinx
+ctrlid=228
+value=32,1280,650
+
+[BGCtrl 100]
+type=sinx
+ctrlid=229
+value=32,1280,655
+
+[BGCtrl 100]
+type=sinx
+ctrlid=230
+value=32,1280,660
+
+[BGCtrl 100]
+type=sinx
+ctrlid=231
+value=32,1280,665
+
+[BGCtrl 100]
+type=sinx
+ctrlid=232
+value=32,1280,670
+
+[BGCtrl 100]
+type=sinx
+ctrlid=233
+value=32,1280,675
+
+[BGCtrl 100]
+type=sinx
+ctrlid=234
+value=32,1280,680
+
+[BGCtrl 100]
+type=sinx
+ctrlid=235
+value=32,1280,685
+
+[BGCtrl 100]
+type=sinx
+ctrlid=236
+value=32,1280,690
+
+[BGCtrl 100]
+type=sinx
+ctrlid=237
+value=32,1280,695
+
+[BGCtrl 100]
+type=sinx
+ctrlid=238
+value=32,1280,700
+
+[BGCtrl 100]
+type=sinx
+ctrlid=239
+value=32,1280,705
+
+[BGCtrl 100]
+type=sinx
+ctrlid=240
+value=32,1280,710
+
+[BGCtrl 100]
+type=sinx
+ctrlid=241
+value=32,1280,715
+
+[BGCtrl 100]
+type=sinx
+ctrlid=242
+value=32,1280,720
+
+[BGCtrl 100]
+type=sinx
+ctrlid=243
+value=32,1280,725
+
+[BGCtrl 100]
+type=sinx
+ctrlid=244
+value=32,1280,730
+
+[BGCtrl 100]
+type=sinx
+ctrlid=245
+value=32,1280,735
+
+[BGCtrl 100]
+type=sinx
+ctrlid=246
+value=32,1280,740
+
+[BGCtrl 100]
+type=sinx
+ctrlid=247
+value=32,1280,745
+
+[BGCtrl 100]
+type=sinx
+ctrlid=248
+value=32,1280,750
+
+[BGCtrl 100]
+type=sinx
+ctrlid=249
+value=32,1280,755
+
+[BGCtrl 100]
+type=sinx
+ctrlid=250
+value=32,1280,760
+
+[BGCtrl 100]
+type=sinx
+ctrlid=251
+value=32,1280,765
+
+[BGCtrl 100]
+type=sinx
+ctrlid=252
+value=32,1280,770
+
+[BGCtrl 100]
+type=sinx
+ctrlid=253
+value=32,1280,775
+
+[BGCtrl 100]
+type=sinx
+ctrlid=254
+value=32,1280,780
+
+[BGCtrl 100]
+type=sinx
+ctrlid=255
+value=32,1280,785
+
+[BGCtrl 100]
+type=sinx
+ctrlid=256
+value=32,1280,790
+
+[BGCtrl 100]
+type=sinx
+ctrlid=257
+value=32,1280,795
+
+[BGCtrl 100]
+type=sinx
+ctrlid=258
+value=32,1280,800
+
+[BGCtrl 100]
+type=sinx
+ctrlid=259
+value=32,1280,805
+
+
+;=====<ACTIONS>=====
+
+[Begin Action 0]
+-1, -1, 0, 0, -1, , 
+
+[Begin Action 1]
+1, 0, 0, 0, 6, , 
+1, 1, 0, 0, 6, , 
+1, 2, 0, 0, 6, , 
+1, 3, 0, 0, 6, , 
+1, 4, 0, 0, 6, , 
+1, 5, 0, 0, 6, , 
+1, 6, 0, 0, 6, , 
+1, 7, 0, 0, 6, , 
+1, 8, 0, 0, 6, , 
+1, 9, 0, 0, 6, , 
+1, 10, 0, 0, 6, , 
+
+[Begin Action 2]
+2, 0, 0, 0, 6, , 
+2, 1, 0, 0, 6, , 
+2, 2, 0, 0, 6, , 
+2, 3, 0, 0, 6, , 
+2, 4, 0, 0, 6, , 
+2, 5, 0, 0, 6, , 
+2, 6, 0, 0, 6, , 
+2, 7, 0, 0, 6, , 
+2, 8, 0, 0, 6, , 
+2, 9, 0, 0, 6, , 
+2, 10, 0, 0, 6, , 
+
+[Begin Action 3]
+3, 0, 0, 0, 8, , 
+3, 1, 0, 0, 8, ,
+
+[Begin Action 4]
+4, 0, 0, 0, 2, , 
+4, 1, 0, 0, 2, , 
+4, 2, 0, 0, 2, , 
+4, 3, 0, 0, 2, , 
+4, 4, 0, 0, 2, , 
+4, 5, 0, 0, 2, , 
+4, 6, 0, 0, 2, , 
+4, 7, 0, 0, 2, , 
+4, 8, 0, 0, 2, , 
+4, 9, 0, 0, 2, , 
+4, 10, 0, 0, 2, , 
+
+[Begin Action 5]
+5, 0, 0, 0, 2, , 
+5, 1, 0, 0, 2, , 
+5, 2, 0, 0, 2, , 
+5, 3, 0, 0, 2, , 
+5, 4, 0, 0, 2, , 
+5, 5, 0, 0, 2, , 
+5, 6, 0, 0, 2, , 
+5, 7, 0, 0, 2, , 
+5, 8, 0, 0, 2, , 
+5, 9, 0, 0, 2, , 
+5, 10, 0, 0, 2, , 
+
+[Begin Action 6]
+6, 0, 0, 0, 6, , 
+6, 1, 0, 0, 6, , 
+6, 2, 0, 0, 6, , 
+6, 3, 0, 0, 6, , 
+6, 4, 0, 0, 6, , 
+6, 5, 0, 0, 6, , 
+6, 6, 0, 0, 6, , 
+6, 7, 0, 0, 6, , 
+6, 8, 0, 0, 6, , 
+6, 9, 0, 0, 6, , 
+6, 10, 0, 0, 6, , 
+
+[Begin Action 7]
+-1, -1, 0, 0, 8, , 
+7, 0, 0, 0, 1, , AS256D256
+7, 0, 0, 0, 1, , AS228D256
+7, 0, 0, 0, 1, , AS199D256
+7, 0, 0, 0, 1, , AS171D256
+7, 0, 0, 0, 1, , AS142D256
+7, 0, 0, 0, 1, , AS114D256
+7, 0, 0, 0, 1, , AS85D256
+7, 0, 0, 0, 1, , AS57D256
+7, 0, 0, 0, 1, , AS28D256
+-1, -1, 0, 0, 3, , 
+7, 0, 0, 0, 1, , AS256D256
+7, 0, 0, 0, 1, , AS239D256
+7, 0, 0, 0, 1, , AS222D256
+7, 0, 0, 0, 1, , AS205D256
+7, 0, 0, 0, 1, , AS188D256
+7, 0, 0, 0, 1, , AS171D256
+7, 0, 0, 0, 1, , AS154D256
+7, 0, 0, 0, 1, , AS137D256
+7, 0, 0, 0, 1, , AS119D256
+7, 0, 0, 0, 1, , AS102D256
+7, 0, 0, 0, 1, , AS85D256
+7, 0, 0, 0, 1, , AS68D256
+7, 0, 0, 0, 1, , AS51D256
+7, 0, 0, 0, 1, , AS34D256
+7, 0, 0, 0, 1, , AS17D256
+-1, -1, 0, 0, -1, , 
+
+[Begin Action 8]
+8, 0, 0, 0, 2, , 
+8, 1, 0, 0, 2, , 
+8, 2, 0, 0, 2, , 
+8, 3, 0, 0, 2, , 
+8, 4, 0, 0, 2, , 
+-1, -1, 0, 0, -1, , 
+
+[Begin Action 9]
+9, 0, 0, 0, 2, , 
+9, 1, 0, 0, 2, , 
+9, 2, 0, 0, 2, , 
+9, 3, 0, 0, 2, , 
+9, 4, 0, 0, 2, , 
+-1, -1, 0, 0, -1, , 
+
+[Begin Action 10]
+10, 0, 0, 0, 2, , 
+10, 1, 0, 0, 2, , 
+10, 2, 0, 0, 2, , 
+10, 3, 0, 0, 2, , 
+10, 4, 0, 0, 2, , 
+10, 5, 0, 0, 2, , 
+-1, -1, 0, 0, -1, , 
+
+[Begin Action 13]
+13, 0, 0, 0, 10, , 
+13, 1, 0, 0, 10, , 
+13, 2, 0, 0, 10, , 
+13, 3, 0, 0, 10, , 
+13, 4, 0, 0, 10, , 
+
+[Begin Action 14]
+14, 0, 0, 0, 3, , 
+14, 1, 0, 0, 3, , 
+14, 2, 0, 0, 3, , 
+14, 3, 0, 0, 3, , 

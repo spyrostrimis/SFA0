@@ -1,0 +1,491 @@
+;------------------------------------
+;Name:elenastage                     |
+;Author:"Dany-The-Dog"               |
+;Mail:"Dadar999@hotmail.com"         |
+;VersionDate: 15/04/2007             |
+;Merci a Joram/zweifuss pour les rips|
+;Vers.:  1.1                         |
+;------------------------------------
+
+[Info]
+
+name = "Africa Boss"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -100
+boundright = 100
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 125
+tension = 60
+floortension = 0
+
+[PlayerInfo]
+
+p1startx = -75      
+p1starty = 0            
+p1startz = 0          
+p1facing = 1           
+
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000 
+rightbound =  1000 
+topbound  =  0     
+botbound  =  0  
+
+[Scaling]
+topz     = 0     
+botz     = 50     
+topscale = 1      
+botscale = 1.2
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+
+zoffset = 208
+
+autoturn = 1
+
+resetBG = 1
+
+[Shadow]
+color = 36,6,36
+yscale = .05
+
+[Music]
+bgmusic = sound/Ryu.mp3
+bgmloopstart= 1888
+bgmloopend=2706545
+bgvolume = 0
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+
+spr = stages/Africa.sff
+
+debugbg = 0
+
+[BG fond]
+
+type  = anim
+actionno = 1
+spriteno = 0, 0
+layerno = 0                
+start = -257, -283
+delta = 0, 1
+trans = none
+[Begin Action 1]
+
+0,0, 0,0, 4
+0,1, 0,0, 4
+0,2, 0,0, 4
+0,3, 0,0, 4
+
+[BG sky]
+
+type  = normal
+spriteno = 0,4
+start = -257, -283
+delta = .3 , 1
+mask = 1
+velocity = .25, 0
+tile = 1, 1
+tilespacing = 0, 0
+trans = add
+layerno = 0
+
+
+[BG sol2emeplan1]
+
+type  = normal
+spriteno = 1,0
+start = -400, 150
+delta = .65 , .65
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+[BG sol2emeplan2]
+
+type  = normal
+spriteno = 1,0
+start = -300, 150
+delta = .65 , .65
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+[BG sol2emeplan3]
+
+type  = normal
+spriteno = 1,0
+start = -200, 150
+delta = .65 , .65
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+[BG sol2emeplan4]
+
+type  = normal
+spriteno = 1,1
+start = -100, 150
+delta = .65 , .65
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+[BG sol2emeplan4]
+
+type  = normal
+spriteno = 1,2
+start = 0, 150
+delta = .65 , .65
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+[BG sol2emeplan6]
+
+type  = normal
+spriteno = 1,3
+start = 100, 150
+delta = .65 , .65
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+[BG sol2emeplan6]
+
+type  = normal
+spriteno = 1,3
+start = 200, 150
+delta = .65 , .65
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+[BG sol2emeplan7]
+
+type  = normal
+spriteno = 1,3
+start = 300, 150
+delta = .65 , .65
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+[BG sol2emeplan8]
+
+type  = normal
+spriteno = 1,3
+start = 400, 150
+delta = .65 , .65
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+
+
+[BG elefcentre]
+
+type  = anim
+spriteno = 2,0
+start = 74, 118
+delta = .65 , .65
+mask = 0
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+actionno = 2
+
+[Begin Action 2]
+
+2,0, 0,0, 18
+2,1, 0,0, 12
+2,2, 0,0, 12
+2,3, 0,0, 18
+2,2, 0,0, 6
+2,1, 0,0, 6
+
+[BG elefdroite1]
+
+type  = anim
+spriteno = 3,0
+start = 138, 125
+delta = .65 , .65
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+actionno = 3
+
+[Begin Action 3]
+
+3,0, 0,0, 100
+3,1, 0,0, 12
+3,2, 0,0, 12
+3,3, 0,0, 50
+3,2, 0,0, 8
+3,1, 0,0, 8
+
+[BG elefdroite2]
+
+type  = normal
+spriteno = 4,0
+start = 250, 136
+delta = .65, .65
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+[BG arbregauche]
+
+type  = normal
+spriteno = 5,0
+start = -375, -45
+delta = .9 , .1
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+[BG arbredroit]
+
+type  = normal
+spriteno = 5,1
+start = 140, 0
+delta = .9 , 1
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+[BG herbehautegauche1]
+
+type  = normal
+spriteno = 7,0
+start = -400, 150
+delta = .9 , 1
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+[BG herbehautegauche2]
+
+type  = normal
+spriteno = 7,1
+start = -330, 150
+delta = .9 , 1
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+[BG herbehautegauche3]
+
+type  = normal
+spriteno = 7,3
+start = -250, 150
+delta = .9 , 1
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+[BG herbehautegauche4]
+
+type  = normal
+spriteno = 7,2
+start = -180, 150
+delta = .9 , 1
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+[BG herbehautegauche5]
+
+type  = normal
+spriteno = 7,0
+start = -80, 150
+delta = .9 , 1
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+[BG herbehautecentre]
+
+type  = normal
+spriteno = 7,1
+start = 0, 145
+delta = .9, 1
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+[BG herbehautedroite1]
+
+type  = normal
+spriteno = 7,2
+start = 100, 155
+delta = .9 , 1
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+[BG herbehautedroite2]
+
+type  = normal
+spriteno = 7,3
+start = 240, 150
+delta = .9 , 1
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+[BG sol]
+
+type  = normal
+spriteno = 6,0
+start = -440, 181
+delta = 1 , 1
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 0
+
+
+[BG sol]
+type  = normal
+spriteno = 6,0
+start = -440, 191
+delta = 1.15 , 1.15
+mask = 1
+trans = none
+layerno = 1
+
+[BG herbe1erplan1]
+
+type  = normal
+spriteno = 8,2
+start = 350, 210
+delta = 1.15 , 1.15
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 1
+
+[BG herbe1erplan2]
+
+type  = normal
+spriteno = 8,0
+start = 200, 210
+delta = 1.15 , 1.15
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 1
+
+[BG herbe1erplan3]
+
+type  = normal
+spriteno = 8,1
+start = 0, 210
+delta = 1.15 , 1.15
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 1
+
+[BG herbe1erplan4]
+
+type  = normal
+spriteno = 8,2
+start = -200, 210
+delta = 1.15 , 1.15
+mask = 1
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+trans = none
+layerno = 1

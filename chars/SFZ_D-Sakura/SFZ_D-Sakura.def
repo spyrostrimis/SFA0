@@ -1,0 +1,37 @@
+[Info]
+name = "Sakura Dark"
+displayname = "SAKURA"
+author = "adamskie"         
+localcoord = 384,224
+mugenversion = 1.0
+Pal.Defaults = 1,4
+
+[Files]
+cmd      = SFZ_D-Sakura.cmd
+cns      = 384.cns
+st       = 384.cns
+st2      = System.cns
+stcommon = common1.cns
+sprite   = SFZ_D-Sakura.sff
+anim     = SFZ_D-Sakura.air
+sound    = SFZ_D-Sakura.snd 
+movelist = movelist.dat
+
+pal1     = Pals/Z-ISM1.act ; gray -yellow
+pal2     = Pals/V-ISM2.act ; dark green - pink
+pal3     = Pals/Z-ISM2.act ;red - yellow
+pal4     = Pals/X-ISM1.act ;cyan - pink
+pal5     = Pals/V-ISM1.act ;purple -yellow
+pal6     = Pals/X-ISM2.act ;bright green -red
+pal7     = Pals/Z-ISM4.act ;cyan - pink
+pal8     = Pals/X-ISM3.act ;purple -yellow
+pal9     = Pals/X-ISM4.act ;bright green -red
+pal10     = Pals/V-ISM3.act ; gray -yellow
+pal11     = Pals/V-ISM4.act ; dark green - pink
+pal12     = Pals/Z-ISM3.act ;red - yellow
+
+[Arcade]
+intro.storyboard = Intros/Intro_D-Sakura.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/D-Sakura.lua

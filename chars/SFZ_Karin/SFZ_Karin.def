@@ -1,0 +1,40 @@
+[Info]
+name = "Karin Kanzuki"
+displayname = "KARIN"
+author = "Ehnyd"
+Localcoord=384,224
+Pal.Defaults = 1,4
+mugenversion = 1.0
+
+[Files]
+cmd     = SFZ_Karin.cmd
+cns     = SFZ_Karin.cns
+st      = SFZ_Karin.cns
+st1     = 02_Attacks.cns
+st2     = 03_Specials.cns
+st3     = 04_SuperCombos.cns
+st4     = 05_SFZ.cns
+stcommon = common1.cns
+movelist = movelist.dat
+sprite  = SFZ_Karin.sff
+anim    = SFZ_Karin.air
+sound   = SFZ_Karin.snd
+
+pal1    = Pals/Z-ism1.act
+pal2    = Pals/X-ism1.act
+pal3    = Pals/V-ism1.act
+pal4    = Pals/Z-ism2.act
+pal5    = Pals/X-ism2.act
+pal6    = Pals/V-ism2.act
+pal7    = Pals/CS.act
+pal8    = Pals/CS2.act
+pal9    = Pals/CS3.act
+pal10    = Pals/CS4.act
+pal11    = Pals/CS5.act
+pal12    = Pals/CS6.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_Karin.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/Karin.lua

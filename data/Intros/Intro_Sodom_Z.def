@@ -1,0 +1,852 @@
+;===================================================================
+; THE STORY TEXT IS NOT IN THIS FILE.
+;
+;   The words live in   data/Intros/intro_texts.lua
+;   under the key       ['<this file's name without .def>']
+;
+; This .def only describes WHERE the text goes - the box, the font,
+; the typing speed. See the STORY TEXT block further down for those.
+; external/mods/sfaz_intro_text.lua puts the two together when the
+; storyboard loads.
+;
+; That split is deliberate: the layout differs per character because
+; the art does, but the writing is all in one file so it can be
+; edited in one place.
+;===================================================================
+
+[Info]
+localcoord = 384,224
+
+[SceneDef]
+spr = Intro_New.sff
+startscene = 0       ;Escena en la que debe partir (default)
+key.skip   = a, b, c, x, y, z
+key.cancel = s, m
+
+[Scene 0]
+; Fade
+fadein.time = ;30       ;Time to take for fading in
+fadein.col = 255,255,255     ;Use 255,255,255 for white-fade
+;fadeout.time = 30
+;fadeout.col = 255,255,255
+; Screen color
+clearcolor = 0,0,0
+layerall.pos = 192,0
+
+
+;------------------------------------
+
+
+layer0.anim = 0        ; FX Fondo
+layer1.anim = 1        ; FX suelo
+layer2.anim = 2        ; Character (Port)
+layer3.anim = 3        ; Character (Anim)
+layer6.anim = 4        ; Barra Sup
+layer7.anim = 5        ; Character (His Stage)
+layer8.anim = 6        ; Barra Inf 1
+layer9.anim = 7        ; Barra Inf 2
+;layer8.anim = 8        ; TXT  -- replaced by the story text
+;                             layers below. Uncomment to get
+;                             the old sprite text back.
+layer10.anim = 9        ; Name Chara y otros
+layer4.anim = 10        ; bg
+layer5.anim = 11        ; Select screen fade
+
+p1.anim      = 0        ; action number in the character's .air
+p1.pos       = -140,195 ;-60, -20    ; same space as layerall.pos
+p1.scale     = 1.0, 1.0
+p1.facing    = 1
+p1.starttime = 0           ; ticks after the SCENE starts
+p1.endtime   = -1          ; -1 = until the scene ends
+p1.loop      = 1
+p1.applypal  = 1  
+;p1.layerno = 2      ; which pass, exactly like any layer
+p1.order   = 6      ; draw immediately BEFORE layer6 (Barra Sup).
+;                    ABOVE the two transition covers - layer4 "bg" and layer5
+;                    "Select screen fade", which blank themselves out after 18
+;                    and 12 ticks - so the character is on screen from frame 0
+;                    and carries straight on from the select screen. BELOW the
+;                    bars and name plate the story text sits on.
+;                    Those two covers used to be layer10/layer11, i.e. on top of
+;                    everything, and that is what hid the character for the first
+;                    ~18 ticks. Layer numbers only set draw order - every anim
+;                    number they point at is unchanged.
+                    ; omitted = in front of everything (current behaviour)
+                    ; 0 = behind everything
+
+
+;-------------------------------------------------------------------
+; STORY TEXT - real font text, typed out letter by letter.
+;
+; These layers are deliberately EMPTY here. The words come from
+; data/Intros/intro_texts.lua and are injected by
+; external/mods/sfaz_intro_text.lua; starttime/endtime are assigned
+; there too, so chunk lengths never have to be timed by hand.
+;
+; A layer only becomes a text layer if it declares "font", which is
+; why these are declared at all rather than created from script: the
+; text sprites are built when the .def loads. Layers with no text are
+; skipped entirely, so reserving eight slots costs nothing.
+;
+; There is deliberately no  layerNN.text = ""  line: an empty pair of
+; quotes is stored as the two-character string, not as an empty
+; string, so every slot would draw a literal "".
+;
+;-------------------------------------------------------------------
+; WHICH VALUES TO TUNE
+;
+; localcoord MUST BE PRESENT and match [Info] localcoord above. It is
+;   not inherited. Without it the layer gets 0,0, SetLocalcoord()
+;   bails out, localScale stays 0, and the wrap width collapses to a
+;   line break after every word.
+;
+; THE FONT MATTERS. A space is measured as the font's Size[0]
+;   (src/font.go CharWidth) unless the font ships a real space glyph.
+;   A font whose header records the SHEET size rather than a character
+;   cell - sfa2_dialogue.fnt is "Size = 621,17" - therefore measures
+;   every space as 621 units and breaks after every word. That font
+;   works here because it does have a space glyph and the engine now
+;   prefers it; a font with neither will not.
+;
+; *** offset.x AND THE FONT'S ALIGNMENT ARE ONE SETTING. ***
+;
+; The wrap width is NOT the window width. src/font.go getLineLength()
+; derives it from the alignment AND from where the text sits:
+;
+;   align 1  (left)    width = RIGHT - x      x must be the window's LEFT
+;   align 0  (centre)  width = min(x - LEFT, RIGHT - x) * 2
+;                                             x must be the window's CENTRE
+;   align -1 (right)   width = x - LEFT       x must be the window's RIGHT
+;
+; where  x = layerall.pos.x + offset.x  (layerall.pos.x is 192 here).
+;
+; Change one, recompute the other, or the width silently collapses.
+;
+; textwindow = LEFT, TOP, RIGHT, BOTTOM, in 320-WIDE space - not this
+; .def's 384 localcoord. src/font.go drawWindow() multiplies by
+; localScale and re-centres, so the usable range is roughly 0..320.
+;
+; All eight layers must match - they are one box.
+;-------------------------------------------------------------------
+layer20.font        = sfa2_dialogue.fnt, 0, 1, 255, 255, 255, 255
+layer20.localcoord  = 384, 224
+layer20.offset      = -108, 190
+layer20.textwindow  = 24, 150, 346, 220
+layer20.textwrap    = w
+layer20.textdelay   = 2
+layer20.textspacing = 0, -1
+layer20.layerno     = 2
+
+layer21.font        = sfa2_dialogue.fnt, 0, 1, 255, 255, 255, 255
+layer21.localcoord  = 384, 224
+layer21.offset      = -108, 190
+layer21.textwindow  = 24, 150, 346, 220
+layer21.textwrap    = w
+layer21.textdelay   = 2
+layer21.textspacing = 0, -1
+layer21.layerno     = 2
+
+layer22.font        = sfa2_dialogue.fnt, 0, 1, 255, 255, 255, 255
+layer22.localcoord  = 384, 224
+layer22.offset      = -108, 190
+layer22.textwindow  = 24, 150, 346, 220
+layer22.textwrap    = w
+layer22.textdelay   = 2
+layer22.textspacing = 0, -1
+layer22.layerno     = 2
+
+layer23.font        = sfa2_dialogue.fnt, 0, 1, 255, 255, 255, 255
+layer23.localcoord  = 384, 224
+layer23.offset      = -108, 190
+layer23.textwindow  = 24, 150, 346, 220
+layer23.textwrap    = w
+layer23.textdelay   = 2
+layer23.textspacing = 0, -1
+layer23.layerno     = 2
+
+layer24.font        = sfa2_dialogue.fnt, 0, 1, 255, 255, 255, 255
+layer24.localcoord  = 384, 224
+layer24.offset      = -108, 190
+layer24.textwindow  = 24, 150, 346, 220
+layer24.textwrap    = w
+layer24.textdelay   = 2
+layer24.textspacing = 0, -1
+layer24.layerno     = 2
+
+layer25.font        = sfa2_dialogue.fnt, 0, 1, 255, 255, 255, 255
+layer25.localcoord  = 384, 224
+layer25.offset      = -108, 190
+layer25.textwindow  = 24, 150, 346, 220
+layer25.textwrap    = w
+layer25.textdelay   = 2
+layer25.textspacing = 0, -1
+layer25.layerno     = 2
+
+layer26.font        = sfa2_dialogue.fnt, 0, 1, 255, 255, 255, 255
+layer26.localcoord  = 384, 224
+layer26.offset      = -108, 188
+layer26.textwindow  = 24, 150, 346, 220
+layer26.textwrap    = w
+layer26.textdelay   = 2
+layer26.textspacing = 0, -1
+layer26.layerno     = 2
+
+layer27.font        = sfa2_dialogue.fnt, 0, 1, 255, 255, 255, 255
+layer27.localcoord  = 384, 224
+layer27.offset      = -108, 188
+layer27.textwindow  = 24, 150, 346, 220
+layer27.textwrap    = w
+layer27.textdelay   = 2
+layer27.textspacing = 0, -1
+layer27.layerno     = 2
+
+end.time = 1020
+bgm = intro.mp3
+bgm.loop = 0
+
+[Begin Action 10]
+909,31, -192,0, 1
+0,10, 0,0, 1
+909,31, -192,0, 1
+0,11, 0,0, 1
+909,31, -192,0, 1
+0,13, 0,0, 1
+909,31, -192,0, 1
+0,15, 0,0, 1
+909,31, -192,0, 1
+0,17, 0,0, 1
+0,18, 0,0, 1
+0,19, 0,0, 1
+0,20, 0,0, 1
+0,21, 0,0, 1
+0,22, 0,0, 1
+0,23, 0,0, 1
+0,24, 0,0, 1
+0,25, 0,0, 1
+-1,0, 0,0,-1
+
+[Begin Action 11]
+;-1,0, 0,0,6
+100,12, -192,-6, 2, , A1
+100,11, -192,-6, 2, , A1
+100,10, -192,-6, 2, , A1
+100,9, -192,-6, 2, , A1
+100,8, -192,-6, 2, , A1
+100,7, -192,-6, 2, , A1
+-1,-1,0,0,-1
+
+[Begin Action 0]; Anim loca
+0,10, 0,0, 1
+0,11, 0,0, 1
+0,12, 0,0, 1
+0,13, 0,0, 1
+0,14, 0,0, 1
+0,15, 0,0, 1
+0,16, 0,0, 1
+0,17, 0,0, 1
+0,18, 0,0, 1
+0,19, 0,0, 1
+0,20, 0,0, 1
+0,21, 0,0, 1
+0,22, 0,0, 1
+0,23, 0,0, 1
+0,24, 0,0, 1
+0,25, 0,0, 1
+
+[Begin Action 1]; FX suelo
+0,0, 0,0, -1
+
+[Begin Action 2]; Ryu (Port)
+-1, 0, 300, 0, 30
+18,20, 295, 0, 1
+18,20, 290, 0, 1
+18,20, 285, 0, 1
+18,20, 280, 0, 1
+18,20, 275, 0, 1
+18,20, 270, 0, 1
+18,20, 265, 0, 1
+18,20, 260, 0, 1
+18,20, 255, 0, 1
+18,20, 250, 0, 1
+18,20, 245, 0, 1
+18,20, 240, 0, 1
+18,20, 235, 0, 1
+18,20, 230, 0, 1
+18,20, 225, 0, 1
+18,20, 220, 0, 1
+18,20, 215, 0, 1
+18,20, 210, 0, 1
+18,20, 205, 0, 1
+18,20, 200, 0, 1
+18,20, 195, 0, 1
+18,20, 190, 0, 1
+18,20, 185, 0, 1
+18,20, 180, 0, 1
+18,20, 175, 0, 1
+18,20, 170, 0, 1
+18,20, 165, 0, 1
+18,20, 160, 0, 1
+18,20, 155, 0, 1
+18,20, 150, 0, 1
+18,20, 145, 0, 1
+18,20, 140, 0, 1
+18,20, 135, 0, 1
+18,20, 130, 0, 1
+18,20, 125, 0, 1
+18,20, 120, 0, 1
+18,20, 115, 0, 1
+18,20, 110, 0, 1
+18,20, 105, 0, 1
+18,20, 100, 0, 1
+18,20, 95, 0, 1
+18,20, 90, 0, 1
+18,20, 85, 0, 1
+18,20, 80, 0, 1
+18,20, 75, 0, 1
+18,20, 70, 0, 1
+18,20, 65, 0, 1
+18,20, 60, 0, 1
+18,20, 55, 0, 1
+18,20, 50, 0, 1
+18,20, 45, 0, 1
+18,20, 40, 0, 1
+18,20, 35, 0, 1
+18,20, 30, 0, 1
+18,20, 25, 0, 1
+18,20, 20, 0, 1
+18,20, 15, 0, 1
+18,20, 10, 0, 1
+18,20, 5, 0, 1
+18,20, 0, 0, -1
+
+[Begin Action 3]; Ryu (Anim)
+18,0, -140,195, 4
+18,1, -140,195, 4
+18,2, -140,195, 4
+18,3, -140,195, 4
+18,2, -140,195, 4
+18,1, -140,195, 4
+
+[Begin Action 4]; Barra Sup
+0,1,-405,0, 1
+0,1,-300,0, 1
+0,1,-395,0, 1
+0,1,-390,0, 1
+0,1,-385,0, 1
+0,1,-380,0, 1
+0,1,-375,0, 1
+0,1,-370,0, 1
+0,1,-365,0, 1
+0,1,-360,0, 1
+0,1,-355,0, 1
+0,1,-350,0, 1
+0,1,-345,0, 1
+0,1,-340,0, 1
+0,1,-335,0, 1
+0,1,-330,0, 1
+0,1,-325,0, 1
+0,1,-320,0, 1
+0,1,-315,0, 1
+0,1,-310,0, 1
+0,1,-305,0, 1
+0,1,-300,0, 1
+0,1,-295,0, 1
+0,1,-290,0, 1
+0,1,-285,0, 1
+0,1,-280,0, 1
+0,1,-275,0, 1
+0,1,-270,0, 1
+0,1,-265,0, 1
+0,1,-260,0, 1
+0,1,-255,0, 1
+0,1,-250,0, 1
+0,1,-245,0, 1
+0,1,-240,0, 1
+0,1,-235,0, 1
+0,1,-230,0, 1
+0,1,-225,0, 1
+0,1,-220,0, 1
+0,1,-215,0, 1
+0,1,-210,0, 1
+0,1,-205,0, 1
+0,1,-200,0, 1
+0,1,-195,0, 1
+0,1,-190,0, 1
+0,1,-185,0, 1
+0,1,-180,0, 1
+0,1,-175,0, 1
+0,1,-170,0, 1
+0,1,-165,0, 1
+0,1,-160,0, 1
+0,1,-155,0, 1
+0,1,-150,0, 1
+0,1,-145,0, 1
+0,1,-140,0, 1
+0,1,-135,0, 1
+0,1,-130,0, 1
+0,1,-125,0, 1
+0,1,-120,0, 1
+0,1,-115,0, 1
+0,1,-110,0, 1
+0,1,-105,0, 1
+0,1,-100,0, 1
+0,1,-95,0, 1
+0,1,-90,0, 1
+0,1,-85,0, 1
+0,1,-80,0, 1
+0,1,-75,0, 1
+0,1,-70,0, 1
+0,1,-65,0, 1
+0,1,-60,0, 1
+0,1,-55,0, 1
+0,1,-50,0, 1
+0,1,-45,0, 1
+0,1,-40,0, 1
+0,1,-35,0, 1
+0,1,-30,0, 1
+0,1,-25,0, 1
+0,1,-20,0, 1
+0,1,-15,0, 1
+0,1,-10,0, 1
+0,1,-5,0, 1
+0,1, 0,0, -1
+
+[Begin Action 5]; BG del chara
+18,15,-405,0, 1
+18,15,-400,0, 1
+18,15,-395,0, 1
+18,15,-390,0, 1
+18,15,-385,0, 1
+18,15,-380,0, 1
+18,15,-375,0, 1
+18,15,-370,0, 1
+18,15,-365,0, 1
+18,15,-360,0, 1
+18,15,-355,0, 1
+18,15,-350,0, 1
+18,15,-345,0, 1
+18,15,-340,0, 1
+18,15,-335,0, 1
+18,15,-330,0, 1
+18,15,-325,0, 1
+18,15,-320,0, 1
+18,15,-315,0, 1
+18,15,-310,0, 1
+18,15,-305,0, 1
+18,15,-300,0, 1
+18,15,-295,0, 1
+18,15,-290,0, 1
+18,15,-285,0, 1
+18,15,-280,0, 1
+18,15,-275,0, 1
+18,15,-270,0, 1
+18,15,-265,0, 1
+18,15,-260,0, 1
+18,15,-255,0, 1
+18,15,-250,0, 1
+18,15,-245,0, 1
+18,15,-240,0, 1
+18,15,-235,0, 1
+18,15,-230,0, 1
+18,15,-225,0, 1
+18,15,-220,0, 1
+18,15,-215,0, 1
+18,15,-210,0, 1
+18,15,-205,0, 1
+18,15,-200,0, 1
+18,15,-195,0, 1
+18,15,-190,0, 1
+18,15,-185,0, 1
+18,15,-180,0, 1
+18,15,-175,0, 1
+18,15,-170,0, 1
+18,15,-165,0, 1
+18,15,-160,0, 1
+18,15,-155,0, 1
+18,15,-150,0, 1
+18,15,-145,0, 1
+18,15,-140,0, 1
+18,15,-135,0, 1
+18,15,-130,0, 1
+18,15,-125,0, 1
+18,15,-120,0, 1
+18,15,-115,0, 1
+18,15,-110,0, 1
+18,15,-105,0, 1
+18,15,-100,0, 1
+18,15,-95,0, 1
+18,15,-90,0, 1
+18,15,-85,0, 1
+18,15,-80,0, 1
+18,15,-75,0, 1
+18,15,-70,0, 1
+18,15,-65,0, 1
+18,15,-60,0, 1
+18,15,-55,0, 1
+18,15,-50,0, 1
+18,15,-45,0, 1
+18,15,-40,0, 1
+18,15,-35,0, 1
+18,15,-30,0, 1
+18,15,-25,0, 1
+18,15,-20,0, 1
+18,15,-15,0, 1
+18,15,-10,0, 1
+18,15,-5,0, 1
+18,15, 0,0, -1
+
+[Begin Action 6]; Barra Inf (1)
+0,2, 0,80,15,, ASD96
+0,2, 0,78, 1,, ASD96
+0,2, 0,76, 1,, ASD96
+0,2, 0,74, 1,, ASD96
+0,2, 0,72, 1,, ASD96
+0,2, 0,70, 1,, ASD96
+0,2, 0,68, 1,, ASD96
+0,2, 0,66, 1,, ASD96
+0,2, 0,64, 1,, ASD96
+0,2, 0,62, 1,, ASD96
+0,2, 0,60, 1,, ASD96
+0,2, 0,58, 1,, ASD96
+0,2, 0,56, 1,, ASD96
+0,2, 0,54, 1,, ASD96
+0,2, 0,52, 1,, ASD96
+0,2, 0,50, 1,, ASD96
+0,2, 0,48, 1,, ASD96
+0,2, 0,46, 1,, ASD96
+0,2, 0,44, 1,, ASD96
+0,2, 0,42, 1,, ASD96
+0,2, 0,40, 1,, ASD96
+0,2, 0,38, 1,, ASD96
+0,2, 0,36, 1,, ASD96
+0,2, 0,34, 1,, ASD96
+0,2, 0,32, 1,, ASD96
+0,2, 0,30, 1,, ASD96
+0,2, 0,28, 1,, ASD96
+0,2, 0,26, 1,, ASD96
+0,2, 0,24, 1,, ASD96
+0,2, 0,22, 1,, ASD96
+0,2, 0,20, 1,, ASD96
+0,2, 0,18, 1,, ASD96
+0,2, 0,16, 1,, ASD96
+0,2, 0,14, 1,, ASD96
+0,2, 0,12, 1,, ASD96
+0,2, 0,10, 1,, ASD96
+0,2, 0, 8, 1,, ASD96
+0,2, 0, 6, 1,, ASD96
+0,2, 0, 4, 1,, ASD96
+0,2, 0, 2, 1,, ASD96
+0,2, 0, 0,-1,, ASD96
+
+[Begin Action 7]; Barra Inf (2)
+0,3, 0,80,15
+0,3, 0,78, 1
+0,3, 0,76, 1
+0,3, 0,74, 1
+0,3, 0,72, 1
+0,3, 0,70, 1
+0,3, 0,68, 1
+0,3, 0,66, 1
+0,3, 0,64, 1
+0,3, 0,62, 1
+0,3, 0,60, 1
+0,3, 0,58, 1
+0,3, 0,56, 1
+0,3, 0,54, 1
+0,3, 0,52, 1
+0,3, 0,50, 1
+0,3, 0,50, 1
+0,3, 0,48, 1
+0,3, 0,46, 1
+0,3, 0,44, 1
+0,3, 0,42, 1
+0,3, 0,40, 1
+0,3, 0,38, 1
+0,3, 0,36, 1
+0,3, 0,34, 1
+0,3, 0,32, 1
+0,3, 0,30, 1
+0,3, 0,28, 1
+0,3, 0,26, 1
+0,3, 0,24, 1
+0,3, 0,22, 1
+0,3, 0,20, 1
+0,3, 0,18, 1
+0,3, 0,16, 1
+0,3, 0,14, 1
+0,3, 0,12, 1
+0,3, 0,10, 1
+0,3, 0, 8, 1
+0,3, 0, 6, 1
+0,3, 0, 4, 1
+0,3, 0, 2, 1
+0,3, 0, 0, -1
+
+[Begin Action 8]; TXT Chara
+-1,0, 0,0, 60
+18,21, 0,0, 1,, AS0D256
+18,21, 0,0, 1,, AS32D256
+18,21, 0,0, 1,, AS64D256
+18,21, 0,0, 1,, AS96D256
+18,21, 0,0, 1,, AS128D256
+18,21, 0,0, 1,, AS160D256
+18,21, 0,0, 1,, AS192D256
+18,21, 0,0, 220
+18,21, 0,0, 1,, AS192D256
+18,21, 0,0, 1,, AS160D256
+18,21, 0,0, 1,, AS128D256
+18,21, 0,0, 1,, AS96D256
+18,21, 0,0, 1,, AS64D256
+18,21, 0,0, 1,, AS32D256
+18,21, 0,0, 1,, AS0D256
+-1,0, 0,0, 6
+18,22, 0,0, 1,, AS0D256
+18,22, 0,0, 1,, AS32D256
+18,22, 0,0, 1,, AS64D256
+18,22, 0,0, 1,, AS96D256
+18,22, 0,0, 1,, AS128D256
+18,22, 0,0, 1,, AS160D256
+18,22, 0,0, 1,, AS192D256
+18,22, 0,0, 220
+18,22, 0,0, 1,, AS192D256
+18,22, 0,0, 1,, AS160D256
+18,22, 0,0, 1,, AS128D256
+18,22, 0,0, 1,, AS96D256
+18,22, 0,0, 1,, AS64D256
+18,22, 0,0, 1,, AS32D256
+18,22, 0,0, 1,, AS0D256
+-1,0, 0,0, 6
+18,23, 0,0, 1,, AS0D256
+18,23, 0,0, 1,, AS32D256
+18,23, 0,0, 1,, AS64D256
+18,23, 0,0, 1,, AS96D256
+18,23, 0,0, 1,, AS128D256
+18,23, 0,0, 1,, AS160D256
+18,23, 0,0, 1,, AS192D256
+18,23, 0,0, 220
+18,23, 0,0, 1,, AS192D256
+18,23, 0,0, 1,, AS160D256
+18,23, 0,0, 1,, AS128D256
+18,23, 0,0, 1,, AS96D256
+18,23, 0,0, 1,, AS64D256
+18,23, 0,0, 1,, AS32D256
+18,23, 0,0, 1,, AS0D256
+-1,0, 0,0, 6
+18,24, 0,0, 1,, AS0D256
+18,24, 0,0, 1,, AS32D256
+18,24, 0,0, 1,, AS64D256
+18,24, 0,0, 1,, AS96D256
+18,24, 0,0, 1,, AS128D256
+18,24, 0,0, 1,, AS160D256
+18,24, 0,0, 1,, AS192D256
+18,24, 0,0, 220
+18,24, 0,0, 1,, AS192D256
+18,24, 0,0, 1,, AS160D256
+18,24, 0,0, 1,, AS128D256
+18,24, 0,0, 1,, AS96D256
+18,24, 0,0, 1,, AS64D256
+18,24, 0,0, 1,, AS32D256
+18,24, 0,0, 1,, AS0D256
+-1,0, 0,0, -1
+
+[Begin Action 9]; Nombre y otros
+-1,0, 0,0, 90
+18,16, 0,0, 1,, AS0D256
+18,16, 0,0, 1,, AS32D256
+18,16, 0,0, 1,, AS64D256
+18,16, 0,0, 1,, AS96D256
+18,16, 0,0, 1,, AS128D256
+18,16, 0,0, 1,, AS160D256
+18,16, 0,0, 1,, AS192D256
+18,16, 0,0, -1
+
+[Scene 1]
+fadein.time = 0
+fadein.col = 0,0,0
+fadeout.time = 0
+fadeout.col = 0,0,0
+clearcolor = 255,0,0
+layerall.pos = 192,0     ;default pos
+layer0.anim = 0        ; Background
+layer1.anim = 1        ; FX base
+layer2.anim = 22       ; Big portrait
+layer3.anim = 30       ;
+layer4.anim = 24       ; Text Background
+layer5.anim = 25       ; Character (Stage)
+layer6.anim = 26       ; Bar Inf 1
+layer7.anim = 27       ; Bar Inf 2
+layer8.anim = 28       ; Name and nation
+layer9.anim = 23
+
+p1.anim      = 0        ; action number in the character's .air
+p1.pos       = -140,195 ;-60, -20    ; same space as layerall.pos
+p1.scale     = 1.0, 1.0
+p1.facing    = 1
+p1.starttime = 0           ; ticks after the SCENE starts
+p1.endtime   = -1          ; -1 = until the scene ends
+p1.loop      = 1
+p1.applypal  = 1  
+;p1.layerno = 2      ; which pass, exactly like any layer
+p1.order   = 6 	    ;draw immediately BEFORE layer6
+
+end.time = 40
+
+[Begin Action 0]; bg
+0,10, 0,0, 1
+0,11, 0,0, 1
+0,12, 0,0, 1
+0,13, 0,0, 1
+0,14, 0,0, 1
+0,15, 0,0, 1
+0,16, 0,0, 1
+0,17, 0,0, 1
+0,18, 0,0, 1
+0,19, 0,0, 1
+0,20, 0,0, 1
+0,21, 0,0, 1
+0,22, 0,0, 1
+0,23, 0,0, 1
+0,24, 0,0, 1
+0,25, 0,0, 1
+
+[Begin Action 1]; FX base
+-1,-1, 0,0, -1
+
+[Begin Action 22]; Big portrait
+18,20, 5, 0, 1
+18,20, 10, 0, 1
+18,20, 15, 0, 1
+18,20, 20, 0, 1
+18,20, 25, 0, 1
+18,20, 30, 0, 1
+18,20, 35, 0, 1
+18,20, 40, 0, 1
+18,20, 45, 0, 1
+18,20, 50, 0, 1
+18,20, 55, 0, 1
+18,20, 60, 0, 1
+18,20, 65, 0, 1
+18,20, 70, 0, 1
+18,20, 75, 0, 1
+18,20, 80, 0, 1
+18,20, 85, 0, 1
+18,20, 90, 0, 1
+18,20, 95, 0, 1
+18,20,100, 0, 1
+18,20,105, 0, 1
+18,20,110, 0, 1
+18,20,115, 0, 1
+18,20,120, 0, 1
+18,20,125, 0, 1
+18,20,130, 0, 1
+18,20,135, 0, 1
+18,20,140, 0, 1
+18,20,145, 0, 1
+18,20,150, 0, 1
+18,20,155, 0, 1
+18,20,160, 0, 1
+18,20,165, 0, 1
+18,20,170, 0, 1,, AS0D256
+18,20,175, 0, 1,, AS64D256
+18,20,180, 0, 1,, AS96D256
+18,20,185, 0, 1,, AS128D256
+18,20,190, 0, 1,, AS160D256
+18,20,195, 0, 1,, AS192D256
+-1,0,300, 0,-1
+
+[Begin Action 23])
+-1,-1,0,0,-1
+
+[Begin Action 24]; Stage and name BG
+0,1, 0,0, 1,, AS0D256
+0,1, 0,0, 1,, AS32D256
+0,1, 0,0, 1,, AS64D256
+0,1, 0,0, 1,, AS96D256
+0,1, 0,0, 1,, AS128D256
+0,1, 0,0, 1,, AS160D256
+0,1, 0,0, 1,, AS192D256
+-1,-1, 0,0, -1
+
+[Begin Action 26]
+0,2, 0, 2, 1,, ASD96
+0,2, 0, 4, 1,, ASD96
+0,2, 0, 6, 1,, ASD96
+0,2, 0, 8, 1,, ASD96
+0,2, 0,10, 1,, ASD96
+0,2, 0,12, 1,, ASD96
+0,2, 0,14, 1,, ASD96
+0,2, 0,16, 1,, ASD96
+0,2, 0,18, 1,, ASD96
+0,2, 0,20, 1,, ASD96
+0,2, 0,22, 1,, ASD96
+0,2, 0,24, 1,, ASD96
+0,2, 0,26, 1,, ASD96
+0,2, 0,28, 1,, ASD96
+0,2, 0,30, 1,, ASD96
+0,2, 0,32, 1,, ASD96
+0,2, 0,34, 1,, ASD96
+0,2, 0,36, 1,, ASD96
+0,2, 0,38, 1,, ASD96
+0,2, 0,40, 1,, ASD96
+0,2, 0,42, 1,, ASD96
+0,2, 0,44, 1,, ASD96
+0,2, 0,46, 1,, ASD96
+0,2, 0,48, 1,, ASD96
+0,2, 0,50, 1,, ASD96
+0,2, 0,52, 1,, ASD96
+0,2, 0,54, 1,, ASD96
+0,2, 0,56, 1,, ASD96
+0,2, 0,58, 1,, ASD96
+0,2, 0,60, 1,, ASD96
+0,2, 0,62, 1,, ASD96
+0,2, 0,64, 1,, ASD96
+0,2, 0,66, 1,, ASD96
+0,2, 0,68, 1,, ASD96
+0,2, 0,70, 1,, ASD96
+0,2, 0,72, 1,, ASD96
+0,2, 0,74, 1,, ASD96
+0,2, 0,76, 1,, ASD96
+0,2, 0,78, 1,, ASD96
+0,2, 0,80, -1,, ASD96
+
+[Begin Action 27]
+0,3, 0, 2, 1
+0,3, 0, 4, 1
+0,3, 0, 6, 1
+0,3, 0, 8, 1
+0,3, 0,10, 1
+0,3, 0,12, 1
+0,3, 0,14, 1
+0,3, 0,16, 1
+0,3, 0,18, 1
+0,3, 0,20, 1
+0,3, 0,22, 1
+0,3, 0,24, 1
+0,3, 0,26, 1
+0,3, 0,28, 1
+0,3, 0,30, 1
+0,3, 0,32, 1
+0,3, 0,34, 1
+0,3, 0,36, 1
+0,3, 0,38, 1
+0,3, 0,40, 1
+0,3, 0,42, 1
+0,3, 0,44, 1
+0,3, 0,46, 1
+0,3, 0,48, 1
+0,3, 0,50, 1
+0,3, 0,52, 1
+0,3, 0,54, 1
+0,3, 0,56, 1
+0,3, 0,58, 1
+0,3, 0,60, 1
+0,3, 0,62, 1
+0,3, 0,64, 1
+0,3, 0,66, 1
+0,3, 0,68, 1
+0,3, 0,70, 1
+0,3, 0,72, 1
+0,3, 0,74, 1
+0,3, 0,76, 1
+0,3, 0,78, 1
+0,3, 0,80, -1

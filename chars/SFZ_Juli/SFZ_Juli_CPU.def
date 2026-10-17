@@ -1,0 +1,34 @@
+; Juli for MUGEN ver 11.29.2000 By: The Impaler
+; Character information
+[Info]
+name    = "Juli"    
+displayname = "JULI" 
+versiondate = 1/11/2001          ;The last time I worked on her
+mugenversion = 11,29,2000        ;For MUGEN 2000.11.29 MAY work with 6.27 and 7.31
+author = "The Impaler"           ;ME!
+Pal.Defaults = 1,4
+localcoord = 384,224
+
+; Files for the character
+[Files]
+cmd      = juli.cmd        ;Command set (her moves)
+cns      = juli.cns        ;Constants (the center of things)
+st       = juli.cns        ;States (another center of things)
+stcommon = common1.cns     ;Common states (MUGEN defaults)
+sprite   = juli_CPU.sff        ;Sprite (her cute self)
+anim     = juli.air        ;Animation (how she moves)
+sound    = juli.snd        ;Sound (her voices)
+movelist = movelist.dat
+
+pal1=juli2.act             ;Dark Blue
+;pal2=juli1.act             ;Green
+;pal3=juli3.act             ;Purple
+;pal4=juli4.act             ;Brown
+;pal5=juli5.act             ;Blue
+;pal6=juli6.act             ;Red
+;pal7=juli7.act             ;Silver
+;pal8=juli8.act             ;Black
+;pal9=juli2.act             ;Dark Blue
+;pal10=juli5.act            ;Red
+;pal11=juli6.act            ;Blue
+;pal12=juli4.act            ;Brown

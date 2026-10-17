@@ -1,0 +1,195 @@
+[Info]
+name = "Sardine Beach - Japan"
+mugenversion = 1.0
+author = "Ehnyd"
+
+[Camera]
+startx = 0
+starty = 0
+boundleft = -190
+boundright = 190
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+
+leftbound  = -1000
+rightbound =  1000
+topbound  =  0
+botbound  =  0
+
+[Scaling]
+topz = 0
+botz = 50
+topscale = 1
+botscale = 1.2
+
+[Bound]
+screenleft = 15
+screenright = 15
+
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+[Shadow]
+color = 16,16,16
+yscale = .05
+
+[Music]
+bgmusic = sound/RMika.mp3
+bgmloopstart = 418068
+;bgmloopend = 4575070
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+[BGdef]
+spr = stages/Mika.sff
+;debugbg = 0
+
+[BG 0];cielo
+type = normal
+spriteno = 0,0
+start = 0,224
+delta = .5,1
+
+[BG 1];cabaña derecha
+type = normal
+spriteno = 1,0
+start = 0,224
+delta = .7,1
+mask = 1
+
+[BG 2];gente de la misma
+type = anim
+actionno = 2
+start = 0,224
+delta = .7,1
+
+[BG 3];ringside
+type = normal
+spriteno = 3,0
+start = 0,224
+delta = .8,1
+mask = 1
+
+[BG 5]
+type = anim
+actionno = 5
+start = 0,224
+delta = .8,1
+
+[BG 6]
+type = anim
+actionno = 6
+start = 0,224
+delta = .8,1
+
+[BG 7]
+type = anim
+actionno = 7
+start = 0,224
+delta = .8,1
+
+[BG 8]
+type = anim
+actionno = 8
+start = 0,224
+delta = .8,1
+
+[BG 9]
+type = anim
+actionno = 9
+start = 0,224
+delta = .8,1
+
+[BG 10.1]
+type = normal
+spriteno = 10,0
+start = 0,224
+delta = .8,1
+mask = 1
+
+[BG 10.2]
+type = normal
+spriteno = 10,1
+start = 0,224
+delta = .8,1
+mask = 1
+
+[BG 4]; suelo
+type = parallax
+spriteno = 4,0
+start = 0,193
+delta = .825,1
+;xscale = 1,1.35227272727272727272
+
+[Begin action 2]
+2,0, 0,0, 10
+2,1, 0,0, 10
+2,2, 0,0, 10
+2,3, 0,0, 10
+2,4, 0,0, 10
+2,3, 0,0, 10
+
+[Begin action 5]
+5,0, 0,0, 48
+5,1, 0,0, 25
+5,0, 0,0, 16
+5,2, 0,0, 25
+
+[Begin action 6]
+6,0, 0,0, 28
+6,1, 0,0, 16
+6,2, 0,0, 13
+6,3, 0,0, 12
+6,4, 0,0, 11
+6,5, 0,0, 28
+6,4, 0,0, 16
+6,3, 0,0, 13
+6,2, 0,0, 11
+6,1, 0,0, 16
+
+[Begin action 7]
+7,0, 0,0, 6
+7,1, 0,0, 6
+7,2, 0,0, 6
+7,3, 0,0, 6
+7,4, 0,0, 6
+7,5, 0,0, 6
+7,6, 0,0, 6
+
+[Begin action 8]
+8,0, 0,0, 6
+8,1, 0,0, 6
+8,2, 0,0, 6
+8,3, 0,0, 6
+8,4, 0,0, 6
+8,5, 0,0, 6
+8,6, 0,0, 6
+
+[Begin action 9]
+9,0, 0,0, 6
+9,1, 0,0, 6
+9,2, 0,0, 6
+9,3, 0,0, 6
+9,4, 0,0, 6
+9,5, 0,0, 6
+9,6, 0,0, 6

@@ -1,0 +1,274 @@
+;--------------------------------------------------------
+[Info]
+name = "Karin Boss" ;Victoria
+mugenversion = 1.0
+author = "Ehnyd"
+
+;--------------------------------------------------------
+[Camera]
+startx = 0
+starty = 0
+boundleft = -190
+boundright = 190
+boundhigh = -16
+boundlow = 8
+verticalfollow = .1
+floortension = 0
+tension = 60
+
+;--------------------------------------------------------
+[PlayerInfo]
+p1startx = -75
+p1starty = 0
+p1startz = 0
+p1facing = 1
+p2startx = 75
+p2starty = 0
+p2startz = 0
+p2facing = -1
+leftbound  = -1000
+rightbound = 1000
+topbound = 0
+botbound = 0
+
+;--------------------------------------------------------
+[Scaling]
+topz     = 0       
+botz     = 50      
+topscale = 1       
+botscale = 1.2     
+
+;--------------------------------------------------------
+[Bound]
+screenleft = 25
+screenright = 25
+
+;--------------------------------------------------------
+[StageInfo]
+zoffset = 200
+autoturn = 1
+resetBG = 0
+localcoord = 384, 224
+;xscale = 1
+yscale = 1
+
+;--------------------------------------------------------
+[Shadow]
+color = 16,16,16
+yscale = .05
+
+;--------------------------------------------------------
+[Music]
+bgmusic = Sound/Karin.mp3
+bgmloopstart= 635046
+bgmloopend=  3776043
+bgvolume = 255
+bgmusic.victory = Sound/Screenpack/Stage End.wav
+bgmloopstart.victory = 359396
+bgmloopend.victory = 362287
+
+;--------------------------------------------------------
+[BGdef]
+spr = stages/Karin.sff
+;debugbg = 0
+
+[BG Background]
+type = normal 
+spriteno = 0, 0
+start = 0, -16
+delta = .5, 1
+id = 1
+
+[BG Boat]
+type = normal 
+spriteno = 1, 0
+start = -288, 153
+delta = .5, 1
+mask = 1
+id = 2
+
+[BGCtrlDef BGUndulation]
+CtrlID = 1,2
+looptime = 705
+
+[BGCtrl 1a.1]
+type = PosAdd
+time = 14
+y = 1
+
+[BGCtrl 1a.2]
+type = PosAdd
+time = 32
+y = 1
+
+[BGCtrl 1a.3]
+type = PosAdd
+time = 54
+y = 1
+
+[BGCtrl 1a.4]
+type = PosAdd
+time = 80
+y = 1
+
+[BGCtrl 1a.5]
+type = PosAdd
+time = 112
+y = 1
+
+[BGCtrl 1a.6]
+type = PosAdd
+time = 154
+y = 1
+
+[BGCtrl 1b.1]
+type = PosAdd
+time = 212
+y = -1
+
+[BGCtrl 1b.2]
+type = PosAdd
+time = 252
+y = -1
+
+[BGCtrl 1b.3]
+type = PosAdd
+time = 286
+y = -1
+
+[BGCtrl 1b.4]
+type = PosAdd
+time = 312
+y = -1
+
+[BGCtrl 1b.5]
+type = PosAdd
+time = 334
+y = -1
+
+[BGCtrl 1b.6]
+type = PosAdd
+time = 352
+y = -1
+
+[BGCtrl 1b.7]
+type = PosAdd
+time = 366
+y = -1
+
+[BGCtrl 1b.8]
+type = PosAdd
+time = 384
+y = -1
+
+[BGCtrl 1b.9]
+type = PosAdd
+time = 406
+y = -1
+
+[BGCtrl 1b.A]
+type = PosAdd
+time = 432
+y = -1
+
+[BGCtrl 1b.B]
+type = PosAdd
+time = 464
+y = -1
+
+[BGCtrl 1b.C]
+type = PosAdd
+time = 506
+y = -1
+
+[BGCtrl 1c.1]
+type = PosAdd
+time = 564
+y = 1
+
+[BGCtrl 1c.2]
+type = PosAdd
+time = 606
+y = 1
+
+[BGCtrl 1c.3]
+type = PosAdd
+time = 638
+y = 1
+
+[BGCtrl 1c.4]
+type = PosAdd
+time = 664
+y = 1
+
+[BGCtrl 1c.5]
+type = PosAdd
+time = 686
+y = 1
+
+[BGCtrl 1c.6]
+type = PosAdd
+time = 704
+y = 1
+
+[BGCtrlDef BoatLoop]
+CtrlID = 2
+looptime = 24577
+
+[BGCtrl 2.1]
+type = VelSet
+time = 0
+x = 0.023437
+
+[BGCtrl 2.2]
+type = PosSet
+time = 24576
+x = -112
+
+; Background
+[BG ScenePart1]
+type = normal 
+spriteno = 2, 0
+start = 0,-16
+delta = 1, 1
+mask = 1
+[BG ScenePart2]
+type = normal 
+spriteno = 2, 1
+start = 0,-16
+delta = 1, 1
+[BG ScenePart3]
+type = normal 
+spriteno = 2, 2
+start = 0,-16
+delta = 1, 1
+
+[BG SceneTransFX1]
+type = normal 
+spriteno = 2, 3
+start = -253, 5
+delta = 1, 1
+trans = add1
+
+[BG SceneTransFX2]
+type = normal 
+spriteno = 2, 4
+start = -16, 72
+delta = 1, 1
+trans = add1
+
+[Bg Guy]
+type = anim
+actionno = 3
+start = 235, 113
+delta = 1, 1
+
+[Begin Action 3]
+3,0, 0, 0, 394
+3,1, 0, 0, 8
+3,2, 0, 0, 12
+3,3, 0, 0, 8
+3,4, 0, 0, 13
+3,3, 0, 0, 8
+3,2, 0, 0, 6
+3,1, 0, 0, 6

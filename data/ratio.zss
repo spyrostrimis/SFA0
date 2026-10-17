@@ -1,0 +1,49 @@
+# ==============================================================================
+# Ratio matches - life and attack scaling
+# ------------------------------------------------------------------------------
+# Ratio was a stock Ikemen GO feature (still present in 0.99) that upstream
+# removed by the 2026 develop branch: the engine no longer has a ratiolevel()
+# trigger, a RatioLife/RatioAttack config, or ratio parameters on selectChar.
+#
+# What survives is enough to rebuild it without touching the engine:
+#   * external/script/start.lua hands each team member its ratio level through a
+#     per-member map override ("p<side>.<member>.map.ratiolevel"), which
+#     loadStart still supports;
+#   * ModifyPlayer can set lifemax and attack at runtime.
+#
+# So the scaling happens here, once per round, on any character that was given a
+# level. Characters with no ratio level are untouched, which is every character
+# in every non-ratio match - this file is inert unless a Ratio team is playing.
+#
+# Multipliers are the old build's values from save/config.json:
+#   RatioLife   = 0.8,  1, 1.17, 1.4
+#   RatioAttack = 0.82, 1, 1.17, 1.3
+# Attack is a percentage (100 = normal), life is a multiplier on the character's
+# own lifeMax so per-character health differences are preserved.
+# ==============================================================================
+
+[StateDef -2]
+
+if isHelper || teamSide = 0 || map(ratiolevel) <= 0 {
+	# Not a ratio character.
+} else if map(_sfaz_ratioApplied) != map(ratiolevel) {
+	# Applied once per character. The guard is compared against the level rather
+	# than a plain flag so that lifeMax is never scaled twice - after the first
+	# application lifeMax already carries the multiplier.
+	map(_sfaz_ratioApplied) := map(ratiolevel);
+	if map(ratiolevel) = 1 {
+		modifyPlayer{lifemax: ceil(lifeMax * 0.8); attack: 82}
+	} else if map(ratiolevel) = 3 {
+		modifyPlayer{lifemax: ceil(lifeMax * 1.17); attack: 117}
+	} else if map(ratiolevel) >= 4 {
+		modifyPlayer{lifemax: ceil(lifeMax * 1.4); attack: 130}
+	}
+	# Level 2 is the baseline: 1.0 life, 100 attack, nothing to change.
+	#
+	# Top the character back up, since lifeMax moved after life was already set
+	# for the round. Only at full health, so a mid-match Turns member who has
+	# already taken damage is not healed by this.
+	if life >= lifeMax {
+		lifeSet{value: lifeMax}
+	}
+}

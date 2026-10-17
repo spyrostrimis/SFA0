@@ -1,0 +1,36 @@
+[Info]
+name = Dictador
+displayname = "M.BISON"
+author = "N-Mario"		; editado por Ehnyd
+Pal.Defaults = 1,4
+Localcoord = 384,224
+mugenversion = 1.0
+
+[Files]
+cmd	= SFZ_BisonII.cmd
+cns	= SFZ_BisonII.cns
+st      = SFZ_BisonII.cns
+stcommon = common1.cns
+sprite	= SFZ_BisonII.sff
+anim	= SFZ_BisonII.air
+sound	= SFZ_BisonII.snd
+movelist = movelist.dat
+
+pal1	= pals/Z-ISM1.act
+pal2	= pals/X-ISM1.act
+pal3	= pals/V-ISM1.act
+pal4	= pals/Z-ISM2.act
+pal5	= pals/X-ISM2.act
+pal6	= pals/V-ISM2.act
+pal7	= pals/Z-ISM4.act
+pal8	= pals/X-ISM4.act
+pal9	= pals/V-ISM4.act
+pal10	= pals/Z-ISM3.act
+pal11	= pals/X-ISM3.act
+pal12	= pals/V-ISM3.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_N-Bison.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/N-Bison.lua

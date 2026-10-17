@@ -1,0 +1,43 @@
+[Info]
+localcoord = 384,224
+
+[SceneDef]
+spr = Logo.sff
+
+[Scene 0]; Capcom
+fadein.time = 6
+fadeout.time = 6
+layerall.pos = 192,0
+layer0.anim =  0
+end.time = 200
+
+[Begin Action 0]
+-1,0, 0,0, 30
+0,0, 0,0, 2,, AS0D256
+0,0, 0,0, 2,, AS32D256
+0,0, 0,0, 2,, AS64D256
+0,0, 0,0, 3,, AS96D256
+0,0, 0,0, 3,, AS128D256
+0,0, 0,0, 4,, AS154D256
+0,0, 0,0, 4,, AS187D256
+0,0, 0,0, 6,, AS220D256
+0,0, 0,0, -1
+
+[Scene 1]; ElectByte
+fadein.time = 6
+fadeout.time = 6
+layerall.pos = 192,0
+layer0.anim =  1
+end.time = 200
+
+[Begin Action 1]
+-1,0, 0,0, 30
+1,0, 0,0, 2,, AS0D256
+1,0, 0,0, 2,, AS32D256
+1,0, 0,0, 2,, AS64D256
+1,0, 0,0, 3,, AS96D256
+1,0, 0,0, 3,, AS128D256
+1,0, 0,0, 4,, AS154D256
+1,0, 0,0, 4,, AS187D256
+1,0, 0,0, 6,, AS220D256
+1,0, 0,0, -1

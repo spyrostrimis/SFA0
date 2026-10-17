@@ -1,0 +1,3615 @@
+;----------------------------
+[Info]
+name = "Street Fighter Alpha Zero"
+author = "AgentEd"
+versiondate = 09,01,2009
+mugenversion = 1.0
+localcoord = 384,224
+
+;----------------------------
+
+[Files]
+spr = system.sff
+snd = system.snd
+select = select.def
+fight = fight.def
+font1 = Matchno.fnt;f-4x6.def	; For Debug
+font2 = sfa2_dialogue.fnt	; dialogue
+font3 = sfz2a_font.fnt 	; Small
+font4 = sfz2a_system.fnt ; Medium
+font5 = sfzbigname.fnt	; sfz1
+font6 = Name2.fnt	; sfz2
+font7 = Name.fnt	; sf2
+glyphs = data/glyphs.sff
+
+;Attract mode definition
+[Attract Mode] ;Ikemen feature
+enabled = 1
+fadein.time = -1
+fadein.col = 0, 0, 0
+fadeout.time = 10
+fadeout.col = 0, 0, 0
+
+credits.keycode = F9
+options.keycode = F11
+
+credits.snd = 100, 5
+logo.storyboard = Storyboards/Logo.def
+intro.storyboard = Storyboards/SFAZ_Intro.def
+start.storyboard = Storyboards/Start.def
+start.time = 1
+;start.insert.text = "Insert coin"
+start.insert.offset = 159, 185
+start.insert.font = -1,0,0
+start.insert.scale = 1.0, 1.0
+start.insert.blinktime = 30
+start.press.text = "
+start.press.offset = 159, 185
+start.press.font = -1,0,0
+start.press.scale = 1.0, 1.0
+start.press.blinktime = 30
+; MIGRATION: the credit-insert COUNTDOWN, not a general timer. main.f_attractStart
+; sets timerActive whenever the credit count changes, so pressing the credits key
+; flashed it for a frame in the bottom-right corner -- clipped, because y = 234 is
+; past the bottom of this file's 384 x 224 localcoord (it fitted a 240-tall one).
+; count/framespercount/displaytime are all 1, so it never had anything to show.
+; Hidden with font -1 rather than count = -1 on purpose: count = -1 skips
+; f_drawTimer entirely, which is what clears timerActive, and a timerActive that
+; never clears blocks the screen's own (not timerActive and counter >= start.time)
+; auto-advance. Font -1 is not in the motif's font map, so TextSprite.draw returns
+; without drawing while the countdown still runs and expires exactly as before.
+start.timer.offset = 310, 234
+start.timer.font = -1,0,-1
+start.timer.scale = 1.0, 1.0
+start.timer.text = "%i"
+start.timer.count = 1
+start.timer.framespercount = 1
+start.timer.displaytime = 1
+start.done.snd = 100, 1
+
+;title.offset = 5, 30;220
+;title.font = 5, 0, 1
+;title.scale = 1.0, 1.0
+;title.text = "MAIN MENU"
+
+credits.text = "CREDITS %2i"
+credits.offset = 5, 10;30
+credits.font = 3,1,1
+credits.scale = 1.0, 1.0
+
+fadeout.anim = 2009
+menu.pos = 285, 70 ;276,35
+menu.item.font = 4,2,1
+menu.item.active.font = 4,0,1
+menu.item.spacing = 0, 18
+menu.item.offset = 0, 1
+menu.item.active.offset = 0, -1
+
+menu.window.margins.y = 12, 8
+menu.window.visibleitems = 11
+menu.boxcursor.visible = 0
+menu.boxcursor.coords = -48,-14,48,3
+cursor.move.snd = 100,0	
+cursor.done.snd = 100,1
+cancel.snd = 100,2
+
+options.key = F11
+menu.next.key = D
+menu.previous.key = U
+menu.accept.key = a, b, c, x, y, z
+menu.done.key = a, b, c, x, y, z
+menu.hiscore.key = B, F, s
+
+; Removes the highlighted saved address in the JOIN GAME list. Only the
+; serverjoin submenu listens for this key, and only "ip_*" rows can be deleted.
+; The engine defaults this in [Title Info] only, so with attract mode enabled it
+; has to be repeated here or saved addresses can never be removed in-game.
+menu.item.delete.keycode = DELETE
+
+; Submenu: Arcade
+menu.itemname.menuarcade = "ARCADE    >"
+menu.itemname.menuarcade.arcade = "STORY MODE" 
+menu.itemname.menuarcade.teamarcade = "TEAM ARCADE"
+menu.itemname.menuarcade.teamcoop = "COOPERATIVE" 
+menu.itemname.menuarcade.back = "      <BACK"
+
+menu.itemname.menunet = "ONLINE    >"
+; SFAZ: room-code play needs no IP, port forwarding or VPN - listed first
+; because it is the path almost everyone should take. The two GAME entries
+; below are the original direct-IP netplay, kept for LAN and for players whose
+; network is too restrictive for hole punching.
+menu.itemname.menunet.roomhost = "HOST ROOM"
+menu.itemname.menunet.roomjoin = "JOIN ROOM"
+menu.itemname.menunet.serverhost = "HOST GAME"
+menu.itemname.menunet.serverjoin = "JOIN GAME"
+menu.itemname.menunet.back = "      <BACK"
+
+; JOIN GAME submenu. "joinadd" and the saved IP entries MUST live under
+; "serverjoin" - the engine only appends the addresses stored in config
+; (Netplay.IP) to the item list of a submenu named serverjoin, and selecting a
+; submenu with no items just backs out to the previous menu.
+menu.itemname.menunet.serverjoin.joinadd = "NEW ADDRESS"
+menu.itemname.menunet.serverjoin.back = "      <BACK"
+
+; Menu shown to both sides once the netplay connection is established. The
+; "server" group is never displayed in the title menu, it is opened by the
+; engine after host/join synchronize.
+menu.itemname.server.netplayversus = "VERSUS"
+menu.itemname.server.netplayteamcoop = "ARCADE"
+menu.itemname.server.netplaysurvivalcoop = "SURVIVAL"
+menu.itemname.server.back = "      EXIT"
+
+menu.itemname.teamversus = "VERSUS"             
+menu.itemname.freebattle = "FREE BATTLE"     
+
+menu.itemname.menumission = "MISSIONS  >"
+menu.itemname.menumission.survival = "SURVIVAL"
+menu.itemname.menumission.survivalcoop = "SURV. CO-OP"
+menu.itemname.menumission.vs100kumite = "VS100KUMITE"
+menu.itemname.menumission.timeattack = "TIME ATTACK"   
+menu.itemname.menumission.worldtour = "WORLD TOUR"   
+menu.itemname.menumission.training = "TRAINING"    
+menu.itemname.menumission.watch = "WATCH"
+menu.itemname.menumission.back = "      <BACK"
+
+menu.itemname.options = "    OPTIONS"
+
+menu.itemname.menuexit = "    QUIT"
+menu.itemname.menuexit.exit = "       QUIT"
+menu.itemname.menuexit.back = "      <BACK"
+
+menu.item.bg.menuarcade.spr = 20028,3
+menu.item.bg.menuarcade.offset = -8,-14
+menu.item.bg.menunet.spr = 20028,3
+menu.item.bg.menunet.offset = -8,4
+menu.item.bg.teamversus.spr = 20028,4
+menu.item.bg.teamversus.offset = -8,22
+menu.item.bg.freebattle.spr = 20028,4
+menu.item.bg.freebattle.offset = -8,40
+menu.item.bg.menumission.spr = 20028,3
+menu.item.bg.menumission.offset = -8,58
+menu.item.bg.options.spr = 20028,4
+menu.item.bg.options.offset = 24,76
+menu.item.bg.menuexit.spr = 20028,3
+menu.item.bg.menuexit.offset = 24,94
+
+menu.item.active.bg.menuarcade.anim = 20029
+menu.item.active.bg.menuarcade.offset = -8,-16
+menu.item.active.bg.menunet.anim = 20029
+menu.item.active.bg.menunet.offset = -8,2	
+menu.item.active.bg.teamversus.anim = 20028
+menu.item.active.bg.teamversus.offset = -8,20
+menu.item.active.bg.freebattle.anim = 20028
+menu.item.active.bg.freebattle.offset = -8,38
+menu.item.active.bg.menumission.anim = 20029
+menu.item.active.bg.menumission.offset = -8,56
+menu.item.active.bg.options.anim = 20028
+menu.item.active.bg.options.offset = 24,74
+menu.item.active.bg.menuexit.anim = 20028
+menu.item.active.bg.menuexit.offset = 24,92
+
+;Arcade Menu active
+menu.item.active.bg.menuarcade.arcade.anim = 20028
+menu.item.active.bg.menuarcade.arcade.offset = -8,-16
+menu.item.active.bg.menuarcade.teamarcade.anim = 20028
+menu.item.active.bg.menuarcade.teamarcade.offset = -8,2
+menu.item.active.bg.menuarcade.teamcoop.anim = 20028
+menu.item.active.bg.menuarcade.teamcoop.offset = -8,20
+menu.item.active.bg.menuarcade.back.anim = 20028
+menu.item.active.bg.menuarcade.back.offset = 38,38
+
+;Arcade Menu 
+menu.item.bg.menuarcade.arcade.spr = 20028,4
+menu.item.bg.menuarcade.arcade.offset = -8,-14
+menu.item.bg.menuarcade.teamarcade.spr = 20028,4
+menu.item.bg.menuarcade.teamarcade.offset = -8,4
+menu.item.bg.menuarcade.teamcoop.spr = 20028,4
+menu.item.bg.menuarcade.teamcoop.offset = -8,22
+menu.item.bg.menuarcade.back.spr = 20028,4
+menu.item.bg.menuarcade.back.offset = 40,40
+
+
+;Netplay Menu active
+; SFAZ: five rows now instead of three, so the 18px ladder re-flows and
+; "back" drops from the third slot to the fifth.
+menu.item.active.bg.menunet.roomhost.anim = 20028
+menu.item.active.bg.menunet.roomhost.offset = -8,-16
+menu.item.active.bg.menunet.roomjoin.anim = 20028
+menu.item.active.bg.menunet.roomjoin.offset = -8,2
+menu.item.active.bg.menunet.serverhost.anim = 20028
+menu.item.active.bg.menunet.serverhost.offset = -8,20
+menu.item.active.bg.menunet.serverjoin.anim = 20028
+menu.item.active.bg.menunet.serverjoin.offset = -8,38
+menu.item.active.bg.menunet.back.anim = 20028
+menu.item.active.bg.menunet.back.offset = 38,56
+
+;Netplay Menu
+menu.item.bg.menunet.roomhost.spr = 20028,4
+menu.item.bg.menunet.roomhost.offset = -8,-14
+menu.item.bg.menunet.roomjoin.spr = 20028,4
+menu.item.bg.menunet.roomjoin.offset = -8,4
+menu.item.bg.menunet.serverhost.spr = 20028,4
+menu.item.bg.menunet.serverhost.offset = -8,22
+menu.item.bg.menunet.serverjoin.spr = 20028,4
+menu.item.bg.menunet.serverjoin.offset = -8,40
+menu.item.bg.menunet.back.spr = 20028,4
+menu.item.bg.menunet.back.offset = 40,58
+
+;Netplay session menu (shown after host/join connect) active
+menu.item.active.bg.server.netplayversus.anim = 20028
+menu.item.active.bg.server.netplayversus.offset = -8,-16
+menu.item.active.bg.server.netplayteamcoop.anim = 20028
+menu.item.active.bg.server.netplayteamcoop.offset = -8,2
+menu.item.active.bg.server.netplaysurvivalcoop.anim = 20028
+menu.item.active.bg.server.netplaysurvivalcoop.offset = -8,20
+menu.item.active.bg.server.back.anim = 20028
+menu.item.active.bg.server.back.offset = 38,38
+
+;Netplay session menu
+menu.item.bg.server.netplayversus.spr = 20028,4
+menu.item.bg.server.netplayversus.offset = -8,-14
+menu.item.bg.server.netplayteamcoop.spr = 20028,4
+menu.item.bg.server.netplayteamcoop.offset = -8,4
+menu.item.bg.server.netplaysurvivalcoop.spr = 20028,4
+menu.item.bg.server.netplaysurvivalcoop.offset = -8,22
+menu.item.bg.server.back.spr = 20028,4
+menu.item.bg.server.back.offset = 40,40
+
+;Join menu (NEW ADDRESS + saved addresses). Saved address rows are created at
+;runtime from config Netplay.IP, so they cannot get per-item boxes here; the
+;whole submenu is left unboxed to keep the rows looking alike. The highlighted
+;row is still shown through menu.item.active.font.
+
+;Mission Menu active
+menu.item.active.bg.menumission.survival.anim = 20028
+menu.item.active.bg.menumission.survival.offset = -8,-16
+menu.item.active.bg.menumission.survivalcoop.anim = 20028
+menu.item.active.bg.menumission.survivalcoop.offset = -8,2
+menu.item.active.bg.menumission.vs100kumite.anim = 20028
+menu.item.active.bg.menumission.vs100kumite.offset = -8,20
+menu.item.active.bg.menumission.timeattack.anim = 20028
+menu.item.active.bg.menumission.timeattack.offset = -8,38
+menu.item.active.bg.menumission.worldtour.anim = 20028
+menu.item.active.bg.menumission.worldtour.offset = -8,56
+menu.item.active.bg.menumission.training.anim = 20028
+menu.item.active.bg.menumission.training.offset = -8,74
+menu.item.active.bg.menumission.watch.anim = 20028
+menu.item.active.bg.menumission.watch.offset = -8,92
+menu.item.active.bg.menumission.back.anim = 20028
+menu.item.active.bg.menumission.back.offset = 38,110
+
+;Mission Menu 
+menu.item.bg.menumission.survival.spr = 20028,4
+menu.item.bg.menumission.survival.offset = -8,-14
+menu.item.bg.menumission.survivalcoop.spr = 20028,4
+menu.item.bg.menumission.survivalcoop.offset = -8,4
+menu.item.bg.menumission.vs100kumite.spr = 20028,4
+menu.item.bg.menumission.vs100kumite.offset = -8,22
+menu.item.bg.menumission.timeattack.spr = 20028,4
+menu.item.bg.menumission.timeattack.offset = -8,40
+menu.item.bg.menumission.worldtour.spr = 20028,4
+menu.item.bg.menumission.worldtour.offset = -8,58
+menu.item.bg.menumission.training.spr = 20028,4
+menu.item.bg.menumission.training.offset = -8,76
+menu.item.bg.menumission.watch.spr = 20028,4
+menu.item.bg.menumission.watch.offset = -8,94
+menu.item.bg.menumission.back.spr = 20028,4
+menu.item.bg.menumission.back.offset = 40,112
+
+menu.item.active.bg.menuexit.exit.anim = 20028
+menu.item.active.bg.menuexit.exit.offset = 40,-16
+menu.item.active.bg.menuexit.back.anim = 20028
+menu.item.active.bg.menuexit.back.offset = 40,2
+
+menu.item.bg.menuexit.exit.spr = 20028,4
+menu.item.bg.menuexit.exit.offset = 40,-14
+menu.item.bg.menuexit.back.spr = 20028,4
+menu.item.bg.menuexit.back.offset = 40,4
+
+
+[AttractBGdef] ;Ikemen feature
+;bgm = "Data/Score.wav"
+
+[AttractBG 0] ; Bg
+type  = anim
+actionno = 6030
+layerno = 0
+start = -192,0
+tile = 1,1
+
+
+[AttractBG 1] ;Fighter
+type  = anim
+actionno = 20026
+layerno = 0
+start = -192,0
+tile = 1,1
+
+[AttractBG 2] ;Ryu & Ken
+type  = anim
+actionno = 20027
+layerno = 0
+start = -192,0
+tile = 1,1
+
+[AttractBG 3] ;Street
+type  = anim
+actionno = 20025
+layerno = 0
+start = -192,0
+tile = 1,1
+
+[Begin Action 6030] ; Bg
+-1,0,0,0,30
+LoopStart
+6030,0,0,0,1
+6030,1,0,0,1
+6030,2,0,0,1
+6030,3,0,0,1
+6030,4,0,0,1
+6030,5,0,0,1
+6030,6,0,0,1
+6030,7,0,0,1
+6030,8,0,0,1
+6030,9,0,0,1
+6030,10,0,0,1
+6030,11,0,0,1
+6030,12,0,0,1
+6030,13,0,0,1
+6030,14,0,0,1
+6030,15,0,0,1
+6030,16,0,0,1
+6030,17,0,0,1
+6030,18,0,0,1
+6030,19,0,0,1
+6030,20,0,0,1
+6030,21,0,0,1
+6030,22,0,0,1
+6030,23,0,0,1
+6030,24,0,0,1
+6030,25,0,0,1
+6030,26,0,0,1
+6030,27,0,0,1
+
+[Begin Action 20027] ;Ryu & Ken
+-1,0,0,0,30
+20028,0,-200,0,1
+20028,0,-190,0,1
+20028,0,-180,0,1
+20028,0,-170,0,1
+20028,0,-160,0,1
+20028,0,-150,0,1
+20028,0,-140,0,1
+20028,0,-130,0,1
+20028,0,-120,0,1
+20028,0,-110,0,1
+20028,0,-100,0,1
+20028,0,-90,0,1
+20028,0,-80,0,1
+20028,0,-70,0,1
+20028,0,-60,0,1
+20028,0,-50,0,1
+20028,0,-40,0,1
+20028,0,-30,0,1
+20028,0,-20,0,1
+20028,0,-10,0,1
+20028,0, 0,0, -1
+
+[Begin Action 20028] ;Menu Box
+20028,1,0,0,5
+20028,2,0,0,5
+[Begin Action 20029] ;Menu Box
+20028,7,0,0,5
+20028,6,0,0,5
+
+[Begin Action 20025] ;Street
+-1,0,0,0,30
+20029,0,0,0,20
+20029,2,0,0,-1
+
+[Begin Action 20026] ;Fighter
+-1,0,0,0,30
+20029,1,0,0,-1
+;----------------------------
+[Music]
+
+;start.lua 4019 musical transitions
+
+title.bgm = Sound/Screenpack/Score.wav
+title.bgm.volume = 100
+title.bgm.loop = 0
+title.bgm.loopstart = 
+title.bgm.loopend = 
+
+select.bgm = Sound/Screenpack/Pselect.mp3
+select.bgm.volume = 100
+select.bgm.loop = 1
+select.bgm.loopstart = 628483
+select.bgm.loopend =   1208848
+
+vs.bgm = Sound/Screenpack/VS.wav
+vs.bgm.loop = 0
+vs.bgm.loopstart =
+vs.bgm.loopend = 
+
+victory.bgm = Sound/Screenpack/Arcade Stage End.mp3
+victory.bgm.volume = 100
+victory.bgm.loop = 0
+victory.bgm.loopstart =
+victory.bgm.loopend = 
+
+results.bgm = Sound/Screenpack/Result.wav
+results.bgm.volume = 100
+results.bgm.loop = 0
+results.lose.bgm = 
+results.lose.bgm.volume = 100
+results.lose.bgm.loop = 0
+
+continue.bgm = Sound/Screenpack/Continue.wav
+continue.bgm.volume = 100
+continue.bgm.loop = 1
+
+hiscore.bgm = Sound/Screenpack/Score.wav
+hiscore.bgm.volume = 100
+hiscore.bgm.loop = 0
+hiscore.bgm.loopstart = 0
+hiscore.bgm.loopend = 0
+
+;-------------------------------------------------------------------
+[Infobox] ;(new in MUGEN 1.0)
+text.font = 2,0,1
+text.text = "BATTLE"
+
+;-------------------------------------------------------------------
+[Select Info]
+paletteselect = 3
+;Palette Select text
+
+p1.palette.offset = 109,20
+p1.palette.font = 3,1,0
+p1.palette.scale =  1,1
+
+p1.palette.text.text = "Select Color <  >"
+p1.palette.text.offset = 64,20
+p1.palette.text.font = 3,0,0
+p1.palette.text.scale = 1,1
+
+p2.palette.offset = 273,20
+p2.palette.font = 3,1,0
+p2.palette.scale =  1,1
+
+p2.palette.text.text = " <  > Select Color"
+p2.palette.text.offset = 315,20
+p2.palette.text.font = 3,0,0
+p2.palette.text.scale = 1,1
+
+p1.palette.accept.key = a&b&c&x&y&z&s
+p1.palette.next.key = $F
+p1.palette.previous.key = $B  
+p1.palette.back.key = d&w
+p1.palette.random.key
+
+p2.palette.accept.key = a&b&c&x&y&z&s
+p2.palette.next.key = $F
+p2.palette.previous.key = $B  
+p2.palette.back.key = d&w
+p2.palette.random.key
+
+palette.move.snd = 100,0
+palette.done.snd = 100,5
+palette.back.snd = 100,2
+
+p1.palmenu.number.offset = 109,20
+p1.palmenu.number.font = 3,1,0
+p1.palmenu.number.scale = 1,1
+p1.palmenu.text.text = "Select Color <  >"
+p1.palmenu.text.offset = 64,20
+p1.palmenu.text.font = 3,0,0
+p1.palmenu.text.scale = 1,1
+p1.palmenu.done.key = a, b, c, x, y, z, s
+p1.palmenu.next.key = F
+p1.palmenu.previous.key = B
+p1.palmenu.cancel.key = d, w
+p1.palmenu.done.snd = 100,5
+p1.palmenu.value.snd = 100,0
+p1.palmenu.cancel.snd = 100,2
+
+p2.palmenu.number.offset = 273,20
+p2.palmenu.number.font = 3,1,0
+p2.palmenu.number.scale = 1,1
+p2.palmenu.text.text = " <  > Select Color"
+p2.palmenu.text.offset = 315,20
+p2.palmenu.text.font = 3,0,0
+p2.palmenu.text.scale = 1,1
+p2.palmenu.done.key = a, b, c, x, y, z, s
+p2.palmenu.next.key = F
+p2.palmenu.previous.key = B
+p2.palmenu.cancel.key = d, w
+p2.palmenu.done.snd = 100,5
+p2.palmenu.value.snd = 100,0
+p2.palmenu.cancel.snd = 100,2
+
+; member 2, p4 = P2-side member 2 - tweak offsets in-game if needed) ---
+p3.face.anim = 0
+p3.face.offset = 70,200
+p3.face.scale = 1,1
+p3.face.facing = 1
+p3.face.done.anim = 198
+p3.face2.spr = 9000,1
+p3.face2.offset = -180,0
+p3.face2.scale = 1,1
+p3.face2.facing = 1
+p4.face.anim = 0
+p4.face.scale = 1,1
+p4.face.facing = -1
+p4.face.done.anim = 198
+p4.face2.spr = 9000,1
+p4.face2.scale = 1,1
+p4.face2.facing = 1
+
+fadeout.col = 255,255,255
+fadeout.time = 0
+fadein.anim = 20022
+fadeout.anim = 20023
+;fadeout.snd = 100,0
+fadeout.offset = -1,0
+rows = 14
+columns = 11
+
+wrapping = 1
+pos = 109, 49
+showemptyboxes = 0
+moveoveremptyboxes = 0
+cell.size = 21,21 ;21.9939,22
+cell.spacing = 3
+cell.bg.spr = -1;150,0
+cell.random.spr = 151,0
+cell.random.switchtime = 4
+
+p1.swap.snd = 100,3
+p2.swap.snd = 100,3
+
+p1.cancel.snd = 100,2
+p2.cancel.snd = 100,2
+
+p1.cursor.startcell = 0,1
+p1.cursor.active.anim = 160
+p1.cursor.done.spr = 160,0
+p1.cursor.move.snd = 100,0
+p1.cursor.done.snd = 100,1
+p1.random.move.snd = 100,0
+
+p2.cursor.startcell = 0,5
+p2.cursor.active.anim = 170
+p2.cursor.done.spr = 170,0
+p2.cursor.move.snd = 100,0
+p2.cursor.done.snd = 100,1
+p2.random.move.snd = 100,0
+
+p3.cursor.active.0.1.anim = 161
+p3.cursor.0.1.done.spr = 161,0
+p3.cursor.move.snd = 100,0
+p3.cursor.done.snd = 100,1
+p3.random.move.snd = 100,0
+p4.cursor.active.0.1.anim = 171
+p4.cursor.done.0.1.spr = 171,0
+p4.cursor.blink = 0
+p4.cursor.move.snd = 100,0
+p4.cursor.done.snd = 100,1
+p4.random.move.snd = 100,0
+
+random.move.snd.cancel = 1
+stage.move.snd = 100,0
+stage.done.snd = 100,1
+cancel.snd = 100,2
+stage.text = "%s"
+stage.random.text = "Random Stage"
+stage.portrait.spr = 9001,0
+stage.portrait.offset = -192, -56
+
+title.offset = 192,45
+title.font = 5,0,0
+title.scale = 1.0, 1.0
+	title.arcade.text = "Story Mode"
+	title.teamarcade.text = "Team Mode"
+	title.teamcoop.text = "Cooperative"
+	title.teamversus.text = "Versus"
+	title.vs100kumite.text = "VS100 Kumite"
+	title.freebattle.text = "Free Battle"
+	title.watch.text = "Watch"
+	title.training.text = "Training"
+	title.timeattack.text = "Time Attack"
+	title.survival.text = "Survival"
+	title.survivalcoop.text = "Survival Co-op"
+	;title.bonus.text = "Bonus"
+	;title.versuscoop.text = "Versus Co-operative"
+	;title.storymode.text = "Story Mode"
+	title.netplayversus.text = "Online Versus"
+	title.netplayteamcoop.text = "Online Co-op"
+	title.netplaysurvivalcoop.text = "Online Survival"
+
+random.move.snd.cancel = 0
+; MIGRATION: applypal = 1 makes the engine palette-prepare the portrait anims
+; when the character is picked, which is what allows the palette menu to tint
+; them live while cycling colors (start.lua f_selectMenu -> start.loadPalettes).
+; Without it the color only appears after the palette is confirmed.
+p1.face.anim = 0
+p1.face.offset = 70,200
+p1.face.scale = 1,1
+p1.face.facing = 1
+p1.face.applypal = 1
+p1.face.done.anim = 198
+
+p1.face2.spr = 9000,1
+p1.face2.offset = -180,0
+p1.face2.scale = 1,1
+p1.face2.facing = 1
+p1.face2.applypal = 1
+
+p2.face.anim = 0
+p2.face.offset = 314,200
+p2.face.scale = 1,1
+p2.face.facing = -1
+p2.face.applypal = 1
+p2.face.done.anim = 198
+
+p2.face2.spr = 9000,1
+p2.face2.offset = 244,0
+p2.face2.scale = 1,1
+p2.face2.facing = 1
+p2.face2.applypal = 1
+
+portrait.spr = 9000,0
+portrait.offset = 0,0
+portrait.scale = 1,1
+
+p1.value.snd = 100,1
+
+p1.name.offset = 10,217
+p1.name.font = 5,0,1
+p1.name.spacing = 0,-16
+p2.name.offset = 373,217
+p2.name.font = 5,0,-1
+p2.name.spacing = 0,-16
+stage.pos = 192,223
+stage.active.font = 3,0,0
+stage.active2.font = 3,1,0
+stage.done.font = 3,2,0
+
+p1.portrait.slide.speed = 10.0
+p1.portrait.slide.max.dist = -160
+p2.portrait.slide.speed = -10.0
+p2.portrait.slide.max.dist = 224
+portrait.slide.reset = 1
+
+teammenu.move.wrapping = 1
+p1.teammenu.pos = 5,50
+p1.teammenu.bg.spr = 140,0
+;p1.teammenu.selftitle.font = 3,3,1
+;p1.teammenu.selftitle.text = PLAYER TEAM MODE
+;p1.teammenu.selftitle.offset = 0, 12 
+;p1.teammenu.enemytitle.font = 3,3,1
+;p1.teammenu.enemytitle.text = ENEMY TEAM MODE
+
+teammenu.itemname.single = "" ; Single
+teammenu.itemname.simul = "Team"
+teammenu.itemname.turns = "Turns"
+teammenu.itemname.tag = "Tag"
+teammenu.itemname.ratio = "Ratio"
+
+p1.teammenu.move.snd = 100,0
+p1.teammenu.value.snd = 100,0
+p1.teammenu.done.snd = 100,1
+p1.teammenu.item.offset = 118,46
+p1.teammenu.item.spacing = 0,26
+p1.teammenu.item.font = 3,4,1
+p1.teammenu.item.active.font = 3,3,1
+p1.teammenu.item.active2.font = 3,0,1
+p1.teammenu.item.cursor.offset = -119, 0
+p1.teammenu.item.cursor.anim = 180
+
+p1.teammenu.value.empty.icon.offset = 0,-20
+p1.teammenu.value.empty.icon.spr = 181,1
+p1.teammenu.value.icon.offset = 0,-20
+p1.teammenu.value.icon.spr = 181,0
+p1.teammenu.value.icon.facing = 1
+p1.teammenu.value.spacing = 9,0
+
+p2.teammenu.value.empty.icon.offset = 10,-20
+p2.teammenu.value.empty.icon.spr = 191,1
+p2.teammenu.value.icon.offset = 10,-20
+p2.teammenu.value.empty.icon.facing = -1
+p2.teammenu.value.icon.spr = 191,0
+p2.teammenu.value.icon.facing = -1
+p2.teammenu.value.spacing = 9,0
+
+p2.teammenu.pos = 201,50
+p2.teammenu.bg.spr = 140,1
+;p2.teammenu.selftitle.font = 3,3,-1
+;p2.teammenu.selftitle.text = PLAYER TEAM MODE
+;p2.teammenu.enemytitle.font = 3,3,-1
+;p2.teammenu.enemytitle.text = ENEMY TEAM MODE
+,p2.teammenu.enemytile.offset =  173, 12
+
+p2.teammenu.move.snd = 100,0
+p2.teammenu.value.snd = 100,0
+p2.teammenu.done.snd = 100,1
+p2.teammenu.item.offset = 20,46 ;--
+p2.teammenu.item.spacing = 0,26
+p2.teammenu.item.font = 3,4,1
+p2.teammenu.item.active.font = 3,3,1
+p2.teammenu.item.active2.font = 3,0,1
+p2.teammenu.item.cursor.offset = 158,0 ;--
+p2.teammenu.item.cursor.anim = 190
+
+	p1.teammenu.next.key = D
+	p1.teammenu.previous.key = U
+	p1.teammenu.add.key = F
+	p1.teammenu.subtract.key = B
+	p1.teammenu.accept.key = a, b, c, x, y, z, s
+	p1.teammenu.done.key = a, b, c, x, y, z, s
+	p2.teammenu.next.key = D
+	p2.teammenu.previous.key = U
+	p2.teammenu.add.key = F
+	p2.teammenu.subtract.key = B
+	p2.teammenu.accept.key = a, b, c, x, y, z, s
+	p2.teammenu.done.key = a, b, c, x, y, z, s
+
+[Begin action 160]; Cursor Player 1
+160,1, 0,0, 2
+160,2, 0,0, 2
+160,3, 0,0, 2
+160,4, 0,0, 2
+160,5, 0,0, 2
+160,6, 0,0, 2
+
+[Begin action 170]; Cursor Player 2
+170,0, 0,0, 2
+170,1, 0,0, 2
+170,2, 0,0, 2
+170,3, 0,0, 2
+170,4, 0,0, 2
+170,5, 0,0, 2
+170,6, 0,0, 2
+
+[Begin action 161]; Cursor Player 3
+161,1, 0,0, 2
+161,2, 0,0, 2
+161,3, 0,0, 2
+161,4, 0,0, 2
+161,5, 0,0, 2
+161,6, 0,0, 2
+
+[Begin action 171]; Cursor Player 4
+171,0, 0,0, 2
+171,1, 0,0, 2
+171,2, 0,0, 2
+171,3, 0,0, 2
+171,4, 0,0, 2
+171,5, 0,0, 2
+171,6, 0,0, 2
+
+[Begin Action 180] 
+Loopstart
+180,1, -1,0, 10
+180,2, -1,0, 10
+
+
+[Begin Action 190] 
+Loopstart
+180,1, -161,0, 10
+180,2, -161,0, 10
+
+;-----------------------
+[SelectBGdef]
+
+[SelectBG 1]; Background
+type  = normal
+spriteno = 1000,0
+layerno = 0
+start = 0,1
+tile  = 1,1
+velocity = 0,-1
+
+
+[SelectBG 2]; VS logo
+type  = Normal
+spriteno = 100,1 ;99,0
+layerno = 0
+start = -192,-20 ;7
+tile  = 1,0
+Mask = 1
+scale = .7,.7
+
+;[SelectBG 3]; Icons background
+;type  = Normal
+;spriteno = 3,13
+;layerno = 0
+;start = -180,0
+;tile  = 1,0
+;Mask = 1
+
+
+[SelectBG 4]; Icons
+type  = anim
+actionno = 88888887
+layerno = 0
+start = -192,-6
+velocity = 0,0
+Mask=1
+
+[Begin Action 88888887]
+-1,0, 0,0,28
+100,6,0,0,-1
+
+[SelectBG 5]
+type = anim
+actionno = 88888888
+start = -192,0
+layerno = 0
+;Trans = add
+
+[Begin Action 88888888]
+100,7, 0,-6, 1
+100,8, 0,-6, 1
+100,9, 0,-6, 1
+100,10, 0,-6, 1,, AS64D256
+100,11, 0,-6, 1,, AS128D256
+100,12, 0,-6, 1,, AS192D256
+-1,-1,0,0,-1,, a ;28
+
+
+
+[Begin action 20022]; Z fade in
+2001,11, 0,0, 2
+2001,12, 0,0, 2
+2001,13, 0,0, 6
+200,14, 0,0, 3
+200,15, 0,0, 3
+200,16, 0,0, 3
+200,17, 0,0, 3
+200,18, 0,0, 3
+200,19, 0,0, 3
+200,20, 0,0, 3
+200,21, 0,0, 3
+200,22, 0,0, 3
+200,23, 0,0, 3
+200,24, 0,0, 3
+200,25, 0,0, 3
+200,26, 0,0, 3
+200,27, 0,0, 3
+200,28, 0,0, 3
+
+[Begin action 20023]; Z fade out
+100,12, 0,-6, 3
+100,11, 0,-6, 3
+100,10, 0,-6, 3
+100,9, 0,-6, 3
+100,8, 0,-6, 3,, AS128D256
+100,7, 0,-6, 3,, AS96D256
+100,7, 0,-6, 3,, AS0D256
+-1,-1,0,0,-1,, a 
+
+;-------------------------------------------------------------------
+[VS Screen]
+; MIGRATION: "enablepalettes" was a custom param of the old modified engine
+; (handled by a start.lua edit). The stock engine's equivalent is per-side
+; applypal, which shows each fighter's selected palette on the VS portraits.
+p1.applypal = 1
+p2.applypal = 1
+time = 280
+fadein.time = 0
+fadeout.time = 0
+fadeout.anim = 2005
+fadeout.anim.scale = 2,2
+
+match.text = "MATCH %i"
+match.layerno = 0
+match.offset = 192.3, 182
+match.font = 7,4,0
+
+stage.text = ;"%s"
+stage.font = 3,4,0
+stage.pos = 192, 195
+stage.portrait.text = 9000
+stage.portrait.offset = 0, 0
+
+p1.num = 3
+p1.spr = 9000, 1
+p1.spacing = 40, 0
+p1.offset = -360,0
+p1.velocity = 3, 0
+p1.maxdist = 200, 0
+p1.facing = 1
+p1.scale = 1,1
+;p1.member1.face.spr = 9000, 1   ; MIGRATION: no per-member params in [VS Screen] now
+;p1.member1.offset = 0,0   ; MIGRATION: no per-member params in [VS Screen] now
+;p1.member2.face.spr = 9000, 1   ; MIGRATION: no per-member params in [VS Screen] now
+;p1.member2.offset = 40,0   ; MIGRATION: no per-member params in [VS Screen] now
+;p1.member3.face.spr = 9000, 1   ; MIGRATION: no per-member params in [VS Screen] now
+;p1.member3.offset = 80,0   ; MIGRATION: no per-member params in [VS Screen] now
+;p1.window = -1,0   ; MIGRATION: 2-value window is not valid in this engine
+
+fadein.anim = 2002
+fadeout.anim = 2003
+
+;p1.member1.slide.speed = 3, 0   ; MIGRATION: no per-member params in [VS Screen] now
+;p1.member1.slide.dist = 200, 0   ; MIGRATION: no per-member params in [VS Screen] now
+;p1.member2.slide.speed = 2, 0   ; MIGRATION: no per-member params in [VS Screen] now
+;p1.member2.slide.dist = 200, 0   ; MIGRATION: no per-member params in [VS Screen] now
+;p1.member3.slide.speed = 1.5, 0   ; MIGRATION: no per-member params in [VS Screen] now
+;p1.member3.slide.dist = 200, 0   ; MIGRATION: no per-member params in [VS Screen] now
+
+p2.num = 4
+p2.spr = 9000, 1
+p2.spacing = -40, 0
+p2.offset = 424,0
+p2.velocity = -3, 0
+p2.maxdist = -200, 0
+p2.facing = 1
+p2.scale = 1,1
+;p2.member1.face.spr = 9000, 1   ; MIGRATION: no per-member params in [VS Screen] now
+;p2.member1.offset = 0,0   ; MIGRATION: no per-member params in [VS Screen] now
+;p2.member2.face.spr = 9000, 1   ; MIGRATION: no per-member params in [VS Screen] now
+;p2.member2.offset = -40,0   ; MIGRATION: no per-member params in [VS Screen] now
+;p2.member3.face.spr = 9000, 1   ; MIGRATION: no per-member params in [VS Screen] now
+;p2.member3.offset = -80,0   ; MIGRATION: no per-member params in [VS Screen] now
+;p2.member4.face.spr = 9000, 1   ; MIGRATION: no per-member params in [VS Screen] now
+;p2.member4.offset = -120,0   ; MIGRATION: no per-member params in [VS Screen] now
+
+;p2.member1.slide.speed = 3, 0   ; MIGRATION: no per-member params in [VS Screen] now
+;p2.member1.slide.dist = -200, 0   ; MIGRATION: no per-member params in [VS Screen] now
+;p2.member2.slide.speed = 2, 0   ; MIGRATION: no per-member params in [VS Screen] now
+;p2.member2.slide.dist = -200, 0   ; MIGRATION: no per-member params in [VS Screen] now
+;p2.member3.slide.speed = 1.5, 0   ; MIGRATION: no per-member params in [VS Screen] now
+;p2.member3.slide.dist = -200, 0   ; MIGRATION: no per-member params in [VS Screen] now
+;p2.member4.slide.speed = 1.5, 0   ; MIGRATION: no per-member params in [VS Screen] now
+;p2.member4.slide.dist = -200, 0   ; MIGRATION: no per-member params in [VS Screen] now
+
+;Names
+p1.name.pos  =  10,217
+p1.name.layerno = 2
+p1.name.font =   5,0,1
+p1.name.spacing = 0,-16
+p2.name.pos  = 373,217
+p1.name.layerno = 2
+p2.name.font =   5,0,-1
+p2.name.spacing = 0,-16
+
+[Begin action 2002]; Z fade in
+-1, -1, 0,0 30
+2001,0, 0,0, 2
+2001,1, 0,0, 2
+2001,2, 0,0, 2
+2001,3, 0,0, 2
+2001,4, 0,0, 2
+2001,5, 0,0, 2
+2001,6, 0,0, 2
+2001,7, 0,0, 2
+2001,8, 0,0, 2
+2001,9, 0,0, 2
+2001,10, 0,0, 2
+2001,11, 0,0, 2
+2001,12, 0,0, 2
+2001,13, 0,0, 6
+200,14, 0,0, 3
+200,15, 0,0, 3
+200,16, 0,0, 3
+200,17, 0,0, 3
+200,18, 0,0, 3
+200,19, 0,0, 3
+200,20, 0,0, 3
+200,21, 0,0, 3
+200,22, 0,0, 3
+200,23, 0,0, 3
+200,24, 0,0, 3
+200,25, 0,0, 3
+200,26, 0,0, 3
+200,27, 0,0, 3
+200,28, 0,0, 3
+
+[Begin action 2005]; Z fade out
+200,28, 0,0, 3
+200,27, 0,0, 3
+200,26, 0,0, 3
+200,25, 0,0, 3
+200,24, 0,0, 3
+200,23, 0,0, 3
+200,22, 0,0, 3
+200,21, 0,0, 3
+200,20, 0,0, 3
+200,19, 0,0, 3
+200,18, 0,0, 3
+200,17, 0,0, 3
+200,16, 0,0, 3
+200,15, 0,0, 3
+200,14, 0,0, 3
+;200,13, 0,0, 41
+;200,10, 0,0, 3
+;200,9, 0,0, 3
+;200,8, 0,0, 2
+;200,7, 0,0, 2
+;200,6, 0,0, 2
+;200,5, 0,0, 2
+
+;-------------------------------------------------------------------
+;VS Match up screen background
+[VersusBGdef] 
+
+[VersusBG 1]; SFZ Background
+type  = anim
+actionno = 2062
+layerno = 0
+start = -192,1
+
+[Begin Action 2062]; "bg"
+2,1, 0,0, 55
+2,2, 0,0, 5
+2,3, 0,0, 5
+2,4, 0,0, 5
+2,5, 0,0, 5
+2,6, 0,0, 10
+2,5, 0,0, 5
+2,4, 0,0, 5
+2,3, 0,0, 5
+2,2, 0,0, 5
+2,1, 0,0, 10
+2,2, 0,0, 5
+2,3, 0,0, 5
+2,4, 0,0, 5
+2,5, 0,0, 5
+2,6, 0,0, 10
+2,5, 0,0, 5
+2,4, 0,0, 5
+2,3, 0,0, 5
+2,2, 0,0, 5
+2,1, 0,0, -1
+
+
+[VersusBG 2]; SFZ Background
+type  = normal
+spriteno = 2,0
+layerno = 0
+start = 0,1
+tile  = 1,0
+velocity = 5,0
+mask = 1
+
+
+[VersusBG 3]; VS logo
+type  = normal
+spriteno = 110,1
+start = -76,-8
+layerno = 1
+tile  = 0,0
+velocity = 0,0
+mask = 1
+
+;[VersusBG 2];separator
+;type  = Normal
+;spriteno = 3,13
+;layerno = 0
+;start = -180,0
+;tile  = 1,0
+;Mask = 1
+
+[VersusBG 5];VS Logo, "V"
+type  = anim
+actionno = 202
+layerno = 1
+start = -190,-35
+
+[Begin Action 202]; "V"
+-1,0, 0,0, 20
+-1,0, 0,0, 57
+201, 0, 160, -174, 1	; 48 frames
+201, 0, 145, -165, 1
+201, 0, 145, -165, 1
+201, 0, 117, -149, 1
+201, 0, 103, -141, 1
+201, 0, 90, -133, 1
+201, 0, 78, -125, 1
+201, 0, 66, -118, 1
+201, 0, 54, -111, 1
+201, 0, 54, -111, 1
+201, 0, 33, -97, 1
+201, 0, 23, -91, 1
+201, 0, 13, -84, 1
+201, 0, 4, -78, 1
+201, 0, -4, -72, 1
+201, 0, -12, -67, 1
+201, 0, -20, -61, 1
+201, 0, -27, -56, 1
+201, 0, -33, -51, 1
+201, 0, -39, -46, 1
+201, 0, -45, -41, 1
+201, 0, -50, -37, 1
+201, 0, -54, -33, 1
+201, 0, -58, -29, 1
+201, 0, -62, -25, 1
+201, 0, -65, -21, 1
+201, 0, -67, -18, 1
+201, 0, -69, -15, 1
+201, 0, -71, -12, 1
+201, 0, -72, -9, 1
+201, 0, -72, -6, 1
+201, 0, -72, -4, 1
+201, 0, -72, -2, 1
+201, 0, -71, 0, 1
+201, 0, -69, 2, 1
+201, 0, -67, 4, 1
+201, 0, -67, 4, 1
+201, 0, -62, 6, 1
+201, 0, -58, 7, 1
+201, 0, -54, 8, 1
+201, 0, -50, 8, 1
+201, 0, -45, 9, 1
+201, 0, -39, 9, 1
+201, 0, -33, 9, 1
+201, 0, -27, 8, 1
+201, 0, -20, 8, 1
+201, 0, -12, 7, 1
+-1,0, 0, 0, -1
+
+[VersusBG 6]; VS Logo, "S"
+type  = anim
+actionno = 203
+layerno = 1
+start = -190,-35
+
+[Begin Action 203]; "S"
+-1,0, 0,0, 20
+-1,0, 0,0, 65
+201, 10, -55, 113, 1
+201, 10, -44, 105, 1
+201, 10, -33, 98, 1
+201, 10, -23, 92, 1
+201, 10, -14, 85, 1
+201, 10, -5, 79, 1
+201, 10, 4, 73, 1
+201, 10, 12, 68, 1
+201, 10, 19, 62, 1
+201, 10, 26, 57, 1
+201, 10, 33, 52, 1
+201, 10, 39, 47, 1
+201, 10, 44, 42, 1
+201, 10, 49, 38, 1
+201, 10, 54, 34, 1
+201, 10, 58, 30, 1
+201, 10, 61, 26, 1
+201, 10, 64, 22, 1
+201, 10, 67, 19, 1
+201, 10, 69, 16, 1
+201, 10, 71, 10, 1
+201, 10, 71, 10, 1
+201, 10, 72, 7, 1
+201, 10, 72, 5, 1
+201, 10, 71, 3, 1
+201, 10, 70, 1, 1
+201, 10, 69, -1, 1
+201, 10, 67, -3, 1
+201, 10, 64, -4, 1
+201, 10, 61, -5, 1
+201, 10, 58, -6, 1
+201, 10, 54, -7, 1
+201, 10, 49, -7, 1
+201, 10, 44, -8, 1
+201, 10, 39, -8, 1
+201, 10, 33, -8, 1
+201, 10, 26, -7, 1
+201, 10, 19, -7, 1
+201, 10, 12, -6, 1
+201, 10, 0, 0, 1
+202, 1, 0, 0, 2 ;VS
+202, 2, 0, 0, 2
+202, 3, 0, 0, 2
+202, 1, 0, 0, 2
+202, 2, 0, 0, 2
+202, 3, 0, 0, 2
+202, 6, 0, 0, 2
+202, 7, 0, 0, 2
+202, 8, 0, 0, 1
+202, 9, 0, 0, 1
+202, 10, 0, 0, 1
+202, 11, 0, 0, 1
+202, 12, 0, 0, 1
+202, 13, 0, 0, 1
+202, 14, 0, 0, 1
+202, 19, 0, 0, 1
+1,5, 0,40, 2
+202, 20, 0, 0, 2
+1,5, 0,40, 2
+202, 20, 0, 0, 2
+1,5, 0,40, 2
+202, 20, 0, 0, 2
+1,5, 0,40, 2
+202, 20, 0, 0, -1
+
+-1,0 0,40, 149
+202, 20, 0, 0, -1
+
+[VersusBG 7]; Z
+type  = anim
+actionno = 200
+layerno = 1
+start = -192,0
+
+
+[Begin Action 200]
+100, 18, 0,0, 5
+100, 17, 0,0, 1
+100, 16, 0,0, 1
+100, 15, 0,0, 1
+100, 14, 0,0, 1
+100, 14, 0,0, 1
+101, 6, 0,0, 1
+101, 7, 0,0, 1
+101, 8, 0,0, 1
+101, 9, 0,0, 1
+-1,-1, 0,0, -1
+
+
+
+[VersusBG 9]; SFZ screen
+type  = anim
+actionno = 99
+layerno = 0
+;Trans = add
+start = -192,0
+
+[Begin Action 99]
+100,1, 0,30, 100,1,1	
+-1,0, 0,0, 0
+
+
+
+;-------------------------------------------------------------------
+[Demo Mode]
+enabled = 1
+select.enabled = 0
+vsscreen.enabled = 0
+title.waittime = 600
+fight.endtime = 600
+fight.playbgm = 1
+fight.stopbgm = 1
+fight.bars.display = 0
+; Announcements and the hit counter are off for the demo only, so the attract
+; loop reads as footage rather than as a match someone is playing. The round
+; PHASES still run to the same clock - nothing is drawn or played, so the demo
+; is not re-paced. Both restored for real matches by main.fightscreen.
+fight.round.display = 0
+fight.combo.display = 0
+intro.waitcycles = 1
+debuginfo = 1 
+
+;-------------------------------------------------------------------
+[Continue Screen]
+enabled = 1
+legacymode.enabled = 0
+gameover.enabled = 0
+sounds.enabled = 0
+
+pos = 160, 40
+;continue.text = "Continue?"
+;continue.font = 2,0,0
+;continue.scale = 1.0, 1.0
+;continue.offset = 0, 0
+;continue.window = -1, -1
+;continue.localcoord = 320, 240
+;yes.text = "Yes"
+;yes.font = 2,0,0, 191,191,191
+;yes.scale = 1.0, 1.0
+;yes.offset = -17, 20
+;yes.active.text = "Yes"
+;yes.active.font = 2,0,0
+;yes.active.scale = 1.0, 1.0
+;yes.active.offset = -17, 20
+;no.text = "No"
+;no.font = 2,0,0, 191,191,191
+;no.scale = 1.0, 1.0
+;no.offset = 15, 20
+;no.active.text = "No"
+;no.active.font = 2,0,0
+;no.active.scale = 1.0, 1.0
+;no.active.offset = 15, 20
+move.snd = 100, 0
+done.snd = 100, 1
+cancel.snd = 100, 2
+
+
+fadein.time = 0
+fadein.col = 0, 0, 0
+fadeout.time = 0
+;fadeout.col = 0, 0, 0
+fadeout.anim = 8001
+;overlay.window = -1, -1, 384, 224
+; These had NO value -- everything after "=" was a comment -- so the engine
+; defaults applied (col 0,0,0 with alpha 0,128), i.e. a 50% black wash over the
+; whole screen. Set explicitly; alpha 0,0 = fully transparent.
+;overlay.col = 0, 0, 0
+overlay.alpha = 255, 255
+
+p1.state = 53001
+p1.yes.state = 5510, 180
+p1.no.state = 5520, 170
+
+p2.state = -1
+p2.yes.state = -1
+p2.no.state =  -1
+
+p1.teammate.state = 53002
+p1.teammate.yes.state = 5510, 180
+p1.teammate.no.state = 5520, 170 
+
+p2.teammate.state = -1
+p2.teammate.yes.state = -1
+p2.teammate.no.state = -1 
+
+credits.text = "Credits: %2i"
+credits.offset = 20, 30
+credits.font = 4,3,1
+credits.scale = 1.0, 1.0
+
+counter.endtime = 1593
+counter.starttime = 0 
+counter.anim = 900
+counter.offset = 48, 0
+counter.overlay.window = -1, 0, 384, 224
+counter.scale = 1.0, 1.0
+counter.default.snd = -1, 0
+counter.skipstart = 71
+counter.9.skiptime = 135
+counter.9.snd = 900, 9      
+counter.8.skiptime = 262   
+counter.8.snd = 900, 8    
+counter.7.skiptime = 389     
+counter.7.snd = 900, 7       
+counter.6.skiptime = 516    
+counter.6.snd = 900, 6     
+counter.5.skiptime = 643     
+counter.5.snd = 900, 5     
+counter.4.skiptime = 770      
+counter.4.snd = 900, 4          
+counter.3.skiptime = 897    
+counter.3.snd = 900, 3            
+counter.2.skiptime = 1024     
+counter.2.snd = 900, 2
+counter.1.skiptime = 1151
+counter.1.snd = 900, 1
+counter.0.skiptime = 1278
+counter.0.snd = 900, 0
+counter.end.skiptime = 1366
+counter.end.snd = 900, 10
+counter.spr = 
+
+[Begin Action 8001]
+8000,12, 0,0 50
+8000,11, 0,0 50
+8000,10, 0,0 50
+8000,9, 0,0 50
+8000,8, 0,0 50
+8000,7, 0,0, 10
+8000,6, 0,0, 10
+8000,5, 0,0, 10
+8000,4, 0,0, 10
+8000,3, 0,0, 10
+8000,2, 0,0, 10
+
+[Begin Action 900]
+909,0, -85,0, 1 ;1 (count 9 start initial animation)
+909,1, -85,0, 1 ;2
+909,2, -85,0, 1 ;3
+909,3, -85,0, 3 ;6
+909,4, -85,0, 3 ;9
+909,5, -85,0, 1 ;10
+909,6, -85,0, 3 ;13
+909,7, -85,0, 2 ;15
+909,8, -85,0, 2 ;17
+909,9, -85,0, 2 ;19
+909,10, -85,0, 1 ;20
+909,11, -85,0, 5 ;25
+909,12, -85,0, 5 ;30
+909,13, -85,0, 1 ;31
+909,14, -85,0, 1 ;32
+909,15, -85,0, 3 ;35
+909,16, -85,0, 3 ;38
+909,17, -85,0, 1 ;39
+909,18, -85,0, 5 ;44
+909,19, -85,0, 1 ;45
+909,20, -85,0, 4 ;49
+909,21, -85,0, 1 ;50
+909,22, -85,0, 1 ;51
+909,23, -85,0, 1 ;52
+909,24, -85,0, 2 ;54
+909,25, -85,0, 1 ;55
+909,26, -85,0, 5 ;60
+909,27, -85,0, 5 ;65
+909,28, -85,0, 1 ;66
+909,29, -85,0, 3 ;69
+909,30, -85,0, 2 ;71
+909,31, -85,0, 6 ;77 (count 9 actual counter)
+909,32, -85,0, 54 ;131
+909,33, -85,0, 4 ;135
+909,34, -85,0, 4 ;139
+909,35, -85,0, 4 ;143
+909,36, -85,0, 4 ;147
+909,37, -85,0, 44 ;191
+909,38, -85,0, 9 ;200
+909,39, -85,0, 4 ;204
+909,40, -85,0, 3 ;207
+909,41, -85,0, 2 ;209
+909,42, -85,0, 2 ;211
+909,43, -85,0, 1 ;212
+909,44, -85,0, 2 ;214
+909,45, -85,0, 1 ;215
+909,46, -85,0, 1 ;216
+909,47, -85,0, 2 ;218
+909,48, -85,0, 1 ;219
+909,49, -85,0, 1 ;220
+909,50, -85,0, 1 ;221 (count 9 end)
+908,0, -85,0, 1 ;222 (count 8 start)
+908,1, -85,0, 2 ;224
+908,2, -85,0, 2 ;226
+908,3, -85,0, 2 ;228
+908,4, -85,0, 2 ;230
+908,5, -85,0, 2 ;232
+908,6, -85,0, 2 ;234
+908,7, -85,0, 1 ;235
+908,8, -85,0, 2 ;237
+908,9, -85,0, 3 ;240
+908,10, -85,0, 4 ;244
+908,11, -85,0, 9 ;253
+908,12, -85,0, 5 ;258
+908,13, -85,0, 4 ;262
+908,14, -85,0, 4 ;266
+908,15, -85,0, 4 ;270
+908,16, -85,0, 4 ;274
+908,17, -85,0, 44 ;318
+908,18, -85,0, 9 ;327
+908,19, -85,0, 4 ;331
+908,20, -85,0, 3 ;334
+908,21, -85,0, 2 ;336
+908,22, -85,0, 2 ;338
+908,23, -85,0, 1 ;339
+908,24, -85,0, 2 ;341
+908,25, -85,0, 1 ;342
+908,26, -85,0, 1 ;343
+908,27, -85,0, 2 ;345
+908,28, -85,0, 1 ;346
+908,29, -85,0, 1 ;347
+908,30, -85,0, 1 ;348 (count 8 end)
+907,0, -85,0, 1 ;349 (count 7 start)
+907,1, -85,0, 2 ;351
+907,2, -85,0, 2 ;353
+907,3, -85,0, 2 ;355
+907,4, -85,0, 2 ;357
+907,5, -85,0, 2 ;359
+907,6, -85,0, 2 ;361
+907,7, -85,0, 1 ;362
+907,8, -85,0, 2 ;364
+907,9, -85,0, 3 ;367
+907,10, -85,0, 4 ;371
+907,11, -85,0, 9 ;380
+907,12, -85,0, 5 ;385
+907,13, -85,0, 4 ;389
+907,14, -85,0, 4 ;393
+907,15, -85,0, 4 ;397
+907,16, -85,0, 4 ;401
+907,17, -85,0, 44 ;445
+907,18, -85,0, 9 ;454
+907,19, -85,0, 4 ;458
+907,20, -85,0, 3 ;461
+907,21, -85,0, 2 ;463
+907,22, -85,0, 2 ;465
+907,23, -85,0, 1 ;466
+907,24, -85,0, 2 ;468
+907,25, -85,0, 1 ;469
+907,26, -85,0, 1 ;470
+907,27, -85,0, 2 ;472
+907,28, -85,0, 1 ;473
+907,29, -85,0, 1 ;474
+907,30, -85,0, 1 ;475 (count 7 end)
+906,0, -85,0, 1 ;476 (count 6 start)
+906,1, -85,0, 2 ;478
+906,2, -85,0, 2 ;480
+906,3, -85,0, 2 ;482
+906,4, -85,0, 2 ;484
+906,5, -85,0, 2 ;486
+906,6, -85,0, 2 ;488
+906,7, -85,0, 1 ;489
+906,8, -85,0, 2 ;491
+906,9, -85,0, 3 ;494
+906,10, -85,0, 4 ;498
+906,11, -85,0, 9 ;507
+906,12, -85,0, 5 ;512
+906,13, -85,0, 4 ;516
+906,14, -85,0, 4 ;520
+906,15, -85,0, 4 ;524
+906,16, -85,0, 4 ;528
+906,17, -85,0, 44 ;572
+906,18, -85,0, 9 ;581
+906,19, -85,0, 4 ;585
+906,20, -85,0, 3 ;588
+906,21, -85,0, 2 ;590
+906,22, -85,0, 2 ;592
+906,23, -85,0, 1 ;593
+906,24, -85,0, 2 ;595
+906,25, -85,0, 1 ;596
+906,26, -85,0, 1 ;597
+906,27, -85,0, 2 ;599
+906,28, -85,0, 1 ;600
+906,29, -85,0, 1 ;601
+906,30, -85,0, 1 ;602 (count 6 end)
+905,0, -85,0, 1 ;603 (count 5 start)
+905,1, -85,0, 2 ;605
+905,2, -85,0, 2 ;607
+905,3, -85,0, 2 ;609
+905,4, -85,0, 2 ;611
+905,5, -85,0, 2 ;613
+905,6, -85,0, 2 ;615
+905,7, -85,0, 1 ;616
+905,8, -85,0, 2 ;618
+905,9, -85,0, 3 ;621
+905,10, -85,0, 4 ;625
+905,11, -85,0, 9 ;634
+905,12, -85,0, 5 ;639
+905,13, -85,0, 4 ;643
+905,14, -85,0, 4 ;647
+905,15, -85,0, 4 ;651
+905,16, -85,0, 4 ;655
+905,17, -85,0, 44 ;699
+905,18, -85,0, 9 ;708
+905,19, -85,0, 4 ;712
+905,20, -85,0, 3 ;715
+905,21, -85,0, 2 ;717
+905,22, -85,0, 2 ;719
+905,23, -85,0, 1 ;720
+905,24, -85,0, 2 ;722
+905,25, -85,0, 1 ;723
+905,26, -85,0, 1 ;724
+905,27, -85,0, 2 ;726
+905,28, -85,0, 1 ;727
+905,29, -85,0, 1 ;728
+905,30, -85,0, 1 ;729 (count 5 end)
+904,0, -85,0, 1 ;730 (count 4 start)
+904,1, -85,0, 2 ;732
+904,2, -85,0, 2 ;734
+904,3, -85,0, 2 ;736
+904,4, -85,0, 2 ;738
+904,5, -85,0, 2 ;740
+904,6, -85,0, 2 ;742
+904,7, -85,0, 1 ;743
+904,8, -85,0, 2 ;745
+904,9, -85,0, 3 ;748
+904,10, -85,0, 4 ;752
+904,11, -85,0, 9 ;761
+904,12, -85,0, 5 ;766
+904,13, -85,0, 4 ;770
+904,14, -85,0, 4 ;774
+904,15, -85,0, 4 ;778
+904,16, -85,0, 4 ;782
+904,17, -85,0, 44 ;826
+904,18, -85,0, 9 ;835
+904,19, -85,0, 4 ;839
+904,20, -85,0, 3 ;842
+904,21, -85,0, 2 ;844
+904,22, -85,0, 2 ;846
+904,23, -85,0, 1 ;847
+904,24, -85,0, 2 ;849
+904,25, -85,0, 1 ;850
+904,26, -85,0, 1 ;851
+904,27, -85,0, 2 ;853
+904,28, -85,0, 1 ;854
+904,29, -85,0, 1 ;855
+904,30, -85,0, 1 ;856 (count 4 end)
+903,0, -85,0, 1 ;857 (count 3 start)
+903,1, -85,0, 2 ;859
+903,2, -85,0, 2 ;861
+903,3, -85,0, 2 ;863
+903,4, -85,0, 2 ;865
+903,5, -85,0, 2 ;867
+903,6, -85,0, 2 ;869
+903,7, -85,0, 1 ;870
+903,8, -85,0, 2 ;872
+903,9, -85,0, 3 ;875
+903,10, -85,0, 4 ;879
+903,11, -85,0, 9 ;888
+903,12, -85,0, 5 ;893
+903,13, -85,0, 4 ;897
+903,14, -85,0, 4 ;901
+903,15, -85,0, 4 ;905
+903,16, -85,0, 4 ;909
+903,17, -85,0, 44 ;953
+903,18, -85,0, 9 ;962
+903,19, -85,0, 4 ;966
+903,20, -85,0, 3 ;969
+903,21, -85,0, 2 ;971
+903,22, -85,0, 2 ;973
+903,23, -85,0, 1 ;974
+903,24, -85,0, 2 ;976
+903,25, -85,0, 1 ;977
+903,26, -85,0, 1 ;978
+903,27, -85,0, 2 ;980
+903,28, -85,0, 1 ;981
+903,29, -85,0, 1 ;982
+903,30, -85,0, 1 ;983 (count 3 end)
+902,0, -85,0, 1 ;984 (count 2 start)
+902,1, -85,0, 2 ;986
+902,2, -85,0, 2 ;988
+902,3, -85,0, 2 ;990
+902,4, -85,0, 2 ;992
+902,5, -85,0, 2 ;994
+902,6, -85,0, 2 ;996
+902,7, -85,0, 1 ;997
+902,8, -85,0, 2 ;999
+902,9, -85,0, 3 ;1002
+902,10, -85,0, 4 ;1006
+902,11, -85,0, 9 ;1015
+902,12, -85,0, 5 ;1020
+902,13, -85,0, 4 ;1024
+902,14, -85,0, 4 ;1028
+902,15, -85,0, 4 ;1032
+902,16, -85,0, 4 ;1036
+902,17, -85,0, 44 ;1080
+902,18, -85,0, 9 ;1089
+902,19, -85,0, 4 ;1093
+902,20, -85,0, 3 ;1096
+902,21, -85,0, 2 ;1098
+902,22, -85,0, 2 ;1100
+902,23, -85,0, 1 ;1101
+902,24, -85,0, 2 ;1103
+902,25, -85,0, 1 ;1104
+902,26, -85,0, 1 ;1105
+902,27, -85,0, 2 ;1107
+902,28, -85,0, 1 ;1108
+902,29, -85,0, 1 ;1109
+902,30, -85,0, 1 ;1110 (count 2 end)
+901,0, -85,0, 1 ;1111 (count 1 start)
+901,1, -85,0, 2 ;1113
+901,2, -85,0, 2 ;1115
+901,3, -85,0, 2 ;1117
+901,4, -85,0, 2 ;1119
+901,5, -85,0, 2 ;1121
+901,6, -85,0, 2 ;1123
+901,7, -85,0, 1 ;1124
+901,8, -85,0, 2 ;1126
+901,9, -85,0, 3 ;1129
+901,10, -85,0, 4 ;1133
+901,11, -85,0, 9 ;1142
+901,12, -85,0, 5 ;1147
+901,13, -85,0, 4 ;1151
+901,14, -85,0, 4 ;1155
+901,15, -85,0, 4 ;1159
+901,16, -85,0, 4 ;1163
+901,17, -85,0, 44 ;1207
+901,18, -85,0, 9 ;1216
+901,19, -85,0, 4 ;1220
+901,20, -85,0, 3 ;1223
+901,21, -85,0, 2 ;1225
+901,22, -85,0, 2 ;1227
+901,23, -85,0, 1 ;1228
+901,24, -85,0, 2 ;1230
+901,25, -85,0, 1 ;1231
+901,26, -85,0, 1 ;1232
+901,27, -85,0, 2 ;1234
+901,28, -85,0, 1 ;1235
+901,29, -85,0, 1 ;1236
+901,30, -85,0, 1 ;1237 (count 1 end)
+900,0, -85,0, 1 ;1238 (count 0 start)
+900,1, -85,0, 2 ;1240
+900,2, -85,0, 2 ;1242
+900,3, -85,0, 2 ;1244
+900,4, -85,0, 2 ;1246
+900,5, -85,0, 2 ;1248
+900,6, -85,0, 2 ;1250
+900,7, -85,0, 1 ;1251
+900,8, -85,0, 2 ;1253
+900,9, -85,0, 3 ;1256
+900,10, -85,0, 4 ;1260
+900,11, -85,0, 9 ;1269
+900,12, -85,0, 5 ;1274
+900,13, -85,0, 4 ;1278
+900,14, -85,0, 4 ;1282
+900,15, -85,0, 4 ;1286
+900,16, -85,0, 4 ;1290
+900,17, -85,0, 75 ;1365
+900,18, -85,0, 1 ;1366 (count 0 end)
+910,0, -57,0, 1 ;1367 (1) (gameover start)
+910,1, -57,0, 1 ;1368 (2)
+910,2, -57,0, 1 ;1369 (3)
+910,3, -57,0, 1 ;1370 (4)
+910,4, -57,0, 1 ;1371 (5)
+910,5, -57,0, 1 ;1372 (6)
+910,6, -57,0, 1 ;1373 (7)
+910,7, -57,0, 1 ;1374 (8)
+910,8, -57,0, 1 ;1375 (9)
+910,9, -57,0, 1 ;1376 (10)
+910,10, -57,0, 1 ;1377 (11)
+910,11, -57,0, 1 ;1378 (12)
+910,12, -57,0, 1 ;1379 (13)
+910,13, -57,0, 1 ;1380 (14)
+910,14, -57,0, 1 ;1381 (15)
+910,15, -57,0, 1 ;1382 (16)
+910,16, -57,0, 1 ;1383 (17)
+910,17, -57,0, 1 ;1384 (18)
+910,18, -57,0, 1 ;1385 (19)
+910,19, -57,0, 1 ;1386 (20)
+910,20, -57,0, 1 ;1387 (21)
+910,21, -57,0, 1 ;1388 (22)
+910,22, -57,0, 1 ;1389 (23)
+910,23, -57,0, 1 ;1390 (24)
+910,24, -57,0, 1 ;1391 (25)
+910,25, -57,0, 1 ;1392 (26)
+910,26, -57,0, 1 ;1393 (27)
+910,27, -57,0, 1 ;1394 (28)
+910,28, -57,0, 1 ;1395 (29)
+910,29, -57,0, 1 ;1396 (30)
+910,30, -57,0, 1 ;1397 (31)
+910,31, -57,0, 1 ;1398 (32)
+910,32, -57,0, 1 ;1399 (33)
+910,33, -57,0, 1 ;1400 (34)
+910,34, -57,0, 1 ;1401 (35)
+910,35, -57,0, 1 ;1402 (36)
+910,36, -57,0, 1 ;1403 (37)
+910,37, -57,0, 1 ;1404 (38)
+910,38, -57,0, 1 ;1405 (39)
+910,39, -57,0, 1 ;1406 (40)
+910,40, -57,0, 1 ;1407 (41)
+910,41, -57,0, 1 ;1408 (42)
+910,42, -57,0, 1 ;1409 (43)
+910,43, -57,0, 1 ;1410 (44)
+910,44, -57,0, 1 ;1411 (45)
+910,45, -57,0, 1 ;1412 (46)
+910,46, -57,0, 1 ;1413 (47)
+910,47, -57,0, 1 ;1414 (48)
+910,48, -57,0, 1 ;1415 (49)
+910,49, -57,0, 1 ;1416 (50)
+910,50, -57,0, 1 ;1417 (51)
+910,51, -57,0, 1 ;1418 (52)
+910,52, -57,0, 1 ;1419 (53)
+910,53, -57,0, 1 ;1420 (54)
+910,54, -57,0, 1 ;1421 (55)
+910,55, -57,0, 1 ;1422 (56)
+910,56, -57,0, 1 ;1423 (57)
+910,57, -57,0, 1 ;1424 (58)
+910,58, -57,0, 1 ;1425 (59)
+910,59, -57,0, 1 ;1426 (60)
+910,60, -57,0, 1 ;1427 (61)
+910,61, -57,0, 1 ;1428 (62)
+910,62, -57,0, 1 ;1429 (63)
+910,63, -57,0, 1 ;1430 (64)
+910,64, -57,0, 1 ;1431 (65)
+910,65, -57,0, 1 ;1432 (66)
+910,66, -57,0, 1 ;1433 (67)
+910,67, -57,0, 1 ;1434 (68)
+910,68, -57,0, 1 ;1435 (69)
+910,69, -57,0, 1 ;1436 (70)
+910,70, -57,0, 1 ;1437 (71)
+910,71, -57,0, 1 ;1438 (72)
+910,72, -57,0, 1 ;1439 (73)
+910,73, -57,0, 1 ;1440 (74)
+910,74, -57,0, 1 ;1441 (75)
+910,75, -57,0, 1 ;1442 (76)
+910,76, -57,0, 1 ;1443 (77)
+910,77, -57,0, 1 ;1444 (78)
+910,78, -57,0, 1 ;1445 (79)
+910,79, -57,0, 1 ;1446 (80)
+910,80, -57,0, 1 ;1447 (81)
+910,81, -57,0, 1 ;1448 (82)
+910,82, -57,0, 1 ;1449 (83)
+910,83, -57,0, 1 ;1450 (84)
+910,84, -57,0, 1 ;1451 (85)
+910,85, -57,0, 1 ;1452 (86)
+910,86, -57,0, 1 ;1453 (87)
+910,87, -57,0, 1 ;1454 (88)
+910,88, -57,0, 1 ;1455 (89)
+910,89, -57,0, 1 ;1456 (90)
+910,90, -57,0, 1 ;1457 (91)
+910,91, -57,0, 1 ;1458 (92)
+910,92, -57,0, 1 ;1459 (93)
+910,93, -57,0, 1 ;1460 (94)
+910,94, -57,0, 1 ;1461 (95)
+910,95, -57,0, 1 ;1462 (96)
+910,96, -57,0, 1 ;1463 (97)
+910,97, -57,0, 1 ;1464 (98)
+910,98, -57,0, 1 ;1465 (99)
+910,99, -57,0, 1 ;1466 (100)
+910,100, -57,0, 1 ;1467 (101)
+910,101, -57,0, 1 ;1468 (102)
+910,102, -57,0, 1 ;1469 (103)
+910,103, -57,0, 1 ;1470 (104)
+910,104, -57,0, 1 ;1471 (105)
+910,105, -57,0, 1 ;1472 (106)
+910,106, -57,0, 1 ;1473 (107)
+910,107, -57,0, 119 ;1592 (226)
+910,107, -57,0, -1 ;1593+
+
+;-----------------------
+;Continue screen background
+[Continuebgdef]
+spr = ""
+; -1 DISABLES the background clear rect. MotifContinue.draw() does:
+;     if m.ContinueBgDef.BgClearColor[0] >= 0 { RectData.Draw(layerno) }
+; and although the Go struct defaults this to -1, defaultMotif.ini overrides it
+; to 0,0,0 -- so with nothing set here the continue screen painted a full black
+; rect over the paused fight scene, hiding the stage and the defeated player.
+bgclearcolor = -1, 0, 0
+
+
+;-------------------------------------------------------------------
+[Game Over Screen]
+enabled = 1
+storyboard = Storyboards/Over.def
+
+[Pause Menu]
+
+	fadein.time = 0
+	fadein.col = 0, 0, 0
+	fadein.anim = -1
+	fadeout.time = 0
+	fadeout.col = 0, 0, 0
+	fadeout.anim = -1
+
+	title.offset = 192, 59
+	title.font = sfzbigname.fnt, 0, 0, 255, 255, 255, 255, -1
+	title.scale = 1.0, 1.0
+	title.text = "PAUSE MENU"
+	menu.pos = 0,-200 ;384, 224 ;84, 73
+	menu.uselocalcoord = 0
+	menu.tween.factor = 1
+	menu.item.spacing = 0, 22
+	menu.item.bg.anim = -1
+	menu.item.bg.spr = -1, 0
+
+	menu.item.font = sfa2_dialogue.fnt, 1, 0, 255, 255, 255, 255, -1
+	menu.item.active.font = sfa2_dialogue.fnt, 0, 0, 255, 255, 255, 255, -1
+	menu.item.offset = 192, 289
+	menu.item.active.offset = 192, 289
+	menu.itemname.back = "Continue"
+	menu.itemname.menuinput = "Button Config"
+	menu.itemname.menuinput.keyboard = "Key Config"
+	menu.itemname.menuinput.gamepad = "Joystick Config"
+	menu.itemname.menuinput.empty = ""
+	menu.itemname.menuinput.inputdefault = ;"Default"
+	menu.itemname.menuinput.back = "Back"
+	menu.itemname.characterchange = ;"Character Change"
+	menu.itemname.commandlist = "Command List"
+	;menu.itemname.reset = "Round Reset"
+	;menu.itemname.reload = "Rematch"
+	menu.itemname.exit = "Exit"
+
+
+	menu.valuename.ailevel.1 = "1"
+	menu.valuename.ailevel.2 = "2"
+	menu.valuename.ailevel.3 = "3"
+	menu.valuename.ailevel.4 = "4"
+	menu.valuename.ailevel.5 = "5"
+	menu.valuename.ailevel.6 = "6"
+	menu.valuename.ailevel.7 = "7"
+	menu.valuename.ailevel.8 = "8"
+
+
+	;overlay.window = -1, -1, 384, 224
+	;overlay.alpha = -1, -1
+	;overlay.col = -1, -1, -1
+
+
+;-------------------------------------------------------------------
+;Rank definition
+[Rank Info] ;Ikemen feature
+enabled = 1
+bars.display = 1
+snd.time = 50
+snd = 100,4
+p1.pos = 0, 0
+p2.pos = 0, 0
+
+p1.score.offset = 48, 146
+p1.score.font = 4,1,1
+p1.score.font.scale = 1.0, 1.0
+p1.score.text = "SCORE: %s"
+p1.score.displaytime = 50
+p1.bg.anim = 600
+p1.bg.spr = 600,1
+p1.bg.offset = -1, 10
+p1.bg.facing = 1
+p1.bg.scale = 1.0, 1.0
+p1.bg.displaytime = 0
+p1.gauge.displaytime = 0
+p1.rank.displaytime = 0
+p1.icon.displaytime = 50
+p1.icon.spacing = 0, 0
+
+p1.removetime = 180
+p2.removetime = 180
+
+; gauge window parameter (x1,y1,x2,y2) is used not only to set drawing space,
+; but also to define gauge range (how much meter should be filled based on match
+; result, cutting portion of the art between x1 and x2 values, if needed). Gauge
+; art must be perfectly surrounded by rectangular window box to work correctly.
+
+;tech
+;p1.gauge.tech.anim = 
+p1.gauge.tech.spr = 600,11
+p1.gauge.tech.offset = 130, 158
+p1.gauge.tech.facing = 1
+p1.gauge.tech.scale = 1.0, 1.0
+p1.gauge.tech.window = 131,159, 368, 163
+p1.gauge.tech.ticks = 30
+p1.gauge.tech.max = 38
+
+;attack
+;p1.gauge.attack.anim = 
+p1.gauge.attack.spr = 600,12
+p1.gauge.attack.offset = 130, 175
+p1.gauge.attack.facing = 1
+p1.gauge.attack.scale = 1.0, 1.0
+p1.gauge.attack.window = 131,176.1, 368, 181
+p1.gauge.attack.ticks = 30
+p1.gauge.attack.max = 36
+
+;defense
+;p1.gauge.guard.anim = 
+p1.gauge.guard.spr = 600,13
+p1.gauge.guard.offset = 270, 158
+p1.gauge.guard.facing = 1
+p1.gauge.guard.scale = 1.0, 1.0
+p1.gauge.guard.window = 271,159, 368, 163
+p1.gauge.guard.ticks = 30
+p1.gauge.guard.max = 31
+
+;life
+;p1.gauge.life.anim = 
+p1.gauge.life.spr = 600,14
+p1.gauge.life.offset = 270, 175
+p1.gauge.life.facing = 1
+p1.gauge.life.scale = 1.0, 1.0
+p1.gauge.life.window = 271,176.1, 368, 181
+p1.gauge.life.ticks = 30
+p1.gauge.life.max = 30
+
+;p1.rank.1.anim = 
+p1.rank.1.spr = 601,0
+p1.rank.1.offset = 0,13
+p1.rank.1.facing = 1
+p1.rank.1.scale = 1.0, 1.0
+;p1.rank.2.anim = 
+p1.rank.2.spr = 602,0
+p1.rank.2.offset = 0,13
+p1.rank.2.facing = 1
+p1.rank.2.scale = 1.0, 1.0
+;p1.rank.3.anim = 
+p1.rank.3.spr = 603,0
+p1.rank.3.offset = 0,13
+p1.rank.3.facing = 1
+p1.rank.3.scale = 1.0, 1.0
+;p1.rank.4.anim = 
+p1.rank.4.spr = 604,0
+p1.rank.4.offset = 0,13
+p1.rank.4.facing = 1
+p1.rank.4.scale = 1.0, 1.0
+;p1.rank.5.anim = 
+p1.rank.5.spr = 605,0
+p1.rank.5.offset = 0,13
+p1.rank.5.facing = 1
+p1.rank.5.scale = 1.0, 1.0
+;p1.rank.6.anim = 
+p1.rank.6.spr = 606,0
+p1.rank.6.offset = 0,13
+p1.rank.6.facing = 1
+p1.rank.6.scale = 1.0, 1.0
+;p1.rank.7.anim = 
+p1.rank.7.spr = 607,0
+p1.rank.7.offset = 0,13
+p1.rank.7.facing = 1
+p1.rank.7.scale = 1.0, 1.0
+;p1.rank.8.anim = 
+p1.rank.8.spr = 608,0
+p1.rank.8.offset = 0,13
+p1.rank.8.facing = 1
+p1.rank.8.scale = 1.0, 1.0
+;p1.rank.9.anim = 
+p1.rank.9.spr = 609,0
+p1.rank.9.offset = 0,13
+p1.rank.9.facing = 1
+p1.rank.9.scale = 1.0, 1.0
+;p1.rank.10.anim = 
+p1.rank.10.spr = 610,0
+p1.rank.10.offset = 0,13
+p1.rank.10.facing = 1
+p1.rank.10.scale = 1.0, 1.0
+;p1.rank.11.anim = 
+p1.rank.11.spr = 611,0
+p1.rank.11.offset = 0, 13
+p1.rank.11.facing = 1
+p1.rank.11.scale = 1.0, 1.0
+;p1.rank.12.anim = 
+p1.rank.12.spr = 612,0
+p1.rank.12.offset = 0,13
+p1.rank.12.facing = 1
+p1.rank.12.scale = 1.0, 1.0
+;p1.rank.13.anim = 
+p1.rank.13.spr = 613,0
+p1.rank.13.offset = 0,13
+p1.rank.13.facing = 1
+p1.rank.13.scale = 1.0, 1.0
+;p1.rank.14.anim = 
+p1.rank.14.spr = 614,0
+p1.rank.14.offset = 0,13
+p1.rank.14.facing = 1
+p1.rank.14.scale = 1.0, 1.0
+
+;p1.icon.fa.anim = 
+p1.icon.fa.spr = -1,0; 100,0
+p1.icon.fa.offset = 63, 136
+p1.icon.fa.facing = 1
+p1.icon.fa.scale = 1.0, 1.0
+;p1.icon.p.anim = 
+p1.icon.p.spr = -1,0;110,0
+p1.icon.p.offset = 63, 136
+p1.icon.p.facing = 1
+p1.icon.p.scale = 1.0, 1.0
+;p1.icon.sf.anim = 
+p1.icon.sf.spr = -1,0;101,0
+p1.icon.sf.offset = 63, 136
+p1.icon.sf.facing = 1
+p1.icon.sf.scale = 1.0, 1.0
+;p1.icon.hf.anim = 
+p1.icon.hf.spr = -1,0;102,0
+p1.icon.hf.offset = 63, 136
+p1.icon.hf.facing = 1
+p1.icon.hf.scale = 1.0, 1.0
+
+p2.score.offset = 1146, 126
+p2.score.font = 2,0,0
+p2.score.font.scale = 1.0, 1.0
+p2.score.text = "SCORE: %s"
+p2.score.displaytime = 0
+p2.bg.anim = 600
+;p2.bg.spr = 
+p2.bg.offset = 1279, 0
+p2.bg.facing = 1
+p2.bg.scale = 1.0, 1.0
+p2.bg.displaytime = 0
+p2.gauge.displaytime = 0
+p2.rank.displaytime = 0
+p2.icon.displaytime = 0
+p2.icon.spacing = 0, 0
+;p2.gauge.tech.anim = 
+p2.gauge.tech.spr = 600,11
+p2.gauge.tech.offset = 913, 60
+p2.gauge.tech.facing = -1
+p2.gauge.tech.scale = 1.0, 1.0
+p2.gauge.tech.window = 798, 60, 914, 70
+p2.gauge.tech.ticks = 30
+p2.gauge.tech.max = 38
+;p2.gauge.attack.anim = 
+p2.gauge.attack.spr = 600,12
+p2.gauge.attack.offset = 913, 82
+p2.gauge.attack.facing = -1
+p2.gauge.attack.scale = 1.0, 1.0
+p2.gauge.attack.window = 798, 82, 914, 92
+p2.gauge.attack.ticks = 30
+p2.gauge.attack.max = 36
+;p2.gauge.guard.anim = 
+p2.gauge.guard.spr = 600,13
+p2.gauge.guard.offset = 913, 104
+p2.gauge.guard.facing = -1
+p2.gauge.guard.scale = 1.0, 1.0
+p2.gauge.guard.window = 798, 104, 914, 114
+p2.gauge.guard.ticks = 30
+p2.gauge.guard.max = 31
+;p2.gauge.life.anim = 
+p2.gauge.life.spr = 600,14
+p2.gauge.life.offset = 913, 126
+p2.gauge.life.facing = -1
+p2.gauge.life.scale = 1.0, 1.0
+p2.gauge.life.window = 798, 126, 914, 136
+p2.gauge.life.ticks = 30
+p2.gauge.life.max = 30
+
+;p2.rank.1.anim = 
+p2.rank.1.spr = 601,0
+p2.rank.1.offset = 1024, 0
+p2.rank.1.facing = 1
+p2.rank.1.scale = 1.0, 1.0
+;p2.rank.2.anim = 
+p2.rank.2.spr = 602,0
+p2.rank.2.offset = 1024, 0
+p2.rank.2.facing = 1
+p2.rank.2.scale = 1.0, 1.0
+;p2.rank.3.anim = 
+p2.rank.3.spr = 603,0
+p2.rank.3.offset = 1024, 0
+p2.rank.3.facing = 1
+p2.rank.3.scale = 1.0, 1.0
+;p2.rank.4.anim = 
+p2.rank.4.spr = 604,0
+p2.rank.4.offset = 1024, 0
+p2.rank.4.facing = 1
+p2.rank.4.scale = 1.0, 1.0
+;p2.rank.5.anim = 
+p2.rank.5.spr = 605,0
+p2.rank.5.offset = 1024, 0
+p2.rank.5.facing = 1
+p2.rank.5.scale = 1.0, 1.0
+;p2.rank.6.anim = 
+p2.rank.6.spr = 606,0
+p2.rank.6.offset = 1024, 0
+p2.rank.6.facing = 1
+p2.rank.6.scale = 1.0, 1.0
+;p2.rank.7.anim = 
+p2.rank.7.spr = 607,0
+p2.rank.7.offset = 1024, 0
+p2.rank.7.facing = 1
+p2.rank.7.scale = 1.0, 1.0
+;p2.rank.8.anim = 
+p2.rank.8.spr = 608,0
+p2.rank.8.offset = 1024, 0
+p2.rank.8.facing = 1
+p2.rank.8.scale = 1.0, 1.0
+;p2.rank.9.anim = 
+p2.rank.9.spr = 609,0
+p2.rank.9.offset = 1024, 0
+p2.rank.9.facing = 1
+p2.rank.9.scale = 1.0, 1.0
+;p2.rank.10.anim = 
+p2.rank.10.spr = 610,0
+p2.rank.10.offset = 1024, 0
+p2.rank.10.facing = 1
+p2.rank.10.scale = 1.0, 1.0
+;p2.rank.11.anim = 
+p2.rank.11.spr = 611,0
+p2.rank.11.offset = 1024, 0
+p2.rank.11.facing = 1
+p2.rank.11.scale = 1.0, 1.0
+;p2.rank.12.anim = 
+p2.rank.12.spr = 612,0
+p2.rank.12.offset = 1024, 0
+p2.rank.12.facing = 1
+p2.rank.12.scale = 1.0, 1.0
+;p2.rank.13.anim = 
+p2.rank.13.spr = 613,0
+p2.rank.13.offset = 1024, 0
+p2.rank.13.facing = 1
+p2.rank.13.scale = 1.0, 1.0
+;p2.rank.14.anim = 
+p2.rank.14.spr = 614,0
+p2.rank.14.offset = 1024, 0
+p2.rank.14.facing = 1
+p2.rank.14.scale = 1.0, 1.0
+
+;p2.icon.fa.anim = 
+p2.icon.fa.spr = -1,0
+p2.icon.fa.offset = 266, 0
+p2.icon.fa.facing = 1
+p2.icon.fa.scale = 1.0, 1.0
+;p2.icon.p.anim = 
+p2.icon.p.spr = -1,0
+p2.icon.p.offset = 266, 0
+p2.icon.p.facing = 1
+p2.icon.p.scale = 1.0, 1.0
+;p2.icon.sf.anim = 
+p2.icon.sf.spr = -1,0
+p2.icon.sf.offset = 266, 0
+p2.icon.sf.facing = 1
+p2.icon.sf.scale = 1.0, 1.0
+;p2.icon.hf.anim = 
+p2.icon.hf.spr = -1,0
+p2.icon.hf.offset = 266, 0
+p2.icon.hf.facing = 1
+p2.icon.hf.scale = 1.0, 1.0
+
+[Begin Action 600]
+600,0, -60,0, 1
+600,0, -55,0, 1
+600,0, -50,0, 1
+600,0, -45,0, 1
+600,0, -40,0, 1
+600,0, -35,0, 1
+600,0, -30,0, 1
+600,0, -25,0, 1
+600,0, -20,0, 1
+600,0, -15,0, 1
+600,0, -10,0, 1
+600,0, -5,0, 1
+600,0, 0,0, -1
+
+[Victory Screen]
+enabled = 1
+sounds.enabled = 0
+fadein.time = 10
+fadeout.time = 0
+fadein.anim = 2004
+fadein.overlay.window = -1, 0, 384, 224
+time = 360
+
+victory.bgm = Sound/Screenpack/Arcade Stage End.mp3
+;victory.bgm.volume = 100   ; inert here -- set it in [Music]
+;victory.bgm.loop = 0       ; inert here -- set it in [Music]
+
+cpu.enabled = 0
+vs.enabled = 0
+
+
+p1.applypal = 1
+p2.applypal = 1
+
+p1.num = 30
+p1.pos = -60, -20
+p1.anim = 181
+p1.offset = 130,220
+p1.scale = 1, 1
+p1.facing = 1
+p1.window = -1, 0, 384, 224
+p1.layerno = 2 ; Only layers 0, 1 and 2 are ever drawn
+
+p1.spacing = 45, 0
+p1.padding = 1
+
+p1.face2.spr = ;9000,1
+p1.face2.offset = -110,-10
+p1.face2.window = 0, 0, 185, 63 
+; applypal / anim belong to the slot that actually RENDERS. p1.applypal and
+; p1.anim configure the MAIN face slot, but the portrait shown here is face2,
+; which has its own ApplyPal/Anim in the engine (motif.go: dst.ApplyPal vs
+; dst.Face2.ApplyPal) -- so they must be set on face2 to have any effect.
+p1.face2.applypal = 1
+; p1.face2.anim = 181 -- disabled: still yields neither anim nor portrait even
+; with preloadListChar(181) registered. Setting anim takes the "animNo >= 0"
+; branch in buildPortrait (motif.go), which skips the sprite branch entirely, so
+; a failed anim lookup loses the portrait too. Needs diagnosis before re-enabling
+; (buildPortrait has commented-out debug prints for exactly this).
+; NOTE: duplicate keys resolve FIRST-INSTANCE-WINS, so the offset/window
+; lines below were already being ignored; commented out to make the active
+; values unambiguous.
+;p1.face2.offset = -369.7,12
+p1.face2.scale = 1,1
+p1.face2.facing = 1
+;p1.face2.window = -1, 0, 384, 224
+
+p1.name.offset = 355, 82
+p1.name.font = 2,0,-1
+matchno.text = "%i"
+matchno.offset = 64,207
+matchno.font = 1,0,1
+;matchno.window = -10,202, 372,223
+;winquote = "Last hit:"   <- was already a no-op param name
+; The counter is drawn by external/mods/sfaz_core.lua now
+winquote.text =
+winquote.offset = 225,27
+winquote.font = 3,0,1
+winquote.textwrap = w
+stage.portrait.spr = 9001,0
+stage.portrait.offset = -192, -56
+
+[Begin Action 2004]
+200,14, 0,0, 3
+200,15, 0,0, 3
+200,16, 0,0, 3
+200,17, 0,0, 3
+200,18, 0,0, 3
+200,19, 0,0, 3
+200,20, 0,0, 3
+200,21, 0,0, 3
+200,22, 0,0, 3
+200,23, 0,0, 3
+200,24, 0,0, 3
+200,25, 0,0, 3
+200,26, 0,0, 3
+200,27, 0,0, 3
+200,28, 0,0, 3
+-1,0, 0,0, -1
+
+[Begin Action 5801]
+Loopstart
+5800,4, 0,0, 3
+5800,5, 0,0, 3
+5800,6, 0,0, 3
+5800,7, 0,0, 3
+5800,8, 0,0, 3
+5800,9, 0,0, 3
+5800,10, 0,0, 3
+5800,11, 0,0, 3
+; No trailing "-1,0, 0,0, -1" here on purpose. That element is a BLANK held
+; forever, and a -1 time ENDS an animation - so it defeated the Loopstart above
+; and the marker showed for its 24 ticks and then vanished for good. Without it
+; the action loops from Loopstart and the pin keeps pulsing.
+
+
+[SFAZ Select Outro]
+enabled = 1
+time = 16
+face2.dist  = 220 ; Pixels each portrait travels. P1 goes -x, P2 goes +x.
+face2.disty = 0
+title.dist  = 60 ; Pixels the game mode title travels UP.
+curve       = 2 ; 1 = linear, 2 = accelerating out, 3 = more so.
+names       = 1
+bg.hide     = 88888888
+bg.play     = 88888887
+bg.playreset = 0
+bg.playtime = 0 ; Ticks bg.play needs before its last frame is reached. 
+cursors     = 1
+; The roster cell portraits (9000,0 - what alternate characters use to change
+; their cell image) stop being drawn the same frame bg.play does, so they do
+; not float on after the plate behind them has gone. 0 leaves them up.
+cells       = 1
+world.elem  = -2
+world.dist  = 60
+world.hide  = 1 ; The world layer (sprite 100,1) slides up too, then hides. Addressed by
+bg.playhide = 1 ;play the frame fadeout.anim starts DRAWING
+bg.playhidemax = 180
+
+
+[SFAZ Victory Stage]	; set from Lua (external/mods/sfaz_victorystage.lua)
+enabled = 1
+; 5800,0 for now. Swap to `anim = 58000` once that action exists - anim wins
+; when both are set, and it falls back to spr if the action is missing.
+spr     = 5800,0
+;anim   = 58000
+offset  = 0, 0
+scale   = 1, 1
+facing  = 1
+layerno = 2 ; MUST be 0, 1 or 2
+; The emblem shows the NEXT match's stage, read out of the roster that
+; select.def's order / ordersurvival already build. Script-driven paths
+; (kumitepath.lua, the per-character arcadepath files) choose each opponent
+; inside a launchFight call that has not happened yet, so there is nothing to
+; read and the emblem stays blank there.
+; fallback = 1 shows the stage just fought instead of a blank.
+fallback = 0
+; Entry slide, EARLY (pre-match) victory screen ONLY - the post-match one never
+; slides, the emblem is just part of the screen you have arrived at.
+; `from` is where it starts RELATIVE to its resting place, so 0,-120 drops it
+; in from above. It travels to 0,0 over `time` ticks.
+; curve: 1 = linear, 2 = eases out (quick, then settles), higher = sharper.
+; time = 0 turns the slide off.
+early.slide.from  = 0, -120
+early.slide.time  = 20
+early.slide.curve = 2
+; The location marker: the animated "you are here" pin on the map. This is a
+; MOTIF animation (it lives in this file's sff), unlike the map itself which
+; comes from the stage. Only its POSITION is per stage, and that is read from
+; data/stage_marks.lua - one {x,y} per stage def, taken from a single 224,0,0
+; pixel painted on that stage's own 5800,0. See the header of that file.
+; A stage with no entry there simply gets no marker; the map still shows.
+; Positioning is handled for you: x,y are in the MAP SPRITE's pixels (5800,0 is
+; 384x224, axis top-left), and the emblem's own offset/scale are applied on top,
+; so the pin stays put wherever the map is drawn - including mid-slide on the
+; early victory screen.
+mark.anim    = 5801
+mark.offset  = 0, 0     ; nudge applied to EVERY stage's marker
+mark.scale   = 1, 1
+mark.layerno = 2        ; same pass as the map; drawn immediately after it
+
+[SFAZ Defeated Portraits]
+enabled  = 1
+spr      = 9000,9000
+pos      = 67, 179 ; in motif localcoord (384 x 224).
+spacing  = 26.95, 0
+; Offset WITHIN a slot for members 2, 3, ... of a simul/turns match. One match
+; is always ONE slot wide whatever this is set to, so the row stays lined up
+; with the pedestals behind it. 0,0 stacks them exactly on top of each other;
+; a small value lets the one behind peek out. Keep it well under `spacing` or
+; the extra member spills onto the next pedestal.
+groupspacing = 10, 0
+scale    = 1, 1
+facing   = 1
+layerno  = 2 ; MUST be 0, 1 or 2
+max      = 10
+window   = -1, -1, 384, 224
+applypal = 0
+
+;"Next opponent" marker
+next.anim   = 748
+next.offset = -4, 0
+next.scale  = 1, 1
+
+[Begin Action 748]
+Loopstart
+24108,1,0,0, 8
+24108,2,0,0, 8
+
+[VictoryBGdef]
+
+[VictoryBG 1]; Background
+type  = anim
+actionno = 100
+layerno = 0
+start = -192,0
+
+[Begin Action 100]
+101, 0, 0,0, 1
+101, 1, 0,0, 1
+101, 2, 0,0, 1
+101, 3, 0,0, 1
+101, 4, 0,0, 1
+101, 5, 0,0, 1
+101, 6, 0,0, 1
+101, 7, 0,0, 1
+101, 8, 0,0, 1
+101, 9, 0,0, 1
+101,10, 0,0, 1
+101,11, 0,0, 1
+101,12, 0,0, 1
+101,13, 0,0, 1
+101,14, 0,0, 1
+101,15, 0,0, 1
+
+[VictoryBG 2]; base
+type  = normal
+spriteno = 24108,0
+layerno = 0
+start = -180,0
+tile  = 0,0
+Mask = 1
+
+[VictoryBG 3]; Roster
+type  = normal
+spriteno = 5800,0
+layerno = 0
+start = -192,0
+tile  = 0,0
+velocity = 0,0
+Mask=1
+
+;-------------------------------------------------------------------
+[Win Screen]
+enabled = 1
+sounds.enabled = 0
+fadein.time = 0
+fadeout.time = 0
+show.time = 300
+pose.time = 300
+
+wintext.text = "ALL CLEAR"
+wintext.font = 5,0,0
+wintext.offset = 195,66
+wintext.displaytime = -1
+wintext.layerno = 2
+;p1.state = 175, 170
+p1.state = 19000
+p2.state = -1
+p2.win.state = -1
+p1.teammate.state = 19000
+p1.teammate.win.state = 19000
+
+	results.arcade = Win Screen
+	results.teamarcade = Win Screen
+	results.teamcoop = Win Screen
+	results.timeattack = Time Attack Results Screen
+	results.survival = Survival Results Screen
+	results.survivalcoop = Survival Results Screen
+	results.worldtour = World Tour Results Screen
+	results.vs100kumite = VS100 Kumite Results Screen
+
+overlay.window = -1, -1, -1, -1; 320, 240
+overlay.col = 255, 255, 255
+overlay.alpha = 255,255
+
+[WinBgDef] ;Ikemen feature
+	spr = ""
+;-------------------------------------------------------------------
+[Default Ending]
+enabled = 0
+storyboard = 
+
+[End Credits]
+enabled = 0
+storyboard = 
+;-------------------------------------------------------------------
+[Survival Results Screen]
+enabled = 1
+sounds.enabled = 0
+fadein.time = 0
+fadeout.time = 0
+show.time = 700
+
+winstext.text = "YOU SURVIVED!"  ;Use %i for win counter
+winstext.font = 5,0,0
+winstext.offset = 195,66
+winstext.displaytime = -1
+winstext.layerno = 2
+
+
+p1.win.state = 19000
+p2.state = -1
+p2.win.state = -1
+p1.teammate.state = 19001
+p1.teammate.win.state = 19001
+
+roundstowin = 10
+
+overlay.window = -1, -1, -1, -1; 320, 240
+overlay.col = 255, 255, 255
+overlay.alpha = 255,255
+
+;to modify survival lose result screen, go to start.lua, lines 3052-3066
+
+;-----------------------
+;Survival mode results screen background
+[SurvivalResultsBGdef] ;Ikemen feature
+
+[SurvivalResultsBG 1]
+type  = anim
+actionno = 70
+start = 0,0
+layerno = -1
+mask = 1
+
+[SurvivalResultsBG 2]
+type  = normal
+spriteno = 71,0
+start = -0,0
+mask = 1
+
+;shadow menu hub
+[Begin Action 70]
+6030,0, -192,0, 1
+6030,1, -192,0, 1
+6030,2, -192,0, 1
+6030,3, -192,0, 1
+6030,4, -192,0, 1
+6030,5, -192,0, 1
+6030,6, -192,0, 1
+6030,7, -192,0, 1
+6030,8, -192,0, 1
+6030,9, -192,0, 1
+6030,10, -192,0, 1
+6030,11, -192,0, 1
+6030,12, -192,0, 1
+6030,13, -192,0, 1
+6030,14, -192,0, 1
+6030,15, -192,0, 1
+6030,16, -192,0, 1
+6030,17, -192,0, 1
+6030,18, -192,0, 1
+6030,19, -192,0, 1
+6030,20, -192,0, 1
+6030,21, -192,0, 1
+6030,22, -192,0, 1
+6030,23, -192,0, 1
+6030,24, -192,0, 1
+6030,25, -192,0, 1
+6030,26, -192,0, 1
+6030,27, -192,0, 1
+;-----------------------
+[Time Attack Results Screen] ;Ikemen feature
+enabled = 1
+sounds.enabled = 0
+
+fadein.time = 0
+fadein.col = 0, 0, 0
+fadein.anim = -1
+fadeout.time = 0
+fadeout.col = 0, 0, 0
+fadeout.anim = -1
+show.time = 300
+
+winstext.text = "%m:%s.%x"
+winstext.font = 5,0,0
+winstext.offset = 195,66
+winstext.displaytime = -1
+winstext.layerno = 2
+;p1.state = 175, 170
+p1.win.state = 19000
+p2.state = -1
+p2.win.state = -1
+p1.teammate.state = 19001
+p1.teammate.win.state = 19001
+
+overlay.window = -1, -1, -1, -1; 320, 240
+overlay.col = 255, 255, 255
+overlay.alpha = 255,255
+
+[TimeAttackResultsBgDef] ;Ikemen feature
+
+[TimeAttackResultsBG 1]
+type  = anim
+actionno = 2010
+start = 0,0
+mask = 1
+layerno = -1
+
+[TimeAttackResultsBG 2]
+type  = normal
+spriteno = 71,0
+start = -0,0
+mask = 1
+
+;shadow menu hub
+[Begin Action 2010]
+6030,0, -192,0, 1
+6030,1, -192,0, 1
+6030,2, -192,0, 1
+6030,3, -192,0, 1
+6030,4, -192,0, 1
+6030,5, -192,0, 1
+6030,6, -192,0, 1
+6030,7, -192,0, 1
+6030,8, -192,0, 1
+6030,9, -192,0, 1
+6030,10, -192,0, 1
+6030,11, -192,0, 1
+6030,12, -192,0, 1
+6030,13, -192,0, 1
+6030,14, -192,0, 1
+6030,15, -192,0, 1
+6030,16, -192,0, 1
+6030,17, -192,0, 1
+6030,18, -192,0, 1
+6030,19, -192,0, 1
+6030,20, -192,0, 1
+6030,21, -192,0, 1
+6030,22, -192,0, 1
+6030,23, -192,0, 1
+6030,24, -192,0, 1
+6030,25, -192,0, 1
+6030,26, -192,0, 1
+6030,27, -192,0, 1
+;-----------------------
+[World Tour Results Screen]
+enabled = 1
+sounds.enabled = 0
+roundstowin = 2
+
+fadein.time = 0
+fadein.col = 0, 0, 0
+fadein.anim = -1
+fadeout.time = 0
+fadeout.col = 0, 0, 0
+fadeout.anim = -1
+show.time = 700
+
+winstext.text = "ALL CLEAR"
+winstext.font = 5,0,0
+winstext.offset = 195,56
+winstext.displaytime = -1
+winstext.layerno = 2
+p1.state = 19000
+p1.win.state = 
+p2.state = -1
+p2.win.state = -1
+p1.teammate.state = -1
+
+overlay.window = -1, -1, -1, -1; 320, 240
+overlay.col = 255, 255, 255
+overlay.alpha = 255,255
+
+[WorldTourResultsBGdef]
+
+[WorldTourResultsBG 1]
+type  = anim
+actionno = 70
+start = 0,0
+layerno = -1
+mask = 1
+
+[WorldTourResultsBG 2]
+type  = normal
+spriteno = 71,0
+start = -0,0
+mask = 1
+
+;shadow menu hub
+[Begin Action 70]
+6030,0, -192,0, 1
+6030,1, -192,0, 1
+6030,2, -192,0, 1
+6030,3, -192,0, 1
+6030,4, -192,0, 1
+6030,5, -192,0, 1
+6030,6, -192,0, 1
+6030,7, -192,0, 1
+6030,8, -192,0, 1
+6030,9, -192,0, 1
+6030,10, -192,0, 1
+6030,11, -192,0, 1
+6030,12, -192,0, 1
+6030,13, -192,0, 1
+6030,14, -192,0, 1
+6030,15, -192,0, 1
+6030,16, -192,0, 1
+6030,17, -192,0, 1
+6030,18, -192,0, 1
+6030,19, -192,0, 1
+6030,20, -192,0, 1
+6030,21, -192,0, 1
+6030,22, -192,0, 1
+6030,23, -192,0, 1
+6030,24, -192,0, 1
+6030,25, -192,0, 1
+6030,26, -192,0, 1
+6030,27, -192,0, 1
+
+[VS100 Kumite Results Screen]
+enabled = 1
+sounds.enabled = 0
+roundstowin = 1
+
+fadein.time = 0
+fadein.col = 0, 0, 0
+fadein.anim = -1
+fadeout.time = 0
+fadeout.col = 0, 0, 0
+fadeout.anim = -1
+show.time = 700
+
+winstext.text = WINS: %i
+winstext.font = 5,0,0
+winstext.offset = 195,56
+winstext.displaytime = -1
+winstext.layerno = 2
+p1.state = 19000
+p1.win.state = 
+p2.state = -1
+p2.win.state = -1
+p1.teammate.state = -1
+
+overlay.window = -1, -1, -1, -1; 320, 240
+overlay.col = 255, 255, 255
+overlay.alpha = 255,255
+
+[VS100KumiteResultsBGdef]
+
+[VS100KumiteResultsBG 1]
+type  = anim
+actionno = 70
+start = 0,0
+layerno = -1
+mask = 1
+
+[VS100KumiteResultsBG 2]
+type  = normal
+spriteno = 71,0
+start = -0,0
+mask = 1
+
+;shadow menu hub
+[Begin Action 70]
+6030,0, -192,0, 1
+6030,1, -192,0, 1
+6030,2, -192,0, 1
+6030,3, -192,0, 1
+6030,4, -192,0, 1
+6030,5, -192,0, 1
+6030,6, -192,0, 1
+6030,7, -192,0, 1
+6030,8, -192,0, 1
+6030,9, -192,0, 1
+6030,10, -192,0, 1
+6030,11, -192,0, 1
+6030,12, -192,0, 1
+6030,13, -192,0, 1
+6030,14, -192,0, 1
+6030,15, -192,0, 1
+6030,16, -192,0, 1
+6030,17, -192,0, 1
+6030,18, -192,0, 1
+6030,19, -192,0, 1
+6030,20, -192,0, 1
+6030,21, -192,0, 1
+6030,22, -192,0, 1
+6030,23, -192,0, 1
+6030,24, -192,0, 1
+6030,25, -192,0, 1
+6030,26, -192,0, 1
+6030,27, -192,0, 1
+;-------------------------------------------------------------------
+[Hiscore Info] ;Ikemen feature
+; MIGRATION: item.data.* renamed to item.result.* by the engine, and
+; rank/score/win values are now formatted as numbers (%d) not strings.
+
+; ranking.<gamemode> = score | time | win
+; system.base.def only ships defaults for the modes the engine knows about
+; (arcade, teamarcade, teamcoop, netplayteamcoop, timeattack, survival,
+; survivalcoop, netplaysurvivalcoop), so SFAZ's own modes must declare theirs.
+; This value does more than pick a hiscore column - MotifWin.initResultsVariant
+; (src/motif.go) switches on it, and with no entry it takes the "no formatting
+; fallback" branch and draws winstext.text VERBATIM, which is why
+; "WINS: %i" appeared with a literal %i. It also gates rankingWouldPlace(),
+; so without it the mode records no hiscore and the results screen never uses
+; its p<n>.win.state anims.
+; "win" passes (wins, losses) to the text: first %i = wins, second = losses.
+ranking.vs100kumite = win
+
+enabled = 1
+time = 1000
+fadein.time = 50
+fadein.col = 0, 0, 0
+;fadein.anim =
+fadeout.time = 50
+fadeout.col = 0, 0, 0
+;fadeout.anim =
+
+pos = 0, -1
+title.offset = 20, 32
+title.font = 5,1,1; 191,191,191
+title.scale = 1.0, 1.0
+;title.text = "Ranking %s"
+title.uppercase = 0
+title.layerno = 2
+
+; Per-mode hiscore titles. NOTE the key shape: title.<gamemode>.text
+; (not title.text.<gamemode>). The engine defaults only cover the stock modes
+; -- arcade, teamarcade, teamcoop, timeattack, survival, survivalcoop -- so
+; SFAZ's custom modes had no title and fell back to the generic
+; "title.text = Ranking %s".
+title.worldtour.text = Ranking World Tour
+title.vs100kumite.text = Ranking VS100 Kumite
+title.bossrush.text = Ranking Boss Rush
+
+;title.rank.offset = 35, 60
+;title.rank.font = 4,1,0
+;title.rank.scale = 1.0, 1.0
+;title.rank.text = "Rank"
+
+;title.data.offset = 112, 60
+;title.data.font = 4,1,0
+;title.data.scale = 1.0, 1.0
+;title.data.text = "Character"
+
+;title.name.offset = 186, 60
+;title.name.font = 4,1,0
+;title.name.scale = 1.0, 1.0
+;title.name.text = "Name"
+
+;title.face.offset = 258, 60
+;title.face.font = 4,1,0
+;title.face.scale = 1.0, 1.0
+;title.face.text = "Result"
+
+item.offset = 0, 0
+item.spacing = 0, 0
+
+item.rank.offset = 20, 62
+item.rank.font = 7,0,2
+item.rank.scale =1, 1
+item.rank.spacing = 0, 10
+item.rank.text = "%dth"
+item.rank.1.text = "%dst"
+item.rank.2.text = "%dnd"
+item.rank.3.text = "%drd"
+item.rank.active.font = 6,0,2
+item.rank.active2.font = 6,0,2
+item.rank.layerno = 2
+
+item.face.anim = -1
+item.face.spr = 9000,2
+item.face.offset = 80,44
+item.face.facing = 1
+item.face.scale = 1, 1
+item.face.window = -15, 0, 384, 224
+item.face.num = 4
+item.face.spacing = 15, 26
+item.face.layerno = 2
+item.face.bg.anim =
+item.face.bg.spr = 0,0
+item.face.bg.offset = 3, 0
+item.face.bg.facing = 1
+item.face.bg.scale = 1,1
+
+item.name.offset = 130, 62 ;58
+item.name.font = 7,0,1
+item.name.scale = 1, 1
+item.name.spacing = 0, 10 ;13.5
+item.name.text = "%3s"
+item.name.layerno = 2
+item.name.active.font = 6,0,1
+;item.name.active.scale = 1, 1
+;item.name.active.switchtime = 10
+item.name.active2.font = 7,0,1
+item.name.active.layerno = 2
+item.name.active2.layerno = 2
+
+item.result.offset = 200, 58
+item.result.font = 4,1,1
+item.result.scale = 1, 1
+item.result.layerno = 2
+item.result.spacing = 0, 13.5
+item.result.score.text = "%8d"
+item.result.time.text = "%m'%s''%x"
+item.result.time.layerno = 2
+item.result.active.font = 4,1,1
+item.result.active2.layerno = 2
+item.result.active2.font = 4,1,1
+item.result.active2.layerno = 2
+item.result.win.text = "%d"
+
+timer.offset = 0,0
+timer.font = 4,1,1
+timer.scale = 1.0, 1.0
+timer.text = "%i"
+timer.count = 99
+timer.framespercount = 60
+timer.displaytime = 10
+
+window.width = 300
+window.margins.y = 20, 1
+window.visibleitems = 7
+overlay.window = -1, -1, -1, -1; 320, 240
+;overlay.col = 0, 0, 0
+;overlay.alpha = 0,0
+
+move.snd = 100, 0
+done.snd = 100, 1
+cancel.snd = 100, 2
+glyphs = "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "!", "?", ".", "<", ">"
+
+;-------------------
+;Hiscore screen background
+[HiscoreBGdef] ;Ikemen feature
+
+
+[HiscoreBG 1]
+type = Anim
+actionno = 54
+start = -192,0
+mask =1
+Layerno = 0
+
+[HiscoreBG 2]
+type  = normal
+spriteno = 4,3411
+start = 192,0
+layerno = 0
+mask = 1
+layerno = 0
+start = 0,1
+tile  = 0
+velocity = 0,0
+
+[HiscoreBG 2]
+type  = normal
+spriteno = 544,0
+start = -188.4,0
+layerno = 0
+mask = 1
+layerno = 0
+start = 0,1
+tile  = 0
+velocity = 0,0
+
+[HiscoreBG 3]
+type  = normal
+spriteno = 544,1
+start = -188.4,-2
+layerno = 0
+mask = 1
+layerno = 0
+start = 0,1
+tile  = 0
+velocity = 0,0
+
+[Begin Action 54]
+1,0, 0,0,2
+1,1, 0,0,2
+1,2, 0,0,2
+1,3, 0,0,2
+1,4, 0,0,2
+
+[Dialogue Info] ;Ikemen feature
+enabled = 1
+starttime = 30
+endtime = 60
+switchtime = 30
+skiptime = 30
+skip.key = a, b, c, x, y, z
+cancel.key = s
+
+p1.bg.anim = 700
+;p1.bg.spr = 
+p1.bg.offset = 31, 32
+p1.bg.facing = 1
+p1.bg.scale = 1.0, 1.0
+
+; MIGRATION: applypal shows the palette the player actually picked on the
+; dialogue portrait, the same as the select and VS screens do. Defaults to 1.
+p1.face.applypal = 1
+
+; MIGRATION: the speaker NAME is deliberately not shown here, but leaving the
+; keys commented does NOT disable it -- src/resources/defaultMotif.ini fills in
+; every key this file omits, and its dialogue defaults are
+;     p1.name.font = f-6x9.def, 0, 1, 255,255,255,255, -1
+;     p1.name.offset = 0, 0
+; so the display name was drawn in white at the top-left corner of the screen,
+; appearing and vanishing with the portraits. Font index -1 is not in the
+; motif's font map, so TextSprite.draw returns before drawing anything.
+p1.name.font = -1, 0, 1, 255, 255, 255, 255, -1
+;p1.name.scale = 1.0, 1.0
+;p1.name.offset = 90, 45
+
+p1.face.spr = 9000,1
+p1.face.offset = -180,-1 ;0, 56
+p1.face.facing = 1
+p1.face.scale = 1.0, 1.0
+p1.face.window = 0, 0, 94, 120
+
+p1.text.offset = 98, 75
+p1.text.font = 2,0,1
+p1.text.scale = 1.0, 1.0
+p1.text.spacing = 0, 0
+p1.text.delay = 3
+p1.text.textwrap = w
+p1.text.window = 90,32, 340,106
+
+p2.bg.anim = 701
+;p2.bg.spr = 
+p2.bg.offset = 37, 144
+p2.bg.facing = 1
+p2.bg.scale = 1.0, 1.0
+
+p2.face.applypal = 1
+
+p2.face.spr = 9000,1
+p2.face.offset = 244, 90
+p2.face.facing = 1
+p2.face.scale = 1.0, 1.0
+p2.face.window = 0, 100, 400, 400
+; See the p1.name note above -- same default, same corner.
+p2.name.font = -1, 0, 1, 255, 255, 255, 255, -1
+;p2.name.offset = 10, 157
+;p2.name.scale = 1.0, 1.0
+
+p2.text.offset = 40, 187
+p2.text.font = 2,0,1
+p2.text.scale = 1.0, 1.0
+p2.text.spacing = 0, 0
+p2.text.delay = 3
+p2.text.textwrap = w
+p2.text.window = 20,164, 300,228
+
+p2.active.spr = -1
+p2.active.offset = 320,169
+p2.active.facing = -1
+p2.active.scale = 1.0, 1.0
+
+[Begin Action 700]
+700,0, -320,0, 1, ,AS192D64
+700,0, -300,0, 1, ,AS192D64
+700,0, -280,0, 1, ,AS192D64
+700,0, -260,0, 1, ,AS192D64
+700,0, -240,0, 1, ,AS192D64
+700,0, -220,0, 1, ,AS192D64
+700,0, -200,0, 1, ,AS192D64
+700,0, -180,0, 1, ,AS192D64
+700,0, -160,0, 1, ,AS192D64
+700,0, -140,0, 1, ,AS192D64
+700,0, -120,0, 1, ,AS192D64
+700,0, -100,0, 1, ,AS192D64
+700,0, -80,0, 1, ,AS192D64
+700,0, -60,0, 1, ,AS192D64
+700,0, -40,0, 1, ,AS192D64
+700,0, -20,0, 1, ,AS192D64
+700,0, 0,0, -1, ,0
+
+[Begin Action 701]
+700,0, 320,0, 1, ,AS192D64
+700,0, 300,0, 1, ,AS192D64
+700,0, 280,0, 1, ,AS192D64
+700,0, 260,0, 1, ,AS192D64
+700,0, 240,0, 1, ,AS192D64
+700,0, 220,0, 1, ,AS192D64
+700,0, 200,0, 1, ,AS192D64
+700,0, 180,0, 1, ,AS192D64
+700,0, 160,0, 1, ,AS192D64
+700,0, 140,0, 1, ,AS192D64
+700,0, 120,0, 1, ,AS192D64
+700,0, 100,0, 1, ,AS192D64
+700,0, 80,0, 1, ,AS192D64
+700,0, 60,0, 1, ,AS192D64
+700,0, 40,0, 1, ,AS192D64
+700,0, 20,0, 1, ,AS192D64
+700,0, 0,0, -1, ,0
+;-------------------------------------------------------------------
+[Challenger Info] ;Ikemen Feature
+	enabled = 1
+	fadein.time = 0
+	fadein.col = 0, 0, 0
+	fadein.anim = -1
+	fadeout.time = 10
+	fadeout.col = 0, 0, 0
+	fadeout.anim = 8001
+	time = 100
+	pause.time = 10000
+	snd.time = 0
+	snd = 1, 0
+	bg.anim = 8000
+	bg.spr = 
+	bg.offset = 0, 0
+	bg.facing = 1
+	bg.scale = 1.0, 1.0
+	bg.displaytime = 0
+	text = ""
+	text.offset = 0, 0
+	text.font = 7, 0, 1, 255, 255, 255, 255, -1
+	text.scale = 1.0, 1.0
+	text.displaytime = 0
+	text.layerno = 2
+	;overlay.window = 0, 0, localcoordX, localcoordY
+	overlay.col = 0, 0, 0
+	overlay.alpha = 0, 0
+
+[Begin Action 8000]
+Loopstart
+8000,1, 0,0, 1
+8000,0, 0,0, 1
+
+
+[ChallengerBgDef] ;Ikemen feature
+	spr = ""
+;-------------------------------------------------------------------
+[Option Info]
+Options.font = 2,1,0
+cursor.move.snd = 100,0
+cursor.done.snd = 100,1
+cancel.snd = 100,2
+
+title.text = "GAME OPTIONS"
+title.offset = 359, 24
+title.font = 5,3,-1
+;title.align = Right
+menu.pos = 185, 50
+
+
+;-------------------------------------------------------------------
+;Title screen definition
+[Title Info]
+
+fadein.time = 0
+fadeout.time = 0
+fadeout.anim = 2009
+menu.pos = 189,189
+menu.item.font = -1,6,0
+menu.item.active.font = 4,0,0
+menu.item.spacing = 0, 13
+
+loading.offset = 250,110
+loading.font = sfzbigname.fnt, 0, -1, 191, 191, 191, 255, -1
+loading.scale = 1.0, 1.0
+loading.text = "LOADING..."
+footer1.scale = 0, 0
+footer2.scale = 0, 0
+footer3.scale = 0, 0
+footer.overlay.alpha = 0, 255
+
+cursor.move.snd = 100,0
+cursor.done.snd = 100,1
+cancel.snd = 100,2
+
+	;netplay connection settings
+
+	textinput.offset = 195, 120
+	textinput.font = 3,1, 0, 255, 255, 255, 255, -1
+	textinput.scale = 1.0, 1.0
+	textinput.name.text = Enter your host's display name
+	textinput.address.text = Enter your host's virtual IP (via VPN)
+	textinput.replay.text = Rename replay. Use BACKSPACE to delete characters.\nExisting entries can be removed with DELETE button.
+
+	connecting.text = Waiting for player 2...\n Share your virtual IP (via VPN)
+	connecting.font = 3,1, 0, 255, 255, 255, 255, -1
+	connecting.offset = 195, 112
+	connecting.scale = 1.0, 1.0
+	connecting.join.text = Now connecting...\n\nIf you are stuck in this screen make sure\nthat both of you are\nconnected to the same virtual IP.
+	connecting.overlay.col = 0, 0, 0
+	connecting.overlay.alpha = 0, 128
+	connecting.overlay.window = 0,0, 384,224
+	connecting.offset = 160, 120
+
+	textinput.overlay.window = 0, 0, 384, 224; localcoordX, localcoordY
+	textinput.overlay.col = 0, 0, 0
+	textinput.overlay.alpha = 0, 128
+
+
+
+
+
+[OptionBGdef] 
+
+[OptionBG 1]; SFZ screen
+type  = normal
+spriteno = 100,2
+layerno = 0
+start = 0,0
+tile  = 1,1
+velocity = 0,0
+
+[OptionBG 2]
+type = anim
+actionno = 30021
+layerno = 0
+start = -192,0
+tile = 0,0
+mask = 1
+
+[Begin Action 30021]
+20028,12,0,0, 3
+20028,14,0,0, 3
+20028,12,0,0, 3
+20028,14,0,0, 3
+20028,12,0,0, 3
+20028,14,0,0, 3
+Loopstart
+20028,11,0,0, 3
+20028,13,0,0, 3
+20028,15,0,0, 3
+20028,16,0,0, 3
+
+[Begin Action 15557]
+-1,0, 0,0, 0
+
+[Option Info]
+
+menu.hiscore.key = s
+
+
+
+	; Refer to Notes at the beginning of this file.
+	menu.uselocalcoord = 0
+
+	menu.item.offset = 0, 0
+	menu.item.font = 2, 1, 1, 191, 191, 191, 255, -1
+	menu.item.scale = 1.0, 1.0
+
+	menu.item.window = 384, 324
+
+	menu.item.active.offset = 0, 0
+	menu.item.active.font = 2, 0, 1, 255, 255, 255, 255, -1
+	menu.item.active.scale = 1.0, 1.0
+
+	menu.item.selected.offset = 0, 0
+	menu.item.selected.font = 2, 1, 1, 0, 247, 247, 255, -1
+	menu.item.selected.scale = 1.0, 1.0
+	menu.item.selected.active.offset = 0, 0
+	menu.item.selected.active.font = 2, 3, 1, 0, 247, 247, 255, -1
+	menu.item.selected.active.scale = 1.0, 1.0
+
+	menu.item.value.offset = 180, 0
+	menu.item.value.font = 2, 4, -1, 191, 191, 191, 255, -1
+	menu.item.value.scale = 1.0, 1.0
+
+	menu.item.value.active.offset = 180, 0
+	menu.item.value.active.font = 2, 3, -1, 255, 255, 255, 255, -1
+	menu.item.value.active.scale = 1.0, 1.0
+
+	menu.item.value.conflict.offset = 180, 0
+	menu.item.value.conflict.font = 2, 4, -1, 247, 0, 0, 255, -1
+	menu.item.value.conflict.scale = 1.0, 1.0
+
+	menu.item.info.offset = 150, 0
+	menu.item.info.font = 2, 0, -1, 247, 247, 0, 255, -1
+	menu.item.info.scale = 1.0, 1.0
+	menu.item.info.active.offset = 150, 0
+	menu.item.info.active.font = 2, 0, -1, 247, 247, 0, 255, -1
+	menu.item.info.active.scale = 1.0, 1.0
+
+	menu.item.spacing = 0, 14
+	menu.window.margins.y = 0, 0
+	menu.window.visibleitems = 13
+
+	menu.boxcursor.visible = 0
+	menu.boxcursor.coords = -5, -10, 154, 3
+	menu.boxcursor.col = ;255, 255, 255
+	menu.boxcursor.alpharange = ;10, 40, 2, 255, 255, 0
+	menu.boxbg.visible = 0
+	menu.boxbg.col = 0, 0, 0
+	menu.boxbg.alpha = 0, 128
+
+	menu.arrow.up.anim = -1
+	menu.arrow.up.spr = 
+	menu.arrow.up.offset = 0, 0
+	menu.arrow.up.facing = 1
+	menu.arrow.up.scale = 1.0, 1.0
+	menu.arrow.down.anim = -1
+	menu.arrow.down.spr = 
+	menu.arrow.down.offset = 0, 0
+	menu.arrow.down.facing = 1
+	menu.arrow.down.scale = 1.0, 1.0
+
+
+	keymenu.pos = 0, 0
+	keymenu.p1.menuoffset = 173.3, 30.5   ; was keymenu.p1.pos = 140, 42
+	keymenu.p2.menuoffset = 276.0, 30.5   ; was keymenu.p2.pos = 250, 42
+
+	; "PLAYER 1" / "PLAYER 2" headers (old keymenu.item.p1 / .p2)
+	keymenu.p1.playerno.font = 2, 0, 0, 255, 255, 255, 255, -1
+	keymenu.p1.playerno.offset = 50, 12;48.5, 0
+	keymenu.p1.playerno.scale = 0.93333, 0.93333
+	keymenu.p1.playerno.text = %i
+	keymenu.p1.playerno.localcoord = 384, 224
+	keymenu.p2.playerno.font = 2, 0, 0, 255, 255, 255, 255, -1
+	keymenu.p2.playerno.offset = 50, 12;48.5, 0
+	keymenu.p2.playerno.scale = 0.93333, 0.93333
+	keymenu.p2.playerno.text = %i
+	keymenu.p2.playerno.localcoord = 384, 224
+
+	; Row labels. These MUST be declared: the new engine defaults keymenu.item
+	; fonts to -1 (nothing drawn) instead of falling back to menu.item.
+	keymenu.item.font = 2, 0, 1, 255, 255, 255, 255, -1
+	keymenu.item.offset = 0, 0
+	keymenu.item.scale = 0.93333, 0.93333
+	keymenu.item.localcoord = 384, 224
+	keymenu.item.active.font = 2, 0, 1, 255, 255, 255, 255, -1
+	keymenu.item.active.offset = 0, 0
+	keymenu.item.active.scale = 0.93333, 0.93333
+	keymenu.item.active.localcoord = 384, 224
+	keymenu.item.info.window = -1, -1
+
+	keymenu.item.spacing = 0, 12
+
+	; Bound key names, right-aligned at the pane's right edge (old offset 101)
+	keymenu.item.value.font = 2, 4, -1, 255, 255, 255, 255, -1
+	keymenu.item.value.offset = 94.3, 0
+	keymenu.item.value.scale = 0.93333, 0.93333
+	keymenu.item.value.localcoord = 384, 224
+	keymenu.item.value.active.font = 2, 1, -1, 255, 255, 255, 255, -1
+	keymenu.item.value.active.offset = 94.3, 0
+	keymenu.item.value.active.scale = 0.93333, 0.93333
+	keymenu.item.value.active.localcoord = 384, 224
+	keymenu.item.value.conflict.font = 2, 4, -1, 247, 0, 0, 255, -1
+	keymenu.item.value.conflict.offset = 94.3, 0
+	keymenu.item.value.conflict.scale = 0.93333, 0.93333
+	keymenu.item.value.conflict.localcoord = 384, 224
+
+	; (F1)/(F2)/(Esc)/(Tab) hints
+	keymenu.item.info.font = 2, 3, -1, 255, 255, 255, 255, -1
+	keymenu.item.info.offset = 94.3, 0
+	keymenu.item.info.scale = 0.93333, 0.93333
+	keymenu.item.info.localcoord = 384, 224
+	keymenu.item.info.active.font = 2, 1, -1, 255, 255, 255, 255, -1
+	keymenu.item.info.active.offset = 94.3, 0
+	keymenu.item.info.active.scale = 0.93333, 0.93333
+	keymenu.item.info.active.localcoord = 384, 224
+
+	keymenu.window.margins.y = 0, 0
+	keymenu.window.visibleitems = 0
+
+	keymenu.boxcursor.visible = 0
+	keymenu.boxcursor.coords = -4.7, -8.4, 98.9, 1.9
+	keymenu.boxcursor.col = 255, 255, 255
+	keymenu.boxcursor.localcoord = 384, 224
+	keymenu.boxbg.visible = 0
+	keymenu.boxbg.col = 0, 0, 0
+	keymenu.boxbg.alpha = 0, 128
+	keymenu.boxbg.localcoord = 384, 224
+
+	keymenu.itemname.configall = "PLAYER"
+	keymenu.itemname.up = "Up"
+	keymenu.itemname.down = "Down"
+	keymenu.itemname.left = "Left"
+	keymenu.itemname.right = "Right"
+	keymenu.itemname.a = "A"
+	keymenu.itemname.b = "B"
+	keymenu.itemname.c = "C"
+	keymenu.itemname.x = "X"
+	keymenu.itemname.y = "Y"
+	keymenu.itemname.z = "Z"
+	keymenu.itemname.start = "Start"
+	keymenu.itemname.d = "D"
+	keymenu.itemname.w = "W"
+	;keymenu.itemname.menu = "Menu"
+	keymenu.itemname.back = ;"Back"
+	keymenu.itemname.page = ;"Page"
+
+;---------------------------
+	; MENU
+;---------------------------
+	menu.itemname.menugame = Game Settings
+	menu.itemname.menugame.language = 
+	menu.itemname.menugame.difficulty = Difficulty Level
+	menu.itemname.menugame.roundtime = Time Limit
+	menu.itemname.menugame.lifemul = Life
+	menu.itemname.menugame.singlevsteamlife = ;Single VS Team Life
+	menu.itemname.menugame.gamespeed = Game Speed
+	menu.itemname.menugame.roundsnumsingle = Rounds to Win (SP)
+	menu.itemname.menugame.maxdrawgames = ;Max Draw Games
+	menu.itemname.menugame.credits = 
+	menu.itemname.menugame.aipalette = Arcade Palette
+	menu.itemname.menugame.aisurvivalpalette = Survival Palette
+	menu.itemname.menugame.airamping = 
+	menu.itemname.menugame.quickcontinue = 
+	menu.itemname.menugame.autoguard = 
+	menu.itemname.menugame.dizzy = 
+	menu.itemname.menugame.guardbreak = Guard Break
+	menu.itemname.menugame.redlife = 
+	menu.itemname.menugame.teamduplicates = 
+	menu.itemname.menugame.teamlifeshare = 
+	menu.itemname.menugame.teampowershare = 
+	menu.itemname.menugame.spacer1 = -
+	menu.itemname.menugame.menutag = 
+	menu.itemname.menugame.menutag.roundsnumtag = Rounds to Win (Tag)
+	menu.itemname.menugame.menutag.losekotag = Partner KOed Lose
+	menu.itemname.menugame.menutag.spacer1 = -
+	menu.itemname.menugame.menutag.mintag = Min Tag Chars
+	menu.itemname.menugame.menutag.maxtag = Max Tag Chars
+	menu.itemname.menugame.menutag.spacer2 = -
+	menu.itemname.menugame.menutag.back = Back
+	menu.itemname.menugame.menusimul = 
+	menu.itemname.menugame.menusimul.roundsnumsimul = Rounds to Win (Simul)
+	menu.itemname.menugame.menusimul.losekosimul = Player KOed Lose
+	menu.itemname.menugame.menusimul.spacer1 = -
+	menu.itemname.menugame.menusimul.minsimul = Min Simul Chars
+	menu.itemname.menugame.menusimul.maxsimul = Max Simul Chars
+	menu.itemname.menugame.menusimul.spacer2 = -
+	menu.itemname.menugame.menusimul.back = Back
+	menu.itemname.menugame.menuturns = 
+	menu.itemname.menugame.menuturns.turnsrecoverybase = Turns Recovery Base
+	menu.itemname.menugame.menuturns.turnsrecoverybonus = Turns Recovery Bonus
+	menu.itemname.menugame.menuturns.spacer1 = -
+	menu.itemname.menugame.menuturns.minturns = Min Turns Chars
+	menu.itemname.menugame.menuturns.maxturns = Max Turns Chars
+	menu.itemname.menugame.menuturns.spacer2 = -
+	menu.itemname.menugame.menuturns.back = Back
+	menu.itemname.menugame.back = Back
+	
+	menu.itemname.menunetplay = 
+	menu.itemname.menuvideo = ;Video Settings
+	menu.itemname.menuvideo.renderer = Renderer
+	menu.itemname.menuvideo.renderer.gles32 = OpenGL ES 3.2
+	menu.itemname.menuvideo.renderer.gl33 = OpenGL 3.3
+	menu.itemname.menuvideo.renderer.vk13 = Vulkan 1.3
+	menu.itemname.menuvideo.renderer.spacer1 = -
+	menu.itemname.menuvideo.renderer.back = Back
+	menu.itemname.menuvideo.resolution = Resolution ;reserved submenu
+	; Resolution is assigned based on values used in itemname suffix (e.g. 320x240)
+	menu.itemname.menuvideo.resolution.320x240 = ;320x240    (4:3 QVGA)
+	menu.itemname.menuvideo.resolution.640x480 = 640x480    (4:3 VGA)
+	menu.itemname.menuvideo.resolution.960x720 = ;960x720    (4:3 HD)
+	menu.itemname.menuvideo.resolution.1280x720 = 1280x720   (16:9 HD)
+	menu.itemname.menuvideo.resolution.1600x900 = ;1600x900   (16:9 HD+)
+	menu.itemname.menuvideo.resolution.1920x1080 = 1920x1080  (16:9 FHD)
+	menu.itemname.menuvideo.resolution.spacer1 = -
+	menu.itemname.menuvideo.resolution.customres = Custom
+	menu.itemname.menuvideo.resolution.back = Back
+	menu.itemname.menuvideo.fullscreen = Fullscreen
+	menu.itemname.menuvideo.vsync = ;VSync
+	menu.itemname.menuvideo.aspectratio = ;Aspect Ratio
+	; Aspect ratio is assigned based on values used in itemname suffix (e.g. 4:3)
+	menu.itemname.menuvideo.aspectratio.defaultaspect = Default
+	menu.itemname.menuvideo.aspectratio.stageaspect = Stage
+	menu.itemname.menuvideo.aspectratio.4x3 = 4:3
+	menu.itemname.menuvideo.aspectratio.16x9 = 16:9
+	menu.itemname.menuvideo.aspectratio.customaspect = Custom
+	menu.itemname.menuvideo.aspectratio.spacer1 = -
+	menu.itemname.menuvideo.aspectratio.back = Back
+	menu.itemname.menuvideo.keepaspect = Keep Aspect Ratio
+	menu.itemname.menuvideo.windowscalemode = Window Scale Mode
+	menu.itemname.menuvideo.msaa = MSAA
+	; This list is populated with shaders existing in 'external/shaders' directory
+	menu.itemname.menuvideo.shaders = ;Shaders
+	menu.itemname.menuvideo.shaders.spacer1 = -
+	menu.itemname.menuvideo.shaders.noshader = Disable
+	menu.itemname.menuvideo.shaders.back = Back
+	menu.itemname.menuvideo.model = 3D Model Settings
+	menu.itemname.menuvideo.model.enablemodel = 3D Model
+	menu.itemname.menuvideo.model.enablemodelshadow = Shadow
+	menu.itemname.menuvideo.model.spacer1 = -
+	menu.itemname.menuvideo.model.back = Back
+	menu.itemname.menuvideo.spacer1 = -
+	menu.itemname.menuvideo.back = Back
+
+	menu.itemname.menuaudio = Audio Settings
+	menu.itemname.menuaudio.mastervolume = Master Volume
+	menu.itemname.menuaudio.bgmvolume = BGM Volume
+	menu.itemname.menuaudio.sfxvolume = SFX Volume
+	menu.itemname.menuaudio.audioducking = Audio Ducking
+	menu.itemname.menuaudio.stereoeffects = Stereo Effects
+	menu.itemname.menuaudio.panningrange = Panning Range
+	menu.itemname.menuaudio.spacer1 = -
+	menu.itemname.menuaudio.back = Back
+
+	menu.itemname.menuinput = Input Settings
+	menu.itemname.menuinput.keyboard = Key Config
+	menu.itemname.menuinput.gamepad = Joystick Config
+
+	menu.itemname.menuinput.spacer1 = -
+	menu.itemname.menuinput.inputdefault = ;Default
+	menu.itemname.menuinput.back = Back
+
+	menu.itemname.menuengine = ;Engine Settings
+	menu.itemname.menuengine.players = Players
+	menu.itemname.menuengine.debugkeys = Debug Keys
+	menu.itemname.menuengine.debugmode = Debug Mode
+	menu.itemname.menuengine.vsscreenloading = VS Screen Loading
+	menu.itemname.menuengine.turnsloading = Turns Loading
+	menu.itemname.menuengine.spacer1 = -
+	menu.itemname.menuengine.helpermax = HelperMax
+	menu.itemname.menuengine.projectilemax = ProjectileMax
+	menu.itemname.menuengine.explodmax = ExplodMax
+	menu.itemname.menuengine.afterimagemax = AfterImageMax
+	menu.itemname.menuengine.palettemax = PaletteMax
+	menu.itemname.menuengine.textmax = TextMax
+	menu.itemname.menuengine.spacer2 = -
+	menu.itemname.menuengine.back = Back
+
+	menu.itemname.spacer1 = -
+	menu.itemname.portchange = ;Port Change
+	menu.itemname.default = ;Default Values
+	menu.itemname.spacer2 = -
+	menu.itemname.savereturn = Save and Return
+	menu.itemname.return = Return
+
+	menu.valuename.none = None
+	menu.valuename.random = Random
+	menu.valuename.default = Default
+	menu.valuename.f = (F%i)
+	menu.valuename.esc = ;(Esc)
+	menu.valuename.page = ;(Tab)
+	menu.valuename.nokey = N/A
+	menu.valuename.presskey = Press a key
+	menu.valuename.yes = Yes
+	menu.valuename.no = No
+	menu.valuename.enabled = Enabled
+	menu.valuename.disabled = Disabled
+	menu.valuename.normal = Normal
+	menu.valuename.slow = Slow %i
+	menu.valuename.fast = Fast %i
+
+	menu.title.uppercase = 1
+
+;-------------------------------------------------------------------
+[TitleBGdef]
+;bgclearcolor = 0,0,0
+
+[TitleBG 0]
+type  = normal
+spriteno = 100,2
+layerno = 0
+start = 0,1
+tile  = 1,1
+velocity = 1,1
+
+[TitleBG 1]
+type  = normal
+spriteno = 0,1
+start = -192,0
+Layerno = 0
+mask = 1
+trans = None
+
+[TitleBG 2]
+type  = normal
+spriteno = 0,3
+start = -192,-50
+Layerno = 0
+mask = 1
+trans = None
+
+[Begin Action 2009]
+2001,0, 0,0, 2
+2001,1, 0,0, 2
+2001,2, 0,0, 2
+2001,3, 0,0, 2
+2001,4, 0,0, 2
+2001,5, 0,0, 2
+2001,6, 0,0, 2
+2001,7, 0,0, 2
+2001,8, 0,0, 2
+2001,9, 0,0, 2
+2001,10, 0,0, 2
+
+; ------------------------------------------------------------------
+; SFAZ: Ratio split icons, one per start.t_ratioArray entry (1-7).
+; Sprites 300,0-300,6 system.sff.
+; ------------------------------------------------------------------
+[Begin Action 3000]
+300,0, 0,0, -1
+
+[Begin Action 3001]
+300,1, 0,0, -1
+
+[Begin Action 3002]
+300,2, 0,0, -1
+
+[Begin Action 3003]
+300,3, 0,0, -1
+
+[Begin Action 3004]
+300,4, 0,0, -1
+
+[Begin Action 3005]
+300,5, 0,0, -1
+
+[Begin Action 3006]
+300,6, 0,0, -1
+

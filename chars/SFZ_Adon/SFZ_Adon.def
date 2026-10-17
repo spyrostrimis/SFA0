@@ -1,0 +1,36 @@
+[Info]
+name = "Adon"
+displayname = "ADON"
+author = "HÅh"
+mugenversion = 1.0
+Pal.Defaults = 1,4
+localcoord = 384,224
+
+[Files]
+cmd     = Adon.cmd
+cns     = SFZ_Adon.cns
+st      = SFZ_Adon.cns
+stcommon = common1.cns
+sprite  = SFZ_Adon.sff
+anim    = SFZ_Adon.air
+sound   = SFZ_Adon.snd
+movelist = movelist.dat
+
+pal1    = Pals/Z-ISM1.act
+pal2    = Pals/X-ISM2.act
+pal3    = Pals/V-ISM1.act
+pal4    = Pals/Z-ISM2.act
+pal5    = Pals/X-ISM1.act
+pal6    = Pals/V-ISM2.act
+pal7    = Pals/Boss2.act
+pal8    = Pals/X-ISM3.act
+pal9    = Pals/V-ISM4.act
+pal10    = Pals/Boss1.act
+pal11    = Pals/X-ISM4.act
+pal12    = Pals/V-ISM3.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_Adon.def
+ending.storyboard = Data/sfa2_stuffroll.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/Adon.lua

@@ -1,0 +1,1543 @@
+#===============================================================================
+# custom_combo.zss
+# Universal Custom Combo ("V-ISM") - shared by every character, no per-character
+# edits. Registered in save/config.ini under [Common] States.
+#
+# CNS and ZSS cannot be mixed inside one file, but they load fine side by side,
+# which is why this lives next to common1.cns rather than inside it.
+#-------------------------------------------------------------------------------
+# WHAT IT DOES
+#
+#   1. State -3   Activation. D + W together, grounded, with ctrl and >= 1000
+#                 power.
+#   2. State 2700 Activation state: frame-1 invincibility, super flash and the
+#                 purple afterimage trail. A NEUTRAL POSE, not an attack - see
+#                 "NO LAUNCHER HITDEF" further down.
+#   3. State -2   Mode driver. Everything that makes the mode a MODE lives here:
+#                 meter drain, recovery cancelling, the juggling, the walk-speed
+#                 bonus and the one restriction (no guarding).
+#
+# Step 3 is the answer to "can a single state use all the other character
+# states?" - it cannot, and it does not need to. Instead of owning the character
+# for the duration, the mode leaves the character in its own states and re-grants
+# ctrl on every cancellable frame. That is what a custom combo actually is, and
+# it is why this needs no knowledge of any character's moveset.
+#-------------------------------------------------------------------------------
+# TUNABLES - everything you are likely to want to change is in this block.
+# Search for the name in CAPITALS to find where each one is used.
+#
+#   ACTIVATION_COST   1000   power a HUMAN needs to start (the "> 999" rule)
+#   AI_ACTIVATION_COST 2000  power the AI needs. Higher on purpose - see the
+#                            long note above State -3. Strictly greater than.
+#   AI_CC_CHANCE       300   out of 1000: the share of the AI's METER BARS that
+#                            get spent on a custom combo rather than saved for a
+#                            hyper. 300 = the 30/70 split. Rolled once per bar,
+#                            not per opening - see the note in State -4, which
+#                            explains why a per-frame roll would be nearer 100%.
+#   AI_ACTIVATION_RANGE 120  how close the AI must be to its victim to bother,
+#                            as p2BodyDist x. Raise to let it activate from
+#                            further out, lower to make it commit only up close.
+#   DRAIN_PER_TICK      12   meter burned per tick, INCLUDING hitpause frames.
+#                            Duration = power at activation / this, and because
+#                            the drain ignores hitpause that is a flat wall-clock
+#                            figure: 3000 power -> 250 frames -> ~4.2s at 60fps,
+#                            the same whether the combo connects or whiffs.
+#                            Raise it to shorten the mode and so cut the damage
+#                            a full combo does.
+#   INVULN_TIME         30   frame-1 invincibility on activation, in ticks
+#   ACTIVATION_ANIM    195   pose played on activation (the taunt anim - it has
+#                            no attack boxes, which is the point). Played ONLY
+#                            when the mode is entered from a standing/walking
+#                            start with nobody in hitstun; cancelled into from a
+#                            move, or started on a confirmed hit, the state hands
+#                            control straight back and the pose is skipped. The
+#                            flash and the aura play either way.
+#   HYPER_RANGE  3000..4999  hyper states blocked while the mode runs (a safety
+#                            net - supers are really stopped at their trigger,
+#                            by noPowerTrigger)
+#   THROW_RANGE   800.. 899  throw states blocked while the mode runs
+#   TAUNT_RANGE   195.. 197  ordinary taunt states, blocked while the mode runs,
+#                            for the AI only. A human may still taunt.
+#   KEN_TAUNTS   1500..1530  Ken's four special taunts, which are outside
+#                            TAUNT_RANGE. Both lists are measured, not guessed -
+#                            see the long note under State -1 before adding to
+#                            them, because movement specials look identical to
+#                            taunts unless you check for a Helper.
+#   WALK_SPEED_BONUS     1   added to the character's walk speed, in whichever
+#                            direction they are walking, while the mode runs.
+#                            Set to 0 for plain walk speed.
+#                            Movement is otherwise completely free FOR A HUMAN.
+#                            The AI is held to forward-only - see AI MOVEMENT
+#                            DISCIPLINE in State -2 - so for the CPU this only
+#                            ever applies forwards.
+#   CHARGE_MULTIPLIER  0.4   multiplier on the charge time every "~NN" command
+#                            asks for while the mode runs: 0.4 turns a 50-tick
+#                            charge into 20. Needs the engine side (see the
+#                            CHARGE TIMES block below). 1 disables it.
+#   GUARD_POINTS_MUL   0.5   multiplier on the guard-gauge damage this
+#                            character's attacks deal while the mode runs. 0.5 is
+#                            "half", i.e. a blocked custom combo cannot simply
+#                            guard-break its way through. Life, red life and
+#                            dizzy damage are NOT affected.
+#   JUGGLE_POP        -4.5   MINIMUM upward velocity given to the opponent by any
+#                            hit that would knock them down (negative is up).
+#                            This is what turns an instant knockdown into a
+#                            juggle. It is a FLOOR, not an assignment: a hit
+#                            whose own launch is already higher keeps it, so the
+#                            mode cannot shrink a move's own pop. Eagle's
+#                            bouncing attack (-9.6) is why - see the controller.
+#   JUGGLE_POP_TICKS     3   frames the pop is held for. See the note at the
+#                            controller - one frame is not enough, because the
+#                            opponent's own gethit state re-applies the HitDef's
+#                            velocity while it is still on its first frame.
+#   JUGGLE_FALL_CAP      5   the opponent's fall speed is capped at this for the
+#                            length of JUGGLE_GRACE, so they hang in a hittable
+#                            position instead of dropping straight out of range.
+#                            Raise it (99) to switch the cap off.
+#   CANCEL_DELAY        20   ticks a HitDef move must run before it can be
+#                            cancelled, on top of having issued its HitDef
+#   CANCEL_FALLBACK     90   ticks after which any move cancels regardless. High
+#                            on purpose: it must never come round before a
+#                            projectile move has fired, or the move is cancelled
+#                            mid-charge and you get the effect with no fireball.
+#   JUGGLE_GRACE        60   ticks after a hit during which the opponent's
+#                            horizontal knockback is cancelled and their fall
+#                            speed is capped. See JUGGLE_POP / JUGGLE_FALL_CAP.
+#   AFTERIMAGE               the purple trail, in State 2700. Its "time" is -1,
+#                            i.e. it never expires on its own; the teardown in
+#                            State -4 ends it when the mode does. It must NOT be
+#                            given the mode's duration - the trail's clock runs
+#                            during hitpause and the meter's does not, so any
+#                            tick count agreed between them drifts apart. See the
+#                            note on the controller.
+#   FINISH_ANIM      F6050   the KO backdrop, held for FINISH_TIME
+#   FINISH_SND     F3000, 2  the KO sound
+#   FINISH_TIME        150   ticks the backdrop stays up, and therefore how long
+#                            the BGM is silenced. 150 matches the roster's own
+#                            hyper finishes.
+#   FX_BACK_ANIM      F103   ground burst, drawn BEHIND the character
+#   FX_FRONT_ANIM     F104   ground burst, drawn IN FRONT of the character
+#   FX_AURA_ANIM      F105   body aura, drawn IN FRONT of the character
+#   FX_OUT_ANIM       F106   played when the bar empties and the mode closes.
+#                            Group 105 in reverse, i.e. the aura collapsing.
+#                            Needs an explicit removetime - see the note on it.
+#   FX_POS            0, 0   offset shared by all three, from the character's
+#                            own axis. Change it on all three or the effect
+#                            comes apart - see the note in State 2700.
+#   FX_SPRPRIORITY   2 / 1 / 3 / 4   character / F103 / F104 / F105. The four
+#                            move together: the character's value is set on the
+#                            StateDef line, the other three on the explods.
+#   FLASH_SOUND     F8, 0  activation sound (see ASSETS below)
+#   AFTERIMAGE               the purple trail - palette block in State -2
+#-------------------------------------------------------------------------------
+# ASSETS
+#
+# The defaults below deliberately use effects that EVERY character and every
+# match already has, so this file works as-is with nothing else installed:
+#
+#   FX_BACK_ANIM  = F103   -> [Begin Action 103] in data/fightfx.air, sprite
+#   FX_FRONT_ANIM = F104      group 104 in data/fightfx.sff. These two are two
+#                             halves of ONE burst, drawn at once from the same
+#                             sprite group: 103 takes indices 0,1,2,3 then the
+#                             odd ones up to 19, 104 takes the even ones from 4
+#                             to 20. They start together (23 and 16 ticks) and
+#                             must share a position; only the sprpriority
+#                             differs, which is what puts half the burst behind
+#                             the character and half in front of it.
+#   FX_AURA_ANIM  = F105   -> [Begin Action 105], sprite group 105. A separate
+#                             set that expands around the character's midpoint.
+#   FLASH_SOUND = F8, 0  -> common.snd. Already used by data/guardbreak.zss,
+#                             so it is guaranteed present.
+#   Purple trail           -> needs no sprite at all: AfterImage tints the
+#                             character's own frames through palette parameters.
+#
+# The three anims replace the level-1 super flash (F100) this used to borrow. The
+# SuperPause's own FX is switched OFF rather than repointed, because the engine
+# spawns it hard-wired to layerno 1 - always over the character, with no way to
+# put anything behind. See the comment above the SuperPause in State 2700.
+#
+# To swap in PURPOSE-MADE art/audio instead:
+#
+#   1. Add the sprites to data/gofx.sff and give them actions in data/gofx.air.
+#      Actions 5700-5702 are free - gofx.air currently uses 5300-5305,
+#      5400-5402, 5410, 5600-5608 and 9000.
+#   2. Add the sound to data/gofx.snd as group 5700.
+#   3. Change the four anim/sound lines in State 2700 to:
+#           anim:  GO 5700   (and GO 5701, GO 5702 on the other two explods)
+#           sound: GO 5700, 0
+#      The "GO" prefix is declared by data/gofx.def and means "from the Fx pack"
+#      rather than fightfx/common.snd. data/guardbreak.zss is a worked example.
+#
+# The afterimage colour is pure palette maths - retune palAdd/palMul/palBright in
+# State 2700 to move it toward blue or magenta. No art needed either way.
+#===============================================================================
+
+
+#-------------------------------------------------------------------------------
+# 0. TRAIL KEEPER - State -4
+#
+# This exists for one reason: nearly every character in this roster carries this
+# in its OWN [Statedef -2] -
+#
+#     type = AfterImageTime
+#     trigger1 = MoveType = H
+#     trigger2 = Ctrl = 1
+#     value = 0
+#
+# - and a custom combo hands ctrl back constantly, so trigger2 fires on almost
+# every frame and destroys the trail as fast as it can be created. That, not the
+# AfterImage parameters, is why the trail kept vanishing. Re-applying it on a
+# timer, on state change, or with different values could never fix it, because
+# the character is deleting it every single frame it has control.
+#
+# The engine flag keepAfterImage (src/char.go) makes AfterImage and
+# AfterImageTime do nothing for this character while it is asserted, in ANY
+# state. Asserting it here in -4 matters: -4 runs BEFORE the character's own -3
+# and -2 (src/char.go actionRun), so the block is already in place by the time
+# their AfterImageTime line is reached. No character in this roster defines -4.
+#
+# The two calls this file makes are deliberately placed where the flag is NOT
+# asserted, so they still work:
+#   * creation  - State 2700, on the tick the mode starts. -4 runs before it and
+#                 still sees _sfaz_cc_active = 0, so nothing is asserted yet.
+#   * teardown  - the branch below, on the first tick AFTER the mode ends, when
+#                 _sfaz_cc_active is already 0.
+#
+# nopowerTrigger is asserted from here for the same ordering reason: -4 runs
+# before the character's own -1, so the lie is already in place when its super
+# triggers are evaluated. See the note in State -1.
+#-------------------------------------------------------------------------------
+[StateDef -4]
+
+if isHelper || teamSide = 0 {
+	# Helpers and stage characters never run the mode.
+} else if map(_sfaz_cc_active) != 0 {
+	assertSpecial{flag: keepAfterImage; flag2: noPowerTrigger}
+} else if map(_sfaz_cc_ai) != 0 {
+	# The mode ended on the previous tick. The flag is not asserted now, so this
+	# is the one moment the trail can be dropped.
+	map(_sfaz_cc_ai) := 0;
+	afterImageTime{value: 0}
+}
+
+#-------------------------------------------------------------------------------
+# WHAT IS THIS BAR FOR? - the AI's custom-combo-versus-hyper roll.
+#
+# The AI gate in State -3 is otherwise deterministic: every confirmed hit at
+# close range with the meter over AI_ACTIVATION_COST became a custom combo. Since
+# the mode then drains the whole bar, the meter never reached a hyper and the CPU
+# effectively stopped using them. AI_CC_CHANCE is the balance: roughly 30% of
+# bars go to a custom combo, 70% are left for a hyper of any level.
+#
+# ROLLED ONCE PER BAR, AND THAT IS THE WHOLE POINT. The obvious implementation -
+# "random < 300" inside the State -3 gate - does not give a 30% chance of
+# anything. The gate stays true for as long as the opponent is in hitstun, so the
+# roll would be repeated every frame of that window and 30% per frame is a
+# near-certainty within a few frames; and with several openings per bar the
+# cumulative chance climbs again. So the decision is attached to the BAR, which
+# is also the thing actually being allocated: the question is not "activate on
+# this hit?" but "spend this meter on a mode or on a super?".
+#
+#   0  not yet decided - the bar is below the threshold, or was just spent
+#   1  this bar is earmarked for a custom combo
+#   2  this bar is earmarked for hypers, and State -3 will refuse
+#
+# The reset is the bar FALLING back under AI_ACTIVATION_COST, which happens on
+# every spend (a hyper, or the mode's own drain) and re-arms the next roll.
+#
+# Hypers are deliberately NOT suppressed when the roll says 1. The character's
+# own AI and data/ai_offense.zss RULE 1 may still spend that bar on a super
+# before a custom-combo opening ever arrives, which only pushes the observed
+# split further toward hypers - the safe direction, and the direction this was
+# asked to move in. AI_CC_CHANCE is the one number to raise if 30% of bars turns
+# out to show fewer than 30% custom combos in practice.
+#
+# Human players never roll: the key is only read inside the AI branch of -3.
+#-------------------------------------------------------------------------------
+if !isHelper && teamSide != 0 && aiLevel != 0 {
+	if power <= 2000 {                                  # AI_ACTIVATION_COST
+		map(_sfaz_cc_roll) := 0;
+	} else if map(_sfaz_cc_roll) = 0 {
+		if random < 300 {                               # AI_CC_CHANCE
+			map(_sfaz_cc_roll) := 1;
+		} else {
+			map(_sfaz_cc_roll) := 2;
+		}
+	}
+}
+
+#-------------------------------------------------------------------------------
+# CUSTOM COMBO FINISH - detect and fire, both here in State -4
+#
+# Mirrors what every character already does for a hyper KO (see SFZ_Ryu.cns
+# around [State 3101, Projectile SCF L] and the [State -3, AssertSpecial] blocks
+# above it): a full-screen backdrop explod, one sound, and the BGM silenced for
+# as long as it is up. The asserts are in State -2, since they have to keep
+# running long after this has fired.
+#
+# The character versions are written per hyper, per character, and hard-code the
+# state numbers they can be triggered from. This one needs none of that - the
+# mode is a state of the ATTACKER, so a single shared rule covers the roster.
+#
+# THREE THINGS THIS DELIBERATELY DOES NOT DEPEND ON, each of which broke it:
+#
+#   "win"        The characters trigger on "Win && !WinTime". Waiting for it put
+#                a visible pause between the killing hit and the effect, and it
+#                is reset by resetRound() (src/system.go), so on the round that
+#                ends the MATCH the wait could outlive the flag and the effect
+#                never fired at all. The enemy's life reaching 0 is the real
+#                event, and it is true on the frame the hit lands.
+#
+#   hitpause     A KO carries a long pausetime, and controllers in negative
+#                states are skipped for its duration. That was the rest of the
+#                delay. Hence the ignorehitpause block.
+#
+#   State -2     An earlier version latched from there. It cannot: the finish
+#                code sits after the branch that closes the mode down, so on the
+#                KO frame _sfaz_cc_active is already 0. State -4 runs before all
+#                of it.
+#
+# Latch and fire are in the same block so both happen on the killing frame.
+# _sfaz_cc_ko: 0 = nothing, 1 = KO scored in the mode, 2 = backdrop is out.
+#
+# NOTE for team modes: the test is the NEAREST enemy, so in a simul match this
+# fires on the first enemy KO rather than on the one that ends the round. Fine
+# for 1v1, which is what this game is; revisit if it ever matters.
+#-------------------------------------------------------------------------------
+if !isHelper && teamSide != 0 {
+	ignorehitpause {
+		if map(_sfaz_cc_ko) = 0 && map(_sfaz_cc_active) != 0
+				&& numEnemy != 0 && enemyNear, life <= 0 {
+			map(_sfaz_cc_ko) := 1;
+		}
+		if map(_sfaz_cc_ko) = 1 && numExplod(6050) = 0 {
+			map(_sfaz_cc_ko) := 2;
+			playSnd{value: F3000, 2}                     # FINISH_SND
+			# postype left/right rather than p1: the backdrop is screen-anchored,
+			# not character-anchored, and it is mirrored so it reads the same way
+			# round regardless of which side the winner is on. This is exactly how
+			# the characters place their own F6000/F6010/F6020/F6030 backdrops.
+			#
+			# ignorehitpause stays a PARAMETER on these two: Explod is one of only
+			# two controllers that declares one of its own, and it means something
+			# different there (the explod animates through hitpause).
+			if facing = 1 {
+				explod{
+					anim: F6050;                         # FINISH_ANIM
+					id: 6050;
+					pos: 0, 0;
+					postype: left;
+					bindtime: -1;
+					sprpriority: -3;
+					ownpal: 1;
+					removetime: 150;                     # FINISH_TIME
+					ignorehitpause: 1;
+				}
+			} else {
+				explod{
+					anim: F6050;                         # FINISH_ANIM
+					id: 6050;
+					pos: 0, 0;
+					postype: right;
+					facing: -1;
+					bindtime: -1;
+					sprpriority: -3;
+					ownpal: 1;
+					removetime: 150;                     # FINISH_TIME
+					ignorehitpause: 1;
+				}
+			}
+		}
+	}
+}
+
+
+#-------------------------------------------------------------------------------
+# 1. UNIVERSAL ACTIVATION - State -3
+#
+# -3 is the right hook rather than -2: the engine only runs it when the character
+# is in its OWN state (src/char.go actionRun checks ss.sb.playerNo == playerNo),
+# so a character being held in an opponent's custom state can never activate.
+# Controllers in -3 are also skipped during hitpause, so it cannot fire out of
+# hitstop either.
+#
+# THERE ARE TWO GATES: one for a human, one for the AI. They share almost
+# nothing, because "the player pressed D+W" and "the CPU decided to spend two
+# levels" are different decisions.
+#
+# WHY THE AI NEEDED ITS OWN GATE AT ALL.
+#
+# The AI never pressed D+W on purpose. src/input.go (AiInput.Update) jams the D
+# and W buttons on a timer exactly like the attack buttons - "jam(&ai.dt)" and
+# "jam(&ai.wt)", each holding for Rand(1,30) frames - so sooner or later both are
+# held at once and the command reads true. That is the whole of the reported
+# "it randomly gets activated": the CPU was not choosing the mode, it was
+# fumbling onto it. And because the old gate only asked for ACTIVATION_COST, it
+# fired the instant the bar crossed one level, burning 1000 power in 83 frames of
+# a mode the AI had no plan for - the "drains in an instant and stops".
+#
+# So the AI branch ignores the command entirely and activates on MERIT instead.
+# Every line of its condition is one of the requirements:
+#
+#   power > 2000        AI_ACTIVATION_COST. Two full levels, not one, so the mode
+#                       always has enough bar behind it to be worth spending -
+#                       and so the CPU cannot fritter a level-1 bar on it.
+#
+#   enemyNear in 5000..5099, moveType H, not guarded
+#                       "the player is in a hit-receiving state that cannot be
+#                       turned into a guard any more", i.e. a CONFIRMED hit. Once
+#                       a character is in 5000+ it cannot block, so the combo is
+#                       guaranteed to start. The upper bound matters: 5100 is the
+#                       landing from a fall and 5110 the lie-down, and there is
+#                       nothing to combo into from either. The guarded test is
+#                       belt and braces - the guard-hit states are 150-155, which
+#                       the 5000 floor already excludes.
+#
+#   GROUNDED, AND NOT FALLING. stateType != A and !getHitVar(fall), and these two
+#                       are the difference between a custom combo that converts
+#                       and one that hits an empty floor. Activating is not free
+#                       in time: the SuperPause freezes both players for 20
+#                       frames, but the activation POSE that follows runs for up
+#                       to 30 more with the opponent moving normally. An opponent
+#                       who was merely in stand/crouch hitstun (5000/5001/5010/
+#                       5011) recovers on the spot, still in range and still
+#                       standing, and the mode gets its whole duration against
+#                       them. An opponent who was FALLING spends those 30 frames
+#                       landing, and the mode opens on someone lying on the floor
+#                       where only the 24 HitDefs in this roster carrying the "D"
+#                       hitflag can touch them - which is the reported "she
+#                       activated while I was falling down and most of her
+#                       attacks went to waste", seen on Cammy and Adon.
+#
+#   p2BodyDist x <= 120 AI_ACTIVATION_RANGE. The hit being confirmed does not
+#                       mean the CPU is near enough to convert it - a fireball
+#                       confirms from full screen, and activating there would
+#                       spend the bar walking forward. Overlapping counts as
+#                       close, so this is deliberately not wrapped in abs().
+#
+#   NO ctrl REQUIREMENT, unlike the human branch, and that is the point. Right
+#                       after landing a hit the CPU is in its attack's recovery
+#                       with ctrl = 0, which is precisely the window where the
+#                       enemy is still in hitstun. Demanding ctrl would have made
+#                       the gate almost unsatisfiable. Activating out of recovery
+#                       is also what a custom combo is FOR, and the SuperPause
+#                       covers the interrupted animation.
+#
+#                       What replaces ctrl is a list of things that must not be
+#                       interrupted, and it is the same list the cancel window in
+#                       State -2 uses: not mid-hyper, not mid-throw, no throw
+#                       HitDef issued, and never while a target is bound to us.
+#
+#   THE NAME BLACKLIST  characters whose meter is worth more to them as their own
+#                       level 3 than as a custom combo. The mode is not removed
+#                       from them - a HUMAN on any of these can still use it -
+#                       the CPU simply will not choose it over the signature
+#                       move:
+#                         Gouki / Shin_Akuma / Evil Ryu / Sakura Dark
+#                                        Shun Goku Satsu
+#                         Bison / Dictador  level 3 Psycho Crusher and Psycho Shot
+#                         Guy               level 3 Bushin
+#
+#                       "name" is the .def name, not the displayname, for the
+#                       reason data/hyperlevel.zss already documents: the
+#                       displaynames collide (two of these display as "AKUMA")
+#                       and the .def names do not. Checked against all 46: none
+#                       of these seven strings is shared with another character.
+#                       To add or drop one, edit this list - no rebuild needed.
+#
+#   JULI AND JUNI       only while they are actually a pair. Both of them gate
+#                       their duo combo on "Partner, name = <the other> &&
+#                       NumPartner = 1" (juli.cns:227, Juni-N.cns:1048), so this
+#                       mirrors that test exactly: teamed up, the custom combo
+#                       stays out of the way; solo, either may use it.
+#-------------------------------------------------------------------------------
+[StateDef -3]
+
+if isHelper || teamSide = 0 {
+	# Helpers and stage characters never activate.
+} else if roundState = 2 && stateType != A && stateNo != 2700
+		&& map(_sfaz_cc_active) = 0 && moveType != H && !inCustomState {
+
+	# The moveType/inCustomState tests were implied by "ctrl = 1" before and are
+	# now spelled out, because the AI branch below does NOT require ctrl. They
+	# change nothing for a human: ctrl and moveType H are close to mutually
+	# exclusive, and -3 cannot run at all while an opponent owns the state.
+
+	if aiLevel = 0 {
+		# ======================= HUMAN =======================
+		# Unchanged: the D + W command, with ctrl, from a neutral state.
+		if ctrl = 1 && power >= 1000                    # ACTIVATION_COST
+				&& command = "d" && command = "w" {
+			changeState{value: 2700}
+		}
+
+	} else if power > 2000                              # AI_ACTIVATION_COST
+			&& map(_sfaz_cc_roll) = 1                   # AI_CC_CHANCE, see -4
+			&& numEnemy != 0
+			&& enemyNear, moveType = H
+			&& enemyNear, stateNo >= 5000 && enemyNear, stateNo < 5100
+			&& !enemyNear, getHitVar(guarded)
+			&& enemyNear, stateType != A                # grounded hitstun only
+			&& !enemyNear, getHitVar(fall)              # not a knockdown
+			&& p2BodyDist x <= 120                      # AI_ACTIVATION_RANGE
+			&& !(stateNo >= 3000 && stateNo < 5000)     # HYPER_RANGE
+			&& !(stateNo >= 800 && stateNo < 900)       # THROW_RANGE
+			&& hitDefAttr != SCA, AT
+			&& !(numTarget != 0 && target, getHitVar(isbound))
+			&& !(name = "Gouki" || name = "Shin_Akuma"
+				|| name = "Evil Ryu" || name = "Sakura Dark"
+				|| name = "Bison" || name = "Dictador"
+				|| name = "Guy")
+			&& !(numPartner = 1
+				&& ((name = "Juli" && partner, name = "Juni")
+					|| (name = "Juni" && partner, name = "Juli"))) {
+		# ======================== AI =========================
+		# See the long note above this StateDef for why every line is here.
+		changeState{value: 2700}
+	}
+}
+
+
+#-------------------------------------------------------------------------------
+# 2. CUSTOM COMBO STATE - 2700
+#
+# 2700 is free across the whole roster (no character defines a Statedef 2700).
+#-------------------------------------------------------------------------------
+# movetype is I, not A, and there is no HitDef: the activation is a POSE, not an
+# attack. Anim 195 is the taunt (present in 51 of the roster's .air files, and 45
+# characters back it with their own Statedef 195, always movetype = I with no
+# hitdef). The previous version used anim 200 - the light punch - plus a launcher
+# HitDef, and that HitDef is what was knocking the opponent down on activation.
+# sprpriority is set here ON PURPOSE and is not cosmetic: the three activation
+# explods below are layered RELATIVE to it, and without a value on the StateDef
+# the character simply keeps whatever the previous state left (0 standing, 1
+# walking/dashing, higher during attacks), so "behind" and "in front" would
+# mean something different depending on what the player was doing when they hit
+# the activation. 2 also puts the activating character over a standing opponent
+# for the length of the flash. State 0 resets it to 0 on the way out.
+# THE "anim" PARAMETER IS GONE FROM THIS LINE ON PURPOSE - see THE POSE IS
+# CONDITIONAL below. A StateDef's anim is applied on entry, before any controller
+# in the body runs, so leaving 195 here would show a frame of the taunt even on
+# the activations that are supposed to skip it. With no anim declared the state
+# inherits whatever the character was already playing, which is exactly what a
+# combo cancel should look like; the pose is then set explicitly, and only when
+# it is wanted. movetype is still I and there is still no HitDef, so inheriting
+# an attack's animation cannot inherit its attack - Clsn1 boxes do nothing
+# without a HitDef.
+[StateDef 2700; type: S; physics: S; movetype: I; ctrl: 0; velset: 0, 0; sprpriority: 2;]
+
+if time = 0 {
+	# ---------------------------------------------------------------------------
+	# Open the meter ledger.
+	#
+	# The mode drains a RECORDED number rather than calling powerAdd each tick,
+	# and State -2 writes that number back with powerSet. Two reasons:
+	#   * hits during the combo would otherwise refund meter through
+	#     Default.Attack.LifeToPowerMul (0.7 in data/common.const) and the combo
+	#     could sustain itself indefinitely;
+	#   * the duration becomes exactly "power at activation / DRAIN_PER_TICK"
+	#     frames of wall-clock time, tunable from one number. The drain ignores
+	#     hitpause, so that figure holds however the combo goes - see the note on
+	#     the drain itself.
+	# ---------------------------------------------------------------------------
+	map(_sfaz_cc_meter) := power;
+	map(_sfaz_cc_juggle) := 0;
+	map(_sfaz_cc_pop) := 0;
+	map(_sfaz_cc_proj) := numProj;
+	# Cleared here as well as at roundState 0. Relying on the round-0 reset alone
+	# left the latch stuck at 2 from a previous round if that branch was ever
+	# missed, and a stuck latch means the finish silently never fires again -
+	# which is what "round 1 works, round 2 does not" looked like. An activation
+	# always runs this state, so this reset cannot be skipped.
+	map(_sfaz_cc_ko) := 0;
+	map(_sfaz_cc_active) := 1;
+
+	# -----------------------------------------------------------------------
+	# THE POSE IS CONDITIONAL.
+	#
+	# The activation pose costs up to 30 ticks (see the exit at the bottom of
+	# this state) on top of the 20-tick SuperPause. The pause is free - both
+	# players are frozen through it and INVULN_TIME covers it - but those 30
+	# ticks are real time in which the character stands still doing nothing.
+	# Spend them out of a neutral stance and it is a flourish; spend them in the
+	# middle of a combo and the opponent recovers while you admire it, which is
+	# the reported "loses a lot of time and becomes a bit vulnerable".
+	#
+	# So the pose plays only for an activation from a genuine standing start.
+	# Two tests, and it needs both:
+	#
+	#   prevStateNo is a MOVEMENT state - 0, crouch, walk or run. Anything else
+	#   means the mode was entered out of an attack, i.e. cancelled into, which
+	#   is the case that must not pause to pose.
+	#
+	#   the nearest enemy is not in hitstun. This is what catches "combined with
+	#   a hit" in the other direction: the AI activation in State -3 deliberately
+	#   fires on a confirmed hit and has no ctrl requirement, so it can arrive
+	#   from a movement state with the opponent already reeling. Posing there
+	#   hands back the hitstun the activation was timed around.
+	#
+	# When the pose is skipped the FX are NOT - the SuperPause, all three explods
+	# and the afterimage are created above, before this, and the explods carry
+	# supermovetime -1 so they animate through the freeze. Only the standing
+	# around is dropped.
+	# -----------------------------------------------------------------------
+	map(_sfaz_cc_pose) := 0;
+	if (prevStateNo = 0 || prevStateNo = [10, 12] || prevStateNo = [20, 22]
+				|| prevStateNo = [100, 106])
+			&& !(numEnemy != 0 && enemyNear, moveType = H) {
+		map(_sfaz_cc_pose) := 1;
+		# ACTIVATION_ANIM. The fallback is defensive only: all 46 characters in
+		# this roster do define Action 195, checked. (An earlier note here said
+		# three of them did not - that conflated the ANIM with the STATE. Two
+		# characters have no Statedef 195, which does not matter, because this
+		# only ever borrows the animation.) It is kept because a ChangeAnim to a
+		# missing anim is a silent no-op, which would leave the state on the
+		# previous animation and never reach AnimTime = 0 - so if a character is
+		# ever added without it, this state would hang on the time = 30 fallback.
+		if selfAnimExist(195) {
+			changeAnim{value: 195}
+		} else {
+			changeAnim{value: 0}
+		}
+	}
+
+	# Frame-one invincibility, so an activation can pass straight through a
+	# fireball. Covers the flash plus a short tail (INVULN_TIME), which is the
+	# whole of this state.
+	notHitBy{value: SCA; time: 30}                      # INVULN_TIME
+
+	# movetime 0 freezes the character too, so the flash reads as a distinct
+	# activation pose. The state's own Time does not advance while frozen, so the
+	# pose below plays out AFTER the flash rather than underneath it.
+	#
+	# anim: F-1 SWITCHES THE BUILT-IN FX OFF. SuperPause spawns its own explod for
+	# the flash sprite, and that explod is created with layerno = 1 with no
+	# parameter to change it (bytecode.go, superPause.Run) - layerno 1 is the pass
+	# drawn after the characters AND after the lifebars, so anything routed through
+	# it can only ever be in FRONT. One of the three anims has to be BEHIND the
+	# character, so the FX cannot come from here at all. The engine skips the spawn
+	# entirely when the anim number is negative ("if fx_anim >= 0"), and F-1 is how
+	# you say that: the compiler strips the F prefix and compiles "-1" as the
+	# number. The three explods below are that same explod, three times, unpinned
+	# from layerno 1. The "pos" parameter goes with it - it positioned the F100
+	# sprite and now has nothing to position.
+	superPause{
+		time: 20;
+		movetime: 0;
+		anim: F-1;                                      # built-in FX off, see below
+		sound: F8, 0;                                 # FLASH_SOUND
+		darken: 1;
+		unhittable: 1;
+		poweradd: 0;
+	}
+
+	# ---------------------------------------------------------------------------
+	# ACTIVATION FX - one explod per layer.
+	#
+	#   F103  ground burst, BEHIND the character        sprpriority 1
+	#   F104  ground burst, IN FRONT of the character   sprpriority 3
+	#   F105  body aura,    IN FRONT of the character   sprpriority 4
+	#
+	# against the character's own 2, set on the StateDef line above. Higher draws
+	# later, so higher is nearer the camera (anim.go sorts each layer by ascending
+	# sprpriority).
+	#
+	# F103 and F104 are ONE burst split across the character, both reading from
+	# sprite group 104 and both starting on this tick. They are two explods only
+	# because an explod carries a single sprpriority and this effect has to be on
+	# two sides of the character at the same time.
+	#
+	# POSITION. postype p1 anchors an explod to the character's own axis, and for
+	# this roster that axis is on the ground, centred on the body - so "bottom and
+	# centred" is pos 0, 0 and needs no offset. The sprites are registered to that
+	# same point: measured out of data/fightfx.sff, every one of group 105's 17
+	# frames puts its image centre at a CONSTANT (-11, -57) from its own axis while
+	# the frame itself grows from 102x82 to 328x266, and Ryu's mid.pos is (-4,
+	# -50) - i.e. dropping the axis on the character's axis lands the aura on the
+	# character's midpoint, which is the centred-centred placement. Group 104's
+	# frames sit on the same registration point with the art rising off it (frames
+	# 4 and 20 have a NEGATIVE axis y, so they float above the ground line).
+	#
+	# If a nudge is needed, move FX_POS on ALL THREE. F103 and F104 are halves of
+	# one burst and come apart visibly if only one moves.
+	#
+	# supermovetime: -1 is what makes them animate DURING the pause. Without it the
+	# engine freezes them with everything else and all three play as a single still
+	# frame once the pause is already over. pausemovetime: -1 is the same guarantee
+	# against an ordinary Pause. The built-in SuperPause FX sets exactly these two.
+	#
+	# ownpal: 1 keeps the AFTERIMAGE off the flash. With ownpal 0 an explod takes
+	# its owner's PalFX, and the owner here is a character who is about to be
+	# wearing the purple custom-combo trail.
+	#
+	# IDs 6100-6102 sit next to this file's own FINISH_ANIM explod (6050) and are
+	# free across the whole roster - no character's .cns/.cmd declares an "id ="
+	# or tests a NumExplod() anywhere in 6100-6299. The obvious 2700-2705 block,
+	# matching the statedef, is NOT free: SFZ_Ken's Pals/Ken-S.cns owns 2701,
+	# 2702 and 2703, and gates one of its own explods on "NumExplod(2703) = 0",
+	# so an activation explod parked on that id would silently suppress it.
+	#
+	# removetime is left at its default of -2, "live until the animation ends":
+	# F103 runs 23 ticks, F104 16 and F105 21, against the 20-tick pause. Nothing
+	# clears them, and nothing needs to - they expire on their own, after the
+	# state has already handed control back.
+	# ---------------------------------------------------------------------------
+	explod{
+		anim: F103;                                     # FX_BACK_ANIM
+		id: 6100;
+		postype: p1;
+		pos: 0, 0;                                      # FX_POS
+		sprpriority: 1;                                 # < StateDef's 2 = behind
+		ownpal: 1;
+		supermovetime: -1;
+		pausemovetime: -1;
+		ignorehitpause: 1;
+	}
+	explod{
+		anim: F104;                                     # FX_FRONT_ANIM
+		id: 6101;
+		postype: p1;
+		pos: 0, 0;                                      # FX_POS
+		sprpriority: 3;                                 # > StateDef's 2 = in front
+		ownpal: 1;
+		supermovetime: -1;
+		pausemovetime: -1;
+		ignorehitpause: 1;
+	}
+	explod{
+		anim: F105;                                     # FX_AURA_ANIM
+		id: 6102;
+		postype: p1;
+		pos: 0, 0;                                      # FX_POS
+		sprpriority: 4;                                 # over F104 as well
+		ownpal: 1;
+		supermovetime: -1;
+		pausemovetime: -1;
+		ignorehitpause: 1;
+	}
+
+	# AFTERIMAGE - the purple trail, created here and then protected for the rest
+	# of the mode by the keepAfterImage assert in State -4 (see the note there).
+	# This is the only moment it can be created: from the next tick on, the flag
+	# is asserted and the AfterImage controller does nothing.
+	#
+	# _sfaz_cc_ai is the "a trail is out there" latch that State -4 uses to know
+	# it still has to be dropped once the mode ends.
+	#
+	# time is -1, which the engine reads as "never expire" (src/char.go: both
+	# AfterImage.isActive and recAndCue only apply the lifetime test when
+	# ai.time > 0). The trail is ended explicitly by the teardown in State -4
+	# instead, on the first tick after the mode closes - see the note there.
+	#
+	# IT USED TO BE "power / DRAIN_PER_TICK", i.e. the mode's own duration in
+	# ticks, on the reasoning that the trail would then expire exactly with the
+	# power bar. THAT IS WRONG, and it is why the trail kept dying early:
+	#
+	#   * the trail's clock (AfterImage.timecount) advances DURING HITPAUSE. The
+	#     engine calls recAfterImg when "rec || hitpause && ai.ignorehitpause",
+	#     and ignorehitpause defaults to TRUE (src/char.go, AfterImage.clear), so
+	#     every frame of hitstop still burns a tick of the trail's budget;
+	#   * the meter's clock does NOT. The drain lives in State -2, and controllers
+	#     in negative states are skipped for the whole of a hitpause.
+	#
+	# A custom combo is mostly hitstop, so the two clocks run at very different
+	# rates and the trail ran out roughly half way through the bar. Nothing about
+	# it was tied to the power level - it just counts faster than the meter does.
+	#
+	# TIMING (length / timegap / framegap) is the roster's own hyper trail
+	# (SFZ_Ryu.cns [State 3100,1]): record every tick, draw every fourth, which is
+	# what puts gaps between the ghosts.
+	#
+	# COLOUR is not from that trail. palcolor 256 leaves the ghosts in full
+	# colour, so they read as the character rather than as a trail; palcolor 0
+	# drains them to greyscale first and paladd/palmul supply the purple.
+	#
+	# Purple rather than blue is a matter of the RED:BLUE ratio in paladd and of
+	# not letting palmul crush red away. 60:110 with red multiplied down to 0.60
+	# each step read as blue; 100:120 with red held at 0.80 keeps red alive next
+	# to the blue, which is what makes it violet. Green is pushed down hard in
+	# both (0 added, 0.30 multiplier) - any green left in it turns the result
+	# grey. Retune these three lines for colour, the three above for spacing.
+	map(_sfaz_cc_ai) := 1;
+	afterImage{
+		time: -1;                                       # never expires; see above
+		length: 16;
+		timegap: 1;
+		framegap: 4;
+		palcolor: 0;
+		paladd: 100, 0, 120;
+		palmul: 0.80, 0.30, 0.85;
+	}
+}
+
+# (The old "no anim 195" fallback used to live here. It is part of the pose
+# branch above now, because with the StateDef no longer declaring an anim there
+# is nothing to fall back FROM unless the pose is actually being played.)
+
+# NO LAUNCHER HITDEF.
+#
+# The activation used to fire one here on time = 2 (damage 120, ground/air
+# velocity -4,-6, fall). That is what was putting the opponent on the floor the
+# moment the mode started, so it is gone: activation is now a neutral pose and
+# the player opens the combo with their own moves.
+#
+# To restore it, put back a hitDef{...} under "if time = 2" and set the statedef
+# above to movetype: A (and give it a juggle value). The old block:
+#
+#   attr: S, NA; damage: 120, 0; animtype: Up; air.animtype: Back;
+#   guardflag: MA; hitflag: MAF; priority: 4, Hit; pausetime: 8, 8;
+#   sparkno: 0; sparkxy: -10, -76; hitsound: 5, 0; guardsound: 6, 0;
+#   ground.type: High; ground.slidetime: 15; ground.hittime: 20;
+#   ground.velocity: -4, -6; air.type: High; air.hittime: 30;
+#   air.velocity: -4, -6; air.juggle: 0; fall: 1; fall.recover: 0;
+#   getpower: 0, 0; givepower: 0, 0;
+
+# AnimTime = 0 covers characters whose anim 195 ends naturally; the time = 30
+# fallback guarantees an exit even if a character's anim 200 holds its last frame
+# indefinitely (common for anims cut short by Time instead of by the
+# animation). The mode itself keeps running after this - only the activation
+# state ends here.
+if map(_sfaz_cc_pose) = 0 || animTime = 0 || time = 30 {
+	changeState{value: 0; ctrl: 1}
+}
+
+
+#-------------------------------------------------------------------------------
+# 3. HYPER AND THROW LOCK - State -1
+#
+# While the mode runs the character may not spend meter on its own supers -
+# without this the player can activate and immediately cancel into a level 3,
+# because the meter is still full at that moment - and may not throw.
+#
+# Throws are blocked in two complementary places, because a state range alone is
+# not enough:
+#   * HERE, for the ordinary command throws every character keeps in 800-899
+#     (44 characters define Statedef 800, 41 define 810, and so on);
+#   * in the ENGINE, for the throw-based SPECIALS the user asked about. Those
+#     live at arbitrary state numbers and cannot be found by number at all, so
+#     they are handled by ATTRIBUTE instead: src/char.go excludes any HitDef
+#     carrying a throw class (AT_AT = NT/ST/HT) from the nohitcombocheck bypass,
+#     so a throw keeps the stock "-" hitflag rule and simply cannot grab an
+#     opponent who is in hitstun. It comes out and whiffs, which is the right
+#     outcome and needs no per-character knowledge.
+#
+# Why -1 and not -2: the character's OWN -1 is what issues the ChangeState into
+# the hyper, and ChangeState applies immediately (src/char.go stateChange1 sets
+# ss.no on the spot) while the new state's controllers only run after every
+# negative state has finished. Common state files are compiled LAST
+# (src/compiler.go, "Compile common states"), and negative statedefs from several
+# files are appended rather than replaced, so this block runs AFTER the
+# character's own -1 - it sees stateNo already changed and can send it somewhere
+# else before a single frame of that state executes.
+#
+# THIS IS NOW THE SAFETY NET, NOT THE PRIMARY DEFENCE FOR SUPERS.
+#
+# Bouncing a super still lets its own Time = 0 controllers run first, so the
+# SuperPause flash appears for a frame and is then undone - the reported symptom
+# was mashing fireballs, having the input read as a Shinkuu Hadouken, and seeing
+# its flash start and vanish with nothing coming out. The rule wanted is "if a
+# move is going to be blocked, its animation should never be seen", and a bounce
+# cannot deliver that by construction.
+#
+# So supers are now stopped one step earlier, at the trigger: noPowerTrigger
+# (asserted in State -4) makes the power trigger read 0 inside the character's
+# own command state, and since all 48 .cmd files in this roster gate their supers
+# on power, none of them ever fire. This block only catches whatever slips
+# through - a super that is not power-gated, or one entered from an ordinary
+# state rather than from -1.
+#
+# Throws still rely on this block: they are not power-gated, so there is no
+# equivalent trigger to poison. A throw attempt is a plain animation with no
+# flash, so a one-frame bounce is not noticeable the way a SuperPause is.
+#
+# HYPER_RANGE stops at 4999 on purpose: 5000+ are the get-hit states, which the
+# engine drives and which must never be intercepted.
+#-------------------------------------------------------------------------------
+[StateDef -1]
+
+if isHelper || teamSide = 0 {
+	# Helpers and stage characters never run the mode.
+} else if map(_sfaz_cc_active) != 0
+		&& ((stateNo >= 3000 && stateNo < 5000)          # HYPER_RANGE
+			|| (stateNo >= 800 && stateNo < 900)         # THROW_RANGE
+			|| (aiLevel != 0
+				&& ((stateNo >= 195 && stateNo <= 197)   # TAUNT_RANGE
+					|| (name = "Ken"                     # KEN_TAUNTS
+						&& stateNo >= 1500 && stateNo <= 1530)))) {
+	changeState{value: 0; ctrl: 1}
+}
+
+# TAUNT STATES - measured across the whole roster, not assumed.
+#
+# TAUNT_RANGE 195..197 is the ordinary taunt. All 46 characters route one to
+# Statedef 195 from their .cmd; Dan adds 196 and 197, Ryu and Evil Ryu add 196
+# (Ryu's is the fake-hadouken taunt). Every one of those was checked to be
+# movetype I with no HitDef, Projectile or TargetState - they do nothing at all.
+#
+# THE RANGE STOPS AT 197 ON PURPOSE. 198 and 199 exist here and are NOT taunts:
+# Ryu's 199 asserts the Intro flag and Dan's 198 runs a Dialogue. Neither is
+# reachable from a .cmd, and the mode only runs at roundState 2 so they could not
+# collide today - but an intro state is not something to leave in a bounce range.
+#
+# KEN_TAUNTS is the special taunt that prompted this: "~D,DB,B," plus a button,
+# which lies him down and jumps him back up. It is NOT in 195..197 - Ken has four
+# of them, "zt_a"/"zt_b"/"zt_c"/"zt_s" at 1500/1510/1520/1530, and all four are
+# the same 19-line movetype I state with no attack of any kind. The whole block
+# 1500..1530 is his taunt set, which is why the test is a range.
+#
+# WHY THERE IS NO GENERAL RULE HERE, and why this is a list rather than a
+# heuristic. A special taunt can sit at any state number, so the obvious move is
+# to bounce anything that is "cmd-reachable, not a common state, and issues no
+# attack". That was tried and it is WRONG: by that test Akuma's 1600 (Ashura
+# Senku), Guy's 1600 (teleport), Gen's 1600 (wall jump), Bison's 1400 (teleport)
+# and Violent Ken's 1400/1410 (dashes) all look like taunts. They are movement
+# specials with no HitDef of their own, and bouncing them would break those
+# characters outright. Attack content also frequently lives in a spawned Helper
+# or two state changes further on, which no static test sees.
+#
+# So the list is extended BY OBSERVATION. If another special taunt turns up, add
+# it the way Ken's is added - one "name = ... && stateNo ..." clause, no rebuild.
+# The check that matters before adding one: its Statedef must have no HitDef, no
+# Projectile, no TargetState and spawn no Helper that carries them.
+#
+# AI ONLY, like the movement discipline in State -2. A human who taunts mid-combo
+# is wasting their own bar on purpose, which is their business; the CPU was doing
+# it by accident, because src/input.go jams the start button too (jam(&ai.st)).
+
+
+#-------------------------------------------------------------------------------
+# 4. MODE DRIVER - State -2
+#
+# -2 runs every frame in every state, including opponents' custom states, which
+# is what lets the mode survive being thrown mid-combo. Controllers here are
+# skipped during hitpause and superpause - EXCEPT the meter drain, which is
+# wrapped in ignorehitpause so the mode lasts a fixed amount of wall-clock time
+# no matter how much hitstop the combo generates. See the note on it. Note that
+# ignorehitpause covers HITPAUSE only: a Pause or SuperPause skips the whole of
+# a negative state before any block's own flag is consulted (src/char.go
+# actionRun tests c.pauseBool first), so the drain still stops for those. That is
+# the wanted behaviour - an opponent's super flash should not burn this meter.
+#-------------------------------------------------------------------------------
+[StateDef -2]
+
+if isHelper || teamSide = 0 {
+	# Helpers and stage characters never run the mode.
+} else if roundState = 0 {
+	# New round: clear anything left over from the previous one.
+	map(_sfaz_cc_active) := 0;
+	map(_sfaz_cc_meter) := 0;
+	map(_sfaz_cc_juggle) := 0;
+	map(_sfaz_cc_pop) := 0;
+	map(_sfaz_cc_chargemul) := 0;
+	map(_sfaz_cc_pose) := 0;
+	map(_sfaz_cc_roll) := 0;
+	map(_sfaz_cc_proj) := 0;
+	map(_sfaz_cc_ai) := 0;
+	map(_sfaz_cc_ko) := 0;
+	# GUARD_POINTS_MUL is the only thing this mode changes that lives on the
+	# CHARACTER rather than in a map key, so it is the only one that has to be
+	# put back by hand. The mode's own end-of-mode branch does that too; this is
+	# the belt to that brace, for a round that ends while the mode is still live.
+	attackMulSet{guardpoints: 1}
+} else if map(_sfaz_cc_active) != 0 {
+
+	# ---------------------------------------------------------------------------
+	# Smooth drain. One subtraction per tick against the ledger, then written
+	# back to the real bar, so the gauge slides down continuously and any meter
+	# earned mid-combo is absorbed rather than extending it.
+	#
+	# IGNOREHITPAUSE, AND THAT IS THE POINT. Controllers in negative states are
+	# normally skipped for the whole of a hitpause, and this drain used to be
+	# skipped with them - which sounded right ("do not burn meter the player
+	# cannot use") but made the mode's length depend on how well it was doing:
+	# every hit froze the meter for its pausetime, so more hits -> more hitstop
+	# -> a longer mode -> more hits still. A fully connecting combo ran far longer
+	# in real time than the tick count suggested, and took about 70% of the life
+	# bar. Draining through hitpause breaks that loop: the mode is now a flat
+	# "power at activation / DRAIN_PER_TICK" FRAMES of wall-clock time, whether it
+	# connects, whiffs or is blocked. The trade is deliberate - whiffing now costs
+	# the same meter as hitting. (Pause/SuperPause still stop it - see the note on
+	# the StateDef above.)
+	#
+	# Only the drain is wrapped. The MODE ACTIVE and END OF MODE blocks below
+	# keep the default behaviour and stay skipped during hitpause, which is what
+	# they were written for: the juggle bookkeeping, the asserts and the cancel
+	# window all want to see real frames only. The nested ignorehitpause also
+	# propagates up to the enclosing "if" blocks automatically
+	# (src/compiler.go stateBlock), so the branch is still reached to run this -
+	# but NOT to run its own other controllers, because propagation sets
+	# ignorehitpause without setting ctrlsIgnorehitpause (src/bytecode.go
+	# StateBlock.Run). That is exactly the split wanted here, and it is why
+	# powerSet has to live inside this block rather than after it.
+	# ---------------------------------------------------------------------------
+	ignorehitpause {
+		map(_sfaz_cc_meter) := map(_sfaz_cc_meter) - 12; # DRAIN_PER_TICK
+		if map(_sfaz_cc_meter) < 0 {
+			map(_sfaz_cc_meter) := 0;
+		}
+		powerSet{value: map(_sfaz_cc_meter)}
+	}
+
+	if map(_sfaz_cc_meter) <= 0 || roundState != 2 || !alive {
+		# -----------------------------------------------------------------------
+		# END OF MODE
+		# -----------------------------------------------------------------------
+		map(_sfaz_cc_active) := 0;
+		map(_sfaz_cc_juggle) := 0;
+		map(_sfaz_cc_pop) := 0;
+		# Charge times back to normal (see the CHARGE TIMES block below).
+		map(_sfaz_cc_chargemul) := 0;
+		# Guard-gauge damage back to normal. Unlike everything else here this is
+		# character state, not a map key, so leaving it would follow the character
+		# out of the mode and halve their guard damage for the rest of the round.
+		attackMulSet{guardpoints: 1}                    # GUARD_POINTS_MUL off
+
+		# -----------------------------------------------------------------------
+		# MODE-OUT FX - F106, the mirror of the activation's F105.
+		#
+		# F106 is sprite group 105 played BACKWARDS (16 down to 7, see
+		# [Begin Action 106] in data/fightfx.air), so it reads as the aura
+		# collapsing back into the character - which is why it suits the bar
+		# running out. Placed exactly like the F105 aura in State 2700: postype
+		# p1 with FX_POS 0, 0, which for this roster's ground-centred axis is the
+		# character's midpoint.
+		#
+		# ONLY ON THE NATURAL END. This branch is also reached when the round ends
+		# or the character is KO'd mid-combo, and a "your bar ran out" flourish
+		# over a knockdown or a round-end freeze reads as a bug. meter <= 0 is the
+		# bar actually emptying; the alive/roundState tests exclude the other two.
+		#
+		# removetime IS REQUIRED HERE, unlike the three activation explods which
+		# are left on the default of -2 ("until the animation ends"). Action 106's
+		# last frame is "-1,0, 0,0,-1" - a blank frame held for -1, i.e. forever -
+		# so its animation never ends and a -2 explod would live for the rest of
+		# the round. 10 is the sum of the visible frames' times (2+1*8), so the
+		# explod dies with the last frame that actually draws something.
+		#
+		# id 6103 continues the file's own 6100-6102 activation block, which the
+		# note in State 2700 established is free across the whole roster.
+		#
+		# sprpriority 4 matches the F105 aura. Note it is not pinned relative to
+		# the character the way it is during the activation: State 2700 set the
+		# character's own sprpriority to 2, but the mode can end in any state, so
+		# a high-priority attack frame could occasionally draw over this. Harmless
+		# for a 10-tick flourish, and the alternative - forcing sprpriority on the
+		# character on the way out - would be visible.
+		# -----------------------------------------------------------------------
+		if map(_sfaz_cc_meter) <= 0 && roundState = 2 && alive {
+			explod{
+				anim: F106;                             # FX_OUT_ANIM
+				id: 6103;
+				postype: p1;
+				pos: 0, 0;                              # FX_POS
+				sprpriority: 4;
+				ownpal: 1;
+				removetime: 10;                         # see note above
+				supermovetime: -1;
+				pausemovetime: -1;
+				ignorehitpause: 1;
+			}
+		}
+		# The trail is NOT dropped here. keepAfterImage is still asserted on this
+		# tick (State -4 ran before this block and the mode was still live then),
+		# so an afterImageTime call here would be ignored. State -4 handles it on
+		# the next tick, when the flag is no longer asserted. On the normal path
+		# there is nothing left to drop anyway - the trail's time was set to the
+		# mode's duration, so it has already expired with the power bar.
+		# Back to State 0 as specified - but only when that is actually safe.
+		# Forcing a stand while the character is airborne, in hitstun, or held in
+		# an opponent's custom state would teleport them out of a juggle or out of
+		# a throw, so those cases just drop the mode and let the normal state flow
+		# finish.
+		if roundState = 2 && alive && stateType != A && moveType != H && !inCustomState {
+			changeState{value: 0; ctrl: 1}
+		}
+	} else {
+		# -----------------------------------------------------------------------
+		# MODE ACTIVE
+		# -----------------------------------------------------------------------
+
+		# RESTRICTIONS + the juggle limit, in one controller.
+		#
+		# GUARDING IS THE ONLY THING THE MODE TAKES AWAY. The three guard flags
+		# cover all three stances, and between them they are the whole of
+		# "guarding is disabled". Movement is deliberately NOT restricted - see
+		# MOVEMENT below - so there is no noJump, no noWalk and no noCrouch here:
+		# walking either way, crouching and jumping in all three directions are
+		# the character's own, driven by the engine's own handlers.
+		#
+		# noJuggleCheck is what removes the hit limit: the same normal punch can
+		# hit an airborne opponent over and over. It is a per-character assert, so
+		# it only ever benefits the player who activated.
+		#
+		# noHitComboCheck is the engine flag added for this mode (src/char.go,
+		# attrCheck). Without it a large part of the roster simply cannot follow up
+		# inside a combo: a HitDef needs the "F" hitflag to touch an opponent whose
+		# fall flag is set, and 312 HitDefs here are "MA" and 18 are "M" - so those
+		# whiff the moment the opponent starts falling, which is exactly the
+		# "shoryuken hits once and the rest passes through" problem. A further 143
+		# are "M-", which cannot hit an opponent in hitstun at all. The flag skips
+		# those two checks for this attacker only; the M/L/A/D height checks are
+		# untouched, so highs still miss crouchers.
+		#
+		# noCornerPush stops the corner pushback shoving the two apart mid-combo.
+		#
+		# noProjLimit is the other engine flag added for this mode. Characters cap
+		# themselves to one fireball on screen in their OWN command state, with
+		# "triggerall = NumProj = 0" (81 occurrences across this roster) or
+		# "NumProjID(nnnn) = 0". Nothing in script can relax a trigger inside 48
+		# separate .cmd files, so the flag makes the character's own projectile
+		# count read as 0 and its existing trigger simply passes every time. Reads
+		# of someone else's count ("enemynear, NumProj", used by AI) are
+		# unaffected, because the opponent is not the one asserting.
+		assertSpecial{
+			flag: noJuggleCheck;
+			flag2: noStandGuard;
+			flag3: noCrouchGuard;
+			flag4: noAirGuard;
+			flag5: noHitComboCheck;
+			flag6: noCornerPush;
+			flag7: noProjLimit;
+		}
+		# Seven of the eight flag slots are used; the eighth is free.
+		# keepAfterImage is asserted in State -4 instead, where it runs ahead of
+		# the characters' own negative states - see the note there.
+
+		# -----------------------------------------------------------------------
+		# GUARD GAUGE - half damage while the mode runs.
+		#
+		# A custom combo is a long string of blocked hits against an opponent who
+		# is not allowed to do anything about it, and at full rate that guard-breaks
+		# almost every time - which turns the mode into a free stun rather than a
+		# combo. Halving it means blocking one still costs the defender a lot of
+		# gauge without the break being a formality.
+		#
+		# attackMul[3] is the ATTACKER's own guard-points multiplier (src/char.go,
+		# where ghv.guardpoints is accumulated), so this scales every HitDef and
+		# every Projectile this character owns without needing to know any of them.
+		# data/guardbreak.zss drives the bar off the engine's native guardPoints,
+		# so it needs no changes either.
+		#
+		# "guardpoints:" and NOT "value:" - AttackMulSet's value parameter writes
+		# all four multipliers at once (damage, red life, dizzy points, guard
+		# points), which would quietly halve the combo's actual damage too.
+		#
+		# Set every tick rather than once at activation. It is absolute, so
+		# re-setting costs nothing, and data/common1.cns [State -4, Difficulty]
+		# writes all four multipliers on every TeamSide 1 frame - State -2 runs
+		# after State -4 (src/char.go actionRun), so this wins, but only for as
+		# long as it keeps running.
+		# -----------------------------------------------------------------------
+		# -----------------------------------------------------------------------
+		# CHARGE TIMES - shortened for as long as the mode runs.
+		#
+		# 17 of this roster's characters have charge specials, 299 command lines
+		# between them, and the shortest charge is 40 ticks. A custom combo lasts
+		# a few seconds, so none of that is buildable inside one: a charge
+		# character activates and loses its entire special list for the duration,
+		# which is the opposite of what the mode is for.
+		#
+		# Charge time is fixed at parse time and no trigger can reach it, so this
+		# is the one part of the mode that could not be done in script alone. The
+		# engine reads this map key in CharList.commandUpdate (src/char.go,
+		# sfazChargeMul) and scales the requirement of every "~NN" step for this
+		# character only - see sfazChargeTime in src/input.go. Anything <= 0 or
+		# >= 1 means "leave charge alone", which is why clearing the key is all it
+		# takes to switch it back off.
+		#
+		# The key is set every tick rather than once, so it cannot be left behind
+		# by a mode that ends in a state this file does not run its teardown from.
+		map(_sfaz_cc_chargemul) := 0.4;                 # CHARGE_MULTIPLIER
+
+		attackMulSet{guardpoints: 0.5}                  # GUARD_POINTS_MUL
+
+		# -----------------------------------------------------------------------
+		# AI MOVEMENT DISCIPLINE - retreating is switched off for the CPU only.
+		#
+		# The mode leaves movement completely free (see MOVEMENT below), which is
+		# right for a human: they can be trusted to know that walking away burns
+		# the bar for nothing. The CPU cannot. Its direction input is a random jam
+		# (src/input.go AiInput.Update picks one of 8 directions and holds it for
+		# up to 30 frames), so a freshly activated custom combo would regularly
+		# spend a chunk of its bar strolling or hopping backwards out of its own
+		# combo. That is the reported waste.
+		#
+		# noWalk and noJump stop the ENGINE's own movement handlers, then the two
+		# re-issues below hand back exactly the forward half of each. The result
+		# is that back and neutral input simply does nothing, rather than being
+		# cancelled after the fact - so there is no walking-on-the-spot animation
+		# and no back-jump arc to correct mid-air.
+		#
+		# WHY NOT CANCEL THE MOTION INSTEAD, as an earlier version of this file did
+		# for the human with posAdd: State 20 would still be playing the walk-back
+		# animation with the character pinned in place, and a back jump would still
+		# pick anim 43 on its first frame (common1.cns [State 50, 2] chooses from
+		# vel x at Time = 0, before -2 can touch it). Refusing the input outright
+		# avoids both.
+		#
+		# noBrake is NOT asserted, so releasing forward still stops the character
+		# normally - that is the engine's own brake and it is wanted here.
+		# -----------------------------------------------------------------------
+		if aiLevel != 0 {
+			assertSpecial{flag: noWalk; flag2: noJump}
+
+			# Already walking backwards when the mode started. noWalk prevents
+			# RE-entering State 20, not being in it, so this is the one case that
+			# has to be pushed out by hand. No thrash: the engine cannot put them
+			# back while the flag is asserted.
+			if stateNo = 20 && inputTime(B) > 0 && inputTime(F) <= 0 {
+				changeState{value: 0; ctrl: 1}
+			}
+
+			# Forward walk, re-issued. State 20's own body still reads holdfwd and
+			# supplies velocity.walk.fwd.x, so the character walks at its normal
+			# speed with its normal animation - plus WALK_SPEED_BONUS below.
+			if ctrl = 1 && stateType = S && stateNo = 0
+					&& inputTime(F) > 0 && inputTime(B) <= 0 {
+				changeState{value: 20; ctrl: 1}
+			}
+
+			# Forward jump, re-issued. Same shape as the human forward-jump rule
+			# this file used to carry: "= 1" is the frame up was pressed, and
+			# forward must already be held, so neutral and back jumps never start.
+			# State 40 then latches sysvar(1) = 1 from holdfwd and gives it
+			# velocity.jump.fwd.x on the way out, so the arc and the animation are
+			# the character's own.
+			if ctrl = 1 && stateType = S && stateNo != 40 && moveType != H
+					&& !inCustomState && hitPauseTime = 0
+					&& inputTime(U) = 1 && inputTime(F) > 0 {
+				changeState{value: 40}
+			}
+		}
+
+		# Projectile baseline for the commitment test below: the number of this
+		# character's projectiles already on screen when the current state began.
+		#
+		# Captured at time <= 1 rather than time = 0 because State -2 runs BEFORE
+		# the character's own state, so on the frame a state is entered -2 has
+		# already run under the PREVIOUS state; time = 1 is the first tick it sees
+		# the new one. The cost is that a move which spawns its projectile on its
+		# very first frame is never seen to commit and falls through to
+		# CANCEL_FALLBACK - conservative in the safe direction, and no fireball in
+		# this roster comes out that fast.
+		if time <= 1 {
+			map(_sfaz_cc_proj) := numProj;
+		}
+
+		# -----------------------------------------------------------------------
+		# RECOVERY CANCELLATION
+		#
+		# This is what makes hadoken / shoryuken / etc. overridable: ctrl is handed
+		# back on EVERY cancellable frame, not just on contact, so a special's
+		# recovery can be cut short by the next input. The character's own
+		# State -1 then reads the command and changes state exactly as it would
+		# from neutral - which is why this needs no per-move knowledge.
+		#
+		# Bounded deliberately:
+		#   stateType       S, C and A. Air moves USED to be excluded, which left
+		#                   the mode unable to chain anything once the character
+		#                   left the ground - and since jumping is free (see
+		#                   MOVEMENT below), that would have made every air normal
+		#                   a dead end. L is still excluded: a character lying on
+		#                   the floor is not cancelling anything.
+		#   stateNo >= 200  Mugen convention: 200+ is attacks and specials. Keeps
+		#                   ctrl out of the walk/jump/crouch common states.
+		#   stateNo < 5000  never grants ctrl inside a gethit or get-up state.
+		#   moveType != H   same, belt and braces.
+		#   !inCustomState  never while an opponent owns the state.
+		#   hitPauseTime=0  the window opens on a real frame, not during hitstop.
+		#
+		# COMMITMENT GATE - the last line. Without it a move could be cancelled
+		# during its startup, before it ever became an attack, which made specials
+		# feel like they were being eaten. A move is committed once any of:
+		#
+		#   hitDefAttr = SCA, AA, AT, AP
+		#                   a HitDef has actually been issued in this state. The
+		#                   attribute is set the frame the HitDef controller runs
+		#                   and stays set for the rest of the state, so this is
+		#                   exactly "the hitdef has been played". AA/AT/AP cover
+		#                   every attack, throw and projectile attribute class.
+		#                   Committing is necessary but not sufficient - many moves
+		#                   set their HitDef on frame 1 or 2, so the move must ALSO
+		#                   have run CANCEL_DELAY ticks.
+		#   numProj > the count recorded when THIS state began
+		#                   a projectile has actually spawned during this move.
+		#                   Fireballs use the Projectile controller, not HitDef, so
+		#                   they never set hitDefAttr, and if the move can be
+		#                   cancelled before its projectile appears you get the
+		#                   charge effect with no fireball.
+		#
+		#                   Comparing against a BASELINE rather than testing
+		#                   "numProj != 0" is the whole point, and it is what fixes
+		#                   rapid fireballs. With noProjLimit there can be several
+		#                   on screen at once, so the previous fireball keeps the
+		#                   raw count above zero and the NEXT hadoken counted as
+		#                   committed the instant it started - cancellable before
+		#                   it had fired anything. That is exactly the reported
+		#                   "mash and the move sticks on the charge effect", and
+		#                   why it behaved at medium speed: there, the earlier
+		#                   fireball had already left the screen.
+		#
+		#                   Reading the true count at all works only because
+		#                   noProjLimit is scoped to state -1 (src/char.go): the
+		#                   character's own command state is lied to so its
+		#                   "NumProj = 0" gate passes, while State -2 here still
+		#                   sees reality.
+		#   time >= 90      CANCEL_FALLBACK, for a move that does neither. Kept
+		#                   well clear of any projectile's spawn frame on purpose -
+		#                   at 45 it could still fire mid-charge.
+		#
+		# NEVER A GRAPPLE. Three separate tests, because a grapple can be any of
+		# three different things and no single one of them catches all three.
+		# None of them needs to know a state number, which is what makes this work
+		# across 46 characters with 46 different movesets:
+		#
+		#   hitDefAttr != SCA, AT
+		#                   the move has issued a HitDef carrying a THROW class
+		#                   (NT / ST / HT). True from the frame the HitDef
+		#                   controller runs - i.e. before the grab has connected,
+		#                   not just after - so a command grab is committed for its
+		#                   whole active period and can never be cancelled halfway
+		#                   into its whiff. This is the one that covers throw-based
+		#                   specials sitting at arbitrary state numbers, which the
+		#                   800-899 block in State -1 cannot see.
+		#
+		#   target, getHitVar(isbound)
+		#                   a bind is in effect right now, so a grab has CONNECTED
+		#                   and the throw is playing out. Cancelling here strands
+		#                   the victim mid-animation, which is the buggy look.
+		#                   Covers TargetBind and BindToTarget alike.
+		#
+		#   target, inCustomState
+		#                   the opponent is in a state this character put them in
+		#                   (p1stateno/p2stateno). That is the grapple family that
+		#                   uses an ordinary S,NA HitDef and then takes the
+		#                   opponent over, so neither test above sees it. While we
+		#                   own the opponent's state machine, nothing may interrupt.
+		#
+		# This is the belt to the engine's braces: throws are already prevented
+		# from GRABBING a combo'd opponent (see the AT_AT exclusion in src/char.go
+		# attrCheck), and these stop the ones that do connect - on a fresh
+		# opponent, or as a command throw outside the 800-899 block - from being
+		# interrupted.
+		#
+		# "time" here is the character's time in its current state.
+		# -----------------------------------------------------------------------
+		if (stateType = S || stateType = C || stateType = A)
+				&& stateNo >= 200 && stateNo < 5000
+				&& stateNo != 2700 && moveType != H && !inCustomState
+				&& hitPauseTime = 0
+				&& hitDefAttr != SCA, AT
+				&& !(numTarget != 0 && target, getHitVar(isbound))
+				&& !(numTarget != 0 && target, inCustomState)
+				&& ((((hitDefAttr = SCA, AA, AT, AP)
+						|| numProj > map(_sfaz_cc_proj)) && time >= 20)
+					|| time >= 90) {
+			ctrlSet{value: 1}
+		}
+
+		# -----------------------------------------------------------------------
+		# KEEP THEM IN RANGE - horizontally only
+		#
+		# The previous version pinned the opponent with targetBind, which held them
+		# rigidly in front of the performer. That did make every hit connect, but
+		# it also froze them in mid-air: no arc, no fall, no bounce. The bind is
+		# gone.
+		#
+		# What is left is the part that was actually doing the work. Each connected
+		# hit opens a window (JUGGLE_GRACE), and for its duration the opponent's
+		# HORIZONTAL knockback is cancelled, so they cannot be shoved out of range.
+		#
+		# VERTICAL MOTION IS NOW SHAPED AS WELL, in two places, because "the hit's
+		# own pop plays out normally" is exactly the problem: a large part of this
+		# roster's heavier normals and specials set fall on the first hit and drop
+		# the opponent on the floor immediately, which ends the combo on the spot.
+		#
+		#   JUGGLE_POP        any hit that sets the fall flag re-launches the
+		#                     opponent instead of dropping them. The flag is read
+		#                     off the TARGET as getHitVar(fall), which is the
+		#                     HitDef's own "fall" parameter as the target received
+		#                     it - so this is precisely "the moves that normally
+		#                     knock down", with no list of moves anywhere.
+		#
+		#                     Held for JUGGLE_POP_TICKS rather than applied once.
+		#                     One frame is not enough: the opponent's gethit state
+		#                     re-applies the HitDef's velocity from GetHitVar on
+		#                     every frame its own Time is still 0, and Time does
+		#                     not advance during hitpause - so a single write can
+		#                     land before the last of those and be overwritten.
+		#                     Holding it for a few frames outlives them. The cost
+		#                     is a few frames without gravity, which only makes the
+		#                     pop slightly floatier - the direction the mode wants
+		#                     anyway.
+		#
+		#                     stateType L is excluded: once they are actually lying
+		#                     on the floor this would peel them off it in the
+		#                     lying animation, which looks wrong. 5030 (fall) is
+		#                     stateType A, so real knockdowns are still caught.
+		#
+		#   JUGGLE_FALL_CAP   their descent is capped for the rest of the grace
+		#                     window, so they hang in a hittable position instead
+		#                     of accelerating out of range before the next hit.
+		#
+		# They stay hittable throughout because of the asserts above, not because
+		# of anything done here.
+		#
+		# They stay hittable throughout that because of the two asserts above, not
+		# because of anything done here: noJuggleCheck removes the juggle-points
+		# limit, and noHitComboCheck removes the hitflag rules that would otherwise
+		# make most of the roster whiff on a falling opponent.
+		#
+		# Note the one case still governed by the stock rules: once they are
+		# actually lying on the ground (stateType L) only a HitDef with the "D"
+		# hitflag can touch them, and just 24 in this roster have it. That check is
+		# left alone on purpose - bypassing it would mean unlimited ground juggles.
+		# -----------------------------------------------------------------------
+		if moveHit = 1 {
+			map(_sfaz_cc_juggle) := 60;                 # JUGGLE_GRACE
+			if numTarget != 0 && target, getHitVar(fall) {
+				map(_sfaz_cc_pop) := 3;                 # JUGGLE_POP_TICKS
+			}
+		}
+		if map(_sfaz_cc_juggle) > 0 {
+			map(_sfaz_cc_juggle) := map(_sfaz_cc_juggle) - 1;
+			if numTarget != 0 {
+				targetVelSet{x: 0}
+				# The pop only counts down on frames the opponent is actually
+				# running - during their hitpause the gethit state is still
+				# re-applying the HitDef's velocity, so a write there is wasted.
+				if map(_sfaz_cc_pop) > 0 && target, hitPauseTime = 0
+						&& target, stateType != L {
+					map(_sfaz_cc_pop) := map(_sfaz_cc_pop) - 1;
+					# JUGGLE_POP IS A FLOOR, NOT AN ASSIGNMENT. The test is the
+					# whole point of this line: targetVelSet writes an absolute
+					# value, so an unconditional write does not only rescue the
+					# moves that drop the opponent - it also CAPS every move whose
+					# own launch is already higher than the pop, which is the
+					# opposite of what the mode wants.
+					#
+					# Eagle's St Andrew's Green (SFZ_Eagle.cns Statedefs 1100 /
+					# 1110 / 1120 - the bouncing attack whose helper returns
+					# projectiles) is the clear case: it launches at
+					# "air.velocity = -2.6, -9.6" with "fall = 1". The fall flag
+					# is what arms the pop, so inside the mode its -9.6 was being
+					# overwritten with -4.5 - under half the height - and the
+					# juggle it exists to set up became harder in the one mode
+					# built for juggling. The reflected projectile (1151 / 1161 /
+					# 1171, ground.velocity -7.5) was clamped the same way.
+					#
+					# Reading "is the opponent already going up faster than the
+					# pop" off the target each frame costs nothing and needs no
+					# list of moves, exactly like getHitVar(fall) above. Negative
+					# is up, so "vel y > -4.5" means "rising more slowly than the
+					# pop, or not rising at all" - which is precisely the set of
+					# hits the pop was written for.
+					if target, vel y > -4.5 {           # JUGGLE_POP
+						targetVelSet{y: -4.5}           # JUGGLE_POP
+					}
+				} else if target, stateType = A && target, vel y > 5 {
+					targetVelSet{y: 5}                  # JUGGLE_FALL_CAP
+				}
+			}
+		}
+
+		# -----------------------------------------------------------------------
+		# MOVEMENT - free, just faster.
+		#
+		# The mode does NOT take movement over. Walking forward and backward,
+		# crouching and jumping in all three directions are the character's own, on
+		# their own states, with the engine's own handlers driving them. The only
+		# movement restriction the mode imposes is on GUARDING, and that is done by
+		# the three guard asserts above - nothing here.
+		#
+		# An earlier version auto-dashed the character forward, blocked the back walk
+		# and allowed only forward jumps. All of it is gone, which is also why noJump
+		# and noBrake are no longer asserted: noJump existed to stop the engine's own
+		# jump handler so the mode could re-issue a forward-only jump, and noBrake
+		# existed because the auto-dash fought the engine's braking every tick. With
+		# the dash gone, both would only break normal movement - noBrake in
+		# particular would leave the character sliding after the stick is released.
+		#
+		# WALK_SPEED_BONUS is all that is left: a flat addition to the character's
+		# walk speed, in the direction they are already walking, so the mode feels
+		# quicker on its feet without changing how it is controlled.
+		#
+		# posAdd, not velSet, for the same ordering reason as everything else here:
+		# -2 runs BEFORE the character's own state, and common1.cns [State 20, 1/2]
+		# sets vel x from velocity.walk.fwd.x / velocity.walk.back.x on every frame a
+		# direction is held, so a velocity written here is overwritten a moment later.
+		# A position change cannot be overwritten that way. posAdd x is
+		# facing-relative, so +1 is a point of forward speed and -1 a point of
+		# backward speed - the character's own walk animation and speed are otherwise
+		# untouched, and so are jump arcs and dash states.
+		#
+		# inputTime rather than command = "holdfwd"/"holdback": it reads the engine's
+		# own facing-corrected direction buffers, so this needs nothing declared in
+		# any of the 47 .cmd files. Holding both directions at once leaves State 20 on
+		# its forward branch, hence the exclusive tests.
+		# -----------------------------------------------------------------------
+		if stateType = S && stateNo = 20 {
+			if inputTime(F) > 0 && inputTime(B) <= 0 {
+				posAdd{x: 1}                            # WALK_SPEED_BONUS
+			} else if inputTime(B) > 0 && inputTime(F) <= 0 {
+				posAdd{x: -1}                           # WALK_SPEED_BONUS
+			}
+		}
+
+		# Marker for the WIN ICON. src/char.go (sfazIsCustomCombo) reads the
+		# _sfaz_cc_active map key when it decides sys.winType, BEFORE the
+		# hit-attribute branches - a custom combo can finish with any normal or
+		# special, so nothing about the hit identifies it and the mode has to be
+		# read off the attacker instead. Nothing extra to set here: the key is
+		# already non-zero for exactly the window the icon should cover. The
+		# sprite is [WinIcon] p1.vism.spr / p2.vism.spr in data/fight.def.
+
+		# -----------------------------------------------------------------------
+		# NO DAMAGE SCALING - deliberately.
+		#
+		# An earlier draft scaled the attack rating down per hit (Alpha 2's steep
+		# combo scaling). It was removed on request. If it is ever wanted back, the
+		# shape was:
+		#
+		#     if moveHit = 1 { map(_sfaz_cc_hits) := map(_sfaz_cc_hits) + 1; }
+		#     modifyPlayer{attack: <saved> * max(12, 100 - map(_sfaz_cc_hits) * 6) / 100}
+		#
+		# with the rating saved at activation as map(_sfaz_cc_attack) := attack and
+		# restored at mode end. Saving the CURRENT rating matters: data/ratio.zss
+		# sets attack to 82/117/130 once per character per match, so restoring a
+		# flat 100 would silently wipe ratio scaling with nothing left to correct
+		# it.
+		#
+		# Alpha 2's "minimum 1 damage" clamp was never reachable from here either -
+		# it is applied by the engine after script has run, so it would need a
+		# small change in src/char.go where damage is computed.
+		# -----------------------------------------------------------------------
+	}
+}
+
+
+#-------------------------------------------------------------------------------
+# 5. CUSTOM COMBO FINISH - the asserts. Detection and spawning are in State -4.
+#-------------------------------------------------------------------------------
+
+# Held for as long as the backdrop is on screen, which is what "pause the BGM as
+# long as 6050 continues" means in practice - the anim itself is 28 ticks but the
+# explod holds its last frame until removetime, exactly like the roster's F60xx.
+#
+# noBG and noFG are what let a sprpriority -3 backdrop be seen at all: without
+# them the stage draws over it. noBarDisplay hides the lifebars for the same
+# cinematic effect. Drop any of the four if a plainer finish is wanted.
+#
+# ignorehitpause matters here - the KO frame is deep in hitpause, and without it
+# the asserts would lapse for those frames and the music would stutter back in.
+if !isHelper && teamSide != 0 && numExplod(6050) != 0 {
+	# Same note as above: the ignorehitpause BLOCK, not a parameter.
+	ignorehitpause {
+		assertSpecial{
+			flag: noMusic;
+			flag2: noBarDisplay;
+			flag3: noBG;
+			flag4: noFG;
+		}
+	}
+}

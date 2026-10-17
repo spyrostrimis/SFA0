@@ -1,0 +1,38 @@
+[Info]
+name    = "Gouki" ;by M.M.R.
+displayname = "AKUMA"
+author = "M.M.R."
+Editor = "Ehnyd"
+localcoord=384,224
+mugenversion = 1.0
+Pal.Defaults = 1,4
+
+[Files]
+cmd      = SFZ_Akuma.cmd
+cns      = 384.cns        ; 384x224
+st       = 384.cns        ; 384x224
+st2      = System.cns
+stcommon = common1.cns
+sprite   = SFZ_Akuma.sff
+anim     = SFZ_Akuma.air
+sound    = SFZ_Akuma.snd
+movelist = movelist.dat
+
+pal1     = Pals/Z-ISM1.act
+pal2     = Pals/X-ISM2.act
+pal3     = Pals/Z-ISM2.act
+pal4     = Pals/X-ISM1.act
+pal5     = Pals/V-ISM2.act
+pal6     = Pals/V-ISM1.act
+pal7     = Pals/X-ISM3.act
+pal8     = Pals/V-ISM4.act
+pal9     = Pals/V-ISM3.act
+pal10     = Pals/Z-ISM3.act
+pal11     = Pals/X-ISM4.act
+pal12     = Pals/Z-ISM4.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_Akuma.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/Akuma.lua

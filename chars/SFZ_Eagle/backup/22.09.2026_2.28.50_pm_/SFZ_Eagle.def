@@ -1,0 +1,35 @@
+[Info]
+name = "Eagle"
+displayname = "Eagle"
+author = "Ehnyd"
+pal.defaults = 4,1
+localcoord =384,224
+
+[Files]
+cmd     = SFZ_Eagle.cmd   
+cns     = SFZ_Eagle.cns   
+st      = SFZ_Eagle.cns
+stcommon = common1.cns
+sprite  = SFZ_Eagle.sff
+anim    = SFZ_Eagle_final.air
+sound   = SFZ_Eagle.snd
+movelist = movelist.dat
+
+pal1    = Pals/eagle01.act
+pal2    = Pals/eagle02.act
+pal3    = Pals/eagle03.act
+pal4    = Pals/eagle04.act
+pal5    = Pals/eagle05.act
+pal6    = Pals/eagle06.act
+pal7    = Pals/eagle07.act
+pal8    = Pals/eagle08.act
+pal9    = Pals/eagle09.act
+pal10    = Pals/eagle10.act
+pal11    = Pals/eagle11.act
+pal12    = Pals/eagle12.act
+
+[Arcade]
+intro.storyboard = Intros/Intro_Eagle.def
+ending.storyboard = Storyboards/Credits.def
+ratiopath = arcadepath/kumitepath.lua
+arcadepath = arcadepath/Eagle.lua
